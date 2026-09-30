@@ -1,1 +1,175 @@
 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Plano interactivo del convento</title>
+
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f0e6;
+    color: #2f2f2f;
+    text-align: center;
+}
+
+.contenido {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px 20px 40px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #325d4a;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+.plano-contenedor {
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.plano {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.leyenda {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 15px;
+    color: #325d4a;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.leyenda div {
+    width: 50%;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.boton {
+    display: inline-block;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.boton:hover {
+    opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+
+    .contenido {
+        padding: 20px 10px 35px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .subtitulo {
+        font-size: 17px;
+    }
+
+    .plano-contenedor {
+        padding: 5px;
+    }
+
+    .leyenda {
+        font-size: 17px;
+        gap: 5px;
+    }
+
+    .boton {
+        padding: 12px 18px;
+        font-size: 16px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenido">
+
+<h1>Plano interactivo del convento</h1>
+
+<p class="subtitulo">
+Conoce la distribución del antiguo convento de San Juan Bautista
+de Tetela del Volcán. Este plano histórico permite descubrir los
+distintos espacios que formaban parte de la vida cotidiana de la
+comunidad dominicana.
+</p>
+
+<div class="plano-contenedor">
+
+<img
+class="plano"
+src="plano-convento-san-juan-bautista-tetela.png"
+alt="Plano histórico del convento de San Juan Bautista de Tetela del Volcán">
+
+</div>
+
+<div class="leyenda">
+
+<div>PLANTA BAJA</div>
+
+<div>PLANTA ALTA</div>
+
+</div>
+
+<div class="botones">
+
+<a class="boton" href="index.html">
+← Regresar al inicio
+</a>
+
+</div>
+
+</div>
+
+<script
+data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+async
+src="//gc.zgo.at/count.js">
+</script>
+
+</body>
+
+</html>
