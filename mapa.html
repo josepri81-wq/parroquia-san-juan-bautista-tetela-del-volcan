@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -51,7 +50,15 @@ h1 {
     border-radius: 8px;
 }
 
-    .punto {
+.plano {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* BOTONES SOBRE EL PLANO */
+
+.punto {
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: #325d4a;
@@ -67,12 +74,14 @@ h1 {
 .punto:hover {
     opacity: 0.85;
 }
-.plano {
-    
-    width: 100%;
-    height: auto;
-    display: block;
+
+/* NÚMERO: OCULTO EN COMPUTADORA */
+
+.numero {
+    display: none;
 }
+
+/* LEYENDA PLANTA BAJA / ALTA */
 
 .leyenda {
     display: flex;
@@ -87,6 +96,14 @@ h1 {
 .leyenda div {
     width: 50%;
 }
+
+/* LISTA MÓVIL OCULTA EN COMPUTADORA */
+
+.lista-movil {
+    display: none;
+}
+
+/* BOTONES INFERIORES */
 
 .botones {
     display: flex;
@@ -109,6 +126,11 @@ h1 {
     opacity: 0.85;
 }
 
+
+/* =========================================
+   VERSIÓN PARA CELULAR
+   ========================================= */
+
 @media (max-width: 600px) {
 
     .contenido {
@@ -121,15 +143,83 @@ h1 {
 
     .subtitulo {
         font-size: 17px;
+        line-height: 1.5;
+        margin-bottom: 20px;
     }
 
     .plano-contenedor {
         padding: 5px;
     }
 
+    /*
+    En celular ocultamos los nombres largos
+    y convertimos cada punto en un círculo.
+    */
+
+    .punto {
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        border-radius: 50%;
+        font-size: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+        box-sizing: border-box;
+    }
+
+    .numero {
+        display: inline;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+    }
+
     .leyenda {
         font-size: 17px;
         gap: 5px;
+        margin-top: 12px;
+    }
+
+    /*
+    Lista de lugares debajo del plano.
+    */
+
+    .lista-movil {
+        display: block;
+        margin-top: 25px;
+        text-align: left;
+    }
+
+    .lista-movil h2 {
+        color: #325d4a;
+        font-size: 21px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .lista-movil a {
+        display: block;
+        background-color: white;
+        color: #325d4a;
+        text-decoration: none;
+        padding: 11px 14px;
+        margin-bottom: 7px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        border: 1px solid #d8d2c5;
+    }
+
+    .lista-movil a:active {
+        background-color: #325d4a;
+        color: white;
+    }
+
+    .botones {
+        margin-top: 25px;
     }
 
     .boton {
@@ -155,30 +245,103 @@ distintos espacios que formaban parte de la vida cotidiana de la
 comunidad dominicana.
 </p>
 
+
 <div class="plano-contenedor">
 
 <img
 class="plano"
 src="plano-convento-san-juan-bautista-tetela.png"
 alt="Plano histórico del convento de San Juan Bautista de Tetela del Volcán">
-    <a class="punto" href="recorrido.html" style="left: 14%; top: 48%;">Nave principal</a>
-    <a class="punto" href="bautisterio.html" style="left: 9%; top: 58%;">Bautisterio</a>
-    <a class="punto" href="presbiterio.html" style="left: 14%; top: 27%;">Presbiterio</a>
-    <a class="punto" href="puerta-jubilar.html" style="left: 21%; top: 32%;">Puerta Jubilar</a>
-    <a class="punto" href="claustro-bajo.html" style="left: 29%; top: 49%;">Claustro bajo</a>
-    <a class="punto" href="el-bautismo-del-señor.html" style="left: 37%; top: 27%;">Bautismo del Señor</a>
-    <a class="punto" href="patio.html" style="left: 29%; top: 40%;">Patio del claustro</a>
-    <a class="punto" href="sala-de-profundis.html" style="left: 40%; top: 56%;">Sala de Profundis</a>
-    <a class="punto" href="refectorio.html" style="left: 45%; top: 40%;">Refectorio</a>
-    <a class="punto" href="claustro-alto.html" style="left: 77%; top: 49%;">Claustro alto</a>
-    <a class="punto" href="celda-del-fraile.html" style="left: 89%; top: 20%;">Celda del fraile</a>
-    <a class="punto" href="biblioteca.html" style="left: 77%; top: 20%;">Biblioteca</a>
-    <a class="punto" href="enfermeria.html" style="left: 66%; top: 20%;">Enfermería</a>
-    <a class="punto" href="tribuna-de-los-enfermos.html" style="left: 66%; top: 32%;">Tribuna de los Enfermos</a>
-    <a class="punto" href="coro.html" style="left: 64%; top: 58%;">Coro alto</a>
-    <a class="punto" href="campanario.html" style="left: 52%; top: 58%;">Campanario</a>
+
+
+<!-- PLANTA BAJA -->
+
+<a class="punto" href="recorrido.html"
+style="left: 14%; top: 48%;">
+<span class="numero">1</span>Nave principal
+</a>
+
+<a class="punto" href="bautisterio.html"
+style="left: 9%; top: 58%;">
+<span class="numero">2</span>Bautisterio
+</a>
+
+<a class="punto" href="presbiterio.html"
+style="left: 14%; top: 27%;">
+<span class="numero">3</span>Presbiterio
+</a>
+
+<a class="punto" href="puerta-jubilar.html"
+style="left: 21%; top: 32%;">
+<span class="numero">4</span>Puerta Jubilar
+</a>
+
+<a class="punto" href="claustro-bajo.html"
+style="left: 29%; top: 49%;">
+<span class="numero">5</span>Claustro bajo
+</a>
+
+<a class="punto" href="el-bautismo-del-señor.html"
+style="left: 37%; top: 27%;">
+<span class="numero">6</span>Bautismo del Señor
+</a>
+
+<a class="punto" href="patio.html"
+style="left: 29%; top: 40%;">
+<span class="numero">7</span>Patio del claustro
+</a>
+
+<a class="punto" href="sala-de-profundis.html"
+style="left: 40%; top: 56%;">
+<span class="numero">8</span>Sala de Profundis
+</a>
+
+<a class="punto" href="refectorio.html"
+style="left: 45%; top: 40%;">
+<span class="numero">9</span>Refectorio
+</a>
+
+
+<!-- PLANTA ALTA -->
+
+<a class="punto" href="claustro-alto.html"
+style="left: 77%; top: 49%;">
+<span class="numero">10</span>Claustro alto
+</a>
+
+<a class="punto" href="celda-del-fraile.html"
+style="left: 89%; top: 20%;">
+<span class="numero">11</span>Celda del fraile
+</a>
+
+<a class="punto" href="biblioteca.html"
+style="left: 77%; top: 20%;">
+<span class="numero">12</span>Biblioteca
+</a>
+
+<a class="punto" href="enfermeria.html"
+style="left: 66%; top: 20%;">
+<span class="numero">13</span>Enfermería
+</a>
+
+<a class="punto" href="tribuna-de-los-enfermos.html"
+style="left: 66%; top: 32%;">
+<span class="numero">14</span>Tribuna de los Enfermos
+</a>
+
+<a class="punto" href="coro.html"
+style="left: 64%; top: 58%;">
+<span class="numero">15</span>Coro alto
+</a>
+
+<a class="punto" href="campanario.html"
+style="left: 52%; top: 58%;">
+<span class="numero">16</span>Campanario
+</a>
+
 </div>
-    
+
+
 <div class="leyenda">
 
 <div>PLANTA BAJA</div>
@@ -186,6 +349,48 @@ alt="Plano histórico del convento de San Juan Bautista de Tetela del Volcán">
 <div>PLANTA ALTA</div>
 
 </div>
+
+
+<!-- LISTA QUE SOLO APARECE EN CELULAR -->
+
+<div class="lista-movil">
+
+<h2>Selecciona un espacio</h2>
+
+<a href="recorrido.html">1 — Nave principal</a>
+
+<a href="bautisterio.html">2 — Bautisterio</a>
+
+<a href="presbiterio.html">3 — Presbiterio</a>
+
+<a href="puerta-jubilar.html">4 — Puerta Jubilar</a>
+
+<a href="claustro-bajo.html">5 — Claustro bajo</a>
+
+<a href="el-bautismo-del-señor.html">6 — Bautismo del Señor</a>
+
+<a href="patio.html">7 — Patio del claustro</a>
+
+<a href="sala-de-profundis.html">8 — Sala de Profundis</a>
+
+<a href="refectorio.html">9 — Refectorio</a>
+
+<a href="claustro-alto.html">10 — Claustro alto</a>
+
+<a href="celda-del-fraile.html">11 — Celda del fraile</a>
+
+<a href="biblioteca.html">12 — Biblioteca</a>
+
+<a href="enfermeria.html">13 — Enfermería</a>
+
+<a href="tribuna-de-los-enfermos.html">14 — Tribuna de los Enfermos</a>
+
+<a href="coro.html">15 — Coro alto</a>
+
+<a href="campanario.html">16 — Campanario</a>
+
+</div>
+
 
 <div class="botones" style="gap: 15px; flex-wrap: wrap;">
 
@@ -200,6 +405,7 @@ alt="Plano histórico del convento de San Juan Bautista de Tetela del Volcán">
 </div>
 
 </div>
+
 
 <script
 data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
