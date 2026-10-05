@@ -100,32 +100,43 @@
       opacity: 0.9;
     }
 
-    @media (max-width: 600px) {
-      .texto {
+@media (max-width: 600px) {
+    .texto {
         padding: 22px 18px;
-      }
-
-      .texto h1 {
-        font-size: 25px;
-      }
-
-      .texto h2 {
-        font-size: 18px;
-      }
-
-      .texto p {
-        font-size: 17px;
-      }
-
-      .navegacion {
-        padding: 18px 15px 30px 15px;
-      }
-
-      .boton {
-        padding: 12px 16px;
-        font-size: 14px;
-      }
     }
+
+    .texto h1 {
+        font-size: 25px;
+    }
+
+    .texto h2 {
+        font-size: 18px;
+    }
+
+    .texto p {
+        font-size: 17px;
+    }
+
+    .navegacion {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 6px;
+        padding: 18px 5px 30px 5px;
+    }
+
+    .boton {
+        flex: 1;
+        min-width: 0;
+        padding: 12px 3px;
+        font-size: 11px;
+        line-height: 1.2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+    }
+}
   </style>
 </head>
 
