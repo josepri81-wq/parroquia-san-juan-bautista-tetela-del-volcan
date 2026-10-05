@@ -50,17 +50,43 @@ p {
     line-height: 1.6;
     text-align: justify;
 }
+.navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 30px 35px 30px;
+    background-color: #f5f1e6;
+}
 
 .boton {
     display: inline-block;
-    margin: 20px 10px;
-    padding: 12px 20px;
     background-color: #325d4a;
     color: white;
     text-decoration: none;
+    padding: 14px 24px;
     border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
 }
 
+.boton:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+    .navegacion {
+        padding: 18px 15px 30px 15px;
+    }
+
+    .boton {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
 </style>
 
 </head>
@@ -97,10 +123,15 @@ de los espacios dedicados a la oración y la contemplación.
     type="audio/mpeg">
 </audio>
 
-<a class="boton" href="escaleras.html">← REGRESAR</a>
+<div class="navegacion">
+
+    <a class="boton" href="escaleras.html">← REGRESAR</a>
+
     <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
 
-<a class="boton" href="claustro-alto-2.html">SEGUIR →</a>
+    <a class="boton" href="claustro-alto-2.html">SEGUIR →</a>
+
+</div>
 
 </div>
 
