@@ -26,24 +26,41 @@ body {
     padding: 20px;
     margin: 0;
 }
+.navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 30px 35px 30px;
+    background-color: #f5f1e6;
+}
 
 .boton {
     display: inline-block;
-    margin: 20px 20px;
-    padding: 14px 24px;
     background-color: #325d4a;
     color: white;
     text-decoration: none;
+    padding: 14px 24px;
     border-radius: 8px;
-    font-weight: bold;
     border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.boton:hover {
+    opacity: 0.9;
 }
 
 @media (max-width: 600px) {
+    .navegacion {
+        padding: 18px 15px 30px 15px;
+    }
+
     .boton {
-        margin: 8px 4px;
-        padding: 12px 10px;
-        font-size: 13px;
+        padding: 12px 16px;
+        font-size: 14px;
     }
 }
 </style>
@@ -78,12 +95,15 @@ body {
 <audio controls autoplay loop style="display:block; width:90%; margin:20px auto;">
     <source src="tunetank-church-organ-music-347173.mp3" type="audio/mpeg">
 </audio>
+<div class="navegacion">
 
-<a class="boton" href="bautisterio.html">← REGRESAR</a>
+    <a class="boton" href="bautisterio.html">← REGRESAR</a>
 
-<a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
+    <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
 
-<a class="boton" href="coro.html">SEGUIR →</a>
+    <a class="boton" href="coro.html">SEGUIR →</a>
+
+</div>
 
 <script
 data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
