@@ -2,139 +2,224 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Biblioteca | Un día en el convento</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<title>Biblioteca</title>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f0e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-.contenido {
-    max-width: 900px;
-    margin: auto;
-    padding: 25px;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-h1 {
-    color: #325d4a;
-    font-size: 32px;
-    margin-bottom: 20px;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.7;
-    text-align: justify;
-}
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
+        }
 
-audio {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 25px;
-}
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-.navegacion {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 35px;
-    margin-bottom: 20px;
-}
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-.boton {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 22px 20px;
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-}
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-.boton:hover {
-    opacity: 0.85;
-}
+        .boton:hover {
+            opacity: 0.9;
+        }
 
-</style>
+        .texto-celular {
+            display: none;
+        }
 
+        @media (max-width: 600px) {
+
+            .contenido {
+                padding: 22px 18px;
+            }
+
+            .contenido h1 {
+                font-size: 25px;
+            }
+
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 3px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<img src="WhatsApp Image 2026-09-24 at 16.35.14.jpeg"
-     alt="Biblioteca del convento">
+    <div class="escena">
 
-<div class="contenido">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-24 at 16.35.14.jpeg"
+            alt="Biblioteca del convento"
+        >
 
-<h1>La biblioteca</h1>
+        <div class="contenido">
 
-<p>
-Después de dejar la celda, donde el fraile encontraba un espacio para la oración personal, el estudio y el necesario descanso físico, nuestro recorrido continúa hacia otro lugar fundamental de la vida conventual: la biblioteca.
-</p>
+            <h1>La biblioteca</h1>
 
-<p>
-Desde los orígenes de la Orden de Predicadores, el estudio ha ocupado un lugar esencial en la vocación dominicana. Santo Domingo quiso que sus frailes se prepararan para anunciar el Evangelio, y para ello era necesario conocer profundamente la Sagrada Escritura, la teología y aquellas disciplinas que ayudaran a comprender mejor la fe y la realidad del mundo al que eran enviados.
-</p>
+            <p>
+                Después de dejar la celda, donde el fraile encontraba un espacio para la oración personal, el estudio y el necesario descanso físico, nuestro recorrido continúa hacia otro lugar fundamental de la vida conventual: la biblioteca.
+            </p>
 
-<p>
-La biblioteca era, por tanto, mucho más que un lugar donde se guardaban libros. Era un espacio de lectura, reflexión y búsqueda de la verdad. Entre sus muros, los frailes podían profundizar en aquello que habían escuchado en la oración, preparar la predicación y alimentar intelectualmente la misión que después realizarían entre la gente.
-</p>
+            <p>
+                Desde los orígenes de la Orden de Predicadores, el estudio ha ocupado un lugar esencial en la vocación dominicana. Santo Domingo quiso que sus frailes se prepararan para anunciar el Evangelio, y para ello era necesario conocer profundamente la Sagrada Escritura, la teología y aquellas disciplinas que ayudaran a comprender mejor la fe y la realidad del mundo al que eran enviados.
+            </p>
 
-<p>
-En la espiritualidad dominicana, oración y estudio se encuentran profundamente unidos. El fraile contempla la verdad en la oración, la profundiza mediante el estudio y después la comparte por medio de la predicación.
-</p>
+            <p>
+                La biblioteca era, por tanto, mucho más que un lugar donde se guardaban libros. Era un espacio de lectura, reflexión y búsqueda de la verdad. Entre sus muros, los frailes podían profundizar en aquello que habían escuchado en la oración, preparar la predicación y alimentar intelectualmente la misión que después realizarían entre la gente.
+            </p>
 
-<p>
-Por eso, para un dominico, estudiar nunca significa simplemente acumular conocimientos. El estudio está al servicio de una misión: buscar la verdad para poder comunicarla. De esta manera cobra especial sentido una expresión que resume profundamente el espíritu de la Orden: contemplar y dar a los demás lo contemplado.
-</p>
+            <p>
+                En la espiritualidad dominicana, oración y estudio se encuentran profundamente unidos. El fraile contempla la verdad en la oración, la profundiza mediante el estudio y después la comparte por medio de la predicación.
+            </p>
 
-<audio controls autoplay loop>
-    <source src="leberch-piano-piano-music-606084.mp3"
-            type="audio/mpeg">
-    Tu navegador no soporta el elemento de audio.
-</audio>
+            <p>
+                Por eso, para un dominico, estudiar nunca significa simplemente acumular conocimientos. El estudio está al servicio de una misión: buscar la verdad para poder comunicarla. De esta manera cobra especial sentido una expresión que resume profundamente el espíritu de la Orden: contemplar y dar a los demás lo contemplado.
+            </p>
 
-<div class="navegacion">
+        </div>
 
-<a class="boton"
-   href="celda-del-fraile-2.html">
-← REGRESAR
-</a>
-    <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
+        <div class="audio">
 
-<a class="boton"
-   href="biblioteca-2.html">
-SEGUIR →
-</a>
+            <audio controls autoplay loop>
+                <source
+                    src="leberch-piano-piano-music-606084.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no soporta el elemento de audio.
+            </audio>
 
-</div>
+        </div>
 
-</div>
+        <div class="navegacion">
 
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+            <a class="boton" href="celda-del-fraile-2.html">← REGRESAR</a>
+
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+                <span class="texto-celular">🗺 PLANO</span>
+            </a>
+
+            <a class="boton" href="biblioteca-2.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
         async
-        src="//gc.zgo.at/count.js"></script>
+        src="//gc.zgo.at/count.js">
+    </script>
 
 </body>
 
