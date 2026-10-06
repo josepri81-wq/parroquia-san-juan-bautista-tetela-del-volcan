@@ -294,14 +294,33 @@
     const narracion = document.getElementById("narracion");
     const musica = document.getElementById("musica");
 
-    /* Música ambiental baja */
-    musica.volume = 0.22;
-
     /* Narración a volumen completo */
     narracion.volume = 1.0;
 
+    /* Música muy baja mientras se escucha la narración */
+    musica.volume = 0.08;
+
+    /* Al comenzar la narración, bajar la música al 8 % */
+    narracion.addEventListener("play", function () {
+      musica.volume = 0.08;
+    });
+
+    /* Al terminar la narración, subir la música al 30 % */
+    narracion.addEventListener("ended", function () {
+      musica.volume = 0.30;
+    });
+
+    /* Al pausar la narración, subir la música al 30 % */
+    narracion.addEventListener("pause", function () {
+      if (!narracion.ended) {
+        musica.volume = 0.30;
+      }
+    });
+
     /* Intentar reproducir ambos audios al entrar */
     window.addEventListener("load", function () {
+
+      musica.volume = 0.08;
 
       musica.play().catch(function () {
         console.log("El navegador bloqueó temporalmente la música automática.");
