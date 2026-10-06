@@ -1,134 +1,225 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Claustro bajo</title>
+    <title>Claustro bajo | Un día en el convento</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f1e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-.contenido {
-    padding: 25px;
-    max-width: 900px;
-    margin: auto;
-}
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-h1 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-h2 {
-    font-weight: normal;
-    font-size: 20px;
-    margin-top: 0;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: justify;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
+        .contenido h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            color: #325d4a;
+        }
 
-.navegacion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 30px 35px 30px;
-    background-color: #f5f1e6;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 8px;
-    border: 2px solid white;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-}
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
+        }
 
-.boton:hover {
-    opacity: 0.9;
-}
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-@media (max-width: 600px) {
-    .navegacion {
-        padding: 18px 15px 30px 15px;
-    }
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 14px;
-    }
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-}
-</style>
+        .boton:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+
+            .contenido {
+                padding: 22px 18px;
+            }
+
+            .contenido h1 {
+                font-size: 25px;
+            }
+
+            .contenido h2 {
+                font-size: 18px;
+            }
+
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 5px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<img src="WhatsApp Image 2026-09-18 at 22.38.15.jpeg"
-     alt="Claustro bajo del Ex Convento de San Juan Bautista">
+    <div class="escena">
 
-<div class="contenido">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-18 at 22.38.15.jpeg"
+            alt="Claustro bajo del Ex Convento de San Juan Bautista"
+        >
 
-<h1>El claustro bajo</h1>
+        <div class="contenido">
 
-<h2>Entre muros, silencio e imágenes</h2>
+            <h1>El claustro bajo</h1>
 
-<p>
-Al continuar nuestro recorrido por el claustro bajo, descubrimos cómo
-sus corredores no eran únicamente espacios de comunicación entre las
-distintas dependencias del convento. Eran también lugares de silencio,
-oración y recogimiento, recorridos cotidianamente por los frailes
-dominicos.
-</p>
+            <h2>Entre muros, silencio e imágenes</h2>
 
-<p>
-Los muros del claustro conservan parte de la riqueza pictórica del
-antiguo convento. Estas imágenes formaban parte del ambiente religioso
-en el que transcurría la vida de la comunidad y acompañaban al fraile
-en su camino cotidiano de oración, estudio y predicación.
-</p>
+            <p>
+                Al continuar nuestro recorrido por el claustro bajo, descubrimos cómo
+                sus corredores no eran únicamente espacios de comunicación entre las
+                distintas dependencias del convento. Eran también lugares de silencio,
+                oración y recogimiento, recorridos cotidianamente por los frailes
+                dominicos.
+            </p>
 
-<p>
-Al fondo de este corredor podemos distinguir una de estas pinturas:
-el Bautismo del Señor. Acerquémonos ahora para contemplarla con mayor
-detalle.
-</p>
+            <p>
+                Los muros del claustro conservan parte de la riqueza pictórica del
+                antiguo convento. Estas imágenes formaban parte del ambiente religioso
+                en el que transcurría la vida de la comunidad y acompañaban al fraile
+                en su camino cotidiano de oración, estudio y predicación.
+            </p>
 
-<audio controls autoplay loop style="display:block; width:90%; margin:20px auto;">
-<source src="meditativetiger-hallelujah-gregorian-echoes-prayers-binaural-healing-audio-444047.mp3" type="audio/mpeg">
-</audio>
-<div class="navegacion">
+            <p>
+                Al fondo de este corredor podemos distinguir una de estas pinturas:
+                el Bautismo del Señor. Acerquémonos ahora para contemplarla con mayor
+                detalle.
+            </p>
 
-    <a class="boton" href="claustro-bajo.html">← REGRESAR</a>
+        </div>
 
-    <a class="boton" href="el-bautismo-del-señor.html">SEGUIR →</a>
+        <div class="audio">
 
-</div>
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+            <audio controls autoplay loop>
+                <source
+                    src="meditativetiger-hallelujah-gregorian-echoes-prayers-binaural-healing-audio-444047.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <div class="navegacion">
+
+            <a class="boton" href="claustro-bajo.html">← REGRESAR</a>
+
+            <a class="boton" href="el-bautismo-del-señor.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
+
 </body>
+
 </html>
