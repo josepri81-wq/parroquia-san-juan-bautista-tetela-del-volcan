@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -62,9 +63,40 @@
             text-align: justify;
         }
 
+        /* NARRACIÓN */
+
+        .narracion {
+            text-align: center;
+            padding: 5px 20px 18px 20px;
+            background-color: #f5f1e6;
+        }
+
+        .narracion h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+        }
+
+        .narracion audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
+        }
+
+        .audio h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
         }
 
         audio {
@@ -128,6 +160,14 @@
             .contenido p {
                 font-size: 17px;
                 line-height: 1.65;
+            }
+
+            .narracion {
+                padding: 5px 15px 18px 15px;
+            }
+
+            .narracion audio {
+                width: 100%;
             }
 
             .audio {
@@ -208,9 +248,29 @@
 
         </div>
 
+        <!-- NARRACIÓN -->
+
+        <div class="narracion">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio id="narracion" controls autoplay>
+                <source
+                    src="Claustro-bajo.m4a"
+                    type="audio/mp4"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <!-- MÚSICA AMBIENTAL -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <h3>🎵 Música ambiental</h3>
+
+            <audio id="musica" controls autoplay loop>
                 <source
                     src="vjgalaxy-gregorian-christian-chant-mane-nobiscum-01-507990.mp3"
                     type="audio/mpeg"
@@ -234,6 +294,52 @@
         </div>
 
     </div>
+
+    <script>
+        const narracion = document.getElementById("narracion");
+        const musica = document.getElementById("musica");
+
+        /* Narración a volumen completo */
+        narracion.volume = 1.0;
+
+        /* Música al 4 % mientras habla la narración */
+        musica.volume = 0.04;
+
+        /* Cuando comienza o continúa la narración,
+           la música baja al 4 % */
+        narracion.addEventListener("play", function () {
+            musica.volume = 0.04;
+        });
+
+        /* Cuando termina la narración,
+           la música sube al 30 % */
+        narracion.addEventListener("ended", function () {
+            musica.volume = 0.30;
+        });
+
+        /* Si se pausa la narración antes de terminar,
+           la música sube al 30 % */
+        narracion.addEventListener("pause", function () {
+            if (!narracion.ended) {
+                musica.volume = 0.30;
+            }
+        });
+
+        /* Intentar reproducir ambos audios al entrar */
+        window.addEventListener("load", function () {
+
+            musica.volume = 0.04;
+
+            musica.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la música automática.");
+            });
+
+            narracion.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la narración automática.");
+            });
+
+        });
+    </script>
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
