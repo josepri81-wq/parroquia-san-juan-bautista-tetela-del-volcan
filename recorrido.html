@@ -60,9 +60,39 @@
             text-align: justify;
         }
 
+        /* NARRACIÓN */
+
+        .narracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 20px 18px 20px;
+            text-align: center;
+        }
+
+        .narracion h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
+        }
+
+        .narracion audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
+        }
+
+        .audio h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
         }
 
         audio {
@@ -71,6 +101,8 @@
             max-width: 500px;
             margin: 0 auto;
         }
+
+        /* NAVEGACIÓN */
 
         .navegacion {
             display: grid;
@@ -109,6 +141,8 @@
             display: none;
         }
 
+        /* CELULAR */
+
         @media (max-width: 600px) {
 
             .texto {
@@ -126,6 +160,14 @@
             .texto p {
                 font-size: 17px;
                 line-height: 1.65;
+            }
+
+            .narracion {
+                padding: 5px 15px 18px 15px;
+            }
+
+            .narracion audio {
+                width: 100%;
             }
 
             .audio {
@@ -195,15 +237,39 @@
 
         </div>
 
+        <!-- NARRACIÓN -->
+
+        <div class="narracion">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio id="narracion" controls autoplay>
+                <source
+                    src="Nave principal narración.m4a"
+                    type="audio/mp4"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <!-- MÚSICA AMBIENTAL -->
+
         <div class="audio">
-            <audio controls autoplay loop>
+
+            <h3>🎵 Música ambiental</h3>
+
+            <audio id="musica" controls autoplay loop>
                 <source
                     src="soundsbyamelia-ethereal-gregorian-choir-cathedral-bells-amp-organ-422968.mp3"
                     type="audio/mpeg"
                 >
                 Tu navegador no admite reproducción de audio.
             </audio>
+
         </div>
+
+        <!-- NAVEGACIÓN -->
 
         <div class="navegacion">
 
@@ -219,6 +285,36 @@
         </div>
 
     </div>
+
+    <script>
+        /*
+        La narración y la música intentarán comenzar automáticamente.
+
+        Algunos navegadores, especialmente Safari en iPhone,
+        pueden impedir la reproducción automática con sonido
+        hasta que el visitante haya interactuado con la página.
+        */
+
+        const narracion = document.getElementById("narracion");
+        const musica = document.getElementById("musica");
+
+        /* La música queda más baja para que se escuche la voz */
+
+        musica.volume = 0.22;
+        narracion.volume = 1.0;
+
+        window.addEventListener("load", function () {
+
+            musica.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la música automática.");
+            });
+
+            narracion.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la narración automática.");
+            });
+
+        });
+    </script>
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
