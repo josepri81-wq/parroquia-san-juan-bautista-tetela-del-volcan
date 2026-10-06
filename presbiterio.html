@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>El Presbiterio | Un día en el convento</title>
 
     <style>
@@ -61,6 +59,35 @@
             font-size: 18px;
         }
 
+        /* FOTO DURANTE LA RESTAURACIÓN */
+        .restauracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 28px 20px 28px;
+            text-align: center;
+        }
+
+        .restauracion h2 {
+            margin: 0 0 18px 0;
+            font-size: 23px;
+            color: #325d4a;
+        }
+
+        .restauracion img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .restauracion p {
+            margin: 10px auto 0 auto;
+            font-size: 16px;
+            line-height: 1.5;
+            font-style: italic;
+            color: #555;
+        }
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
@@ -111,7 +138,6 @@
         }
 
         @media (max-width: 600px) {
-
             .texto {
                 padding: 22px 18px;
             }
@@ -126,6 +152,18 @@
 
             .texto p {
                 font-size: 17px;
+            }
+
+            .restauracion {
+                padding: 5px 18px 20px 18px;
+            }
+
+            .restauracion h2 {
+                font-size: 21px;
+            }
+
+            .restauracion p {
+                font-size: 15px;
             }
 
             .audio {
@@ -167,6 +205,7 @@
 
     <div class="escena">
 
+        <!-- FOTO ACTUAL -->
         <img
             class="imagen"
             src="WhatsApp%20Image%202026-09-24%20at%2007.00.23.jpeg"
@@ -176,7 +215,6 @@
         <div class="texto">
 
             <h2>El presbiterio</h2>
-
             <h3>El lugar del altar y de la acción sagrada</h3>
 
             <p>
@@ -194,8 +232,24 @@
 
         </div>
 
-        <div class="audio">
+        <!-- FOTO DURANTE LA RESTAURACIÓN -->
+        <div class="restauracion">
 
+            <h2>El presbiterio después del sismo</h2>
+
+            <img
+                src="PHOTO-2026-10-06-05-30-21.jpg"
+                alt="Presbiterio durante los trabajos de restauración posteriores al sismo de 2017"
+            >
+
+            <p>
+                El presbiterio durante los trabajos de restauración posteriores al sismo de 2017.
+            </p>
+
+        </div>
+
+        <!-- MÚSICA -->
+        <div class="audio">
             <audio controls autoplay loop>
                 <source
                     src="tunetank-church-organ-music-347173.mp3"
@@ -203,19 +257,23 @@
                 >
                 Tu navegador no admite reproducción de audio.
             </audio>
-
         </div>
 
+        <!-- NAVEGACIÓN -->
         <div class="navegacion">
 
-            <a class="boton" href="bautisterio.html">← REGRESAR</a>
+            <a class="boton" href="bautisterio.html">
+                ← REGRESAR
+            </a>
 
             <a class="boton" href="mapa.html">
                 <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
                 <span class="texto-celular">🗺 PLANO</span>
             </a>
 
-            <a class="boton" href="coro.html">SEGUIR →</a>
+            <a class="boton" href="coro.html">
+                SEGUIR →
+            </a>
 
         </div>
 
@@ -228,5 +286,4 @@
     </script>
 
 </body>
-
 </html>
