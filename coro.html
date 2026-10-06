@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Coro alto | Un día en el convento</title>
-
     <style>
         * {
             box-sizing: border-box;
         }
-
         body {
             margin: 0;
             padding: 0;
@@ -19,19 +15,16 @@
             color: #2f2f2f;
             font-family: Arial, sans-serif;
         }
-
         .escena {
             width: 100%;
             min-height: 100vh;
             background-color: #f5f1e6;
         }
-
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
-
         .texto {
             max-width: 900px;
             margin: 0 auto;
@@ -39,14 +32,12 @@
             text-align: center;
             line-height: 1.7;
         }
-
         .texto h2 {
             margin-top: 0;
             margin-bottom: 8px;
             font-size: 30px;
             color: #325d4a;
         }
-
         .texto h3 {
             margin-top: 0;
             margin-bottom: 22px;
@@ -55,24 +46,48 @@
             font-style: italic;
             color: #325d4a;
         }
-
         .texto p {
             margin: 0 auto 16px auto;
             font-size: 18px;
+        }
+
+        /* FOTO DESPUÉS DEL SISMO */
+        .restauracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 28px 20px 28px;
+            text-align: center;
+        }
+        .restauracion h2 {
+            margin: 0 0 18px 0;
+            font-size: 23px;
+            font-weight: bold;
+            color: #325d4a;
+        }
+        .restauracion img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        .restauracion p {
+            margin: 10px auto 0 auto;
+            font-size: 16px;
+            line-height: 1.5;
+            font-style: italic;
+            color: #555;
         }
 
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
         }
-
         audio {
             display: block;
             width: 90%;
             max-width: 500px;
             margin: 0 auto;
         }
-
         .navegacion {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -83,7 +98,6 @@
             padding: 20px 30px 35px 30px;
             background-color: #f5f1e6;
         }
-
         .boton {
             display: flex;
             align-items: center;
@@ -101,47 +115,45 @@
             line-height: 1.2;
             text-align: center;
         }
-
         .boton:hover {
             opacity: 0.9;
         }
-
         .texto-celular {
             display: none;
         }
-
         @media (max-width: 600px) {
-
             .texto {
                 padding: 22px 18px;
             }
-
             .texto h2 {
                 font-size: 25px;
             }
-
             .texto h3 {
                 font-size: 18px;
             }
-
             .texto p {
                 font-size: 17px;
             }
-
+            .restauracion {
+                padding: 5px 18px 20px 18px;
+            }
+            .restauracion h2 {
+                font-size: 21px;
+            }
+            .restauracion p {
+                font-size: 15px;
+            }
             .audio {
                 padding: 10px 15px 18px 15px;
             }
-
             audio {
                 width: 100%;
             }
-
             .navegacion {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 6px;
                 padding: 18px 8px 30px 8px;
             }
-
             .boton {
                 width: 100%;
                 min-width: 0;
@@ -151,20 +163,16 @@
                 line-height: 1;
                 white-space: nowrap;
             }
-
             .texto-escritorio {
                 display: none;
             }
-
             .texto-celular {
                 display: inline;
             }
         }
     </style>
 </head>
-
 <body>
-
     <div class="escena">
 
         <img
@@ -174,9 +182,7 @@
         >
 
         <div class="texto">
-
             <h2>El coro alto</h2>
-
             <h3>La oración que se eleva desde lo alto</h3>
 
             <p>
@@ -190,11 +196,25 @@
                 desde otra perspectiva. En la vida conventual, este espacio recordaba que la jornada del fraile
                 estaba marcada por la oración, el silencio y la celebración comunitaria.
             </p>
+        </div>
+
+        <!-- FOTO DESPUÉS DEL SISMO -->
+        <div class="restauracion">
+
+            <h2>El coro alto después del sismo</h2>
+
+            <img
+                src="Ver fotos recientes 2.png"
+                alt="Coro alto después del sismo de 2017"
+            >
+
+            <p>
+                El coro alto durante el proceso de recuperación posterior al sismo de 2017.
+            </p>
 
         </div>
 
         <div class="audio">
-
             <audio controls autoplay loop>
                 <source
                     src="fideascende-o-salutaris-hostia-324817.mp3"
@@ -202,11 +222,9 @@
                 >
                 Tu navegador no admite reproducción de audio.
             </audio>
-
         </div>
 
         <div class="navegacion">
-
             <a class="boton" href="presbiterio.html">← REGRESAR</a>
 
             <a class="boton" href="mapa.html">
@@ -215,9 +233,7 @@
             </a>
 
             <a class="boton" href="vista-coro.html">SEGUIR →</a>
-
         </div>
-
     </div>
 
     <script
@@ -225,7 +241,5 @@
         async
         src="//gc.zgo.at/count.js">
     </script>
-
 </body>
-
 </html>
