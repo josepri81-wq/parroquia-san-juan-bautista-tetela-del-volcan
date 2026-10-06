@@ -1,150 +1,221 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tribuna de los enfermos</title>
+    <title>Tribuna de los enfermos | Un día en el convento</title>
 
-<style>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f0e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-.contenido {
-    max-width: 900px;
-    margin: auto;
-    padding: 25px;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-h1 {
-    color: #325d4a;
-    font-size: 32px;
-    margin-bottom: 20px;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.7;
-    text-align: justify;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-audio {
-    width: 100%;
-    margin-top: 25px;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-.botones {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 35px;
-}
+        .audio {
+            text-align: center;
+            padding: 25px 20px 20px 20px;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: bold;
-}
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-.boton:hover {
-    opacity: 0.85;
-}
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-@media (max-width: 600px) {
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-    .contenido {
-        padding: 20px;
-    }
+        .boton:hover {
+            opacity: 0.9;
+        }
 
-    h1 {
-        font-size: 27px;
-    }
+        .texto-celular {
+            display: none;
+        }
 
-    p {
-        font-size: 17px;
-    }
+        @media (max-width: 600px) {
 
-    .botones {
-        gap: 10px;
-    }
+            .contenido {
+                padding: 22px 18px;
+            }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 16px;
-    }
-}
+            .contenido h1 {
+                font-size: 25px;
+            }
 
-</style>
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 22px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 3px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<img
-src="WhatsApp Image 2026-09-28 at 23.14.28.jpeg"
-alt="Tribuna de los enfermos del antiguo convento de San Juan Bautista">
+    <div class="escena">
 
-<div class="contenido">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-28 at 23.14.28.jpeg"
+            alt="Tribuna de los enfermos del antiguo convento de San Juan Bautista"
+        >
 
-<h1>Tribuna de los enfermos</h1>
+        <div class="contenido">
 
-<p>
-Junto a la enfermería se encontraba un espacio especialmente significativo
-dentro de la vida del convento: la tribuna de los enfermos. Desde este lugar,
-los frailes que por enfermedad o debilidad no podían incorporarse plenamente
-a las actividades de la comunidad podían permanecer vinculados a las
-celebraciones religiosas.
-</p>
+            <h1>Tribuna de los enfermos</h1>
 
-<p>
-La tribuna permitía contemplar y seguir las celebraciones que tenían lugar
-en el templo sin necesidad de realizar los desplazamientos habituales por
-el convento. De esta manera, incluso durante la enfermedad, el religioso
-podía continuar unido a la oración y a la vida litúrgica de su comunidad.
-</p>
+            <p>
+                Junto a la enfermería se encontraba un espacio especialmente significativo
+                dentro de la vida del convento: la tribuna de los enfermos. Desde este lugar,
+                los frailes que por enfermedad o debilidad no podían incorporarse plenamente
+                a las actividades de la comunidad podían permanecer vinculados a las
+                celebraciones religiosas.
+            </p>
 
-<audio controls autoplay loop>
-    <source
-    src="leberch-nature-584950.mp3"
-    type="audio/mpeg">
-    Tu navegador no soporta el elemento de audio.
-</audio>
+            <p>
+                La tribuna permitía contemplar y seguir las celebraciones que tenían lugar
+                en el templo sin necesidad de realizar los desplazamientos habituales por
+                el convento. De esta manera, incluso durante la enfermedad, el religioso
+                podía continuar unido a la oración y a la vida litúrgica de su comunidad.
+            </p>
 
-<div class="botones">
+        </div>
 
-<a class="boton" href="enfermeria-2.html">
-← REGRESAR
-</a>
-    <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
+        <div class="audio">
 
-<a class="boton" href="tribuna-de-los-enfermos-2.html">
-SEGUIR →
-</a>
+            <audio controls autoplay loop>
+                <source
+                    src="leberch-nature-584950.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no soporta el elemento de audio.
+            </audio>
 
-</div>
+        </div>
 
-</div>
+        <div class="navegacion">
 
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+            <a class="boton" href="enfermeria-2.html">← REGRESAR</a>
+
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+                <span class="texto-celular">🗺 PLANO</span>
+            </a>
+
+            <a class="boton" href="tribuna-de-los-enfermos-2.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
 
 </body>
+
 </html>
