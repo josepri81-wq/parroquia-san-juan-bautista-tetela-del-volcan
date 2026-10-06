@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +28,7 @@
 
     .imagen {
       width: 100%;
+      height: auto;
       display: block;
       margin: 0;
     }
@@ -69,30 +70,38 @@
     }
 
     audio {
+      display: block;
       width: 90%;
       max-width: 500px;
+      margin: 0 auto;
     }
 
     .navegacion {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: stretch;
       gap: 15px;
+      max-width: 900px;
+      margin: 0 auto;
       padding: 20px 30px 35px 30px;
       background-color: #f5f1e6;
     }
 
     .boton {
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 14px 12px;
       background-color: #325d4a;
       color: white;
       text-decoration: none;
-      padding: 14px 24px;
       border-radius: 8px;
       border: 2px solid white;
       font-family: Arial, sans-serif;
       font-size: 16px;
       font-weight: bold;
+      line-height: 1.2;
       text-align: center;
     }
 
@@ -100,43 +109,60 @@
       opacity: 0.9;
     }
 
-@media (max-width: 600px) {
-    .texto {
+    .texto-celular {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+
+      .texto {
         padding: 22px 18px;
-    }
+      }
 
-    .texto h1 {
+      .texto h1 {
         font-size: 25px;
-    }
+      }
 
-    .texto h2 {
+      .texto h2 {
         font-size: 18px;
-    }
+      }
 
-    .texto p {
+      .texto p {
         font-size: 17px;
-    }
+      }
 
-    .navegacion {
-        display: flex;
-        justify-content: space-between;
-        align-items: stretch;
+      .audio {
+        padding: 10px 15px 18px 15px;
+      }
+
+      audio {
+        width: 100%;
+      }
+
+      .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 6px;
-        padding: 18px 5px 30px 5px;
-    }
+        padding: 18px 8px 30px 8px;
+      }
 
-    .boton {
-        flex: 1;
+      .boton {
+        width: 100%;
         min-width: 0;
-        padding: 12px 3px;
-        font-size: 11px;
-        line-height: 1.2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
         white-space: nowrap;
+      }
+
+      .texto-escritorio {
+        display: none;
+      }
+
+      .texto-celular {
+        display: inline;
+      }
     }
-}
   </style>
 </head>
 
@@ -179,6 +205,7 @@
     </div>
 
     <div class="audio">
+
       <audio controls autoplay loop>
         <source
           src="fideascende-veni-creator-spiritus-324807.mp3"
@@ -186,23 +213,30 @@
         >
         Tu navegador no admite reproducción de audio.
       </audio>
+
     </div>
 
     <div class="navegacion">
 
-      <a class="boton" href="recorrido.html">
-        ← REGRESAR
-      </a>
-      <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
+      <a class="boton" href="recorrido.html">← REGRESAR</a>
 
-      <a class="boton" href="presbiterio.html">
-        SEGUIR →
+      <a class="boton" href="mapa.html">
+        <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+        <span class="texto-celular">🗺 PLANO</span>
       </a>
+
+      <a class="boton" href="presbiterio.html">SEGUIR →</a>
 
     </div>
 
   </div>
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+
+  <script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+  </script>
+
 </body>
+
 </html>
