@@ -1,97 +1,153 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Las escaleras</title>
+    <title>Las escaleras | Un día en el convento</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background-color: #f4f0e6;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
             font-family: Arial, sans-serif;
-            color: #2d2d2d;
+        }
+
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
+
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
             text-align: center;
         }
 
-        .contenedor {
-            max-width: 900px;
-            margin: auto;
-            padding: 25px 20px 40px;
-        }
-
-        h1 {
-            font-size: 2.2em;
+        .contenido h1 {
+            margin-top: 0;
             margin-bottom: 8px;
+            font-size: 30px;
+            color: #325d4a;
         }
 
-        h2 {
-            font-size: 1.25em;
+        .contenido h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 20px;
             font-weight: normal;
             font-style: italic;
-            margin-top: 0;
-            margin-bottom: 25px;
+            color: #325d4a;
         }
 
-        img {
-            display: block;
-            width: 100%;
-            max-width: 850px;
-            height: auto;
-            margin: 20px auto 30px;
-            border-radius: 6px;
-        }
-
-        p {
-            font-size: 1.15em;
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
             line-height: 1.7;
             text-align: justify;
-            margin: 18px 0;
+        }
+
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
         }
 
         audio {
             display: block;
             width: 90%;
-            margin: 30px auto;
+            max-width: 500px;
+            margin: 0 auto;
         }
-.navegacion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 30px 35px 30px;
-    background-color: #f5f1e6;
-}
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 8px;
-    border: 2px solid white;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-}
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-.boton:hover {
-    opacity: 0.9;
-}
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-@media (max-width: 600px) {
-    .navegacion {
-        padding: 18px 15px 30px 15px;
-    }
+        .boton:hover {
+            opacity: 0.9;
+        }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 14px;
-    
+        @media (max-width: 600px) {
+
+            .contenido {
+                padding: 22px 18px;
+            }
+
+            .contenido h1 {
+                font-size: 25px;
+            }
+
+            .contenido h2 {
+                font-size: 18px;
+            }
+
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 5px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
             }
         }
     </style>
@@ -99,63 +155,75 @@
 
 <body>
 
-<div class="contenedor">
+    <div class="escena">
 
-    <h1>Las escaleras</h1>
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-19 at 16.32.22.jpeg"
+            alt="Escaleras del antiguo convento de San Juan Bautista de Tetela del Volcán"
+        >
 
-    <h2>Del claustro bajo hacia la vida en la planta superior</h2>
+        <div class="contenido">
 
-    <img
-        src="WhatsApp Image 2026-09-19 at 16.32.22.jpeg"
-        alt="Escaleras del antiguo convento de San Juan Bautista de Tetela del Volcán"
-    >
+            <h1>Las escaleras</h1>
 
-    <p>
-        Después de dejar el refectorio y sus espacios de servicio, el recorrido
-        continúa hacia las escaleras que comunican el claustro bajo con la planta
-        superior del convento.
-    </p>
+            <h2>Del claustro bajo hacia la vida en la planta superior</h2>
 
-    <p>
-        Estas escaleras no eran simplemente un elemento de comunicación entre dos
-        niveles. Por ellas transitaban diariamente los frailes para dirigirse a los
-        distintos espacios donde continuaban su jornada de oración, estudio, descanso
-        y vida comunitaria.
-    </p>
+            <p>
+                Después de dejar el refectorio y sus espacios de servicio, el recorrido
+                continúa hacia las escaleras que comunican el claustro bajo con la planta
+                superior del convento.
+            </p>
 
-    <p>
-        Ascender al piso superior nos permite entrar en una parte más reservada
-        del antiguo convento. Allí se encontraban espacios relacionados con la
-        formación, el estudio y la vida cotidiana de la comunidad religiosa.
-    </p>
+            <p>
+                Estas escaleras no eran simplemente un elemento de comunicación entre dos
+                niveles. Por ellas transitaban diariamente los frailes para dirigirse a los
+                distintos espacios donde continuaban su jornada de oración, estudio, descanso
+                y vida comunitaria.
+            </p>
 
-    <p>
-        Al llegar a la parte alta nos encontraremos con el
-        <strong>claustro alto</strong>, desde donde continuaremos descubriendo
-        otros espacios de la vida conventual.
-    </p>
+            <p>
+                Ascender al piso superior nos permite entrar en una parte más reservada
+                del antiguo convento. Allí se encontraban espacios relacionados con la
+                formación, el estudio y la vida cotidiana de la comunidad religiosa.
+            </p>
 
-    <audio controls autoplay loop>
-        <source
-            src="misselle-bible-soundtrack-instrumental-17-525990.mp3"
-            type="audio/mpeg">
-        Tu navegador no puede reproducir este archivo de audio.
-    </audio>
+            <p>
+                Al llegar a la parte alta nos encontraremos con el
+                <strong>claustro alto</strong>, desde donde continuaremos descubriendo
+                otros espacios de la vida conventual.
+            </p>
 
-    <div class="navegacion">
+        </div>
 
-        <a class="boton" href="lavabo.html">
-            ← REGRESAR
-        </a>
+        <div class="audio">
 
-        <a class="boton" href="claustro-alto.html">
-            SEGUIR →
-        </a>
+            <audio controls autoplay loop>
+                <source
+                    src="misselle-bible-soundtrack-instrumental-17-525990.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no puede reproducir este archivo de audio.
+            </audio>
+
+        </div>
+
+        <div class="navegacion">
+
+            <a class="boton" href="lavabo.html">← REGRESAR</a>
+
+            <a class="boton" href="claustro-alto.html">SEGUIR →</a>
+
+        </div>
 
     </div>
 
-</div>
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
+
 </body>
+
 </html>
