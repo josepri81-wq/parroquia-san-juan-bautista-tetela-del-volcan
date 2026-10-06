@@ -63,10 +63,41 @@
       font-size: 18px;
     }
 
+    /* NARRACIÓN */
+
+    .narracion {
+      text-align: center;
+      padding: 5px 20px 18px 20px;
+      background-color: #f5f1e6;
+    }
+
+    .narracion h3 {
+      margin: 0 0 12px 0;
+      color: #325d4a;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .narracion audio {
+      display: block;
+      width: 90%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* MÚSICA AMBIENTAL */
+
     .audio {
       text-align: center;
       padding: 10px 20px 20px 20px;
       background-color: #f5f1e6;
+    }
+
+    .audio h3 {
+      margin: 0 0 12px 0;
+      color: #325d4a;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
     }
 
     audio {
@@ -129,6 +160,14 @@
 
       .texto p {
         font-size: 17px;
+      }
+
+      .narracion {
+        padding: 5px 15px 18px 15px;
+      }
+
+      .narracion audio {
+        width: 100%;
       }
 
       .audio {
@@ -204,9 +243,29 @@
 
     </div>
 
+    <!-- NARRACIÓN -->
+
+    <div class="narracion">
+
+      <h3>🎙️ Narración</h3>
+
+      <audio id="narracion" controls autoplay>
+        <source
+          src="Bautisterio.m4a"
+          type="audio/mp4"
+        >
+        Tu navegador no admite reproducción de audio.
+      </audio>
+
+    </div>
+
+    <!-- MÚSICA AMBIENTAL -->
+
     <div class="audio">
 
-      <audio controls autoplay loop>
+      <h3>🎵 Música ambiental</h3>
+
+      <audio id="musica" controls autoplay loop>
         <source
           src="fideascende-veni-creator-spiritus-324807.mp3"
           type="audio/mpeg"
@@ -230,6 +289,30 @@
     </div>
 
   </div>
+
+  <script>
+    const narracion = document.getElementById("narracion");
+    const musica = document.getElementById("musica");
+
+    /* Música ambiental baja */
+    musica.volume = 0.22;
+
+    /* Narración a volumen completo */
+    narracion.volume = 1.0;
+
+    /* Intentar reproducir ambos audios al entrar */
+    window.addEventListener("load", function () {
+
+      musica.play().catch(function () {
+        console.log("El navegador bloqueó temporalmente la música automática.");
+      });
+
+      narracion.play().catch(function () {
+        console.log("El navegador bloqueó temporalmente la narración automática.");
+      });
+
+    });
+  </script>
 
   <script
     data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
