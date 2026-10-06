@@ -2,146 +2,244 @@
 <html lang="es">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Puerta Jubilar</title>
+    <title>Puerta Jubilar | Un día en el convento</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f1e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-.contenido {
-    padding: 25px;
-    max-width: 900px;
-    margin: auto;
-}
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-h1 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-h2 {
-    font-weight: normal;
-    font-size: 20px;
-    margin-top: 0;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: justify;
-}
-.navegacion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 30px 35px 30px;
-    background-color: #f5f1e6;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 8px;
-    border: 2px solid white;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-}
+        .contenido h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            color: #325d4a;
+        }
 
-.boton:hover {
-    opacity: 0.9;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-@media (max-width: 600px) {
-    .navegacion {
-        padding: 18px 15px 30px 15px;
-    }
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
+        }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 14px;
-    }
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-}
-</style>
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .boton:hover {
+            opacity: 0.9;
+        }
+
+        .texto-celular {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+
+            .contenido {
+                padding: 22px 18px;
+            }
+
+            .contenido h1 {
+                font-size: 25px;
+            }
+
+            .contenido h2 {
+                font-size: 18px;
+            }
+
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 3px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<img src="WhatsApp Image 2026-09-18 at 22.13.43.jpeg"
-     alt="Puerta Jubilar del Ex Convento de San Juan Bautista">
+    <div class="escena">
 
-<div class="contenido">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-18 at 22.13.43.jpeg"
+            alt="Puerta Jubilar del Ex Convento de San Juan Bautista"
+        >
 
-<h1>La Puerta Jubilar</h1>
+        <div class="contenido">
 
-<h2>Una puerta que atraviesa los siglos</h2>
+            <h1>La Puerta Jubilar</h1>
 
-<p>
-De acuerdo con el historiador Carlos Martínez Marín, hacia el año 1574
-posiblemente quedaron concluidas las obras de construcción del conjunto
-conventual de San Juan Bautista de Tetela del Volcán. Esta fecha se
-convirtió así en un referente fundamental para recordar los siglos de
-historia, evangelización y presencia dominicana en nuestra comunidad.
-</p>
+            <h2>Una puerta que atraviesa los siglos</h2>
 
-<p>
-En 2024, al cumplirse 450 años, la parroquia conmemoró este aniversario
-con la celebración de un Año Jubilar, concedido por Mons. Ramón Castro
-Castro, obispo de la Diócesis de Cuernavaca. En este contexto, esta
-puerta se convirtió en Puerta Jubilar, signo visible de una celebración
-que unió la memoria histórica del convento con la vida de fe de la comunidad.
-</p>
+            <p>
+                De acuerdo con el historiador Carlos Martínez Marín, hacia el año 1574
+                posiblemente quedaron concluidas las obras de construcción del conjunto
+                conventual de San Juan Bautista de Tetela del Volcán. Esta fecha se
+                convirtió así en un referente fundamental para recordar los siglos de
+                historia, evangelización y presencia dominicana en nuestra comunidad.
+            </p>
 
-<p>
-Atravesar esta puerta adquiere así un significado especial. No es
-solamente ingresar a otro espacio del antiguo convento: es cruzar
-simbólicamente el umbral de 450 años de historia, recordando a quienes
-nos precedieron en la fe y continuando un camino de evangelización que
-permanece vivo en Tetela del Volcán.
-</p>
+            <p>
+                En 2024, al cumplirse 450 años, la parroquia conmemoró este aniversario
+                con la celebración de un Año Jubilar, concedido por Mons. Ramón Castro
+                Castro, obispo de la Diócesis de Cuernavaca. En este contexto, esta
+                puerta se convirtió en Puerta Jubilar, signo visible de una celebración
+                que unió la memoria histórica del convento con la vida de fe de la comunidad.
+            </p>
 
-<audio controls autoplay loop style="display:block; width:90%; margin:20px auto;">
-    <source src="surprising_media-church-organ-and-choir-music-331103.mp3"
-            type="audio/mpeg">
-</audio>
+            <p>
+                Atravesar esta puerta adquiere así un significado especial. No es
+                solamente ingresar a otro espacio del antiguo convento: es cruzar
+                simbólicamente el umbral de 450 años de historia, recordando a quienes
+                nos precedieron en la fe y continuando un camino de evangelización que
+                permanece vivo en Tetela del Volcán.
+            </p>
 
-<div class="navegacion">
+        </div>
 
-    <a class="boton" href="vista-coro.html">← REGRESAR</a>
+        <div class="audio">
 
-    <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
+            <audio controls autoplay loop>
+                <source
+                    src="surprising_media-church-organ-and-choir-music-331103.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
 
-    <a class="boton" href="claustro-bajo.html">SEGUIR →</a>
+        </div>
 
-</div>
+        <div class="navegacion">
 
-</div>
+            <a class="boton" href="vista-coro.html">← REGRESAR</a>
 
-<script
-data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-async
-src="//gc.zgo.at/count.js"></script>
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+                <span class="texto-celular">🗺 PLANO</span>
+            </a>
+
+            <a class="boton" href="claustro-bajo.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
 
 </body>
+
 </html>
