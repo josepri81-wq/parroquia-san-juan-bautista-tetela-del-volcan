@@ -1,100 +1,231 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <title>La nave principal | Un día en el convento</title>
 
-body {
-    margin: 0;
-    background-color: #f5f1e6;
-    text-align: center;
-    color: #2f2f2f;
-    font-family: Arial, sans-serif;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-.escena {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-.navegacion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 30px 35px 30px;
-    background-color: #f5f1e6;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 8px;
-    border: 2px solid white;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-}
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-.boton:hover {
-    opacity: 0.9;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-@media (max-width: 600px) {
-    .navegacion {
-        padding: 18px 15px 30px 15px;
-    }
+        .texto {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 14px;
-    }
-}
+        .texto h2 {
+            color: #325d4a;
+            font-size: 30px;
+            margin: 0 0 8px 0;
+        }
 
+        .texto h3 {
+            color: #325d4a;
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            margin: 0 0 22px 0;
+        }
 
-</style>
+        .texto p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
+        }
+
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
+
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .boton:hover {
+            opacity: 0.9;
+        }
+
+        .texto-celular {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+
+            .texto {
+                padding: 22px 18px;
+            }
+
+            .texto h2 {
+                font-size: 25px;
+            }
+
+            .texto h3 {
+                font-size: 18px;
+            }
+
+            .texto p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 3px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<img class="escena" src="WhatsApp Image 2026-09-22 at 21.45.08.jpeg">
-<div class="texto">
-    <h2>La nave principal</h2>
-    <h3>El corazón de la celebración y la predicación</h3>
+    <div class="escena">
 
-    <p>
-    Al entrar al templo, la nave principal conduce la mirada hacia el presbiterio.
-    Este espacio reúne a la comunidad para escuchar la Palabra de Dios,
-    celebrar los sacramentos y participar en la oración litúrgica.
-    </p>
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-22 at 21.45.08.jpeg"
+            alt="Nave principal del templo de San Juan Bautista de Tetela del Volcán"
+        >
 
-    <p>
-    Para los frailes dominicos, cuya vocación está íntimamente unida a la
-    predicación, el templo era también el lugar donde la Palabra proclamada
-    encontraba a los fieles. Desde aquí comienza nuestro recorrido por los
-    distintos espacios que formaban parte de la vida religiosa y pastoral
-    del convento.
-    </p>
-</div>
-  <audio controls autoplay loop style="display:block; width:90%; margin:20px auto;">
-  <source src="soundsbyamelia-ethereal-gregorian-choir-cathedral-bells-amp-organ-422968.mp3" type="audio/mpeg">
-</audio>
-    <div class="navegacion">
+        <div class="texto">
 
-    <a class="boton" href="index.html">← REGRESAR</a>
+            <h2>La nave principal</h2>
 
-    <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
+            <h3>El corazón de la celebración y la predicación</h3>
 
-    <a class="boton" href="bautisterio.html">SEGUIR →</a>
+            <p>
+                Al entrar al templo, la nave principal conduce la mirada hacia el presbiterio.
+                Este espacio reúne a la comunidad para escuchar la Palabra de Dios,
+                celebrar los sacramentos y participar en la oración litúrgica.
+            </p>
 
-</div>
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+            <p>
+                Para los frailes dominicos, cuya vocación está íntimamente unida a la
+                predicación, el templo era también el lugar donde la Palabra proclamada
+                encontraba a los fieles. Desde aquí comienza nuestro recorrido por los
+                distintos espacios que formaban parte de la vida religiosa y pastoral
+                del convento.
+            </p>
+
+        </div>
+
+        <div class="audio">
+            <audio controls autoplay loop>
+                <source
+                    src="soundsbyamelia-ethereal-gregorian-choir-cathedral-bells-amp-organ-422968.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+        </div>
+
+        <div class="navegacion">
+
+            <a class="boton" href="index.html">← REGRESAR</a>
+
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+                <span class="texto-celular">🗺 PLANO</span>
+            </a>
+
+            <a class="boton" href="bautisterio.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
+
 </body>
+
 </html>
