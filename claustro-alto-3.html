@@ -1,125 +1,200 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Claustro Alto 3 | Un día en el convento</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<title>Claustro Alto 3</title>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f0e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-.contenido {
-    max-width: 900px;
-    margin: auto;
-    padding: 25px;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-h1 {
-    color: #325d4a;
-    font-size: 32px;
-    margin-bottom: 20px;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.7;
-    text-align: justify;
-}
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
+        }
 
-audio {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 25px;
-}
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-.navegacion {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-top: 35px;
-    margin-bottom: 20px;
-}
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 22px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-}
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-.boton:hover {
-    opacity: 0.85;
-}
+        .boton:hover {
+            opacity: 0.9;
+        }
 
-</style>
+        @media (max-width: 600px) {
 
+            .contenido {
+                padding: 22px 18px;
+            }
+
+            .contenido h1 {
+                font-size: 25px;
+            }
+
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 5px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<img src="WhatsApp Image 2026-09-24 at 12.38.10.jpeg"
-     alt="Claustro Alto del Ex Convento de San Juan Bautista">
+    <div class="escena">
 
-<div class="contenido">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-24 at 12.38.10.jpeg"
+            alt="Claustro Alto del Ex Convento de San Juan Bautista"
+        >
 
-<h1>El Claustro Alto</h1>
+        <div class="contenido">
 
-<p>
-Cuando baja la luz sobre las laderas del Popocatépetl, el convento comienza a recogerse en el silencio.
-</p>
+            <h1>El Claustro Alto</h1>
 
-<p>
-Nuestro fraile cruza una vez más el claustro bajo, sube la escalera y recorre el claustro alto hasta su celda. Los corredores que durante el día fueron lugar de paso se convierten ahora en espacio de silencio, oración y descanso.
-</p>
+            <p>
+                Cuando baja la luz sobre las laderas del Popocatépetl, el convento comienza a recogerse en el silencio.
+            </p>
 
-<p>
-Así termina una jornada en el convento. Mañana la campana lo llamará otra vez y comenzará de nuevo el ritmo de la oración, el trabajo y la vida fraterna.
-</p>
+            <p>
+                Nuestro fraile cruza una vez más el claustro bajo, sube la escalera y recorre el claustro alto hasta su celda. Los corredores que durante el día fueron lugar de paso se convierten ahora en espacio de silencio, oración y descanso.
+            </p>
 
-<audio controls autoplay loop>
-    <source src="musicword-waltz-of-the-rain-385007.mp3"
-            type="audio/mpeg">
-    Tu navegador no soporta el elemento de audio.
-</audio>
+            <p>
+                Así termina una jornada en el convento. Mañana la campana lo llamará otra vez y comenzará de nuevo el ritmo de la oración, el trabajo y la vida fraterna.
+            </p>
 
-<div class="navegacion">
+        </div>
 
-<a class="boton"
-   href="claustro-alto-2.html">← REGRESAR</a>
+        <div class="audio">
 
-<a class="boton"
-   href="celda-del-fraile.html">SEGUIR →</a>
+            <audio controls autoplay loop>
+                <source
+                    src="musicword-waltz-of-the-rain-385007.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no soporta el elemento de audio.
+            </audio>
 
-</div>
+        </div>
 
-</div>
+        <div class="navegacion">
 
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+            <a class="boton" href="claustro-alto-2.html">← REGRESAR</a>
+
+            <a class="boton" href="celda-del-fraile.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
         async
-        src="//gc.zgo.at/count.js"></script>
+        src="//gc.zgo.at/count.js">
+    </script>
 
 </body>
 
