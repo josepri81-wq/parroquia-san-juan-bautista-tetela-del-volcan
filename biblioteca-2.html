@@ -2,204 +2,260 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Biblioteca – Segunda parte | Un día en el convento</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<title>Biblioteca – Segunda parte</title>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f0e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-.contenido {
-    max-width: 900px;
-    margin: auto;
-    padding: 25px;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-h1 {
-    color: #325d4a;
-    font-size: 32px;
-    margin-bottom: 20px;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-h2 {
-    color: #325d4a;
-    font-size: 24px;
-    margin-top: 30px;
-}
+        .reflexion {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #325d4a;
+            color: white;
+            border-radius: 12px;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.7;
-    text-align: justify;
-}
+        .reflexion h2 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: white;
+            font-size: 24px;
+        }
 
-.reflexion {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #325d4a;
-    color: white;
-    border-radius: 12px;
-}
+        .reflexion p {
+            color: white;
+            margin-bottom: 0;
+        }
 
-.reflexion h2 {
-    color: white;
-    margin-top: 0;
-}
+        .audio {
+            text-align: center;
+            padding: 25px 20px 20px 20px;
+        }
 
-.reflexion p {
-    color: white;
-    margin-bottom: 0;
-}
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-.navegacion {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 0 25px 30px;
-}
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 22px;
-    border-radius: 10px;
-    font-size: 17px;
-    font-weight: bold;
-}
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-.boton:hover {
-    opacity: 0.85;
-}
+        .boton:hover {
+            opacity: 0.9;
+        }
 
-audio {
-    width: 90%;
-    max-width: 600px;
-    margin-top: 25px;
-}
+        @media (max-width: 600px) {
 
-@media (max-width: 600px) {
+            .contenido {
+                padding: 22px 18px;
+            }
 
-    h1 {
-        font-size: 27px;
-    }
+            .contenido h1 {
+                font-size: 25px;
+            }
 
-    h2 {
-        font-size: 22px;
-    }
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
 
-    p {
-        font-size: 17px;
-    }
+            .reflexion {
+                padding: 18px;
+            }
 
-    .navegacion {
-        flex-direction: column;
-    }
+            .reflexion h2 {
+                font-size: 22px;
+            }
 
-    .boton {
-        width: auto;
-    }
-}
+            .audio {
+                padding: 22px 15px 18px 15px;
+            }
 
-</style>
+            audio {
+                width: 100%;
+            }
 
+            .navegacion {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 5px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<img
-src="WhatsApp Image 2026-09-24 at 20.51.31.jpeg"
-alt="Biblioteca del antiguo convento de San Juan Bautista">
+    <div class="escena">
 
-<div class="contenido">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-24 at 20.51.31.jpeg"
+            alt="Biblioteca del antiguo convento de San Juan Bautista"
+        >
 
-<h1>La biblioteca: estudiar para predicar</h1>
+        <div class="contenido">
 
-<p>
-Para los frailes dominicos, el estudio no era una actividad secundaria.
-Formaba parte de su vocación. Santo Domingo quiso que sus hermanos se
-prepararan mediante el estudio para anunciar la Palabra de Dios con claridad
-y responder a las necesidades de las personas a quienes servían.
-</p>
+            <h1>La biblioteca: estudiar para predicar</h1>
 
-<p>
-En la biblioteca se conservaban y consultaban las Sagradas Escrituras,
-obras de teología, filosofía, predicación, moral y espiritualidad.
-También podían encontrarse textos necesarios para la formación de los
-religiosos y para preparar la enseñanza y la predicación.
-</p>
+            <p>
+                Para los frailes dominicos, el estudio no era una actividad secundaria.
+                Formaba parte de su vocación. Santo Domingo quiso que sus hermanos se
+                prepararan mediante el estudio para anunciar la Palabra de Dios con claridad
+                y responder a las necesidades de las personas a quienes servían.
+            </p>
 
-<p>
-Los libros eran bienes valiosos. Antes de la difusión de la imprenta,
-muchos manuscritos habían sido copiados a mano; posteriormente, los libros
-impresos continuaron siendo instrumentos fundamentales para la formación
-de las comunidades religiosas. Por ello, la biblioteca representaba
-también la memoria intelectual del convento.
-</p>
+            <p>
+                En la biblioteca se conservaban y consultaban las Sagradas Escrituras,
+                obras de teología, filosofía, predicación, moral y espiritualidad.
+                También podían encontrarse textos necesarios para la formación de los
+                religiosos y para preparar la enseñanza y la predicación.
+            </p>
 
-<p>
-En un convento como éste, el estudio tenía además una finalidad concreta:
-preparar a los frailes para la evangelización. Lo aprendido entre los
-libros debía salir de la biblioteca y convertirse en predicación,
-catequesis y acompañamiento de las comunidades.
-</p>
+            <p>
+                Los libros eran bienes valiosos. Antes de la difusión de la imprenta,
+                muchos manuscritos habían sido copiados a mano; posteriormente, los libros
+                impresos continuaron siendo instrumentos fundamentales para la formación
+                de las comunidades religiosas. Por ello, la biblioteca representaba
+                también la memoria intelectual del convento.
+            </p>
 
-<div class="reflexion">
+            <p>
+                En un convento como éste, el estudio tenía además una finalidad concreta:
+                preparar a los frailes para la evangelización. Lo aprendido entre los
+                libros debía salir de la biblioteca y convertirse en predicación,
+                catequesis y acompañamiento de las comunidades.
+            </p>
 
-<h2>Para contemplar</h2>
+            <div class="reflexion">
 
-<p>
-En la espiritualidad dominicana, estudiar y contemplar no son actividades
-separadas de la misión. Lo que se descubre en el silencio, en la oración
-y en el estudio está llamado a ser compartido.
-<br><br>
-Así, la biblioteca nos recuerda uno de los grandes ideales de la tradición
-dominicana: <strong>contemplar la verdad y comunicar a los demás aquello
-que se ha contemplado.</strong>
-</p>
+                <h2>Para contemplar</h2>
 
-</div>
+                <p>
+                    En la espiritualidad dominicana, estudiar y contemplar no son actividades
+                    separadas de la misión. Lo que se descubre en el silencio, en la oración
+                    y en el estudio está llamado a ser compartido.
+                    <br><br>
+                    Así, la biblioteca nos recuerda uno de los grandes ideales de la tradición
+                    dominicana: <strong>contemplar la verdad y comunicar a los demás aquello
+                    que se ha contemplado.</strong>
+                </p>
 
-<audio controls autoplay loop>
-    <source src="leberch-motivation-piano-580533.mp3" type="audio/mpeg">
-    Tu navegador no admite la reproducción de audio.
-</audio>
+            </div>
 
-</div>
+        </div>
 
-<div class="navegacion">
+        <div class="audio">
 
-<a class="boton" href="biblioteca.html">
-← REGRESAR
-</a>
+            <audio controls autoplay loop>
+                <source
+                    src="leberch-motivation-piano-580533.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite la reproducción de audio.
+            </audio>
 
-<a class="boton" href="campanario.html">
-SEGUIR →
-</a>
+        </div>
 
-</div>
+        <div class="navegacion">
 
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-async src="//gc.zgo.at/count.js"></script>
+            <a class="boton" href="biblioteca.html">← REGRESAR</a>
+
+            <a class="boton" href="campanario.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
 
 </body>
 
