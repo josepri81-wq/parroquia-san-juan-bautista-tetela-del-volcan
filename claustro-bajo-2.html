@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Claustro bajo | Un día en el convento</title>
 
     <style>
@@ -62,6 +60,35 @@
             text-align: justify;
         }
 
+        /* FOTO DURANTE LA RESTAURACIÓN */
+        .restauracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 28px 20px 28px;
+            text-align: center;
+        }
+
+        .restauracion h2 {
+            margin: 0 0 18px 0;
+            font-size: 23px;
+            color: #325d4a;
+        }
+
+        .restauracion img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .restauracion p {
+            margin: 10px auto 0 auto;
+            font-size: 16px;
+            line-height: 1.5;
+            font-style: italic;
+            color: #555;
+        }
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
@@ -108,7 +135,6 @@
         }
 
         @media (max-width: 600px) {
-
             .contenido {
                 padding: 22px 18px;
             }
@@ -124,6 +150,18 @@
             .contenido p {
                 font-size: 17px;
                 line-height: 1.65;
+            }
+
+            .restauracion {
+                padding: 5px 18px 20px 18px;
+            }
+
+            .restauracion h2 {
+                font-size: 21px;
+            }
+
+            .restauracion p {
+                font-size: 15px;
             }
 
             .audio {
@@ -157,6 +195,7 @@
 
     <div class="escena">
 
+        <!-- FOTO ACTUAL -->
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-18 at 22.38.15.jpeg"
@@ -166,7 +205,6 @@
         <div class="contenido">
 
             <h1>El claustro bajo</h1>
-
             <h2>Entre muros, silencio e imágenes</h2>
 
             <p>
@@ -192,6 +230,23 @@
 
         </div>
 
+        <!-- FOTO DURANTE LA RESTAURACIÓN -->
+        <div class="restauracion">
+
+            <h2>El claustro bajo después del sismo</h2>
+
+            <img
+                src="PHOTO-2026-10-06-07-25-34(1).jpg"
+                alt="Claustro bajo durante los trabajos de restauración posteriores al sismo de 2017"
+            >
+
+            <p>
+                El claustro bajo durante los trabajos de apuntalamiento y restauración posteriores al sismo de 2017.
+            </p>
+
+        </div>
+
+        <!-- MÚSICA -->
         <div class="audio">
 
             <audio controls autoplay loop>
@@ -204,11 +259,16 @@
 
         </div>
 
+        <!-- NAVEGACIÓN -->
         <div class="navegacion">
 
-            <a class="boton" href="claustro-bajo.html">← REGRESAR</a>
+            <a class="boton" href="claustro-bajo.html">
+                ← REGRESAR
+            </a>
 
-            <a class="boton" href="el-bautismo-del-señor.html">SEGUIR →</a>
+            <a class="boton" href="el-bautismo-del-señor.html">
+                SEGUIR →
+            </a>
 
         </div>
 
@@ -221,5 +281,4 @@
     </script>
 
 </body>
-
 </html>
