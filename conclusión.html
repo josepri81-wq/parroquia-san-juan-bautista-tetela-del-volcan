@@ -1,211 +1,259 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Conclusión — Un día en el convento</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<title>Conclusión — Un día en el convento</title>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f0e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 28px 20px 28px;
+            text-align: center;
+        }
 
-.contenido {
-    max-width: 900px;
-    margin: auto;
-    padding: 40px 25px;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #325d4a;
+        }
 
-h1 {
-    color: #325d4a;
-    font-size: 32px;
-    margin-bottom: 30px;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.7;
-    text-align: justify;
-}
+        .contenido .frase-final {
+            color: #325d4a;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 35px;
+            margin-bottom: 25px;
+        }
 
-.frase-final {
-    color: #325d4a;
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 35px;
-    margin-bottom: 25px;
-}
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-.botones {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 40px;
-}
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: bold;
-}
+        .boton:hover {
+            opacity: 0.9;
+        }
 
-.boton:hover {
-    opacity: 0.85;
-}
+        .texto-celular {
+            display: none;
+        }
 
-@media (max-width: 600px) {
+        @media (max-width: 600px) {
 
-    .contenido {
-        padding: 30px 20px;
-    }
+            .contenido {
+                padding: 30px 18px 20px 18px;
+            }
 
-    h1 {
-        font-size: 27px;
-    }
+            .contenido h1 {
+                font-size: 27px;
+            }
 
-    p {
-        font-size: 17px;
-    }
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
 
-    .frase-final {
-        font-size: 20px;
-    }
+            .contenido .frase-final {
+                font-size: 20px;
+            }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 16px;
-    }
-}
+            .navegacion {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
+            }
 
-</style>
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 3px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
 
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="contenido">
+    <div class="escena">
 
-<h1>Conclusión — Un día en el convento</h1>
+        <div class="contenido">
 
-<p>
-Llegamos al final de este recorrido por la Parroquia y Ex Convento de
-San Juan Bautista de Tetela del Volcán. Atravesar sus espacios ha sido
-también recorrer siglos de historia: entrar en el templo, caminar por sus
-claustros, conocer los lugares de oración, estudio, descanso, alimentación
-y cuidado de los enfermos, y acercarnos a la vida cotidiana de aquellos
-frailes dominicos que hicieron de este lugar su casa y un centro para la
-evangelización de estas tierras.
-</p>
+            <h1>Conclusión — Un día en el convento</h1>
 
-<p>
-Cada espacio conserva una parte de aquella historia. Sus muros, corredores,
-pinturas murales y elementos arquitectónicos nos permiten imaginar una
-comunidad organizada alrededor de la oración, la vida fraterna, el estudio
-y la predicación. El convento no fue únicamente un edificio: fue un lugar
-habitado, recorrido y transformado por generaciones de religiosos y por
-una comunidad que, a través de los siglos, hizo suyo este templo.
-</p>
+            <p>
+                Llegamos al final de este recorrido por la Parroquia y Ex Convento de
+                San Juan Bautista de Tetela del Volcán. Atravesar sus espacios ha sido
+                también recorrer siglos de historia: entrar en el templo, caminar por sus
+                claustros, conocer los lugares de oración, estudio, descanso, alimentación
+                y cuidado de los enfermos, y acercarnos a la vida cotidiana de aquellos
+                frailes dominicos que hicieron de este lugar su casa y un centro para la
+                evangelización de estas tierras.
+            </p>
 
-<p>
-Pero esta historia también ha estado marcada por momentos difíciles. El
-sismo del 19 de septiembre de 2017 ocasionó graves daños en la parroquia
-y en el antiguo convento, obligando a cerrar importantes espacios de este
-conjunto histórico. Después de años de trabajos de restauración y
-recuperación, en 2024 el conjunto pudo ser reabierto, permitiendo nuevamente
-a la comunidad encontrarse con una parte fundamental de su patrimonio y
-de su memoria.
-</p>
+            <p>
+                Cada espacio conserva una parte de aquella historia. Sus muros, corredores,
+                pinturas murales y elementos arquitectónicos nos permiten imaginar una
+                comunidad organizada alrededor de la oración, la vida fraterna, el estudio
+                y la predicación. El convento no fue únicamente un edificio: fue un lugar
+                habitado, recorrido y transformado por generaciones de religiosos y por
+                una comunidad que, a través de los siglos, hizo suyo este templo.
+            </p>
 
-<p>
-El año 2024 tuvo además un significado especial: se celebraron 450 años
-de la conclusión de las obras del convento, fechada en 1574. Por este
-motivo se vivió un Año Jubilar, convirtiendo aquel aniversario no solamente
-en una conmemoración histórica, sino también en una oportunidad para
-agradecer la presencia de la fe cristiana que ha acompañado a generaciones
-enteras en Tetela del Volcán.
-</p>
+            <p>
+                Pero esta historia también ha estado marcada por momentos difíciles. El
+                sismo del 19 de septiembre de 2017 ocasionó graves daños en la parroquia
+                y en el antiguo convento, obligando a cerrar importantes espacios de este
+                conjunto histórico. Después de años de trabajos de restauración y
+                recuperación, en 2024 el conjunto pudo ser reabierto, permitiendo nuevamente
+                a la comunidad encontrarse con una parte fundamental de su patrimonio y
+                de su memoria.
+            </p>
 
-<p>
-A esta memoria se une ahora otra celebración de gran importancia:
-los 500 años de la llegada de los primeros frailes dominicos a México,
-en 1526. Aquellos religiosos emprendieron una misión que dejaría una
-profunda huella espiritual, cultural y arquitectónica. El convento de
-San Juan Bautista forma parte de esa gran historia dominicana que,
-cinco siglos después, continúa siendo recordada.
-</p>
+            <p>
+                El año 2024 tuvo además un significado especial: se celebraron 450 años
+                de la conclusión de las obras del convento, fechada en 1574. Por este
+                motivo se vivió un Año Jubilar, convirtiendo aquel aniversario no solamente
+                en una conmemoración histórica, sino también en una oportunidad para
+                agradecer la presencia de la fe cristiana que ha acompañado a generaciones
+                enteras en Tetela del Volcán.
+            </p>
 
-<p>
-El paso del tiempo, sin embargo, también ha dejado ausencias. Debido a las
-diferentes etapas y acontecimientos que ha vivido la parroquia y el convento
-a lo largo de los siglos, hoy quedan muy pocos bienes muebles originales.
-Pinturas, cuadros, imágenes religiosas y otros objetos de valor histórico
-y religioso que alguna vez formaron parte de estos espacios han desaparecido,
-se han perdido o ya no se encuentran en el conjunto. Por ello, aquello que
-permanece adquiere todavía mayor importancia y nos recuerda la responsabilidad
-de conocer, valorar y conservar este patrimonio.
-</p>
+            <p>
+                A esta memoria se une ahora otra celebración de gran importancia:
+                los 500 años de la llegada de los primeros frailes dominicos a México,
+                en 1526. Aquellos religiosos emprendieron una misión que dejaría una
+                profunda huella espiritual, cultural y arquitectónica. El convento de
+                San Juan Bautista forma parte de esa gran historia dominicana que,
+                cinco siglos después, continúa siendo recordada.
+            </p>
 
-<p>
-Al terminar este recorrido, quizá comprendamos que un convento no está
-formado solamente por piedras antiguas. Cada puerta, cada corredor, cada
-pintura y cada muro nos hablan de las personas que estuvieron aquí antes
-que nosotros: frailes que rezaron y estudiaron, comunidades que celebraron
-su fe, generaciones que cuidaron este lugar y otras que tuvieron que
-levantarlo nuevamente después de la adversidad.
-</p>
+            <p>
+                El paso del tiempo, sin embargo, también ha dejado ausencias. Debido a las
+                diferentes etapas y acontecimientos que ha vivido la parroquia y el convento
+                a lo largo de los siglos, hoy quedan muy pocos bienes muebles originales.
+                Pinturas, cuadros, imágenes religiosas y otros objetos de valor histórico
+                y religioso que alguna vez formaron parte de estos espacios han desaparecido,
+                se han perdido o ya no se encuentran en el conjunto. Por ello, aquello que
+                permanece adquiere todavía mayor importancia y nos recuerda la responsabilidad
+                de conocer, valorar y conservar este patrimonio.
+            </p>
 
-<p class="frase-final">
-Cinco siglos después, la historia continúa.
-</p>
+            <p>
+                Al terminar este recorrido, quizá comprendamos que un convento no está
+                formado solamente por piedras antiguas. Cada puerta, cada corredor, cada
+                pintura y cada muro nos hablan de las personas que estuvieron aquí antes
+                que nosotros: frailes que rezaron y estudiaron, comunidades que celebraron
+                su fe, generaciones que cuidaron este lugar y otras que tuvieron que
+                levantarlo nuevamente después de la adversidad.
+            </p>
 
-<p>
-Que al salir de este antiguo convento no solamente recordemos lo que hemos
-visto, sino que comprendamos que ahora también nosotros somos parte de su
-historia. Conocer este patrimonio es aprender a amarlo; amarlo nos compromete
-a conservarlo; y conservarlo permitirá que las generaciones futuras puedan
-seguir atravesando estas mismas puertas y descubriendo en ellas la memoria,
-la fe y la identidad de San Juan Bautista de Tetela del Volcán.
-</p>
+            <p class="frase-final">
+                Cinco siglos después, la historia continúa.
+            </p>
 
-<div class="botones" style="gap: 15px; flex-wrap: wrap;">
+            <p>
+                Que al salir de este antiguo convento no solamente recordemos lo que hemos
+                visto, sino que comprendamos que ahora también nosotros somos parte de su
+                historia. Conocer este patrimonio es aprender a amarlo; amarlo nos compromete
+                a conservarlo; y conservarlo permitirá que las generaciones futuras puedan
+                seguir atravesando estas mismas puertas y descubriendo en ellas la memoria,
+                la fe y la identidad de San Juan Bautista de Tetela del Volcán.
+            </p>
 
-<a class="boton" href="puerta-aniversario.html">
-← REGRESAR
-</a>
+        </div>
 
-<a class="boton" href="mapa.html">
-🗺 EXPLORAR EL PLANO INTERACTIVO
-</a>
+        <div class="navegacion">
 
-<a class="boton" href="index.html">
-⌂ VOLVER AL INICIO
-</a>
+            <a class="boton" href="puerta-aniversario.html">
+                ← REGRESAR
+            </a>
 
-</div>
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">🗺 EXPLORAR EL PLANO INTERACTIVO</span>
+                <span class="texto-celular">🗺 PLANO</span>
+            </a>
 
-</div>
+            <a class="boton" href="index.html">
+                <span class="texto-escritorio">⌂ VOLVER AL INICIO</span>
+                <span class="texto-celular">⌂ INICIO</span>
+            </a>
 
-<script
-data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-async
-src="//gc.zgo.at/count.js">
-</script>
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
 
 </body>
 
