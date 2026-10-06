@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>El lavabo | Un día en el convento</title>
 
     <style>
@@ -62,6 +60,38 @@
             text-align: justify;
         }
 
+        /* FOTO DESPUÉS DEL SISMO */
+        .restauracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 28px 20px 28px;
+            text-align: center;
+        }
+
+        .restauracion h2 {
+            margin: 0 0 18px 0;
+            font-size: 23px;
+            font-weight: bold;
+            font-style: normal;
+            color: #325d4a;
+        }
+
+        .restauracion img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .restauracion p {
+            margin: 10px auto 0 auto;
+            font-size: 16px;
+            line-height: 1.5;
+            font-style: italic;
+            color: #555;
+            text-align: center;
+        }
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
@@ -108,7 +138,6 @@
         }
 
         @media (max-width: 600px) {
-
             .contenido {
                 padding: 22px 18px;
             }
@@ -124,6 +153,18 @@
             .contenido p {
                 font-size: 17px;
                 line-height: 1.65;
+            }
+
+            .restauracion {
+                padding: 5px 18px 20px 18px;
+            }
+
+            .restauracion h2 {
+                font-size: 21px;
+            }
+
+            .restauracion p {
+                font-size: 15px;
             }
 
             .audio {
@@ -166,7 +207,6 @@
         <div class="contenido">
 
             <h1>El lavabo</h1>
-
             <h2>Agua, silencio y lectura en la vida del refectorio</h2>
 
             <p>
@@ -198,8 +238,23 @@
 
         </div>
 
-        <div class="audio">
+        <!-- FOTO DESPUÉS DEL SISMO -->
+        <div class="restauracion">
 
+            <h2>El lavabo después del sismo</h2>
+
+            <img
+                src="Ver fotos recientes 3.png"
+                alt="Lavabo durante los trabajos de restauración posteriores al sismo de 2017"
+            >
+
+            <p>
+                El lavabo durante los trabajos de restauración posteriores al sismo de 2017.
+            </p>
+
+        </div>
+
+        <div class="audio">
             <audio controls autoplay loop>
                 <source
                     src="misselle-bible-soundtrack-instrumental-6-525868.mp3"
@@ -207,15 +262,11 @@
                 >
                 Tu navegador no puede reproducir este archivo de audio.
             </audio>
-
         </div>
 
         <div class="navegacion">
-
             <a class="boton" href="refectorio.html">← REGRESAR</a>
-
             <a class="boton" href="escaleras.html">SEGUIR →</a>
-
         </div>
 
     </div>
@@ -227,5 +278,4 @@
     </script>
 
 </body>
-
 </html>
