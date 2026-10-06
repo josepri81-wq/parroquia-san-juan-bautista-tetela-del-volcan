@@ -1,119 +1,222 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Vista desde el coro alto - San Juan Bautista</title>
+    <title>Vista desde el coro alto | Un día en el convento</title>
 
-  <style>
-    body {
-      margin: 0;
-      background-color: #f5f1e6;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      color: #2f2f2f;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    .escena {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-    .texto {
-      padding: 20px;
-    }
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-    .navegacion {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  padding: 20px 30px 35px 30px;
-  background-color: #f5f1e6;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-.boton {
-  display: inline-block;
-  background-color: #325d4a;
-  color: white;
-  text-decoration: none;
-  padding: 14px 24px;
-  border-radius: 8px;
-  border: 2px solid white;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
+        .texto {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+            line-height: 1.7;
+        }
 
-.boton:hover {
-  opacity: 0.9;
-}
+        .texto h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-@media (max-width: 600px) {
-  .navegacion {
-    padding: 18px 15px 30px 15px;
-  }
+        .texto h3 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            color: #325d4a;
+        }
 
-  .boton {
-    padding: 12px 16px;
-    font-size: 14px;
-  }
-}
-  </style>
+        .texto p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+        }
+
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
+        }
+
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
+
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .boton:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+
+            .texto {
+                padding: 22px 18px;
+            }
+
+            .texto h2 {
+                font-size: 25px;
+            }
+
+            .texto h3 {
+                font-size: 18px;
+            }
+
+            .texto p {
+                font-size: 17px;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 5px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <img
-    class="escena"
-    src="WhatsApp Image 2026-09-23 at 23.41.42.jpeg"
-    alt="Vista desde el coro alto hacia la nave y el presbiterio"
-  >
+    <div class="escena">
 
-  <div class="texto">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-23 at 23.41.42.jpeg"
+            alt="Vista desde el coro alto hacia la nave y el presbiterio"
+        >
 
-    <h2>Vista desde el coro alto</h2>
+        <div class="texto">
 
-    <h3>La mirada de los frailes hacia el corazón del templo</h3>
+            <h2>Vista desde el coro alto</h2>
 
-    <p>
-      Desde el coro alto se contempla la nave principal y, al fondo, el presbiterio.
-      Esta vista permite comprender mejor la organización del templo y la relación
-      entre el espacio destinado a la oración de los frailes y el lugar donde se
-      celebraba la Eucaristía.
-    </p>
+            <h3>La mirada de los frailes hacia el corazón del templo</h3>
 
-    <p>
-      El coro ocupaba una posición elevada porque desde allí la comunidad religiosa
-      podía participar en distintos momentos de la oración litúrgica. La mirada se
-      dirigía naturalmente hacia el altar, centro de la celebración y signo de Cristo
-      presente en medio de su pueblo.
-    </p>
+            <p>
+                Desde el coro alto se contempla la nave principal y, al fondo, el presbiterio.
+                Esta vista permite comprender mejor la organización del templo y la relación
+                entre el espacio destinado a la oración de los frailes y el lugar donde se
+                celebraba la Eucaristía.
+            </p>
 
-    <p>
-      Para el fraile dominico, la oración no estaba separada de su misión. Desde este
-      lugar elevaba su alabanza a Dios y se preparaba para salir después al encuentro
-      de los fieles mediante la predicación, el estudio y el servicio pastoral.
-    </p>
+            <p>
+                El coro ocupaba una posición elevada porque desde allí la comunidad religiosa
+                podía participar en distintos momentos de la oración litúrgica. La mirada se
+                dirigía naturalmente hacia el altar, centro de la celebración y signo de Cristo
+                presente en medio de su pueblo.
+            </p>
 
-  </div>
-  <audio controls autoplay loop style="display:block; width:90%; margin:20px auto;">
-  <source src="https://josepri81-wq.github.io/parroquia-san-juan-bautista-tetela-del-volcan/52273999-mystic-bard-echoes-of-the-abbey-404183.mp3" type="audio/mpeg">
-</audio>
-<div class="navegacion">
+            <p>
+                Para el fraile dominico, la oración no estaba separada de su misión. Desde este
+                lugar elevaba su alabanza a Dios y se preparaba para salir después al encuentro
+                de los fieles mediante la predicación, el estudio y el servicio pastoral.
+            </p>
 
-  <a class="boton" href="coro.html">← REGRESAR</a>
+        </div>
 
-  <a class="boton" href="puerta-jubilar.html">SEGUIR →</a>
+        <div class="audio">
 
-</div>
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+            <audio controls autoplay loop>
+                <source
+                    src="https://josepri81-wq.github.io/parroquia-san-juan-bautista-tetela-del-volcan/52273999-mystic-bard-echoes-of-the-abbey-404183.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <div class="navegacion">
+
+            <a class="boton" href="coro.html">← REGRESAR</a>
+
+            <a class="boton" href="puerta-jubilar.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
+
 </body>
 
 </html>
