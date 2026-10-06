@@ -1,38 +1,408 @@
-const narracion = document.getElementById("narracion");
-const musica = document.getElementById("musica");
+<!DOCTYPE html>
+<html lang="es">
 
-/* Volumen de la narración */
-narracion.volume = 1.0;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* Música muy baja mientras habla la narración */
-musica.volume = 0.08;
+    <title>Coro alto | Un día en el convento</title>
 
-/* Al comenzar la narración, bajar la música */
-narracion.addEventListener("play", function () {
-    musica.volume = 0.08;
-});
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-/* Al terminar la narración, recuperar la música */
-narracion.addEventListener("ended", function () {
-    musica.volume = 0.30;
-});
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-/* Si se pausa la narración, recuperar la música */
-narracion.addEventListener("pause", function () {
-    if (!narracion.ended) {
-        musica.volume = 0.30;
-    }
-});
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-/* Intentar reproducir ambos audios al entrar */
-window.addEventListener("load", function () {
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-    musica.play().catch(function () {
-        console.log("El navegador bloqueó temporalmente la música automática.");
-    });
+        .texto {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+            line-height: 1.7;
+        }
 
-    narracion.play().catch(function () {
-        console.log("El navegador bloqueó temporalmente la narración automática.");
-    });
+        .texto h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-});
+        .texto h3 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            color: #325d4a;
+        }
+
+        .texto p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+        }
+
+        /* FOTO DURANTE LA RESTAURACIÓN */
+
+        .restauracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 28px 20px 28px;
+            text-align: center;
+        }
+
+        .restauracion h2 {
+            margin: 0 0 18px 0;
+            font-size: 23px;
+            color: #325d4a;
+        }
+
+        .restauracion img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .restauracion p {
+            margin: 10px auto 0 auto;
+            font-size: 16px;
+            line-height: 1.5;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* NARRACIÓN */
+
+        .narracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 20px 18px 20px;
+            text-align: center;
+        }
+
+        .narracion h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
+        }
+
+        .narracion audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* MÚSICA AMBIENTAL */
+
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
+        }
+
+        .audio h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
+        }
+
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* NAVEGACIÓN */
+
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
+
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .boton:hover {
+            opacity: 0.9;
+        }
+
+        .texto-celular {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+
+            .texto {
+                padding: 22px 18px;
+            }
+
+            .texto h2 {
+                font-size: 25px;
+            }
+
+            .texto h3 {
+                font-size: 18px;
+            }
+
+            .texto p {
+                font-size: 17px;
+            }
+
+            .restauracion {
+                padding: 5px 18px 20px 18px;
+            }
+
+            .restauracion h2 {
+                font-size: 21px;
+            }
+
+            .restauracion p {
+                font-size: 15px;
+            }
+
+            .narracion {
+                padding: 5px 15px 18px 15px;
+            }
+
+            .narracion audio {
+                width: 100%;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 3px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="escena">
+
+        <!-- FOTO ACTUAL DEL CORO ALTO -->
+
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-24 at 12.30.53.jpeg"
+            alt="Coro alto del Ex Convento de San Juan Bautista de Tetela del Volcán"
+        >
+
+        <div class="texto">
+
+            <h2>El coro alto</h2>
+
+            <h3>La oración que se eleva desde lo alto</h3>
+
+            <p>
+                El coro alto era uno de los espacios destinados a la oración
+                comunitaria de los frailes. Desde este lugar participaban en
+                determinados momentos de la liturgia y elevaban juntos la
+                alabanza a Dios.
+            </p>
+
+            <p>
+                Situado en la parte superior del templo, el coro permitía
+                contemplar la nave y el presbiterio desde otra perspectiva.
+                En la vida conventual, este espacio recordaba que la jornada
+                del fraile estaba marcada por la oración, el silencio y la
+                celebración comunitaria.
+            </p>
+
+        </div>
+
+        <!-- FOTO DURANTE LA RESTAURACIÓN -->
+
+        <div class="restauracion">
+
+            <h2>El coro alto después del sismo</h2>
+
+            <img
+                src="Ver fotos recientes 2.png"
+                alt="Coro alto después del sismo de 2017"
+            >
+
+            <p>
+                El coro alto durante el proceso de recuperación posterior
+                al sismo de 2017.
+            </p>
+
+        </div>
+
+        <!-- NARRACIÓN -->
+
+        <div class="narracion">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio id="narracion" controls autoplay>
+                <source
+                    src="Coro-alto.m4a"
+                    type="audio/mp4"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <!-- MÚSICA AMBIENTAL -->
+
+        <div class="audio">
+
+            <h3>🎵 Música ambiental</h3>
+
+            <audio id="musica" controls autoplay loop>
+                <source
+                    src="fideascende-o-salutaris-hostia-324817.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <!-- NAVEGACIÓN -->
+
+        <div class="navegacion">
+
+            <a class="boton" href="presbiterio.html">
+                ← REGRESAR
+            </a>
+
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+                <span class="texto-celular">🗺 PLANO</span>
+            </a>
+
+            <a class="boton" href="vista-coro.html">
+                SEGUIR →
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+        const narracion = document.getElementById("narracion");
+        const musica = document.getElementById("musica");
+
+        /* Narración a volumen completo */
+        narracion.volume = 1.0;
+
+        /* Música al 8 % mientras se escucha la narración */
+        musica.volume = 0.08;
+
+        /* Cuando comienza o continúa la narración,
+           la música baja al 8 % */
+        narracion.addEventListener("play", function () {
+            musica.volume = 0.08;
+        });
+
+        /* Cuando termina la narración,
+           la música sube al 30 % */
+        narracion.addEventListener("ended", function () {
+            musica.volume = 0.30;
+        });
+
+        /* Si se pausa la narración antes de terminar,
+           la música sube al 30 % */
+        narracion.addEventListener("pause", function () {
+            if (!narracion.ended) {
+                musica.volume = 0.30;
+            }
+        });
+
+        /* Intentar reproducir ambos audios al entrar */
+        window.addEventListener("load", function () {
+
+            musica.volume = 0.08;
+
+            musica.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la música automática.");
+            });
+
+            narracion.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la narración automática.");
+            });
+
+        });
+    </script>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
+
+</body>
+
+</html>
