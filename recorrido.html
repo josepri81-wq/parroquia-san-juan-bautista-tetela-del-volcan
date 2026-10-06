@@ -245,7 +245,7 @@
 
             <audio id="narracion" controls autoplay>
                 <source
-                    src="Nave principal narración.m4a"
+                    src="Nave-principal-narración.m4a"
                     type="audio/mp4"
                 >
                 Tu navegador no admite reproducción de audio.
@@ -287,22 +287,16 @@
     </div>
 
     <script>
-        /*
-        La narración y la música intentarán comenzar automáticamente.
-
-        Algunos navegadores, especialmente Safari en iPhone,
-        pueden impedir la reproducción automática con sonido
-        hasta que el visitante haya interactuado con la página.
-        */
-
         const narracion = document.getElementById("narracion");
         const musica = document.getElementById("musica");
 
-        /* La música queda más baja para que se escuche la voz */
-
+        /* Música ambiental baja para acompañar la narración */
         musica.volume = 0.22;
+
+        /* Narración a volumen completo */
         narracion.volume = 1.0;
 
+        /* Intentar reproducir ambos audios al entrar */
         window.addEventListener("load", function () {
 
             musica.play().catch(function () {
