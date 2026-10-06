@@ -1,169 +1,252 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>El refectorio</title>
+    <title>El refectorio | Un día en el convento</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background-color: #f4f0e6;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
             font-family: Arial, sans-serif;
-            color: #2d2d2d;
+        }
+
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
+
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
             text-align: center;
         }
 
-        .contenedor {
-            max-width: 900px;
-            margin: auto;
-            padding: 25px 20px 40px;
-        }
-
-        h1 {
-            font-size: 2.2em;
+        .contenido h1 {
+            margin-top: 0;
             margin-bottom: 8px;
+            font-size: 30px;
+            color: #325d4a;
         }
 
-        h2 {
-            font-size: 1.25em;
+        .contenido h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 20px;
             font-weight: normal;
             font-style: italic;
-            margin-top: 0;
-            margin-bottom: 25px;
+            color: #325d4a;
         }
 
-        img {
-            display: block;
-            width: 100%;
-            max-width: 850px;
-            height: auto;
-            margin: 20px auto 30px;
-            border-radius: 6px;
-        }
-
-        p {
-            font-size: 1.15em;
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
             line-height: 1.7;
             text-align: justify;
-            margin: 18px 0;
+        }
+
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
         }
 
         audio {
             display: block;
             width: 90%;
-            margin: 30px auto;
+            max-width: 500px;
+            margin: 0 auto;
         }
+
         .navegacion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 30px 35px 30px;
-    background-color: #f5f1e6;
-}
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 8px;
-    border: 2px solid white;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-}
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-.boton:hover {
-    opacity: 0.9;
-}
+        .boton:hover {
+            opacity: 0.9;
+        }
 
-@media (max-width: 600px) {
-    .navegacion {
-        padding: 18px 15px 30px 15px;
-    }
+        .texto-celular {
+            display: none;
+        }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 14px;
-    
-   }
+        @media (max-width: 600px) {
+
+            .contenido {
+                padding: 22px 18px;
+            }
+
+            .contenido h1 {
+                font-size: 25px;
+            }
+
+            .contenido h2 {
+                font-size: 18px;
+            }
+
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 3px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="contenedor">
+    <div class="escena">
 
-    <h1>El refectorio</h1>
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-19 at 15.49.40.jpeg"
+            alt="Refectorio del antiguo convento de San Juan Bautista de Tetela del Volcán"
+        >
 
-    <h2>La mesa compartida en la vida conventual</h2>
+        <div class="contenido">
 
-    <img
-        src="WhatsApp Image 2026-09-19 at 15.49.40.jpeg"
-        alt="Refectorio del antiguo convento de San Juan Bautista de Tetela del Volcán"
-    >
+            <h1>El refectorio</h1>
 
-    <p>
-        El refectorio era el espacio donde la comunidad religiosa se reunía
-        para compartir los alimentos. También este momento cotidiano formaba
-        parte del ritmo ordenado de la vida conventual: los frailes se sentaban
-        juntos a la mesa, haciendo de la comida un acto comunitario.
-    </p>
+            <h2>La mesa compartida en la vida conventual</h2>
 
-    <p>
-        Durante los alimentos se procuraba mantener un ambiente de silencio
-        y recogimiento. Mientras los frailes comían, uno de los religiosos
-        realizaba lecturas que podían proceder de la
-        <strong>Sagrada Escritura</strong>, de la
-        <strong>Regla de la Orden</strong> o de otros textos destinados
-        a la formación espiritual de la comunidad.
-    </p>
+            <p>
+                El refectorio era el espacio donde la comunidad religiosa se reunía
+                para compartir los alimentos. También este momento cotidiano formaba
+                parte del ritmo ordenado de la vida conventual: los frailes se sentaban
+                juntos a la mesa, haciendo de la comida un acto comunitario.
+            </p>
 
-    <p>
-        De esta manera, el alimento del cuerpo iba acompañado por el alimento
-        de la palabra. Incluso el tiempo de la comida recordaba al fraile que
-        toda su jornada estaba orientada hacia la oración, el estudio,
-        la vida fraterna y la predicación.
-    </p>
+            <p>
+                Durante los alimentos se procuraba mantener un ambiente de silencio
+                y recogimiento. Mientras los frailes comían, uno de los religiosos
+                realizaba lecturas que podían proceder de la
+                <strong>Sagrada Escritura</strong>, de la
+                <strong>Regla de la Orden</strong> o de otros textos destinados
+                a la formación espiritual de la comunidad.
+            </p>
 
-    <p>
-        Al continuar nuestro recorrido veremos algunos elementos vinculados
-        directamente con este espacio: el <strong>lavabo</strong>, relacionado
-        con el agua utilizada para lavarse las manos, y el
-        <strong>ambón</strong> desde donde se realizaban las lecturas
-        durante los alimentos.
-    </p>
+            <p>
+                De esta manera, el alimento del cuerpo iba acompañado por el alimento
+                de la palabra. Incluso el tiempo de la comida recordaba al fraile que
+                toda su jornada estaba orientada hacia la oración, el estudio,
+                la vida fraterna y la predicación.
+            </p>
 
-    <audio controls autoplay loop>
-        <source
-            src="starostin-worship-gospel-christian-church-music-585716.mp3"
-            type="audio/mpeg">
-        Tu navegador no puede reproducir este archivo de audio.
-    </audio>
+            <p>
+                Al continuar nuestro recorrido veremos algunos elementos vinculados
+                directamente con este espacio: el <strong>lavabo</strong>, relacionado
+                con el agua utilizada para lavarse las manos, y el
+                <strong>ambón</strong> desde donde se realizaban las lecturas
+                durante los alimentos.
+            </p>
 
-    <div class="navegacion">
+        </div>
 
-        <a class="boton" href="sala-de-profundis.html">
-            ← REGRESAR
-        </a>
-        <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
+        <div class="audio">
 
-        <a class="boton" href="lavabo.html">
-            SEGUIR →
-        </a>
+            <audio controls autoplay loop>
+                <source
+                    src="starostin-worship-gospel-christian-church-music-585716.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no puede reproducir este archivo de audio.
+            </audio>
+
+        </div>
+
+        <div class="navegacion">
+
+            <a class="boton" href="sala-de-profundis.html">← REGRESAR</a>
+
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+                <span class="texto-celular">🗺 PLANO</span>
+            </a>
+
+            <a class="boton" href="lavabo.html">SEGUIR →</a>
+
+        </div>
 
     </div>
 
-</div>
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
+
 </body>
+
 </html>
