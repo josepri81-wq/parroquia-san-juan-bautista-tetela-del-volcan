@@ -61,6 +61,36 @@
             font-size: 18px;
         }
 
+        /* FOTO DURANTE LA RESTAURACIÓN */
+
+        .restauracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 28px 20px 28px;
+            text-align: center;
+        }
+
+        .restauracion h2 {
+            margin: 0 0 18px 0;
+            font-size: 23px;
+            color: #325d4a;
+        }
+
+        .restauracion img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .restauracion p {
+            margin: 10px auto 0 auto;
+            font-size: 16px;
+            line-height: 1.5;
+            font-style: italic;
+            color: #555;
+        }
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
@@ -124,6 +154,18 @@
                 font-size: 17px;
             }
 
+            .restauracion {
+                padding: 5px 18px 20px 18px;
+            }
+
+            .restauracion h2 {
+                font-size: 21px;
+            }
+
+            .restauracion p {
+                font-size: 15px;
+            }
+
             .audio {
                 padding: 10px 15px 18px 15px;
             }
@@ -154,6 +196,8 @@
 <body>
 
     <div class="escena">
+
+        <!-- FOTO ACTUAL: VISTA DESDE EL CORO ALTO -->
 
         <img
             class="imagen"
@@ -189,6 +233,26 @@
 
         </div>
 
+        <!-- FOTO DURANTE LA RESTAURACIÓN -->
+
+        <div class="restauracion">
+
+            <h2>La vista desde el coro después del sismo</h2>
+
+            <img
+                src="PHOTO-2026-10-06-08-16-07.jpg"
+                alt="Vista desde el coro alto durante los trabajos de restauración"
+            >
+
+            <p>
+                Vista desde el coro alto durante los trabajos de restauración
+                posteriores al sismo de 2017.
+            </p>
+
+        </div>
+
+        <!-- MÚSICA -->
+
         <div class="audio">
 
             <audio controls autoplay loop>
@@ -196,16 +260,23 @@
                     src="https://josepri81-wq.github.io/parroquia-san-juan-bautista-tetela-del-volcan/52273999-mystic-bard-echoes-of-the-abbey-404183.mp3"
                     type="audio/mpeg"
                 >
+
                 Tu navegador no admite reproducción de audio.
             </audio>
 
         </div>
 
+        <!-- NAVEGACIÓN -->
+
         <div class="navegacion">
 
-            <a class="boton" href="coro.html">← REGRESAR</a>
+            <a class="boton" href="coro.html">
+                ← REGRESAR
+            </a>
 
-            <a class="boton" href="puerta-jubilar.html">SEGUIR →</a>
+            <a class="boton" href="puerta-jubilar.html">
+                SEGUIR →
+            </a>
 
         </div>
 
