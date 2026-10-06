@@ -61,51 +61,34 @@
             text-align: justify;
         }
 
-        /* ANTES Y DESPUÉS */
+        /* FOTO DE LA RESTAURACIÓN */
 
         .restauracion {
             max-width: 900px;
-            margin: 10px auto 20px auto;
-            padding: 10px 28px 20px 28px;
+            margin: 0 auto;
+            padding: 5px 28px 20px 28px;
             text-align: center;
         }
 
         .restauracion h2 {
-            margin: 0 0 8px 0;
-            font-size: 24px;
+            margin: 0 0 18px 0;
+            font-size: 23px;
             color: #325d4a;
         }
 
-        .restauracion-introduccion {
-            margin: 0 auto 20px auto;
-            max-width: 720px;
-            font-size: 17px;
-            line-height: 1.6;
-        }
-
-        .comparacion {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            align-items: start;
-        }
-
-        .comparacion figure {
-            margin: 0;
-        }
-
-        .comparacion img {
+        .restauracion img {
             width: 100%;
             height: auto;
             display: block;
             border-radius: 6px;
         }
 
-        .comparacion figcaption {
-            padding-top: 9px;
+        .restauracion p {
+            margin: 10px auto 0 auto;
             font-size: 16px;
-            font-weight: bold;
-            color: #325d4a;
+            line-height: 1.5;
+            font-style: italic;
+            color: #555;
         }
 
         .audio {
@@ -181,20 +164,10 @@
             }
 
             .restauracion h2 {
-                font-size: 22px;
+                font-size: 21px;
             }
 
-            .restauracion-introduccion {
-                font-size: 16px;
-                line-height: 1.6;
-            }
-
-            .comparacion {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .comparacion figcaption {
+            .restauracion p {
                 font-size: 15px;
             }
 
@@ -237,6 +210,8 @@
 
     <div class="escena">
 
+        <!-- FOTO ACTUAL DEL CLAUSTRO ALTO -->
+
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-23 at 22.00.49.jpeg"
@@ -264,40 +239,25 @@
 
         </div>
 
-        <!-- RESTAURACIÓN: ANTES Y DESPUÉS -->
+        <!-- FOTO DURANTE LA RESTAURACIÓN -->
 
         <div class="restauracion">
 
-            <h2>Restauración del claustro alto</h2>
+            <h2>El claustro después del sismo</h2>
 
-            <p class="restauracion-introduccion">
-                Tras los daños ocasionados por el sismo de 2017, distintas áreas del
-                convento tuvieron que ser apuntaladas y sometidas a un cuidadoso proceso
-                de restauración. Estas imágenes permiten contemplar parte de ese proceso
-                y el resultado después de la intervención.
+            <img
+                src="PHOTO-2026-10-05-21-22-19.jpg"
+                alt="Claustro alto apuntalado durante los trabajos de restauración"
+            >
+
+            <p>
+                El claustro alto durante los trabajos de restauración
+                posteriores al sismo de 2017.
             </p>
 
-            <div class="comparacion">
-
-                <figure>
-                    <img
-                        src="PHOTO-2026-10-05-21-22-19.jpg"
-                        alt="Claustro alto durante los trabajos de restauración"
-                    >
-                    <figcaption>Durante la restauración</figcaption>
-                </figure>
-
-                <figure>
-                    <img
-                        src="WhatsApp Image 2026-09-23 at 22.00.49.jpeg"
-                        alt="Claustro alto después de la restauración"
-                    >
-                    <figcaption>Después de la restauración</figcaption>
-                </figure>
-
-            </div>
-
         </div>
+
+        <!-- MÚSICA -->
 
         <div class="audio">
 
@@ -310,6 +270,8 @@
             </audio>
 
         </div>
+
+        <!-- NAVEGACIÓN -->
 
         <div class="navegacion">
 
