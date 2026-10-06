@@ -62,6 +62,7 @@
         }
 
         /* FOTO DURANTE LA RESTAURACIÓN */
+
         .restauracion {
             max-width: 900px;
             margin: 0 auto;
@@ -90,9 +91,39 @@
             color: #555;
         }
 
+        /* NARRACIÓN */
+
+        .narracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 20px 18px 20px;
+            text-align: center;
+        }
+
+        .narracion h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
+        }
+
+        .narracion audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
+        }
+
+        .audio h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
         }
 
         audio {
@@ -136,6 +167,7 @@
         }
 
         @media (max-width: 600px) {
+
             .texto {
                 padding: 22px 18px;
             }
@@ -162,6 +194,14 @@
 
             .restauracion p {
                 font-size: 15px;
+            }
+
+            .narracion {
+                padding: 5px 15px 18px 15px;
+            }
+
+            .narracion audio {
+                width: 100%;
             }
 
             .audio {
@@ -196,6 +236,7 @@
     <div class="escena">
 
         <!-- FOTO ACTUAL: VISTA DESDE EL CORO ALTO -->
+
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-23 at 23.41.42.jpeg"
@@ -231,6 +272,7 @@
         </div>
 
         <!-- FOTO DURANTE LA RESTAURACIÓN -->
+
         <div class="restauracion">
 
             <h2>La vista desde el coro después del sismo</h2>
@@ -247,10 +289,29 @@
 
         </div>
 
-        <!-- MÚSICA -->
+        <!-- NARRACIÓN -->
+
+        <div class="narracion">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio id="narracion" controls autoplay>
+                <source
+                    src="Coro-alto 2.m4a"
+                    type="audio/mp4"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <!-- MÚSICA AMBIENTAL -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <h3>🎵 Música ambiental</h3>
+
+            <audio id="musica" controls autoplay loop>
                 <source
                     src="https://josepri81-wq.github.io/parroquia-san-juan-bautista-tetela-del-volcan/52273999-mystic-bard-echoes-of-the-abbey-404183.mp3"
                     type="audio/mpeg"
@@ -261,6 +322,7 @@
         </div>
 
         <!-- NAVEGACIÓN -->
+
         <div class="navegacion">
 
             <a class="boton" href="coro.html">
@@ -274,6 +336,49 @@
         </div>
 
     </div>
+
+    <script>
+        const narracion = document.getElementById("narracion");
+        const musica = document.getElementById("musica");
+
+        /* Narración a volumen completo */
+        narracion.volume = 1.0;
+
+        /* Música muy baja mientras se escucha la narración */
+        musica.volume = 0.08;
+
+        /* Al comenzar la narración, bajar la música al 8 % */
+        narracion.addEventListener("play", function () {
+            musica.volume = 0.08;
+        });
+
+        /* Al terminar la narración, subir la música al 30 % */
+        narracion.addEventListener("ended", function () {
+            musica.volume = 0.30;
+        });
+
+        /* Al pausar la narración, subir la música al 30 % */
+        narracion.addEventListener("pause", function () {
+            if (!narracion.ended) {
+                musica.volume = 0.30;
+            }
+        });
+
+        /* Intentar reproducir ambos audios al entrar */
+        window.addEventListener("load", function () {
+
+            musica.volume = 0.08;
+
+            musica.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la música automática.");
+            });
+
+            narracion.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la narración automática.");
+            });
+
+        });
+    </script>
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
