@@ -1,143 +1,249 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>El Bautismo del Señor</title>
+    <title>El Bautismo del Señor | Un día en el convento</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f1e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-.contenido {
-    padding: 25px;
-    max-width: 900px;
-    margin: auto;
-}
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-h1 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-h2 {
-    font-weight: normal;
-    font-size: 20px;
-    margin-top: 0;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: justify;
-}
-.navegacion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 30px 35px 30px;
-    background-color: #f5f1e6;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 8px;
-    border: 2px solid white;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-}
+        .contenido h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            color: #325d4a;
+        }
 
-.boton:hover {
-    opacity: 0.9;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-@media (max-width: 600px) {
-    .navegacion {
-        padding: 18px 15px 30px 15px;
-    }
+        .audio {
+            text-align: center;
+            padding: 10px 20px 20px 20px;
+        }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 14px;
-    }
-    
-}
-</style>
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
+
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .boton:hover {
+            opacity: 0.9;
+        }
+
+        .texto-celular {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+
+            .contenido {
+                padding: 22px 18px;
+            }
+
+            .contenido h1 {
+                font-size: 25px;
+            }
+
+            .contenido h2 {
+                font-size: 18px;
+            }
+
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
+
+            .audio {
+                padding: 10px 15px 18px 15px;
+            }
+
+            audio {
+                width: 100%;
+            }
+
+            .navegacion {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
+            }
+
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 3px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<img src="WhatsApp Image 2026-09-18 at 22.48.05.jpeg"
-     alt="Fresco del Bautismo del Señor en el Ex Convento de San Juan Bautista">
+    <div class="escena">
 
-<div class="contenido">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-18 at 22.48.05.jpeg"
+            alt="Fresco del Bautismo del Señor en el Ex Convento de San Juan Bautista"
+        >
 
-<h1>El Bautismo del Señor</h1>
+        <div class="contenido">
 
-<h2>Una imagen que habla de fe y evangelización</h2>
+            <h1>El Bautismo del Señor</h1>
 
-<p>
-Al acercarnos a este muro del claustro podemos contemplar con mayor
-detalle una de las pinturas que formaban parte de la decoración del
-antiguo convento: el Bautismo del Señor.
-</p>
+            <h2>Una imagen que habla de fe y evangelización</h2>
 
-<p>
-La escena nos remite al momento evangélico en que Jesús es bautizado
-por Juan en el río Jordán. No se trata solamente de una imagen
-decorativa. En los conventos novohispanos, las representaciones
-religiosas ayudaban a comunicar visualmente los acontecimientos y
-misterios fundamentales de la fe cristiana.
-</p>
+            <p>
+                Al acercarnos a este muro del claustro podemos contemplar con mayor
+                detalle una de las pinturas que formaban parte de la decoración del
+                antiguo convento: el Bautismo del Señor.
+            </p>
 
-<p>
-Para los frailes dominicos, dedicados especialmente a la predicación,
-estas imágenes acompañaban la enseñanza de la fe y formaban parte del
-ambiente espiritual del convento. Los muros mismos se convertían así
-en espacios que hablaban de Cristo y recordaban constantemente la
-misión evangelizadora de la comunidad.
-</p>
+            <p>
+                La escena nos remite al momento evangélico en que Jesús es bautizado
+                por Juan en el río Jordán. No se trata solamente de una imagen
+                decorativa. En los conventos novohispanos, las representaciones
+                religiosas ayudaban a comunicar visualmente los acontecimientos y
+                misterios fundamentales de la fe cristiana.
+            </p>
 
-<p>
-Después de contemplar este fresco, continuaremos hacia el patio del
-claustro, donde encontraremos otro signo profundamente relacionado
-con la identidad dominicana de este antiguo convento.
-</p>
+            <p>
+                Para los frailes dominicos, dedicados especialmente a la predicación,
+                estas imágenes acompañaban la enseñanza de la fe y formaban parte del
+                ambiente espiritual del convento. Los muros mismos se convertían así
+                en espacios que hablaban de Cristo y recordaban constantemente la
+                misión evangelizadora de la comunidad.
+            </p>
 
-<audio controls autoplay loop style="display:block; width:90%; margin:20px auto;">
-    <source src="quietphase-instrumental-relax-496352.mp3"
-            type="audio/mpeg">
-</audio>
-<div class="navegacion">
+            <p>
+                Después de contemplar este fresco, continuaremos hacia el patio del
+                claustro, donde encontraremos otro signo profundamente relacionado
+                con la identidad dominicana de este antiguo convento.
+            </p>
 
-    <a class="boton" href="claustro-bajo-2.html">← REGRESAR</a>
+        </div>
 
-    <a class="boton" href="mapa.html">🗺 VOLVER AL PLANO</a>
+        <div class="audio">
 
-    <a class="boton" href="patio.html">SEGUIR →</a>
+            <audio controls autoplay loop>
+                <source
+                    src="quietphase-instrumental-relax-496352.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
 
+        </div>
 
-</div>
-<script data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        <div class="navegacion">
+
+            <a class="boton" href="claustro-bajo-2.html">← REGRESAR</a>
+
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+                <span class="texto-celular">🗺 PLANO</span>
+            </a>
+
+            <a class="boton" href="patio.html">SEGUIR →</a>
+
+        </div>
+
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
+
 </body>
+
 </html>
