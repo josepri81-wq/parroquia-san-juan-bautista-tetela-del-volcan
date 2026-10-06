@@ -61,6 +61,53 @@
             text-align: justify;
         }
 
+        /* ANTES Y DESPUÉS */
+
+        .restauracion {
+            max-width: 900px;
+            margin: 10px auto 20px auto;
+            padding: 10px 28px 20px 28px;
+            text-align: center;
+        }
+
+        .restauracion h2 {
+            margin: 0 0 8px 0;
+            font-size: 24px;
+            color: #325d4a;
+        }
+
+        .restauracion-introduccion {
+            margin: 0 auto 20px auto;
+            max-width: 720px;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .comparacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .comparacion figure {
+            margin: 0;
+        }
+
+        .comparacion img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .comparacion figcaption {
+            padding-top: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #325d4a;
+        }
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
@@ -129,6 +176,28 @@
                 line-height: 1.65;
             }
 
+            .restauracion {
+                padding: 5px 18px 20px 18px;
+            }
+
+            .restauracion h2 {
+                font-size: 22px;
+            }
+
+            .restauracion-introduccion {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+
+            .comparacion {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .comparacion figcaption {
+                font-size: 15px;
+            }
+
             .audio {
                 padding: 10px 15px 18px 15px;
             }
@@ -177,7 +246,6 @@
         <div class="contenido">
 
             <h1>El claustro alto</h1>
-
             <h2>Silencio y recogimiento</h2>
 
             <p>
@@ -196,6 +264,41 @@
 
         </div>
 
+        <!-- RESTAURACIÓN: ANTES Y DESPUÉS -->
+
+        <div class="restauracion">
+
+            <h2>Restauración del claustro alto</h2>
+
+            <p class="restauracion-introduccion">
+                Tras los daños ocasionados por el sismo de 2017, distintas áreas del
+                convento tuvieron que ser apuntaladas y sometidas a un cuidadoso proceso
+                de restauración. Estas imágenes permiten contemplar parte de ese proceso
+                y el resultado después de la intervención.
+            </p>
+
+            <div class="comparacion">
+
+                <figure>
+                    <img
+                        src="PHOTO-2026-10-05-21-22-19.jpg"
+                        alt="Claustro alto durante los trabajos de restauración"
+                    >
+                    <figcaption>Durante la restauración</figcaption>
+                </figure>
+
+                <figure>
+                    <img
+                        src="WhatsApp Image 2026-09-23 at 22.00.49.jpeg"
+                        alt="Claustro alto después de la restauración"
+                    >
+                    <figcaption>Después de la restauración</figcaption>
+                </figure>
+
+            </div>
+
+        </div>
+
         <div class="audio">
 
             <audio controls autoplay loop>
@@ -210,14 +313,18 @@
 
         <div class="navegacion">
 
-            <a class="boton" href="escaleras.html">← REGRESAR</a>
+            <a class="boton" href="escaleras.html">
+                ← REGRESAR
+            </a>
 
             <a class="boton" href="mapa.html">
                 <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
                 <span class="texto-celular">🗺 PLANO</span>
             </a>
 
-            <a class="boton" href="claustro-alto-2.html">SEGUIR →</a>
+            <a class="boton" href="claustro-alto-2.html">
+                SEGUIR →
+            </a>
 
         </div>
 
