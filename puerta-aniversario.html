@@ -1,212 +1,259 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Puerta del 500 aniversario | Un día en el convento</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<title>Puerta del 500 aniversario</title>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f1e6;
+            color: #2f2f2f;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
+        .escena {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f5f1e6;
+        }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f0e6;
-    color: #2f2f2f;
-    text-align: center;
-}
+        .imagen {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+        .contenido {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 28px;
+            text-align: center;
+        }
 
-.contenido {
-    max-width: 900px;
-    margin: auto;
-    padding: 25px;
-    box-sizing: border-box;
-}
+        .contenido h1 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 30px;
+            color: #325d4a;
+        }
 
-h1 {
-    color: #325d4a;
-    font-size: 32px;
-    margin-bottom: 20px;
-}
+        .contenido p {
+            margin: 0 auto 16px auto;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: justify;
+        }
 
-p {
-    font-size: 18px;
-    line-height: 1.7;
-    text-align: justify;
-}
+        .audio {
+            text-align: center;
+            padding: 25px 20px 20px 20px;
+        }
 
-audio {
-    width: 100%;
-    margin-top: 25px;
-}
+        audio {
+            display: block;
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-.botones {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 35px;
-}
+        .navegacion {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
+        }
 
-.boton {
-    display: inline-block;
-    background-color: #325d4a;
-    color: white;
-    text-decoration: none;
-    padding: 14px 24px;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: bold;
-}
+        .boton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 12px;
+            background-color: #325d4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+        }
 
-.boton:hover {
-    opacity: 0.85;
-}
+        .boton:hover {
+            opacity: 0.9;
+        }
 
-@media (max-width: 600px) {
+        @media (max-width: 600px) {
 
-    .contenido {
-        padding: 20px;
-    }
+            .contenido {
+                padding: 22px 18px;
+            }
 
-    h1 {
-        font-size: 27px;
-    }
+            .contenido h1 {
+                font-size: 25px;
+            }
 
-    p {
-        font-size: 17px;
-    }
+            .contenido p {
+                font-size: 17px;
+                line-height: 1.65;
+            }
 
-    .botones {
-        gap: 10px;
-    }
+            .audio {
+                padding: 22px 15px 18px 15px;
+            }
 
-    .boton {
-        padding: 12px 16px;
-        font-size: 16px;
-    }
-}
+            audio {
+                width: 100%;
+            }
 
-</style>
+            .navegacion {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                padding: 18px 8px 30px 8px;
+            }
 
+            .boton {
+                width: 100%;
+                min-width: 0;
+                min-height: 48px;
+                padding: 10px 5px;
+                font-size: 12px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<img
-src="WhatsApp Image 2026-09-28 at 23.26.56.jpeg"
-alt="Puerta conmemorativa de los 500 años de la llegada de los dominicos a México">
+    <div class="escena">
 
-<div class="contenido">
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-28 at 23.26.56.jpeg"
+            alt="Puerta conmemorativa de los 500 años de la llegada de los dominicos a México"
+        >
 
-<h1>Puerta del 500 aniversario</h1>
+        <div class="contenido">
 
-<p>
-Esta puerta fue realizada con motivo de la conmemoración de los 500 años
-de la llegada de los primeros frailes dominicos a México. En 1526 llegó
-a la Nueva España la primera misión de la Orden de Predicadores, formada
-por doce religiosos y encabezada por fray Tomás Ortiz. Aquella pequeña
-comunidad iniciaría una presencia que habría de dejar una profunda huella
-en la historia de la evangelización de estas tierras.
-</p>
+            <h1>Puerta del 500 aniversario</h1>
 
-<p>
-Los doce integrantes de aquella primera misión fueron fray Tomás Ortiz,
-fray Vicente de Santa Ana, fray Diego de Sotomayor, fray Pedro de Santa María,
-fray Justo de Santo Domingo, fray Pedro Zambrano, fray Gonzalo Lucero,
-fray Bartolomé de la Calzadilla, fray Domingo de Betanzos, fray Diego Ramírez,
-fray Alonso de las Vírgenes y fray Vicente de las Casas.
-</p>
+            <p>
+                Esta puerta fue realizada con motivo de la conmemoración de los 500 años
+                de la llegada de los primeros frailes dominicos a México. En 1526 llegó
+                a la Nueva España la primera misión de la Orden de Predicadores, formada
+                por doce religiosos y encabezada por fray Tomás Ortiz. Aquella pequeña
+                comunidad iniciaría una presencia que habría de dejar una profunda huella
+                en la historia de la evangelización de estas tierras.
+            </p>
 
-<p>
-Los comienzos de aquella misión fueron particularmente difíciles.
-La enfermedad hizo estragos entre los religiosos y, en menos de un año,
-murieron cinco de aquellos primeros frailes: fray Vicente de Santa Ana,
-fray Diego de Sotomayor, fray Pedro de Santa María, fray Justo de Santo Domingo
-y fray Bartolomé de la Calzadilla.
-</p>
+            <p>
+                Los doce integrantes de aquella primera misión fueron fray Tomás Ortiz,
+                fray Vicente de Santa Ana, fray Diego de Sotomayor, fray Pedro de Santa María,
+                fray Justo de Santo Domingo, fray Pedro Zambrano, fray Gonzalo Lucero,
+                fray Bartolomé de la Calzadilla, fray Domingo de Betanzos, fray Diego Ramírez,
+                fray Alonso de las Vírgenes y fray Vicente de las Casas.
+            </p>
 
-<p>
-Otros cuatro, gravemente afectados por la enfermedad, tuvieron que emprender
-el regreso a España: fray Tomás Ortiz, fray Pedro Zambrano, fray Diego Ramírez
-y fray Alonso de las Vírgenes. De los doce que habían llegado, permanecieron
-en la Nueva España solamente tres: fray Domingo de Betanzos, fray Gonzalo
-Lucero y fray Vicente de las Casas.
-</p>
+            <p>
+                Los comienzos de aquella misión fueron particularmente difíciles.
+                La enfermedad hizo estragos entre los religiosos y, en menos de un año,
+                murieron cinco de aquellos primeros frailes: fray Vicente de Santa Ana,
+                fray Diego de Sotomayor, fray Pedro de Santa María, fray Justo de Santo Domingo
+                y fray Bartolomé de la Calzadilla.
+            </p>
 
-<p>
-Sobre aquellos tres religiosos recayó la difícil tarea de mantener viva
-la naciente presencia de la Orden de Predicadores. Lo que había comenzado
-con doce frailes quedó muy pronto reducido a tres. Sin embargo, la misión
-no desapareció. A pesar de la enfermedad, la muerte y la adversidad,
-la presencia dominicana logró permanecer, fortalecerse y extenderse
-por la Nueva España.
-</p>
+            <p>
+                Otros cuatro, gravemente afectados por la enfermedad, tuvieron que emprender
+                el regreso a España: fray Tomás Ortiz, fray Pedro Zambrano, fray Diego Ramírez
+                y fray Alonso de las Vírgenes. De los doce que habían llegado, permanecieron
+                en la Nueva España solamente tres: fray Domingo de Betanzos, fray Gonzalo
+                Lucero y fray Vicente de las Casas.
+            </p>
 
-<p>
-La puerta quiere conservar la memoria de aquellos primeros frailes y,
-al mismo tiempo, unir su historia con la de este antiguo convento.
-Los elementos labrados que la ornamentan fueron tomados de los motivos
-que todavía pueden contemplarse en los frescos del techo del claustro inferior.
-De esta manera, la decoración histórica del convento vuelve a aparecer
-en una obra realizada cinco siglos después.
-</p>
+            <p>
+                Sobre aquellos tres religiosos recayó la difícil tarea de mantener viva
+                la naciente presencia de la Orden de Predicadores. Lo que había comenzado
+                con doce frailes quedó muy pronto reducido a tres. Sin embargo, la misión
+                no desapareció. A pesar de la enfermedad, la muerte y la adversidad,
+                la presencia dominicana logró permanecer, fortalecerse y extenderse
+                por la Nueva España.
+            </p>
 
-<p>
-Entre sus elementos destaca el rostro de Santo Domingo de Guzmán,
-fundador de la Orden de Predicadores. Su presencia recuerda que la misión
-iniciada por aquellos doce frailes formaba parte de una tradición espiritual
-nacida siglos antes: contemplar la verdad, vivirla en comunidad y comunicar
-a los demás aquello que se ha contemplado.
-</p>
+            <p>
+                La puerta quiere conservar la memoria de aquellos primeros frailes y,
+                al mismo tiempo, unir su historia con la de este antiguo convento.
+                Los elementos labrados que la ornamentan fueron tomados de los motivos
+                que todavía pueden contemplarse en los frescos del techo del claustro inferior.
+                De esta manera, la decoración histórica del convento vuelve a aparecer
+                en una obra realizada cinco siglos después.
+            </p>
 
-<p>
-Esta puerta se convierte así en un vínculo entre pasado y presente.
-Al atravesarla recordamos a quienes hace cinco siglos dejaron su tierra
-para anunciar el Evangelio y reconocemos también una historia que continúa viva.
-Los muros, pinturas y espacios de este convento son testigos de aquella
-presencia dominicana y de la fe transmitida de generación en generación.
-</p>
+            <p>
+                Entre sus elementos destaca el rostro de Santo Domingo de Guzmán,
+                fundador de la Orden de Predicadores. Su presencia recuerda que la misión
+                iniciada por aquellos doce frailes formaba parte de una tradición espiritual
+                nacida siglos antes: contemplar la verdad, vivirla en comunidad y comunicar
+                a los demás aquello que se ha contemplado.
+            </p>
 
-<audio controls autoplay loop>
+            <p>
+                Esta puerta se convierte así en un vínculo entre pasado y presente.
+                Al atravesarla recordamos a quienes hace cinco siglos dejaron su tierra
+                para anunciar el Evangelio y reconocemos también una historia que continúa viva.
+                Los muros, pinturas y espacios de este convento son testigos de aquella
+                presencia dominicana y de la fe transmitida de generación en generación.
+            </p>
 
-    <source
-    src="emand_edroff-te-deum_-lx27impeto-sacro-512113.mp3"
-    type="audio/mpeg">
+        </div>
 
-    Tu navegador no soporta el elemento de audio.
+        <div class="audio">
 
-</audio>
+            <audio controls autoplay loop>
+                <source
+                    src="emand_edroff-te-deum_-lx27impeto-sacro-512113.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no soporta el elemento de audio.
+            </audio>
 
-<div class="botones">
+        </div>
 
-<a class="boton" href="fresco-de-santo-domingo.html">
-← REGRESAR
-</a>
+        <div class="navegacion">
 
-<a class="boton" href="conclusión.html">
-SEGUIR →
-</a>
+            <a class="boton" href="fresco-de-santo-domingo.html">
+                ← REGRESAR
+            </a>
 
-</div>
+            <a class="boton" href="conclusión.html">
+                SEGUIR →
+            </a>
 
-</div>
+        </div>
 
-<script
-data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-async
-src="//gc.zgo.at/count.js">
-</script>
+    </div>
+
+    <script
+        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+        async
+        src="//gc.zgo.at/count.js">
+    </script>
 
 </body>
 
