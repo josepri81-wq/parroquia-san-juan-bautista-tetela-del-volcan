@@ -60,6 +60,7 @@
         }
 
         /* FOTO DURANTE LA RESTAURACIÓN */
+
         .restauracion {
             max-width: 900px;
             margin: 0 auto;
@@ -88,9 +89,39 @@
             color: #555;
         }
 
+        /* NARRACIÓN */
+
+        .narracion {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5px 20px 18px 20px;
+            text-align: center;
+        }
+
+        .narracion h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
+        }
+
+        .narracion audio {
+            display: block;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
+        }
+
+        .audio h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
         }
 
         audio {
@@ -138,6 +169,7 @@
         }
 
         @media (max-width: 600px) {
+
             .texto {
                 padding: 22px 18px;
             }
@@ -164,6 +196,14 @@
 
             .restauracion p {
                 font-size: 15px;
+            }
+
+            .narracion {
+                padding: 5px 15px 18px 15px;
+            }
+
+            .narracion audio {
+                width: 100%;
             }
 
             .audio {
@@ -206,6 +246,7 @@
     <div class="escena">
 
         <!-- FOTO ACTUAL -->
+
         <img
             class="imagen"
             src="WhatsApp%20Image%202026-09-24%20at%2007.00.23.jpeg"
@@ -215,6 +256,7 @@
         <div class="texto">
 
             <h2>El presbiterio</h2>
+
             <h3>El lugar del altar y de la acción sagrada</h3>
 
             <p>
@@ -233,6 +275,7 @@
         </div>
 
         <!-- FOTO DURANTE LA RESTAURACIÓN -->
+
         <div class="restauracion">
 
             <h2>El presbiterio después del sismo</h2>
@@ -248,18 +291,40 @@
 
         </div>
 
-        <!-- MÚSICA -->
+        <!-- NARRACIÓN -->
+
+        <div class="narracion">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio id="narracion" controls autoplay>
+                <source
+                    src="Presbiterio.m4a"
+                    type="audio/mp4"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <!-- MÚSICA AMBIENTAL -->
+
         <div class="audio">
-            <audio controls autoplay loop>
+
+            <h3>🎵 Música ambiental</h3>
+
+            <audio id="musica" controls autoplay loop>
                 <source
                     src="tunetank-church-organ-music-347173.mp3"
                     type="audio/mpeg"
                 >
                 Tu navegador no admite reproducción de audio.
             </audio>
+
         </div>
 
         <!-- NAVEGACIÓN -->
+
         <div class="navegacion">
 
             <a class="boton" href="bautisterio.html">
@@ -278,6 +343,30 @@
         </div>
 
     </div>
+
+    <script>
+        const narracion = document.getElementById("narracion");
+        const musica = document.getElementById("musica");
+
+        /* Música ambiental baja */
+        musica.volume = 0.22;
+
+        /* Narración a volumen completo */
+        narracion.volume = 1.0;
+
+        /* Intentar reproducir ambos audios al entrar */
+        window.addEventListener("load", function () {
+
+            musica.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la música automática.");
+            });
+
+            narracion.play().catch(function () {
+                console.log("El navegador bloqueó temporalmente la narración automática.");
+            });
+
+        });
+    </script>
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
