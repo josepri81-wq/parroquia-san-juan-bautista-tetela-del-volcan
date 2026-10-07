@@ -290,18 +290,109 @@
         const narracion = document.getElementById("narracion");
         const musica = document.getElementById("musica");
 
-        /* Música ambiental al 22 % */
-        musica.volume = 0.22;
+        let temporizadorMusica = null;
+        let musicaIniciada = false;
 
         /* Narración al 100 % */
         narracion.volume = 1.0;
 
-        /* Intentar iniciar ambos audios automáticamente */
+        /* Música al 4 % cuando entre */
+        musica.volume = 0.04;
+
+        /*
+        La música conserva autoplay en el HTML,
+        pero se detiene inicialmente para crear
+        un retraso de 45 segundos.
+        */
+        musica.pause();
+        musica.currentTime = 0;
+
+        /*
+        Cuando la narración comienza realmente,
+        empieza a contar el retraso de 45 segundos.
+        */
+        narracion.addEventListener("play", function () {
+
+            musica.volume = 0.04;
+
+            if (!musicaIniciada && temporizadorMusica === null) {
+
+                temporizadorMusica = setTimeout(function () {
+
+                    musica.volume = 0.04;
+
+                    musica.play().then(function () {
+                        musicaIniciada = true;
+                    }).catch(function () {
+                        console.log("El navegador bloqueó temporalmente la música automática.");
+                    });
+
+                    temporizadorMusica = null;
+
+                }, 45000);
+            }
+        });
+
+        /*
+        Cuando termina la narración,
+        la música sube al 30 %.
+        */
+        narracion.addEventListener("ended", function () {
+
+            if (temporizadorMusica !== null) {
+                clearTimeout(temporizadorMusica);
+                temporizadorMusica = null;
+            }
+
+            musica.volume = 0.30;
+
+            /*
+            Si la narración termina antes de cumplirse
+            los 45 segundos, la música comienza
+            inmediatamente al terminar la narración.
+            */
+            if (!musicaIniciada) {
+
+                musica.play().then(function () {
+                    musicaIniciada = true;
+                }).catch(function () {
+                    console.log("El navegador bloqueó temporalmente la música automática.");
+                });
+            }
+        });
+
+        /*
+        Si se pausa la narración después de que
+        la música ya comenzó, sube al 30 %.
+        */
+        narracion.addEventListener("pause", function () {
+
+            if (!narracion.ended && musicaIniciada) {
+                musica.volume = 0.30;
+            }
+        });
+
+        /*
+        Si se reanuda la narración y la música
+        ya está sonando, vuelve al 4 %.
+        */
+        narracion.addEventListener("playing", function () {
+
+            if (musicaIniciada) {
+                musica.volume = 0.04;
+            }
+        });
+
+        /*
+        Al cargar la escena intentamos iniciar
+        automáticamente la narración.
+        La música esperará 45 segundos.
+        */
         window.addEventListener("load", function () {
 
-            musica.play().catch(function () {
-                console.log("El navegador bloqueó temporalmente la música automática.");
-            });
+            musica.pause();
+            musica.currentTime = 0;
+            musica.volume = 0.04;
 
             narracion.play().catch(function () {
                 console.log("El navegador bloqueó temporalmente la narración automática.");
