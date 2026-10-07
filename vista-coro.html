@@ -311,7 +311,7 @@
 
             <h3>🎵 Música ambiental</h3>
 
-            <audio id="musica" controls autoplay loop>
+            <audio id="musica" controls loop>
                 <source
                     src="https://josepri81-wq.github.io/parroquia-san-juan-bautista-tetela-del-volcan/52273999-mystic-bard-echoes-of-the-abbey-404183.mp3"
                     type="audio/mpeg"
@@ -341,37 +341,104 @@
         const narracion = document.getElementById("narracion");
         const musica = document.getElementById("musica");
 
-        /* Narración a volumen completo */
+        let temporizadorMusica = null;
+        let musicaIniciada = false;
+
+        /* Narración al 100 % */
         narracion.volume = 1.0;
 
-        /* Música muy baja mientras se escucha la narración */
-        musica.volume = 0.08;
+        /* Música al 4 % cuando comience */
+        musica.volume = 0.04;
 
-        /* Al comenzar la narración, bajar la música al 8 % */
+        /*
+        Cuando la narración comienza realmente,
+        empieza la cuenta de 50 segundos.
+        */
         narracion.addEventListener("play", function () {
-            musica.volume = 0.08;
+
+            if (musicaIniciada) {
+                musica.volume = 0.04;
+                return;
+            }
+
+            if (temporizadorMusica === null) {
+
+                temporizadorMusica = setTimeout(function () {
+
+                    musica.volume = 0.04;
+
+                    musica.play().then(function () {
+                        musicaIniciada = true;
+                    }).catch(function () {
+                        console.log("El navegador bloqueó temporalmente la música automática.");
+                    });
+
+                    temporizadorMusica = null;
+
+                }, 50000);
+            }
         });
 
-        /* Al terminar la narración, subir la música al 30 % */
+        /*
+        Cuando termina la narración,
+        la música queda al 30 %.
+        */
         narracion.addEventListener("ended", function () {
+
+            if (temporizadorMusica !== null) {
+                clearTimeout(temporizadorMusica);
+                temporizadorMusica = null;
+            }
+
             musica.volume = 0.30;
+
+            /*
+            Si la narración termina antes de los 50 segundos,
+            la música comienza inmediatamente.
+            */
+            if (!musicaIniciada) {
+
+                musica.play().then(function () {
+                    musicaIniciada = true;
+                    musica.volume = 0.30;
+                }).catch(function () {
+                    console.log("El navegador bloqueó temporalmente la música automática.");
+                });
+            }
         });
 
-        /* Al pausar la narración, subir la música al 30 % */
+        /*
+        Si se pausa la narración después de que
+        la música ya comenzó, sube al 30 %.
+        */
         narracion.addEventListener("pause", function () {
-            if (!narracion.ended) {
+
+            if (!narracion.ended && musicaIniciada) {
                 musica.volume = 0.30;
             }
         });
 
-        /* Intentar reproducir ambos audios al entrar */
+        /*
+        Si la narración continúa,
+        la música vuelve al 4 %.
+        */
+        narracion.addEventListener("playing", function () {
+
+            if (musicaIniciada) {
+                musica.volume = 0.04;
+            }
+        });
+
+        /*
+        Al cargar la página:
+        comienza la narración.
+        La música permanece detenida.
+        */
         window.addEventListener("load", function () {
 
-            musica.volume = 0.08;
-
-            musica.play().catch(function () {
-                console.log("El navegador bloqueó temporalmente la música automática.");
-            });
+            musica.pause();
+            musica.currentTime = 0;
+            musica.volume = 0.04;
 
             narracion.play().catch(function () {
                 console.log("El navegador bloqueó temporalmente la narración automática.");
