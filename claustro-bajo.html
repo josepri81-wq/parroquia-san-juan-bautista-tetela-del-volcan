@@ -304,20 +304,20 @@
         /* Narración al 100 % */
         narracion.volume = 1.0;
 
-        /* Música al 4 % mientras exista narración */
+        /* Música al 4 % cuando entre */
         musica.volume = 0.04;
 
         /*
         La música conserva autoplay en el HTML,
-        pero se detiene inicialmente para crear
-        el retraso de 30 segundos.
+        pero se detiene inicialmente para que
+        comience 60 segundos después de la narración.
         */
         musica.pause();
         musica.currentTime = 0;
 
         /*
-        Cuando la narración realmente comienza,
-        empieza a contar el retraso de 30 segundos.
+        Cuando la narración comienza realmente,
+        empieza a contar el retraso de 60 segundos.
         */
         narracion.addEventListener("play", function () {
 
@@ -337,7 +337,7 @@
 
                     temporizadorMusica = null;
 
-                }, 30000);
+                }, 60000);
             }
         });
 
@@ -355,10 +355,12 @@
             musica.volume = 0.30;
 
             /*
-            Si la narración termina antes de los 30 segundos,
-            la música comienza en ese momento.
+            Si la narración termina antes de cumplirse
+            los 60 segundos, la música comienza
+            inmediatamente al terminar la narración.
             */
             if (!musicaIniciada) {
+
                 musica.play().then(function () {
                     musicaIniciada = true;
                 }).catch(function () {
@@ -368,8 +370,8 @@
         });
 
         /*
-        Si se pausa la narración después de que la música
-        ya comenzó, la música sube al 30 %.
+        Si se pausa la narración después de que
+        la música ya comenzó, sube al 30 %.
         */
         narracion.addEventListener("pause", function () {
 
@@ -379,9 +381,20 @@
         });
 
         /*
+        Si se reanuda la narración y la música
+        ya está sonando, vuelve al 4 %.
+        */
+        narracion.addEventListener("playing", function () {
+
+            if (musicaIniciada) {
+                musica.volume = 0.04;
+            }
+        });
+
+        /*
         Al cargar la escena intentamos iniciar
-        solamente la narración.
-        La música esperará 30 segundos.
+        automáticamente la narración.
+        La música esperará 60 segundos.
         */
         window.addEventListener("load", function () {
 
