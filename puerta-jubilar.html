@@ -268,7 +268,7 @@
 
             <h3>🎵 Música ambiental</h3>
 
-            <audio id="musica" controls autoplay loop>
+            <audio id="musica" controls loop>
                 <source
                     src="surprising_media-church-organ-and-choir-music-331103.mp3"
                     type="audio/mpeg"
@@ -297,40 +297,104 @@
         const narracion = document.getElementById("narracion");
         const musica = document.getElementById("musica");
 
-        /* Narración a volumen completo */
+        let temporizadorMusica = null;
+        let musicaIniciada = false;
+
+        /* Narración al 100 % */
         narracion.volume = 1.0;
 
-        /* Música al 8 % mientras se escucha la narración */
-        musica.volume = 0.08;
+        /* Música al 4 % cuando comience */
+        musica.volume = 0.04;
 
-        /* Cuando comienza o continúa la narración,
-           la música baja al 8 % */
+        /*
+        Cuando la narración comienza realmente,
+        empieza la cuenta de 48 segundos.
+        */
         narracion.addEventListener("play", function () {
-            musica.volume = 0.08;
+
+            if (musicaIniciada) {
+                musica.volume = 0.04;
+                return;
+            }
+
+            if (temporizadorMusica === null) {
+
+                temporizadorMusica = setTimeout(function () {
+
+                    musica.volume = 0.04;
+
+                    musica.play().then(function () {
+                        musicaIniciada = true;
+                    }).catch(function () {
+                        console.log("El navegador bloqueó temporalmente la música automática.");
+                    });
+
+                    temporizadorMusica = null;
+
+                }, 48000);
+            }
         });
 
-        /* Cuando termina la narración,
-           la música sube al 30 % */
+        /*
+        Cuando termina la narración,
+        la música queda al 30 %.
+        */
         narracion.addEventListener("ended", function () {
+
+            if (temporizadorMusica !== null) {
+                clearTimeout(temporizadorMusica);
+                temporizadorMusica = null;
+            }
+
             musica.volume = 0.30;
+
+            /*
+            Si la narración termina antes de los 48 segundos,
+            la música comienza inmediatamente.
+            */
+            if (!musicaIniciada) {
+
+                musica.play().then(function () {
+                    musicaIniciada = true;
+                    musica.volume = 0.30;
+                }).catch(function () {
+                    console.log("El navegador bloqueó temporalmente la música automática.");
+                });
+            }
         });
 
-        /* Si se pausa la narración antes de terminar,
-           la música sube al 30 % */
+        /*
+        Si se pausa la narración después de que
+        la música ya comenzó, sube al 30 %.
+        */
         narracion.addEventListener("pause", function () {
-            if (!narracion.ended) {
+
+            if (!narracion.ended && musicaIniciada) {
                 musica.volume = 0.30;
             }
         });
 
-        /* Intentar reproducir ambos audios al entrar */
+        /*
+        Si continúa la narración,
+        la música vuelve al 4 %.
+        */
+        narracion.addEventListener("playing", function () {
+
+            if (musicaIniciada) {
+                musica.volume = 0.04;
+            }
+        });
+
+        /*
+        Al cargar la página:
+        comienza la narración.
+        La música permanece detenida.
+        */
         window.addEventListener("load", function () {
 
-            musica.volume = 0.08;
-
-            musica.play().catch(function () {
-                console.log("El navegador bloqueó temporalmente la música automática.");
-            });
+            musica.pause();
+            musica.currentTime = 0;
+            musica.volume = 0.04;
 
             narracion.play().catch(function () {
                 console.log("El navegador bloqueó temporalmente la narración automática.");
