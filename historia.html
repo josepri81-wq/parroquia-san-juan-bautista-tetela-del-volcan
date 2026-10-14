@@ -1,1 +1,1444 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>500 años de historia | Un día en el convento</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    color: #2f2f2f;
+    font-family: Arial, sans-serif;
+}
+
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
+
+.encabezado {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 38px 28px 20px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0 0 12px;
+    font-size: 30px;
+    color: #325d4a;
+}
+
+.subtitulo {
+    font-size: 20px;
+    color: #325d4a;
+    font-weight: bold;
+}
+
+.introduccion {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 28px 25px;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.selector {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9px;
+}
+
+.selector button {
+    padding: 12px 16px;
+    background: #325d4a;
+    color: white;
+    border: 2px solid white;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.selector button.activo {
+    background: #203e31;
+    outline: 2px solid #a18b61;
+}
+
+.contenedor {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 20px 35px;
+}
+
+.siglo {
+    display: none;
+}
+
+.siglo.activo {
+    display: block;
+}
+
+.titulo-siglo {
+    color: #325d4a;
+    text-align: center;
+    font-size: 25px;
+    margin: 20px 0 30px;
+}
+
+.encabezados-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 15px;
+}
+
+.encabezados-columnas div {
+    background: #325d4a;
+    color: white;
+    padding: 15px 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.acontecimiento {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.fecha {
+    display: table;
+    margin: 0 auto 12px;
+    background: #325d4a;
+    color: white;
+    padding: 9px 22px;
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.paralelas {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+}
+
+.historia {
+    background: #fffdf7;
+    border: 1px solid #d8d0bf;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.historia.local {
+    border-top: 5px solid #325d4a;
+}
+
+.historia.mundial {
+    border-top: 5px solid #a18b61;
+}
+
+.historia h3 {
+    margin: 0 0 12px;
+    font-size: 20px;
+    color: #325d4a;
+}
+
+.historia p {
+    font-size: 17px;
+    line-height: 1.65;
+    margin: 0;
+    text-align: justify;
+}
+
+.etiqueta {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #eee8d9;
+    font-size: 12px;
+    font-weight: bold;
+    color: #325d4a;
+}
+
+.foto-historica {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 14px auto;
+    border-radius: 7px;
+}
+
+.pie-foto {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+    color: #666;
+    margin-bottom: 12px !important;
+}
+
+.nota {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px 28px;
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: justify;
+    color: #555;
+}
+
+.navegacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px;
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.boton:hover,
+.selector button:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+    .encabezado {
+        padding: 28px 18px 12px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .subtitulo {
+        font-size: 17px;
+    }
+
+    .introduccion {
+        padding: 10px 18px 20px;
+        font-size: 17px;
+        line-height: 1.65;
+    }
+
+    .contenedor {
+        padding: 12px 12px 25px;
+    }
+
+    .titulo-siglo {
+        font-size: 23px;
+    }
+
+    .encabezados-columnas {
+        display: none;
+    }
+
+    .paralelas {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .historia {
+        padding: 17px;
+    }
+
+    .historia h3 {
+        font-size: 19px;
+    }
+
+    .historia p {
+        font-size: 17px;
+    }
+
+    .fecha {
+        font-size: 18px;
+    }
+
+    .selector button {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+
+    .navegacion {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding: 18px 8px 30px;
+    }
+
+    .boton {
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 5px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="escena">
+
+<header class="encabezado">
+    <h1>Cinco siglos de historia</h1>
+    <div class="subtitulo">
+        Tetela del Volcán y el mundo · 1524–2026
+    </div>
+</header>
+
+<section class="introduccion">
+    <p>
+        Durante más de cinco siglos, el Ex Convento de
+        San Juan Bautista de Tetela del Volcán ha sido
+        testigo de profundas transformaciones.
+        Mientras sus muros acogían la oración, el
+        estudio y la vida de los frailes dominicos,
+        México, la Iglesia y el mundo atravesaban
+        acontecimientos que cambiaron la historia.
+    </p>
+
+    <p>
+        Este recorrido presenta dos historias paralelas:
+        la de Tetela del Volcán y su convento, y la de
+        México, el mundo y la Iglesia universal.
+        Cada fecha nos permite descubrir cómo la
+        historia local forma parte de una historia
+        mucho más amplia.
+    </p>
+</section>
+
+<nav class="selector" aria-label="Seleccionar siglo">
+    <button class="activo" onclick="mostrarSiglo('xvi',this)">Siglo XVI</button>
+    <button onclick="mostrarSiglo('xvii',this)">Siglo XVII</button>
+    <button onclick="mostrarSiglo('xviii',this)">Siglo XVIII</button>
+    <button onclick="mostrarSiglo('xix',this)">Siglo XIX</button>
+    <button onclick="mostrarSiglo('xx',this)">Siglo XX</button>
+    <button onclick="mostrarSiglo('xxi',this)">Siglo XXI</button>
+</nav>
+
+<main class="contenedor" id="cronologia">
+
+<section class="siglo activo" id="xvi">
+<h2 class="titulo-siglo">Siglo XVI · Los orígenes</h2>
+
+<div class="encabezados-columnas">
+    <div>Tetela del Volcán</div>
+    <div>México, el mundo y la Iglesia</div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1524</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia local</span>
+            <h3>Tetela en los primeros años coloniales</h3>
+            <p>
+                Después de la conquista, las comunidades
+                indígenas de las laderas del Popocatépetl
+                comenzaron a experimentar profundas
+                transformaciones políticas, sociales
+                y religiosas.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia en México</span>
+            <h3>Llegada de los doce franciscanos</h3>
+            <p>
+                Encabezados por fray Martín de Valencia,
+                doce misioneros franciscanos llegaron a
+                Nueva España. Su presencia marcó una
+                etapa fundamental de la evangelización.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1526</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia regional</span>
+            <h3>Las comunidades del Popocatépetl</h3>
+            <p>
+                Tetela formaba parte de una región
+                indígena cuya vida comunitaria y
+                religiosa cambiaría con el establecimiento
+                de las órdenes misioneras.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Orden de Predicadores</span>
+            <h3>Llegada de los dominicos a México</h3>
+            <p>
+                La Orden de Predicadores comenzó su
+                presencia en Nueva España. Los dominicos
+                desarrollarían una importante labor de
+                evangelización, enseñanza y construcción
+                de conventos.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1531</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Evangelización</span>
+            <h3>Transformación religiosa de la región</h3>
+            <p>
+                La evangelización avanzaba en distintas
+                comunidades indígenas del centro de
+                Nueva España, en un proceso de encuentro
+                y transformación cultural.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia de la Iglesia</span>
+            <h3>Nuestra Señora de Guadalupe</h3>
+            <p>
+                Según la tradición católica, entre el
+                9 y el 12 de diciembre la Santísima
+                Virgen María se apareció a san Juan
+                Diego en el cerro del Tepeyac.
+                El acontecimiento guadalupano se
+                convirtió en un referente fundamental
+                de la fe y la identidad de México.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1539</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Evangelización local</span>
+            <h3>Fray Pedro Moralejo</h3>
+            <p>
+                Las fuentes históricas locales relacionan
+                a fray Pedro Moralejo con la evangelización
+                de Tetela y Hueyapan, dentro del proceso
+                de expansión del cristianismo en la región.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Nueva España</span>
+            <h3>Expansión de las misiones</h3>
+            <p>
+                Las órdenes religiosas extendían sus
+                actividades de evangelización y enseñanza
+                hacia distintas regiones de Nueva España.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1545–1563</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Vida religiosa</span>
+            <h3>Consolidación del cristianismo</h3>
+            <p>
+                Las comunidades de la región vivían
+                un proceso de reorganización religiosa
+                y social durante el periodo colonial.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia universal</span>
+            <h3>Concilio de Trento</h3>
+            <p>
+                La Iglesia católica celebró uno de los
+                concilios más importantes de su historia,
+                que impulsó reformas doctrinales,
+                disciplinares y pastorales en respuesta
+                a los desafíos de la época.
+                La Reforma iniciada por Martín Lutero
+                en 1517 constituye un antecedente
+                fundamental de este concilio.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1566</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Presencia dominicana</span>
+            <h3>Los dominicos en Tetela</h3>
+            <p>
+                Durante la segunda mitad del siglo XVI,
+                la presencia de los dominicos se consolidó
+                en Tetela, preparando el desarrollo de
+                su conjunto conventual.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Papado</span>
+            <h3>Elección de san Pío V</h3>
+            <p>
+                El dominico Antonio Michele Ghislieri
+                fue elegido papa con el nombre de Pío V.
+                Su pontificado estuvo profundamente
+                relacionado con la aplicación de las
+                reformas del Concilio de Trento.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1571</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Arquitectura conventual</span>
+            <h3>Construcción del convento</h3>
+            <p>
+                En este periodo se desarrollaron
+                importantes obras del conjunto
+                conventual de San Juan Bautista.
+                La cronología exacta de sus etapas
+                constructivas requiere distinguir
+                entre los trabajos documentados y
+                su conclusión.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia universal</span>
+            <h3>Batalla de Lepanto</h3>
+            <p>
+                Durante el pontificado de san Pío V
+                tuvo lugar la batalla naval de Lepanto.
+                La victoria fue relacionada con la
+                intercesión de la Virgen María y
+                contribuyó al desarrollo de la
+                celebración de Nuestra Señora del Rosario.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1574</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Patrimonio histórico</span>
+            <h3>El convento de San Juan Bautista</h3>
+            <p>
+                Esta fecha constituye una referencia
+                importante para la historia constructiva
+                del convento. En 2024 se conmemoraron
+                450 años vinculados a esta etapa.
+                Algunas fuentes sitúan la conclusión
+                de determinadas obras en años posteriores.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>El mundo del Renacimiento tardío</h3>
+            <p>
+                Europa atravesaba profundas transformaciones
+                artísticas, científicas y religiosas,
+                mientras los imperios europeos ampliaban
+                sus redes comerciales y coloniales.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1582</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Vida conventual</span>
+            <h3>La comunidad dominicana</h3>
+            <p>
+                El convento formaba parte de la red
+                de establecimientos religiosos que
+                articulaban la evangelización y
+                la vida comunitaria en la región.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia y ciencia</span>
+            <h3>Calendario gregoriano</h3>
+            <p>
+                El papa Gregorio XIII promulgó la
+                reforma del calendario que lleva su
+                nombre, utilizada actualmente en
+                gran parte del mundo.
+            </p>
+        </article>
+    </div>
+</div>
+
+</section>
+
+<section class="siglo" id="xvii">
+<h2 class="titulo-siglo">Siglo XVII · La vida conventual</h2>
+
+<div class="encabezados-columnas">
+    <div>Tetela del Volcán</div>
+    <div>México, el mundo y la Iglesia</div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1618–1648</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia local</span>
+            <h3>La vida cotidiana en el convento</h3>
+            <p>
+                La oración, el estudio, la predicación
+                y la administración de las comunidades
+                formaban parte de las actividades
+                religiosas de la época colonial.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>Guerra de los Treinta Años</h3>
+            <p>
+                Europa vivió un prolongado conflicto
+                político y religioso que transformó
+                las relaciones entre numerosos estados.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1649</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia comunitaria</span>
+            <h3>Conflictos por las tierras</h3>
+            <p>
+                Las fuentes históricas locales registran
+                disputas relacionadas con la defensa
+                de las tierras comunales de Tetela.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>Transformaciones políticas europeas</h3>
+            <p>
+                En Inglaterra fue ejecutado el rey
+                Carlos I, en medio de una profunda
+                crisis política que condujo a un
+                periodo republicano.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1671</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Tradición religiosa</span>
+            <h3>La espiritualidad dominicana</h3>
+            <p>
+                La tradición de la Orden de Predicadores
+                continuaba formando parte de la vida
+                religiosa del convento y de su entorno.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Santidad dominicana</span>
+            <h3>Canonización de santa Rosa de Lima</h3>
+            <p>
+                El papa Clemente X canonizó a santa
+                Rosa de Lima, terciaria dominica,
+                reconocida como la primera santa
+                canonizada nacida en América.
+            </p>
+        </article>
+    </div>
+</div>
+
+</section>
+
+<section class="siglo" id="xviii">
+<h2 class="titulo-siglo">Siglo XVIII · Un mundo en transformación</h2>
+
+<div class="encabezados-columnas">
+    <div>Tetela del Volcán</div>
+    <div>México, el mundo y la Iglesia</div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1710–1712</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia local</span>
+            <h3>Defensa de tierras comunales</h3>
+            <p>
+                La comunidad de Tetela continuó
+                enfrentando conflictos relacionados
+                con la posesión y defensa de sus tierras.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>La Europa del siglo XVIII</h3>
+            <p>
+                El continente europeo atravesaba
+                cambios políticos, comerciales
+                e intelectuales que darían impulso
+                a la Ilustración.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">Hacia 1772</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Arquitectura</span>
+            <h3>Modificaciones del templo</h3>
+            <p>
+                Se sitúan en este periodo importantes
+                modificaciones arquitectónicas
+                relacionadas con la techumbre
+                del templo de San Juan Bautista.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>La Ilustración</h3>
+            <p>
+                Las ideas ilustradas promovían
+                nuevas reflexiones sobre la ciencia,
+                la política, la educación
+                y la organización de la sociedad.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1776</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Nueva España</span>
+            <h3>Tetela en el periodo colonial</h3>
+            <p>
+                La población continuaba desarrollando
+                sus actividades agrícolas, comunitarias
+                y religiosas bajo la administración
+                virreinal.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>Independencia de Estados Unidos</h3>
+            <p>
+                Las trece colonias británicas
+                proclamaron su independencia,
+                iniciando un proceso de transformación
+                política de gran influencia internacional.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1789</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia local</span>
+            <h3>El final del siglo colonial</h3>
+            <p>
+                Tetela se aproximaba al final del
+                periodo virreinal, antes de las
+                transformaciones que traería
+                la Independencia de México.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>Revolución francesa</h3>
+            <p>
+                Comenzó la Revolución francesa,
+                uno de los acontecimientos que
+                transformaron profundamente
+                la política y la sociedad modernas.
+            </p>
+        </article>
+    </div>
+</div>
+
+</section>
+
+<section class="siglo" id="xix">
+<h2 class="titulo-siglo">Siglo XIX · Independencia y modernidad</h2>
+
+<div class="encabezados-columnas">
+    <div>Tetela del Volcán</div>
+    <div>México, el mundo y la Iglesia</div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1810</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia de México</span>
+            <h3>Tetela ante la Independencia</h3>
+            <p>
+                El movimiento insurgente comenzó
+                a transformar el orden político
+                de Nueva España, con consecuencias
+                para las comunidades de la región.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia nacional</span>
+            <h3>Inicio de la Independencia de México</h3>
+            <p>
+                El 16 de septiembre, el levantamiento
+                encabezado por Miguel Hidalgo marcó
+                el comienzo de la guerra de Independencia.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1821</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia local</span>
+            <h3>Una nueva etapa política</h3>
+            <p>
+                Tetela pasó a formar parte de una
+                nación independiente, en medio
+                de importantes cambios administrativos
+                y sociales.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia nacional</span>
+            <h3>Consumación de la Independencia</h3>
+            <p>
+                En septiembre de 1821 se consumó
+                la Independencia de México,
+                poniendo fin al dominio virreinal.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1854</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Vida religiosa</span>
+            <h3>La comunidad católica de Tetela</h3>
+            <p>
+                La vida religiosa de las comunidades
+                continuaba en un siglo marcado
+                por transformaciones políticas
+                y tensiones entre Iglesia y Estado.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia universal</span>
+            <h3>Dogma de la Inmaculada Concepción</h3>
+            <p>
+                El papa Pío IX proclamó solemnemente
+                el dogma de la Inmaculada Concepción
+                de la Santísima Virgen María.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1869–1870</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia de Morelos</span>
+            <h3>Creación del estado de Morelos</h3>
+            <p>
+                En 1869 se creó el estado de Morelos,
+                al que quedó incorporado Tetela
+                del Volcán.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia universal</span>
+            <h3>Concilio Vaticano I</h3>
+            <p>
+                Convocado por Pío IX, el concilio
+                abordó cuestiones fundamentales
+                sobre la fe, la razón y el primado
+                del Romano Pontífice.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1891</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia social</span>
+            <h3>El trabajo y la vida comunitaria</h3>
+            <p>
+                La vida de las poblaciones rurales
+                seguía estrechamente vinculada
+                a la agricultura y a las relaciones
+                sociales y económicas de la época.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Doctrina social de la Iglesia</span>
+            <h3>Encíclica Rerum novarum</h3>
+            <p>
+                El papa León XIII publicó esta
+                encíclica sobre la cuestión obrera,
+                considerada un documento fundamental
+                de la doctrina social moderna
+                de la Iglesia.
+            </p>
+        </article>
+    </div>
+</div>
+
+</section>
+
+<section class="siglo" id="xx">
+<h2 class="titulo-siglo">Siglo XX · Guerras y transformaciones</h2>
+
+<div class="encabezados-columnas">
+    <div>Tetela del Volcán</div>
+    <div>México, el mundo y la Iglesia</div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1910–1920</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia regional</span>
+            <h3>La Revolución en Morelos</h3>
+            <p>
+                La región vivió las transformaciones
+                y conflictos de la Revolución mexicana,
+                particularmente relacionados con
+                el movimiento agrarista encabezado
+                por Emiliano Zapata.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">México y el mundo</span>
+            <h3>Revolución mexicana y Primera Guerra Mundial</h3>
+            <p>
+                En 1910 comenzó la Revolución mexicana.
+                Entre 1914 y 1918, Europa y otras
+                regiones del mundo fueron escenario
+                de la Primera Guerra Mundial.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1937</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia municipal</span>
+            <h3>Municipio de Tetela del Volcán</h3>
+            <p>
+                Tetela del Volcán adquirió
+                su condición municipal en el
+                contexto de la reorganización
+                territorial de Morelos.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>El periodo de entreguerras</h3>
+            <p>
+                El mundo atravesaba una época
+                de inestabilidad política y económica
+                que precedió a la Segunda Guerra Mundial.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1939–1945</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Vida comunitaria</span>
+            <h3>Tetela durante la guerra mundial</h3>
+            <p>
+                La comunidad continuaba su vida
+                cotidiana mientras el mundo
+                enfrentaba uno de los conflictos
+                más devastadores de la historia.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>Segunda Guerra Mundial</h3>
+            <p>
+                El conflicto involucró a numerosos
+                países y dejó profundas consecuencias
+                humanas, políticas y económicas.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1962–1965</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Vida parroquial</span>
+            <h3>Renovación de la vida litúrgica</h3>
+            <p>
+                Como en otras comunidades católicas,
+                las reformas del Concilio Vaticano II
+                influyeron progresivamente en la
+                celebración litúrgica y la pastoral.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia universal</span>
+            <h3>Concilio Vaticano II</h3>
+            <p>
+                Convocado por san Juan XXIII y
+                concluido bajo san Pablo VI,
+                el concilio impulsó una profunda
+                renovación pastoral y litúrgica
+                en la Iglesia católica.
+                En 1962 también fue canonizado
+                san Martín de Porres, dominico.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1969</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia contemporánea</span>
+            <h3>Tetela en el siglo XX</h3>
+            <p>
+                La comunidad participaba de
+                las transformaciones sociales
+                y tecnológicas que modificaron
+                la vida cotidiana durante el siglo.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Ciencia y tecnología</span>
+            <h3>El ser humano llega a la Luna</h3>
+            <p>
+                La misión Apolo 11 logró el
+                primer alunizaje tripulado,
+                uno de los grandes acontecimientos
+                de la exploración espacial.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1978</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Iglesia local</span>
+            <h3>La vida de la parroquia</h3>
+            <p>
+                La comunidad católica de Tetela
+                continuaba su vida pastoral
+                en un periodo de cambios
+                importantes para la Iglesia.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Papado</span>
+            <h3>Elección de san Juan Pablo II</h3>
+            <p>
+                El cardenal Karol Wojtyła fue
+                elegido papa el 16 de octubre.
+                Se convirtió en el primer
+                pontífice polaco de la historia.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1985</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Memoria histórica</span>
+            <h3>Los sismos en la memoria de México</h3>
+            <p>
+                El terremoto de 1985 constituye
+                un acontecimiento nacional
+                fundamental. Los posibles efectos
+                específicos en el convento requieren
+                documentación local.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia nacional</span>
+            <h3>Terremoto de 1985</h3>
+            <p>
+                El 19 de septiembre un devastador
+                terremoto afectó principalmente
+                a la Ciudad de México y otras
+                regiones del país.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">1994</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Patrimonio mundial</span>
+            <h3>Reconocimiento de la UNESCO</h3>
+            <p>
+                El Ex Convento de San Juan Bautista
+                forma parte del conjunto de primeros
+                monasterios del siglo XVI en las
+                laderas del Popocatépetl,
+                inscrito en la Lista del
+                Patrimonio Mundial.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia nacional</span>
+            <h3>Un México en transformación</h3>
+            <p>
+                Entró en vigor el Tratado de Libre
+                Comercio de América del Norte.
+                El país vivió además importantes
+                acontecimientos políticos y sociales.
+            </p>
+        </article>
+    </div>
+</div>
+
+</section>
+
+<section class="siglo" id="xxi">
+<h2 class="titulo-siglo">Siglo XXI · Memoria y esperanza</h2>
+
+<div class="encabezados-columnas">
+    <div>Tetela del Volcán</div>
+    <div>México, el mundo y la Iglesia</div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">2000</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Historia contemporánea</span>
+            <h3>El convento en el nuevo milenio</h3>
+            <p>
+                El conjunto conventual continuó
+                siendo un espacio de memoria,
+                patrimonio, culto y encuentro
+                para la comunidad.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia universal</span>
+            <h3>Gran Jubileo del año 2000</h3>
+            <p>
+                San Juan Pablo II encabezó
+                las celebraciones del Gran Jubileo
+                con motivo de los dos mil años
+                del nacimiento de Jesucristo.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">2013</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Vida parroquial</span>
+            <h3>La comunidad de San Juan Bautista</h3>
+            <p>
+                La parroquia continuaba su misión
+                evangelizadora y su compromiso
+                con la conservación del patrimonio.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Papado</span>
+            <h3>Elección del papa Francisco</h3>
+            <p>
+                El cardenal Jorge Mario Bergoglio
+                fue elegido papa. Fue el primer
+                pontífice latinoamericano y el
+                primero perteneciente a la
+                Compañía de Jesús.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">2017</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Patrimonio histórico</span>
+            <h3>El terremoto del 19 de septiembre</h3>
+            <p>
+                El sismo provocó graves daños
+                en el Ex Convento de San Juan
+                Bautista, obligando a emprender
+                un largo proceso de restauración
+                y recuperación del patrimonio.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia nacional</span>
+            <h3>El terremoto de Puebla-Morelos</h3>
+            <p>
+                Un fuerte terremoto afectó
+                gravemente a numerosas comunidades
+                del centro de México, dañando
+                viviendas, templos y edificios
+                históricos.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">2020</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Vida comunitaria</span>
+            <h3>La pandemia en Tetela</h3>
+            <p>
+                La emergencia sanitaria alteró
+                la vida familiar, comunitaria
+                y religiosa, como ocurrió en
+                tantas poblaciones del mundo.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia universal</span>
+            <h3>Pandemia de COVID-19</h3>
+            <p>
+                La Organización Mundial de la Salud
+                caracterizó la propagación de
+                COVID-19 como una pandemia,
+                que tuvo profundas consecuencias
+                humanas y sociales.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">2024</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Restauración</span>
+            <h3>450 años de historia conventual</h3>
+            <p>
+                El convento conmemoró 450 años
+                vinculados a su historia constructiva.
+                Después de los daños ocasionados
+                por el terremoto de 2017,
+                su recuperación permitió
+                reencontrarse con una parte
+                fundamental de la memoria
+                religiosa y cultural de Tetela.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Historia contemporánea</span>
+            <h3>Un mundo en transformación</h3>
+            <p>
+                La expansión de la inteligencia
+                artificial y de nuevas tecnologías
+                modificó numerosas actividades
+                científicas, educativas y culturales.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">2025</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Patrimonio y evangelización</span>
+            <h3>Una historia que continúa</h3>
+            <p>
+                La conservación del patrimonio
+                conventual y la transmisión
+                de su memoria permanecen como
+                responsabilidades para las
+                nuevas generaciones.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Iglesia universal</span>
+            <h3>Jubileo y elección de León XIV</h3>
+            <p>
+                La Iglesia celebró el Jubileo
+                de la esperanza. El 8 de mayo
+                fue elegido el papa León XIV,
+                Robert Francis Prevost,
+                perteneciente a la Orden
+                de San Agustín.
+            </p>
+        </article>
+    </div>
+</div>
+
+<div class="acontecimiento">
+    <div class="fecha">2026</div>
+    <div class="paralelas">
+        <article class="historia local">
+            <span class="etiqueta">Proyecto cultural</span>
+            <h3>Un día en el convento</h3>
+            <p>
+                El recorrido virtual del
+                Ex Convento de San Juan Bautista
+                de Tetela del Volcán busca
+                conservar y compartir la memoria
+                de este extraordinario
+                patrimonio histórico, artístico
+                y espiritual.
+            </p>
+        </article>
+        <article class="historia mundial">
+            <span class="etiqueta">Orden de Predicadores</span>
+            <h3>500 años de los dominicos en México</h3>
+            <p>
+                Se conmemoran cinco siglos
+                de la llegada de la Orden de
+                Predicadores a México en 1526.
+                Su legado de predicación,
+                estudio y evangelización
+                forma parte fundamental de
+                la historia de Nueva España
+                y del México contemporáneo.
+            </p>
+        </article>
+    </div>
+</div>
+
+</section>
+
+</main>
+
+<div class="nota">
+    <p>
+        Nota histórica: esta cronología presenta
+        acontecimientos documentados y tradiciones
+        religiosas. Algunas fechas relacionadas
+        con las etapas constructivas del convento
+        y determinados acontecimientos locales
+        permanecen sujetas a verificación
+        en fuentes documentales.
+    </p>
+</div>
+
+<div class="navegacion">
+    <a class="boton" href="index.html">
+        ← REGRESAR
+    </a>
+
+    <a class="boton" href="recorrido.html">
+        INICIAR RECORRIDO →
+    </a>
+</div>
+
+</div>
+
+<script>
+function mostrarSiglo(id, boton) {
+    document.querySelectorAll('.siglo').forEach(function(s) {
+        s.classList.remove('activo');
+    });
+
+    document.querySelectorAll('.selector button').forEach(function(b) {
+        b.classList.remove('activo');
+    });
+
+    document.getElementById(id).classList.add('activo');
+    boton.classList.add('activo');
+
+    document.getElementById('cronologia').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
+</script>
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
+
+</body>
+</html>
+
