@@ -11,9 +11,6 @@
 content="Historia de Tetela del Volcán, el Ex Convento de San Juan Bautista, México y el mundo, desde 1521 hasta 2026.">
 
 <style>
-
-/* DISEÑO ORIGINAL CONSERVADO */
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 
@@ -232,15 +229,11 @@ main{
  font-weight:bold
 }
 
-/* VERSIÓN PARA MAC Y COMPUTADORA */
-
 @media(min-width:601px){
  .paralelas{
   grid-template-columns:minmax(0,1fr) minmax(0,1fr)
  }
 }
-
-/* VERSIÓN PARA IPHONE Y TELÉFONOS */
 
 @media(max-width:600px){
 
@@ -276,7 +269,6 @@ main{
   object-fit:contain
  }
 }
-
 </style>
 </head>
 
@@ -344,8 +336,7 @@ requieren cotejo con la documentación histórica.
 <script>
 
 /* ========================================
-   IMÁGENES HISTÓRICAS
-   ARCHIVOS CONCRETOS DE WIKIMEDIA COMMONS
+   CATÁLOGO DE IMÁGENES
 ======================================== */
 
 const commons =
@@ -355,21 +346,10 @@ function archivo(nombre){
  return commons+encodeURIComponent(nombre);
 }
 
-/*
-Para las fotografías locales se comprueban
-varias rutas posibles. Si no existen,
-no se muestra una imagen falsa ni un
-recuadro de error.
-*/
-
 const imagenes={
 
-/* CONVENTO */
-
 fachada:{
- local:[
- "WhatsApp Image 2026-09-22 at 17.25.45.jpeg"
- ],
+ local:["WhatsApp Image 2026-09-22 at 17.25.45.jpeg"],
  pie:"Ex Convento de San Juan Bautista de Tetela del Volcán."
 },
 
@@ -408,129 +388,119 @@ convento7:{
  pie:"Fotografía de un espacio interior del convento."
 },
 
-/* VIRGEN DE GUADALUPE:
-   IMAGEN DE LA TILMA, NO ESCULTURA */
-
 guadalupe:{
  nombre:"Virgen de guadalupe1.jpg",
+ busqueda:"Our Lady of Guadalupe tilma original full image",
  pie:"Nuestra Señora de Guadalupe. Imagen de la tilma de san Juan Diego, de cuerpo entero."
 },
 
-/* INDEPENDENCIA */
-
 trigarante:{
  nombre:"Entrada del Ejército Trigarante a México.jpg",
- pie:"Representación de la entrada del Ejército Trigarante a la Ciudad de México, en 1821."
+ busqueda:"Entrada Ejército Trigarante Ciudad de México 1821 pintura",
+ pie:"Representación de la entrada del Ejército Trigarante a la Ciudad de México en 1821."
 },
-
-/* TERREMOTO DE 1985:
-   FOTOGRAFÍA DOCUMENTAL DEL USGS */
 
 terremoto85:{
  nombre:"1985 Mexico Earthquake - Eight-story building collapsed 2.jpg",
- pie:"Edificio derrumbado durante el terremoto del 19 de septiembre de 1985. Fotografía: USGS."
+ busqueda:"1985 Mexico City earthquake collapsed building photograph",
+ pie:"Edificio derrumbado durante el terremoto del 19 de septiembre de 1985. Fotografía histórica."
 },
-
-/* PRIMERA GUERRA MUNDIAL:
-   SOLDADOS EN FRANCIA */
 
 guerra1:{
  nombre:"Group in the trenches (4688506942).jpg",
+ busqueda:"World War I British soldiers trenches photograph",
  pie:"Soldados en una trinchera de Francia durante la Primera Guerra Mundial."
 },
 
-/* SEGUNDA GUERRA MUNDIAL:
-   DESEMBARCO DE NORMANDÍA */
-
 guerra2:{
  nombre:"1944 NormandyLST.jpg",
- pie:"Desembarco de tropas en Omaha Beach, Normandía, el 6 de junio de 1944."
+ busqueda:"Normandy landings Omaha beach 1944 historical photograph",
+ pie:"Desembarco de tropas aliadas en Normandía, el 6 de junio de 1944."
 },
-
-/* OTRAS IMÁGENES HISTÓRICAS */
 
 domingo:{
  nombre:"SaintDominic.jpg",
+ busqueda:"Saint Dominic painting Dominican",
  pie:"Santo Domingo de Guzmán, fundador de la Orden de Predicadores."
 },
 
 lutero:{
  nombre:"Martin Luther by Lucas Cranach the Elder.jpg",
- pie:"Martín Lutero. Retrato atribuido al taller de Lucas Cranach."
+ busqueda:"Martin Luther Lucas Cranach portrait painting",
+ pie:"Martín Lutero. Retrato histórico."
 },
 
 trento:{
  nombre:"Council of Trent.JPG",
+ busqueda:"Council of Trent historical painting",
  pie:"Representación histórica del Concilio de Trento."
 },
 
 lepanto:{
  nombre:"Battle of Lepanto.jpg",
+ busqueda:"Battle of Lepanto 1571 historical painting",
  pie:"Representación artística de la batalla de Lepanto."
 },
 
 rosa:{
  nombre:"Santa Rosa de Lima.jpg",
+ busqueda:"Saint Rose of Lima portrait painting",
  pie:"Representación artística de santa Rosa de Lima."
 },
 
 ilustracion:{
  nombre:"Encyclopedie frontispice full.jpg",
+ busqueda:"Encyclopedie Diderot frontispiece",
  pie:"Frontispicio de la Enciclopedia, símbolo de la Ilustración."
 },
 
 hidalgo:{
  nombre:"Miguel Hidalgo y Costilla.jpg",
+ busqueda:"Miguel Hidalgo y Costilla portrait painting",
  pie:"Representación de Miguel Hidalgo y Costilla."
 },
 
 zapata:{
  nombre:"Emiliano Zapata, 1914.jpg",
+ busqueda:"Emiliano Zapata 1914 historical photograph",
  pie:"Emiliano Zapata durante la Revolución mexicana."
 },
 
 benedicto:{
  nombre:"Pope Benedict XVI -Italy-19December2005 (4).jpg",
+ busqueda:"Pope Benedict XVI portrait photograph",
  pie:"Papa Benedicto XVI."
 },
 
 francisco:{
  nombre:"Pope Francis in 2015.jpg",
+ busqueda:"Pope Francis portrait photograph",
  pie:"Papa Francisco."
 },
 
 leon:{
  nombre:"Pope Leo XIV 3 (3x4 cropped).jpg",
+ busqueda:"Pope Leo XIV 2025 photograph",
  pie:"Papa León XIV."
 },
 
-/* MAPA POLÍTICO DE MORELOS */
-
 mapaMorelos:{
  nombre:"Mexico Morelos location map.svg",
- pie:"Mapa geográfico de Morelos. Esta imagen no representa necesariamente su división municipal."
+ busqueda:"Morelos Mexico state map",
+ pie:"Mapa geográfico del estado de Morelos."
 },
-
-/* PANDEMIA */
 
 covid:{
  nombre:"COVID-19 pandemic in Mexico.jpg",
+ busqueda:"COVID 19 pandemic Mexico healthcare workers photograph",
  pie:"Imagen documental relacionada con la pandemia de COVID-19 en México."
 }
 
 };
 
 /* ========================================
-   CRONOLOGÍA
+   CRONOLOGÍA HISTÓRICA
 ======================================== */
-
-/*
-Cada acontecimiento contiene:
-fecha, tarjeta local y tarjeta universal.
-
-Las fotografías locales se conservan
-como referencias al repositorio.
-*/
 
 const siglos=[
 
@@ -1202,17 +1172,8 @@ mundo:[
 ];
 
 /* ========================================
-   CARGA DE FOTOGRAFÍAS
+   CARGA CORREGIDA DE IMÁGENES
 ======================================== */
-
-/*
-Las fotografías locales pueden existir
-en la raíz del sitio o en carpetas
-habituales del repositorio.
-
-Se intenta cada ruta sin cambiar
-el diseño de las tarjetas.
-*/
 
 function rutasLocales(nombres){
 
@@ -1235,6 +1196,15 @@ function rutasLocales(nombres){
  return rutas;
 }
 
+/*
+Se utiliza primero la fotografía indicada.
+Si no funciona, se intenta recuperar una
+imagen desde Wikimedia Commons.
+
+Para fotografías del convento solamente
+se utilizan los archivos del propio sitio.
+*/
+
 function crearImagen(clave){
 
  const info=imagenes[clave];
@@ -1242,20 +1212,26 @@ function crearImagen(clave){
  if(!info)return "";
 
  const rutas=info.local
-  ?rutasLocales(info.local)
+  ?rutasLocales(info.local).map(r=>encodeURI(r))
   :[archivo(info.nombre)];
 
- const codificadas=rutas.map(r=>encodeURI(r));
+ const busqueda=info.local
+  ?""
+  :(info.busqueda||
+    info.nombre.replace(/\.[^.]+$/,""));
 
- const id="foto-"+clave+"-"+
- Math.random().toString(36).slice(2,10);
+ const consultaSegura=busqueda
+  .replace(/&/g,"&amp;")
+  .replace(/"/g,"&quot;")
+  .replace(/</g,"&lt;");
 
  return `
- <figure class="foto" id="${id}">
+ <figure class="foto">
   <img
-   src="${codificadas[0]}"
-   data-rutas='${JSON.stringify(codificadas)}'
+   src="${rutas[0]}"
+   data-rutas='${JSON.stringify(rutas)}'
    data-intento="0"
+   data-busqueda="${consultaSegura}"
    alt="${info.pie}"
    loading="lazy"
   >
@@ -1263,32 +1239,141 @@ function crearImagen(clave){
  </figure>`;
 }
 
-/*
-Si falla una ruta local, prueba otra.
-Si no existe ninguna, retira solamente
-la figura. El recuadro y el texto
-histórico permanecen intactos.
-*/
+/* ========================================
+   CONSULTA AL ARCHIVO DE WIKIMEDIA
+======================================== */
+
+async function consultarCommons(consulta){
+
+ const parametros=new URLSearchParams({
+  action:"query",
+  generator:"search",
+  gsrsearch:consulta,
+  gsrnamespace:"6",
+  gsrlimit:"8",
+  prop:"imageinfo",
+  iiprop:"url|mime",
+  iiurlwidth:"850",
+  format:"json",
+  origin:"*"
+ });
+
+ const respuesta=await fetch(
+  "https://commons.wikimedia.org/w/api.php?"+
+  parametros.toString()
+ );
+
+ if(!respuesta.ok){
+  throw new Error("Wikimedia no disponible");
+ }
+
+ const datos=await respuesta.json();
+
+ const paginas=Object.values(
+  datos.query?.pages||{}
+ );
+
+ const validas=paginas.filter(pagina=>{
+
+  const imagen=pagina.imageinfo?.[0];
+
+  return imagen &&
+   /image\/(jpeg|png|webp)/.test(
+    imagen.mime||""
+   ) &&
+   (imagen.thumburl||imagen.url);
+
+ });
+
+ if(!validas.length)return null;
+
+ const imagen=validas[0].imageinfo[0];
+
+ return imagen.thumburl||imagen.url;
+}
+
+/* ========================================
+   RECUPERACIÓN DE IMÁGENES
+======================================== */
 
 function prepararImagenes(){
 
  document.querySelectorAll(".foto img")
  .forEach(img=>{
 
-  img.onerror=function(){
+  img.onerror=async function(){
 
-   const rutas=JSON.parse(this.dataset.rutas);
+   const rutas=JSON.parse(
+    this.dataset.rutas
+   );
+
    const siguiente=
     Number(this.dataset.intento)+1;
 
+   /* PRUEBA OTRA RUTA LOCAL */
+
    if(siguiente<rutas.length){
 
-    this.dataset.intento=String(siguiente);
+    this.dataset.intento=
+     String(siguiente);
+
     this.src=rutas[siguiente];
 
-   }else{
+    return;
+   }
 
-    this.closest(".foto").remove();
+   /* PRUEBA WIKIMEDIA COMMONS */
+
+   if(
+    this.dataset.busqueda &&
+    this.dataset.buscarIntentado!=="si"
+   ){
+
+    this.dataset.buscarIntentado="si";
+
+    try{
+
+     const url=await consultarCommons(
+      this.dataset.busqueda
+     );
+
+     if(url){
+      this.src=url;
+      return;
+     }
+
+    }catch(error){
+
+     console.warn(
+      "Imagen histórica no disponible",
+      error
+     );
+
+    }
+
+   }
+
+   /*
+   Si no se encuentra una imagen,
+   se conserva el texto del acontecimiento.
+   No se sustituye por una imagen falsa.
+   */
+
+   const figura=this.closest(".foto");
+
+   if(figura){
+
+    const pie=figura.querySelector(
+     "figcaption"
+    );
+
+    const texto=pie?pie.textContent:"";
+
+    figura.innerHTML=
+     "<figcaption>"+
+     "Imagen pendiente de publicación: "+
+     texto.replace(/</g,"&lt;")+
+     "</figcaption>";
 
    }
 
@@ -1299,7 +1384,7 @@ function prepararImagenes(){
 }
 
 /* ========================================
-   CREACIÓN DE LAS TARJETAS
+   CONSTRUCCIÓN DE LOS RECUADROS
 ======================================== */
 
 function crearTarjeta(datos,clase){
@@ -1351,7 +1436,7 @@ function crearSiglo(siglo,indice){
 }
 
 /* ========================================
-   MOSTRAR TODA LA CRONOLOGÍA
+   PRESENTACIÓN DE LA CRONOLOGÍA
 ======================================== */
 
 document.getElementById("cronologia").innerHTML=
@@ -1360,7 +1445,7 @@ document.getElementById("cronologia").innerHTML=
 prepararImagenes();
 
 /* ========================================
-   BOTONES DE NAVEGACIÓN POR SIGLOS
+   NAVEGACIÓN POR LOS SEIS SIGLOS
 ======================================== */
 
 document.querySelectorAll("#selector button")
