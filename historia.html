@@ -5,506 +5,991 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cinco siglos de historia | San Juan Bautista</title>
+<meta name="description" content="Historia de Tetela del Volcán y del Ex Convento de San Juan Bautista, en paralelo con México, el mundo y la Iglesia, de 1521 a 2026.">
 
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
- margin:0;background:#f5f1e6;color:#2f2f2f;
- font-family:Arial,sans-serif
+ margin:0;
+ background:#f5f1e6;
+ color:#2f2f2f;
+ font-family:Arial,Helvetica,sans-serif
 }
 .portada{
  min-height:340px;
  background:
- linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.65)),
+ linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.7)),
  url("WhatsApp Image 2026-09-22 at 17.25.45.jpeg")
  center/cover;
- display:flex;justify-content:center;align-items:center;
- text-align:center;padding:40px 20px;color:white
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ padding:40px 20px;
+ color:white
 }
 .portada h1{
- font: bold clamp(32px,5vw,51px) Georgia,serif;
- margin:0 0 18px;text-shadow:0 2px 7px #222
+ font:bold clamp(32px,5vw,51px) Georgia,serif;
+ margin:0 0 18px;
+ text-shadow:0 2px 7px #222
 }
 .portada p{
  font-size:clamp(17px,2.5vw,23px);
- font-weight:bold;margin:0
+ font-weight:bold;
+ margin:0
 }
 .periodo{
- display:inline-block;margin-top:20px;
- padding:9px 25px;border-top:1px solid white;
+ display:inline-block;
+ margin-top:20px;
+ padding:9px 25px;
+ border-top:1px solid white;
  border-bottom:1px solid white;
- letter-spacing:3px;font-size:20px
+ letter-spacing:3px;
+ font-size:20px
 }
 .intro{
- max-width:900px;margin:auto;padding:35px 25px 15px;
- font-size:18px;line-height:1.7;text-align:justify
+ max-width:900px;
+ margin:auto;
+ padding:35px 25px 15px;
+ font-size:18px;
+ line-height:1.7;
+ text-align:justify
 }
 .selector{
- max-width:900px;margin:0 auto;padding:20px 12px;
- display:flex;flex-wrap:wrap;gap:9px;
+ max-width:900px;
+ margin:0 auto;
+ padding:20px 12px;
+ display:flex;
+ flex-wrap:wrap;
+ gap:9px;
  justify-content:center
 }
 .selector button{
- background:#325d4a;color:white;
- border:2px solid white;border-radius:8px;
- padding:12px 16px;font-size:15px;
- font-weight:bold;cursor:pointer
+ background:#325d4a;
+ color:white;
+ border:2px solid white;
+ border-radius:8px;
+ padding:12px 16px;
+ font-size:15px;
+ font-weight:bold;
+ cursor:pointer
 }
 .selector button.activo{
- background:#203e31;outline:2px solid #a18b61
+ background:#203e31;
+ outline:2px solid #a18b61
 }
-main{max-width:900px;margin:auto;padding:15px 15px 30px}
+main{
+ max-width:900px;
+ margin:auto;
+ padding:15px 15px 30px
+}
 .siglo{display:none}
 .siglo.activo{display:block}
 .titulo-siglo{
- text-align:center;color:#325d4a;
- font: bold 27px Georgia,serif;
+ text-align:center;
+ color:#325d4a;
+ font:bold 27px Georgia,serif;
  margin:20px 0 30px
 }
 .cabeceras,.paralelas{
- display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ display:grid;
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr);
  gap:16px
 }
 .cabeceras{margin-bottom:18px}
 .cabeceras div{
- background:#325d4a;color:white;text-align:center;
- padding:15px;border-radius:8px;font-weight:bold
+ background:#325d4a;
+ color:white;
+ text-align:center;
+ padding:15px;
+ border-radius:8px;
+ font-weight:bold
 }
 .acontecimiento{margin-bottom:26px}
 .fecha{
- display:table;margin:0 auto 12px;
- padding:9px 22px;background:#325d4a;color:white;
- border-radius:30px;font-size:20px;font-weight:bold
+ display:table;
+ margin:0 auto 12px;
+ padding:9px 22px;
+ background:#325d4a;
+ color:white;
+ border-radius:30px;
+ font-size:20px;
+ font-weight:bold
 }
 .tarjeta{
- background:#fffdf7;border:1px solid #d8d0bf;
- border-radius:10px;padding:19px;min-width:0;
+ background:#fffdf7;
+ border:1px solid #d8d0bf;
+ border-radius:10px;
+ padding:19px;
+ min-width:0;
  box-shadow:0 2px 5px #0000000d
 }
 .tarjeta.local{border-top:5px solid #325d4a}
 .tarjeta.mundo{border-top:5px solid #a18b61}
 .etiqueta{
- display:inline-block;background:#eee8d9;
- color:#325d4a;padding:5px 9px;
- font-size:12px;font-weight:bold;border-radius:4px
+ display:inline-block;
+ background:#eee8d9;
+ color:#325d4a;
+ padding:5px 9px;
+ font-size:12px;
+ font-weight:bold;
+ border-radius:4px
 }
 .tarjeta h3{
- color:#325d4a;font-size:20px;margin:13px 0
+ color:#325d4a;
+ font-size:20px;
+ margin:13px 0
 }
 .tarjeta p{
- font-size:17px;line-height:1.65;
- text-align:justify;margin:0
+ font-size:17px;
+ line-height:1.65;
+ text-align:justify;
+ margin:0
 }
 .foto{
  margin:17px 0 3px
 }
 .foto img{
- display:block;width:100%;height:auto;
- max-height:320px;object-fit:contain;
- border-radius:7px;background:#eee9df
+ display:block;
+ width:100%;
+ height:auto;
+ max-height:330px;
+ object-fit:contain;
+ border-radius:7px;
+ background:#eee9df
 }
 .foto figcaption{
- font-size:12px;color:#666;
- line-height:1.5;text-align:center;
- padding:7px 2px
+ font-size:12px;
+ color:#666;
+ line-height:1.5;
+ text-align:center;
+ padding:8px 2px
 }
-.foto a{color:#325d4a}
+.foto a{
+ color:#325d4a;
+ text-decoration:underline
+}
+.error-imagen{
+ display:none;
+ font-size:13px;
+ padding:12px;
+ background:#f0ece3;
+ border-radius:7px;
+ text-align:center
+}
 .nota{
- max-width:900px;margin:auto;padding:15px 25px;
- color:#555;font-size:15px;line-height:1.6
+ max-width:900px;
+ margin:auto;
+ padding:15px 25px;
+ color:#555;
+ font-size:15px;
+ line-height:1.6
 }
 .navegacion{
- max-width:900px;margin:auto;padding:20px 15px 35px;
- display:grid;grid-template-columns:1fr 1fr;gap:14px
+ max-width:900px;
+ margin:auto;
+ padding:20px 15px 35px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:14px
 }
 .boton{
- background:#325d4a;color:white;text-decoration:none;
- text-align:center;border-radius:8px;border:2px solid white;
- padding:15px 8px;font-weight:bold
+ background:#325d4a;
+ color:white;
+ text-decoration:none;
+ text-align:center;
+ border-radius:8px;
+ border:2px solid white;
+ padding:15px 8px;
+ font-weight:bold
 }
 @media(max-width:600px){
  .portada{min-height:270px}
- .intro{padding:25px 18px 12px;font-size:17px}
+ .intro{
+  padding:25px 18px 12px;
+  font-size:17px
+ }
  .cabeceras{display:none}
- .paralelas{grid-template-columns:1fr;gap:10px}
+ .paralelas{
+  grid-template-columns:1fr;
+  gap:10px
+ }
  .tarjeta{padding:17px}
- .selector button{font-size:13px;padding:10px 12px}
+ .selector button{
+  font-size:13px;
+  padding:10px 12px
+ }
  .titulo-siglo{font-size:23px}
  .boton{font-size:12px}
 }
 </style>
 </head>
+
 <body>
 
 <header class="portada">
-<div>
-<h1>Cinco siglos de historia</h1>
-<p>Tetela del Volcán y el mundo</p>
-<div class="periodo">1524–2026</div>
-</div>
+ <div>
+  <h1>Cinco siglos de historia</h1>
+  <p>Tetela del Volcán y el mundo</p>
+  <div class="periodo">1521–2026</div>
+ </div>
 </header>
 
 <div class="intro">
-<p>Durante más de cinco siglos, el Ex Convento de San Juan Bautista de Tetela del Volcán ha sido testigo de profundas transformaciones. Mientras sus muros acogían la oración, el estudio y la vida de los frailes dominicos, México, la Iglesia y el mundo atravesaban acontecimientos que cambiaron la historia.</p>
-<p>Este recorrido presenta dos historias paralelas: la de Tetela del Volcán y su convento, y la de México, el mundo y la Iglesia universal. Las fotografías, pinturas y grabados nos ayudan a descubrir cómo la historia local forma parte de una historia mucho más amplia.</p>
+ <p>
+ Durante más de cinco siglos, el Ex Convento de
+ San Juan Bautista de Tetela del Volcán ha sido
+ testigo de profundas transformaciones.
+ Mientras sus muros acogían la oración,
+ el estudio y la vida de los frailes dominicos,
+ México, la Iglesia y el mundo atravesaban
+ acontecimientos que cambiaron la historia.
+ </p>
+
+ <p>
+ Este recorrido presenta dos historias paralelas:
+ la de Tetela del Volcán y su convento,
+ y la de México, el mundo y la Iglesia universal.
+ Las pinturas, grabados, documentos y fotografías
+ permiten comprender mejor el contexto de
+ cada acontecimiento.
+ </p>
 </div>
 
 <nav class="selector" id="selector" aria-label="Seleccionar siglo">
-<button class="activo" data-siglo="xvi">Siglo XVI</button>
-<button data-siglo="xvii">Siglo XVII</button>
-<button data-siglo="xviii">Siglo XVIII</button>
-<button data-siglo="xix">Siglo XIX</button>
-<button data-siglo="xx">Siglo XX</button>
-<button data-siglo="xxi">Siglo XXI</button>
+ <button class="activo" data-siglo="xvi">Siglo XVI</button>
+ <button data-siglo="xvii">Siglo XVII</button>
+ <button data-siglo="xviii">Siglo XVIII</button>
+ <button data-siglo="xix">Siglo XIX</button>
+ <button data-siglo="xx">Siglo XX</button>
+ <button data-siglo="xxi">Siglo XXI</button>
 </nav>
 
 <main id="cronologia"></main>
 
 <div class="nota">
-<p><strong>Nota histórica:</strong> algunas fechas locales y etapas constructivas requieren verificación documental. Las pinturas y grabados se identifican como representaciones artísticas; las fotografías actuales del convento no pretenden mostrar su apariencia en siglos anteriores. Las imágenes procedentes de Wikimedia Commons conservan sus correspondientes referencias de autoría y licencia en sus páginas originales.</p>
+ <p><strong>Sobre las imágenes:</strong>
+ Las pinturas y grabados son testimonios
+ artísticos o representaciones posteriores
+ de los acontecimientos. No deben confundirse
+ con fotografías tomadas en la época.
+ La fachada del convento corresponde a una
+ fotografía contemporánea.
+ </p>
+ <p>
+ Algunas fechas de la historia local requieren
+ confirmación en archivos y fuentes documentales.
+ Los enlaces de las imágenes externas conducen
+ a sus fichas de procedencia, autoría y licencia.
+ </p>
 </div>
 
 <div class="navegacion">
-<a class="boton" href="index.html">← REGRESAR</a>
-<a class="boton" href="recorrido.html">INICIAR RECORRIDO →</a>
+ <a class="boton" href="index.html">← REGRESAR</a>
+ <a class="boton" href="recorrido.html">INICIAR RECORRIDO →</a>
 </div>
 
 <script>
+
 /*
- IMÁGENES HISTÓRICAS
- Las de Wikimedia Commons se cargan directamente
- desde su archivo original.
+ ===========================================
+ CATÁLOGO DE IMÁGENES
+ ===========================================
+
+ Para las imágenes históricas se emplean
+ archivos de Wikimedia Commons.
+
+ Para el convento se utiliza la fotografía
+ completa que ya está en GitHub.
+
+ No se repiten fotografías parciales del
+ convento en todos los siglos.
 */
-const commons = "https://commons.wikimedia.org/wiki/Special:FilePath/";
+
+const commons =
+ "https://commons.wikimedia.org/wiki/Special:FilePath/";
 
 const imagenes = {
- convento: {
-  src:"WhatsApp Image 2026-09-22 at 17.25.45.jpeg",
-  pie:"Ex Convento de San Juan Bautista, fotografía actual."
+
+ fachada:{
+  local:"WhatsApp Image 2026-09-22 at 17.25.45.jpeg",
+  pie:"Fachada y conjunto de San Juan Bautista de Tetela del Volcán. Fotografía contemporánea del archivo del proyecto."
  },
- convento2: {
-  src:commons+"Ex convento de San Juan Bautista de Tetela del Volcán - 1.JPG",
-  pie:"Ex Convento de San Juan Bautista. Fotografía de Wikimedia Commons.",
-  ficha:"Ex convento de San Juan Bautista de Tetela del Volcán - 1.JPG"
+
+ maria:{
+  archivo:"LienzoTlaxcalaJinetes.jpg",
+  pie:"Escena de jinetes del Lienzo de Tlaxcala, vinculada en algunas interpretaciones con María de Estrada. Su identificación no es definitiva."
  },
- convento3: {
-  src:commons+"Ex convento de San Juan Bautista de Tetela del Volcán - 3.JPG",
-  pie:"Conjunto conventual de Tetela del Volcán. Fotografía de Wikimedia Commons.",
-  ficha:"Ex convento de San Juan Bautista de Tetela del Volcán - 3.JPG"
+
+ franciscanos:{
+  archivo:"Los Doce Franciscanos Convento de Huejotzingo México siglo XVI.jpg",
+  pie:"Mural de azulejos que conmemora la llegada de los doce franciscanos a Nueva España. Fotografía: Cuauhtlacatl, CC0."
  },
- convento5: {
-  src:commons+"Ex convento de San Juan Bautista de Tetela del Volcán - 5.JPG",
-  pie:"Patrimonio arquitectónico del convento. Fotografía de Wikimedia Commons.",
-  ficha:"Ex convento de San Juan Bautista de Tetela del Volcán - 5.JPG"
+
+ dominicos:{
+  archivo:"SaintDominic.jpg",
+  pie:"Santo Domingo de Guzmán, fundador de la Orden de Predicadores. Pintura de Claudio Coello, hacia 1685. Es una representación de la Orden, no de su desembarco en México."
  },
- convento7: {
-  src:commons+"Ex convento de San Juan Bautista de Tetela del Volcán - 7.JPG",
-  pie:"El convento de Tetela del Volcán. Fotografía de Wikimedia Commons.",
-  ficha:"Ex convento de San Juan Bautista de Tetela del Volcán - 7.JPG"
+
+ trento:{
+  archivo:"Council of Trent.JPG",
+  pie:"El Concilio de Trento representado en una pintura de finales del siglo XVII."
  },
- tetela: {
-  src:commons+"Tetela del Volcán banner.jpg",
-  pie:"Panorámica de Tetela del Volcán. Wikimedia Commons.",
-  ficha:"Tetela del Volcán banner.jpg"
+
+ lepanto:{
+  archivo:"Battle of Lepanto.jpg",
+  pie:"La batalla de Lepanto del 7 de octubre de 1571. Pintura de H. Letter, siglo XVI. National Maritime Museum."
  },
- pio: {
-  src:commons+"Portrait of Pope Pius V by Palma il Giovane.jpg",
-  pie:"Retrato de un papa, posiblemente san Pío V. Palma il Giovane.",
-  ficha:"Portrait of Pope Pius V by Palma il Giovane.jpg"
+
+ carlos:{
+  archivo:"The Execution of Charles I.jpg",
+  pie:"Ejecución de Carlos I de Inglaterra en 1649. Grabado de la época conservado en la National Portrait Gallery."
  },
- lepanto: {
-  src:commons+"Battle of Lepanto 1571.jpg",
-  pie:"La batalla de Lepanto. Pintura de H. Letter, finales del siglo XVI. National Maritime Museum.",
-  ficha:"Battle of Lepanto 1571.jpg"
+
+ ilustracion:{
+  archivo:"Encyclopedie frontispice full.jpg",
+  pie:"Frontispicio de la Enciclopedia de Diderot y d'Alembert, grabado de Benoît-Louis Prévost, 1772."
  },
- lutero: {
-  src:commons+"Martin Luther, 1529.jpg",
-  pie:"Martín Lutero. Retrato de Lucas Cranach el Viejo, 1529.",
-  ficha:"Martin Luther, 1529.jpg"
+
+ bastilla:{
+  archivo:"The Storming of the Bastille on 14 July 1789 (Prise de la Bastille le 14 juillet 1789) MET DP820481.jpg",
+  pie:"La toma de la Bastilla, 14 de julio de 1789. Estampa de Charles Thévenin, Metropolitan Museum of Art."
  },
- bastilla: {
-  src:commons+"Charles Thévenin, The Storming of the Bastille on 14 July 1789, ca. 1793.jpg",
-  pie:"Toma de la Bastilla. Pintura de Charles Thévenin, hacia 1793.",
-  ficha:"Charles Thévenin, The Storming of the Bastille on 14 July 1789, ca. 1793.jpg"
+
+ hidalgo:{
+  archivo:"Retrato de Miguel Hidalgo (anónimo), s. XX 01.jpg",
+  pie:"Miguel Hidalgo y Costilla. Retrato realizado posteriormente a su muerte; Museo Regional de Aguascalientes."
  },
- zapata: {
-  src:commons+"Emiliano Zapata.jpg",
-  pie:"Emiliano Zapata, fotografía histórica coloreada posteriormente. Los colores son interpretativos.",
-  ficha:"Emiliano Zapata.jpg"
+
+ morelos:{
+  archivo:"Morelos irrumpe en el sitio de Cuautla, 2-5-1812, Daniel del Valle & Buznego y Cía (1910).jpg",
+  pie:"José María Morelos y sus tropas durante el sitio de Cuautla de 1812. Representación de Daniel del Valle publicada en 1910."
  },
- vaticano: {
-  src:commons+"Vatican II photo.jpg",
-  pie:"Concilio Vaticano II, fotografía de octubre de 1962. Wikimedia Commons, CC BY 3.0.",
-  ficha:"Vatican II photo.jpg"
+
+ zapata:{
+  archivo:"Emiliano Zapata, 1914.jpg",
+  pie:"El general Emiliano Zapata, fotografía histórica de 1914."
+ },
+
+ vaticano:{
+  archivo:"Vatican II photo.jpg",
+  pie:"El Concilio Vaticano II, octubre de 1962. Fotografía histórica publicada por Carroll College, CC BY 3.0."
+ },
+
+ luna:{
+  archivo:"Buzz Aldrin with Apollo 11 Lunar Module on the Moon MET DP-15797-039.jpg",
+  pie:"Buzz Aldrin junto al módulo lunar Apolo 11, 1969. Fotografía de Neil Armstrong, NASA; Metropolitan Museum of Art."
  }
+
 };
 
 /*
- CADA ACONTECIMIENTO:
- fecha, historia local y contexto mundial.
- La última propiedad opcional indica la imagen.
+ ===========================================
+ CRONOLOGÍA HISTÓRICA
+ ===========================================
 */
 
 const siglos = [
+
 {
  id:"xvi",
- titulo:"Siglo XVI · Los orígenes",
+ titulo:"Siglo XVI · La conquista y los orígenes",
  eventos:[
+
+ {
+ fecha:"1521 · Conquista de Tetela",
+ local:[
+ "María de Estrada y Tetela del Volcán",
+ "María de Estrada fue una de las mujeres españolas que participaron en la conquista de México. Las referencias históricas de Tetela del Volcán la relacionan con la conquista de la población y con una encomienda concedida a ella y a su esposo, Pedro Sánchez Farfán. Su presencia recuerda que las mujeres también participaron en los acontecimientos de la conquista.",
+ "maria"
+ ],
+ mundo:[
+ "La caída de México-Tenochtitlan",
+ "El 13 de agosto de 1521 cayó México-Tenochtitlan ante las fuerzas aliadas de Hernán Cortés y numerosos pueblos indígenas. Comenzó una profunda transformación política, religiosa y cultural del territorio."
+ ]
+ },
+
  {
  fecha:"1524",
- local:["Tetela en los primeros años coloniales","Después de la conquista, las comunidades indígenas de las laderas del Popocatépetl comenzaron a experimentar profundas transformaciones políticas, sociales y religiosas.","tetela"],
- mundo:["Llegada de los doce franciscanos","Encabezados por fray Martín de Valencia, doce misioneros franciscanos llegaron a Nueva España. Su presencia marcó una etapa fundamental de la evangelización."]
+ local:[
+ "Tetela en los primeros años coloniales",
+ "Después de la conquista, las comunidades indígenas de las laderas del Popocatépetl experimentaron profundas transformaciones políticas, sociales y religiosas."
+ ],
+ mundo:[
+ "La llegada de los doce franciscanos",
+ "En 1524 llegaron a Nueva España los doce misioneros franciscanos encabezados por fray Martín de Valencia. Su labor marcó una etapa fundamental de la evangelización y del establecimiento de conventos.",
+ "franciscanos"
+ ]
  },
+
  {
  fecha:"1526",
- local:["Las comunidades del Popocatépetl","Tetela formaba parte de una región indígena cuya vida comunitaria y religiosa cambiaría con el establecimiento de las órdenes misioneras.","convento2"],
- mundo:["Llegada de los dominicos a México","La Orden de Predicadores comenzó su presencia en Nueva España. Los dominicos desarrollarían una importante labor de evangelización, enseñanza y construcción de conventos."]
+ local:[
+ "La presencia dominicana en la región",
+ "La llegada de los dominicos a Nueva España abrió el camino a la evangelización de numerosas comunidades, entre ellas las de las laderas del Popocatépetl. Su legado permanecería estrechamente vinculado con Tetela del Volcán."
+ ],
+ mundo:[
+ "Los dominicos llegan a México",
+ "La Orden de Predicadores inició su presencia en Nueva España en 1526. La primera misión estuvo encabezada por fray Tomás Ortiz. Los dominicos desarrollarían una importante labor de predicación, enseñanza y construcción de conventos.",
+ "dominicos"
+ ]
  },
+
  {
  fecha:"1531",
- local:["Transformación religiosa de la región","La evangelización avanzaba en distintas comunidades indígenas del centro de Nueva España, en un proceso de encuentro y transformación cultural."],
- mundo:["Nuestra Señora de Guadalupe","Según la tradición católica, entre el 9 y el 12 de diciembre la Santísima Virgen María se apareció a san Juan Diego en el cerro del Tepeyac. El acontecimiento guadalupano se convirtió en un referente fundamental de la fe y la identidad de México."]
+ local:[
+ "Transformación religiosa de la región",
+ "La evangelización avanzaba en las comunidades indígenas del centro de Nueva España, dentro de un proceso de encuentro y transformación cultural."
+ ],
+ mundo:[
+ "Nuestra Señora de Guadalupe",
+ "Según la tradición católica, del 9 al 12 de diciembre de 1531 la Santísima Virgen María se apareció a san Juan Diego en el cerro del Tepeyac. El acontecimiento guadalupano se convirtió en un referente fundamental de la fe y la identidad de México."
+ ]
  },
+
  {
  fecha:"1539",
- local:["Fray Pedro Moralejo","Las fuentes históricas locales relacionan a fray Pedro Moralejo con la evangelización de Tetela y Hueyapan, dentro del proceso de expansión del cristianismo en la región.","convento3"],
- mundo:["Expansión de las misiones","Las órdenes religiosas extendían sus actividades de evangelización y enseñanza hacia distintas regiones de Nueva España."]
+ local:[
+ "Fray Pedro Moralejo",
+ "Las fuentes históricas locales relacionan a fray Pedro Moralejo con la evangelización de Tetela y Hueyapan, dentro del proceso de expansión del cristianismo en la región."
+ ],
+ mundo:[
+ "Expansión de las misiones",
+ "Las órdenes religiosas extendían sus actividades de evangelización, enseñanza y organización comunitaria hacia distintas regiones de Nueva España."
+ ]
  },
+
  {
  fecha:"1545–1563",
- local:["Consolidación del cristianismo","Las comunidades de la región vivían un proceso de reorganización religiosa y social durante el periodo colonial."],
- mundo:["Concilio de Trento","La Iglesia católica celebró uno de los concilios más importantes de su historia, que impulsó reformas doctrinales, disciplinares y pastorales. La Reforma iniciada por Martín Lutero en 1517 constituye un antecedente fundamental.","lutero"]
+ local:[
+ "Consolidación del cristianismo",
+ "Las comunidades de la región vivían un proceso de reorganización religiosa y social durante el periodo colonial."
+ ],
+ mundo:[
+ "El Concilio de Trento",
+ "La Iglesia católica celebró uno de los concilios más importantes de su historia. Sus decretos impulsaron reformas doctrinales, disciplinares y pastorales en respuesta a los desafíos de la época.",
+ "trento"
+ ]
  },
+
  {
  fecha:"1566",
- local:["Los dominicos en Tetela","Durante la segunda mitad del siglo XVI, la presencia de los dominicos se consolidó en Tetela, preparando el desarrollo de su conjunto conventual.","convento5"],
- mundo:["Elección de san Pío V","El dominico Antonio Michele Ghislieri fue elegido papa con el nombre de Pío V. Su pontificado estuvo profundamente relacionado con la aplicación de las reformas del Concilio de Trento.","pio"]
+ local:[
+ "Los dominicos en Tetela",
+ "Durante la segunda mitad del siglo XVI se consolidó la presencia dominicana en Tetela del Volcán y se desarrollaron las condiciones para el establecimiento de su conjunto conventual."
+ ],
+ mundo:[
+ "El papa san Pío V",
+ "El dominico Antonio Michele Ghislieri fue elegido papa con el nombre de Pío V. Su pontificado estuvo estrechamente relacionado con la aplicación de las reformas del Concilio de Trento."
+ ]
  },
+
  {
  fecha:"1571",
- local:["Construcción del convento","En este periodo se desarrollaron importantes obras del conjunto conventual de San Juan Bautista. La cronología exacta de sus etapas constructivas requiere distinguir entre los trabajos documentados y su conclusión.","convento7"],
- mundo:["Batalla de Lepanto","Durante el pontificado de san Pío V tuvo lugar la batalla naval de Lepanto. La victoria fue relacionada con la intercesión de la Virgen María y contribuyó al desarrollo de la celebración de Nuestra Señora del Rosario.","lepanto"]
+ local:[
+ "Las obras del convento",
+ "En este periodo se desarrollaron importantes trabajos del conjunto conventual de San Juan Bautista. La cronología exacta de las diferentes etapas constructivas debe distinguirse de la conclusión definitiva de todas sus obras."
+ ],
+ mundo:[
+ "La batalla de Lepanto",
+ "El 7 de octubre de 1571 tuvo lugar la batalla naval de Lepanto, durante el pontificado de san Pío V. La victoria fue relacionada con la intercesión de la Virgen María y contribuyó a la difusión de la devoción a Nuestra Señora del Rosario.",
+ "lepanto"
+ ]
  },
+
  {
  fecha:"1574",
- local:["El convento de San Juan Bautista","Esta fecha constituye una referencia importante para la historia constructiva del convento. En 2024 se conmemoraron 450 años vinculados a esta etapa. Algunas fuentes sitúan la conclusión de determinadas obras en años posteriores.","convento"],
- mundo:["El mundo del Renacimiento tardío","Europa atravesaba profundas transformaciones artísticas, científicas y religiosas, mientras los imperios europeos ampliaban sus redes comerciales y coloniales."]
+ local:[
+ "El convento de San Juan Bautista",
+ "Esta fecha constituye una referencia importante para la historia constructiva del convento. En 2024 se conmemoraron 450 años vinculados a esta etapa. Algunas fuentes sitúan la conclusión de determinadas obras en años posteriores.",
+ "fachada"
+ ],
+ mundo:[
+ "El Renacimiento tardío",
+ "Europa atravesaba profundas transformaciones artísticas, científicas y religiosas, mientras los imperios europeos ampliaban sus redes comerciales y coloniales."
+ ]
  },
+
  {
  fecha:"1582",
- local:["La comunidad dominicana","El convento formaba parte de la red de establecimientos religiosos que articulaban la evangelización y la vida comunitaria en la región."],
- mundo:["Calendario gregoriano","El papa Gregorio XIII promulgó la reforma del calendario que lleva su nombre, utilizada actualmente en gran parte del mundo."]
+ local:[
+ "La comunidad dominicana",
+ "El convento formaba parte de la red de establecimientos religiosos que articulaban la evangelización y la vida comunitaria en la región."
+ ],
+ mundo:[
+ "El calendario gregoriano",
+ "El papa Gregorio XIII promulgó la reforma del calendario que lleva su nombre y que actualmente se utiliza en gran parte del mundo."
+ ]
  }
+
 ]
 },
+
 {
  id:"xvii",
  titulo:"Siglo XVII · La vida conventual",
  eventos:[
+
  {
  fecha:"1618–1648",
- local:["La vida cotidiana en el convento","La oración, el estudio, la predicación y la administración de las comunidades formaban parte de las actividades religiosas de la época colonial.","convento3"],
- mundo:["Guerra de los Treinta Años","Europa vivió un prolongado conflicto político y religioso que transformó las relaciones entre numerosos estados."]
+ local:[
+ "La vida cotidiana del convento",
+ "La oración, el estudio, la predicación y la atención religiosa de las comunidades formaban parte de las actividades de la vida conventual durante la época colonial."
+ ],
+ mundo:[
+ "La Guerra de los Treinta Años",
+ "Europa vivió un prolongado conflicto político y religioso que transformó las relaciones entre numerosos estados y causó enormes pérdidas humanas."
+ ]
  },
+
  {
  fecha:"1649",
- local:["Conflictos por las tierras","Las fuentes históricas locales registran disputas relacionadas con la defensa de las tierras comunales de Tetela.","tetela"],
- mundo:["Transformaciones políticas europeas","En Inglaterra fue ejecutado el rey Carlos I, en medio de una profunda crisis política que condujo a un periodo republicano."]
+ local:[
+ "La defensa de las tierras",
+ "Las referencias históricas locales registran disputas relacionadas con la defensa de las tierras comunales de Tetela del Volcán."
+ ],
+ mundo:[
+ "La ejecución de Carlos I de Inglaterra",
+ "En Inglaterra fue ejecutado el rey Carlos I, en medio de una profunda crisis política que condujo al establecimiento de un periodo republicano.",
+ "carlos"
+ ]
  },
+
  {
  fecha:"1671",
- local:["La espiritualidad dominicana","La tradición de la Orden de Predicadores continuaba formando parte de la vida religiosa del convento y de su entorno.","convento5"],
- mundo:["Canonización de santa Rosa de Lima","El papa Clemente X canonizó a santa Rosa de Lima, terciaria dominica, reconocida como la primera santa canonizada nacida en América."]
+ local:[
+ "La espiritualidad dominicana",
+ "La tradición de la Orden de Predicadores continuaba formando parte de la vida religiosa del convento y de su entorno."
+ ],
+ mundo:[
+ "Santa Rosa de Lima",
+ "El papa Clemente X canonizó a santa Rosa de Lima, terciaria dominica, reconocida como la primera santa canonizada nacida en América."
+ ]
  }
+
 ]
 },
+
 {
  id:"xviii",
- titulo:"Siglo XVIII · Un mundo en transformación",
+ titulo:"Siglo XVIII · La Ilustración y las revoluciones",
  eventos:[
+
  {
  fecha:"1710–1712",
- local:["Defensa de tierras comunales","La comunidad de Tetela continuó enfrentando conflictos relacionados con la posesión y defensa de sus tierras.","tetela"],
- mundo:["La Europa del siglo XVIII","El continente europeo atravesaba cambios políticos, comerciales e intelectuales que darían impulso a la Ilustración."]
+ local:[
+ "Las tierras comunales de Tetela",
+ "La comunidad continuó enfrentando conflictos relacionados con la posesión y defensa de sus tierras."
+ ],
+ mundo:[
+ "Europa en el siglo XVIII",
+ "Los cambios políticos, comerciales e intelectuales prepararon el surgimiento y la expansión de las ideas ilustradas."
+ ]
  },
+
  {
  fecha:"Hacia 1772",
- local:["Modificaciones del templo","Se sitúan en este periodo importantes modificaciones arquitectónicas relacionadas con la techumbre del templo de San Juan Bautista.","convento2"],
- mundo:["La Ilustración","Las ideas ilustradas promovían nuevas reflexiones sobre la ciencia, la política, la educación y la organización de la sociedad."]
+ local:[
+ "Transformaciones del templo",
+ "Se sitúan en este periodo modificaciones arquitectónicas relacionadas con la techumbre del templo de San Juan Bautista."
+ ],
+ mundo:[
+ "La Ilustración y la Enciclopedia",
+ "La Ilustración promovió nuevas reflexiones sobre la ciencia, la educación, la razón y la organización de la sociedad. La Enciclopedia dirigida por Diderot y d'Alembert fue una de sus grandes expresiones culturales.",
+ "ilustracion"
+ ]
  },
+
  {
  fecha:"1776",
- local:["Tetela en el periodo colonial","La población continuaba desarrollando sus actividades agrícolas, comunitarias y religiosas bajo la administración virreinal."],
- mundo:["Independencia de Estados Unidos","Las trece colonias británicas proclamaron su independencia, iniciando un proceso de transformación política de gran influencia internacional."]
+ local:[
+ "Tetela en el periodo colonial",
+ "La población continuaba desarrollando sus actividades agrícolas, comunitarias y religiosas bajo la administración virreinal."
+ ],
+ mundo:[
+ "Independencia de Estados Unidos",
+ "Las trece colonias británicas proclamaron su independencia el 4 de julio de 1776, iniciando un proceso de transformación política de gran influencia internacional."
+ ]
  },
+
  {
  fecha:"1789",
- local:["El final del siglo colonial","Tetela se aproximaba al final del periodo virreinal, antes de las transformaciones que traería la Independencia de México."],
- mundo:["Revolución francesa","Comenzó la Revolución francesa, uno de los acontecimientos que transformaron profundamente la política y la sociedad modernas.","bastilla"]
+ local:[
+ "El final del siglo colonial",
+ "Tetela se aproximaba al final del periodo virreinal, antes de las transformaciones que traería la Independencia de México."
+ ],
+ mundo:[
+ "La Revolución francesa",
+ "La toma de la Bastilla el 14 de julio de 1789 se convirtió en uno de los acontecimientos simbólicos de la Revolución francesa, que transformó profundamente la política y la sociedad modernas.",
+ "bastilla"
+ ]
  }
+
 ]
 },
+
 {
  id:"xix",
  titulo:"Siglo XIX · Independencia y modernidad",
  eventos:[
+
  {
  fecha:"1810",
- local:["Tetela ante la Independencia","El movimiento insurgente comenzó a transformar el orden político de Nueva España, con consecuencias para las comunidades de la región.","tetela"],
- mundo:["Inicio de la Independencia de México","El 16 de septiembre, el levantamiento encabezado por Miguel Hidalgo marcó el comienzo de la guerra de Independencia."]
+ local:[
+ "Tetela ante la Independencia",
+ "El movimiento insurgente comenzó a transformar el orden político de Nueva España, con consecuencias para las comunidades de la región."
+ ],
+ mundo:[
+ "El inicio de la Independencia de México",
+ "El 16 de septiembre de 1810, el levantamiento encabezado por Miguel Hidalgo marcó el comienzo de la guerra de Independencia.",
+ "hidalgo"
+ ]
  },
+
+ {
+ fecha:"1812",
+ local:[
+ "La guerra en la región de Morelos",
+ "El conflicto de Independencia afectó profundamente al centro de Nueva España. Cuautla, relativamente cercana a Tetela del Volcán, fue escenario de uno de los episodios más importantes de la lucha insurgente."
+ ],
+ mundo:[
+ "El sitio de Cuautla",
+ "Las fuerzas de José María Morelos resistieron durante más de dos meses el sitio impuesto por el ejército realista. El 2 de mayo lograron romper el cerco.",
+ "morelos"
+ ]
+ },
+
  {
  fecha:"1821",
- local:["Una nueva etapa política","Tetela pasó a formar parte de una nación independiente, en medio de importantes cambios administrativos y sociales."],
- mundo:["Consumación de la Independencia","En septiembre de 1821 se consumó la Independencia de México, poniendo fin al dominio virreinal."]
+ local:[
+ "Una nueva etapa política",
+ "Tetela pasó a formar parte de una nación independiente, en medio de importantes cambios administrativos y sociales."
+ ],
+ mundo:[
+ "Consumación de la Independencia",
+ "En septiembre de 1821 se consumó la Independencia de México, poniendo fin al dominio virreinal."
+ ]
  },
+
  {
  fecha:"1854",
- local:["La comunidad católica de Tetela","La vida religiosa de las comunidades continuaba en un siglo marcado por transformaciones políticas y tensiones entre Iglesia y Estado.","convento7"],
- mundo:["Dogma de la Inmaculada Concepción","El papa Pío IX proclamó solemnemente el dogma de la Inmaculada Concepción de la Santísima Virgen María."]
+ local:[
+ "La comunidad católica de Tetela",
+ "La vida religiosa de las comunidades continuaba en un siglo marcado por transformaciones políticas y tensiones entre la Iglesia y el Estado."
+ ],
+ mundo:[
+ "La Inmaculada Concepción",
+ "El papa Pío IX proclamó solemnemente el dogma de la Inmaculada Concepción de la Santísima Virgen María."
+ ]
  },
+
  {
  fecha:"1869–1870",
- local:["Creación del estado de Morelos","En 1869 se creó el estado de Morelos, al que quedó incorporado Tetela del Volcán."],
- mundo:["Concilio Vaticano I","Convocado por Pío IX, el concilio abordó cuestiones fundamentales sobre la fe, la razón y el primado del Romano Pontífice."]
+ local:[
+ "La creación del estado de Morelos",
+ "En 1869 se creó el estado de Morelos, al que quedó incorporado Tetela del Volcán."
+ ],
+ mundo:[
+ "El Concilio Vaticano I",
+ "Convocado por Pío IX, el concilio abordó cuestiones fundamentales sobre la fe, la razón y el primado del Romano Pontífice."
+ ]
  },
+
  {
  fecha:"1891",
- local:["El trabajo y la vida comunitaria","La vida de las poblaciones rurales seguía estrechamente vinculada a la agricultura y a las relaciones sociales y económicas de la época."],
- mundo:["Encíclica Rerum novarum","El papa León XIII publicó esta encíclica sobre la cuestión obrera, considerada un documento fundamental de la doctrina social moderna de la Iglesia."]
+ local:[
+ "El trabajo y la vida comunitaria",
+ "La vida de las poblaciones rurales seguía estrechamente vinculada con la agricultura y con las relaciones sociales y económicas de la época."
+ ],
+ mundo:[
+ "La encíclica Rerum novarum",
+ "El papa León XIII publicó esta encíclica sobre la cuestión obrera, considerada un documento fundamental de la doctrina social moderna de la Iglesia."
+ ]
  }
+
 ]
 },
+
 {
  id:"xx",
  titulo:"Siglo XX · Guerras y transformaciones",
  eventos:[
+
  {
  fecha:"1910–1920",
- local:["La Revolución en Morelos","La región vivió las transformaciones y conflictos de la Revolución mexicana, particularmente relacionados con el movimiento agrarista encabezado por Emiliano Zapata.","zapata"],
- mundo:["Revolución mexicana y Primera Guerra Mundial","En 1910 comenzó la Revolución mexicana. Entre 1914 y 1918, Europa y otras regiones del mundo fueron escenario de la Primera Guerra Mundial."]
+ local:[
+ "La Revolución en Morelos",
+ "La región vivió los conflictos y transformaciones de la Revolución mexicana, especialmente los relacionados con el movimiento agrarista encabezado por Emiliano Zapata.",
+ "zapata"
+ ],
+ mundo:[
+ "La Revolución mexicana y la Primera Guerra Mundial",
+ "En 1910 comenzó la Revolución mexicana. Entre 1914 y 1918, Europa y otras regiones del mundo fueron escenario de la Primera Guerra Mundial."
+ ]
  },
+
  {
  fecha:"1937",
- local:["Municipio de Tetela del Volcán","Tetela del Volcán adquirió su condición municipal en el contexto de la reorganización territorial de Morelos.","tetela"],
- mundo:["El periodo de entreguerras","El mundo atravesaba una época de inestabilidad política y económica que precedió a la Segunda Guerra Mundial."]
+ local:[
+ "El municipio de Tetela del Volcán",
+ "La historia administrativa de Tetela del Volcán atravesó cambios importantes durante el siglo XX. La referencia a 1937 como fecha municipal requiere corroboración documental."
+ ],
+ mundo:[
+ "El periodo de entreguerras",
+ "El mundo atravesaba una época de inestabilidad política y económica que precedió a la Segunda Guerra Mundial."
+ ]
  },
+
  {
  fecha:"1939–1945",
- local:["Tetela durante la guerra mundial","La comunidad continuaba su vida cotidiana mientras el mundo enfrentaba uno de los conflictos más devastadores de la historia."],
- mundo:["Segunda Guerra Mundial","El conflicto involucró a numerosos países y dejó profundas consecuencias humanas, políticas y económicas."]
+ local:[
+ "Tetela durante la guerra mundial",
+ "La comunidad continuaba su vida cotidiana mientras el mundo enfrentaba uno de los conflictos más devastadores de la historia."
+ ],
+ mundo:[
+ "La Segunda Guerra Mundial",
+ "El conflicto involucró a numerosos países y dejó profundas consecuencias humanas, políticas y económicas."
+ ]
  },
+
  {
  fecha:"1962–1965",
- local:["Renovación de la vida litúrgica","Como en otras comunidades católicas, las reformas del Concilio Vaticano II influyeron progresivamente en la celebración litúrgica y la pastoral.","convento3"],
- mundo:["Concilio Vaticano II","Convocado por san Juan XXIII y concluido bajo san Pablo VI, el concilio impulsó una profunda renovación pastoral y litúrgica en la Iglesia católica. En 1962 también fue canonizado san Martín de Porres, dominico.","vaticano"]
+ local:[
+ "Renovación de la vida litúrgica",
+ "Como en otras comunidades católicas, las reformas del Concilio Vaticano II influyeron progresivamente en la celebración litúrgica y la pastoral."
+ ],
+ mundo:[
+ "El Concilio Vaticano II",
+ "Convocado por san Juan XXIII y concluido bajo san Pablo VI, el concilio impulsó una profunda renovación pastoral y litúrgica en la Iglesia. En 1962 también fue canonizado san Martín de Porres, dominico.",
+ "vaticano"
+ ]
  },
+
  {
  fecha:"1969",
- local:["Tetela en el siglo XX","La comunidad participaba de las transformaciones sociales y tecnológicas que modificaron la vida cotidiana durante el siglo."],
- mundo:["El ser humano llega a la Luna","La misión Apolo 11 logró el primer alunizaje tripulado, uno de los grandes acontecimientos de la exploración espacial."]
+ local:[
+ "Tetela en el siglo XX",
+ "La comunidad participaba de las transformaciones sociales y tecnológicas que modificaron la vida cotidiana durante el siglo."
+ ],
+ mundo:[
+ "La llegada del ser humano a la Luna",
+ "La misión Apolo 11 logró el primer alunizaje tripulado. Neil Armstrong y Buzz Aldrin caminaron sobre la superficie lunar, en uno de los grandes acontecimientos de la exploración espacial.",
+ "luna"
+ ]
  },
+
  {
  fecha:"1978",
- local:["La vida de la parroquia","La comunidad católica de Tetela continuaba su vida pastoral en un periodo de cambios importantes para la Iglesia."],
- mundo:["Elección de san Juan Pablo II","El cardenal Karol Wojtyła fue elegido papa el 16 de octubre. Se convirtió en el primer pontífice polaco de la historia."]
+ local:[
+ "La vida de la parroquia",
+ "La comunidad católica de Tetela continuaba su vida pastoral en un periodo de cambios importantes para la Iglesia."
+ ],
+ mundo:[
+ "La elección de san Juan Pablo II",
+ "El cardenal Karol Wojtyła fue elegido papa el 16 de octubre de 1978. Se convirtió en el primer pontífice polaco de la historia."
+ ]
  },
+
  {
  fecha:"1985",
- local:["Los sismos en la memoria de México","El terremoto de 1985 constituye un acontecimiento nacional fundamental. Los posibles efectos específicos en el convento requieren documentación local."],
- mundo:["Terremoto de 1985","El 19 de septiembre un devastador terremoto afectó principalmente a la Ciudad de México y otras regiones del país."]
+ local:[
+ "Los sismos en la memoria de México",
+ "El terremoto de 1985 constituye un acontecimiento nacional fundamental. Sus posibles efectos específicos en el convento requieren documentación local."
+ ],
+ mundo:[
+ "El terremoto de 1985",
+ "El 19 de septiembre, un devastador terremoto afectó principalmente a la Ciudad de México y otras regiones del país."
+ ]
  },
+
  {
  fecha:"1994",
- local:["Reconocimiento de la UNESCO","El Ex Convento de San Juan Bautista forma parte del conjunto de primeros monasterios del siglo XVI en las laderas del Popocatépetl, inscrito en la Lista del Patrimonio Mundial.","convento"],
- mundo:["Un México en transformación","Entró en vigor el Tratado de Libre Comercio de América del Norte. El país vivió además importantes acontecimientos políticos y sociales."]
+ local:[
+ "El reconocimiento de la UNESCO",
+ "El Ex Convento de San Juan Bautista forma parte del conjunto de primeros monasterios del siglo XVI en las laderas del Popocatépetl, inscrito en la Lista del Patrimonio Mundial."
+ ],
+ mundo:[
+ "México en transformación",
+ "Entró en vigor el Tratado de Libre Comercio de América del Norte. El país vivió importantes acontecimientos políticos y sociales."
+ ]
  }
+
 ]
 },
+
 {
  id:"xxi",
  titulo:"Siglo XXI · Memoria y esperanza",
  eventos:[
+
  {
  fecha:"2000",
- local:["El convento en el nuevo milenio","El conjunto conventual continuó siendo un espacio de memoria, patrimonio, culto y encuentro para la comunidad.","convento5"],
- mundo:["Gran Jubileo del año 2000","San Juan Pablo II encabezó las celebraciones del Gran Jubileo con motivo de los dos mil años del nacimiento de Jesucristo."]
+ local:[
+ "El convento en el nuevo milenio",
+ "El conjunto conventual continuó siendo un espacio de memoria, patrimonio, culto y encuentro para la comunidad."
+ ],
+ mundo:[
+ "El Gran Jubileo del año 2000",
+ "San Juan Pablo II encabezó las celebraciones del Gran Jubileo con motivo de los dos mil años del nacimiento de Jesucristo."
+ ]
  },
+
  {
  fecha:"2013",
- local:["La comunidad de San Juan Bautista","La parroquia continuaba su misión evangelizadora y su compromiso con la conservación del patrimonio.","convento7"],
- mundo:["Elección del papa Francisco","El cardenal Jorge Mario Bergoglio fue elegido papa. Fue el primer pontífice latinoamericano y el primero perteneciente a la Compañía de Jesús."]
+ local:[
+ "La comunidad de San Juan Bautista",
+ "La parroquia continuaba su misión evangelizadora y su compromiso con la conservación del patrimonio."
+ ],
+ mundo:[
+ "La elección del papa Francisco",
+ "El cardenal Jorge Mario Bergoglio fue elegido papa. Fue el primer pontífice latinoamericano y el primero perteneciente a la Compañía de Jesús."
+ ]
  },
+
  {
  fecha:"2017",
- local:["El terremoto del 19 de septiembre","El sismo provocó graves daños en el Ex Convento de San Juan Bautista, obligando a emprender un largo proceso de restauración y recuperación del patrimonio.","convento2"],
- mundo:["El terremoto de Puebla-Morelos","Un fuerte terremoto afectó gravemente a numerosas comunidades del centro de México, dañando viviendas, templos y edificios históricos."]
+ local:[
+ "El terremoto del 19 de septiembre",
+ "El sismo provocó graves daños en el Ex Convento de San Juan Bautista, obligando a emprender un largo proceso de restauración y recuperación del patrimonio."
+ ],
+ mundo:[
+ "El terremoto de Puebla-Morelos",
+ "Un fuerte terremoto afectó gravemente a numerosas comunidades del centro de México, dañando viviendas, templos y edificios históricos."
+ ]
  },
+
  {
  fecha:"2020",
- local:["La pandemia en Tetela","La emergencia sanitaria alteró la vida familiar, comunitaria y religiosa, como ocurrió en tantas poblaciones del mundo."],
- mundo:["Pandemia de COVID-19","La Organización Mundial de la Salud caracterizó la propagación de COVID-19 como una pandemia, que tuvo profundas consecuencias humanas y sociales."]
+ local:[
+ "La pandemia en Tetela",
+ "La emergencia sanitaria alteró la vida familiar, comunitaria y religiosa, como ocurrió en tantas poblaciones del mundo."
+ ],
+ mundo:[
+ "La pandemia de COVID-19",
+ "La Organización Mundial de la Salud caracterizó la propagación de COVID-19 como una pandemia, que tuvo profundas consecuencias humanas y sociales."
+ ]
  },
+
  {
  fecha:"2024",
- local:["450 años de historia conventual","El convento conmemoró 450 años vinculados a su historia constructiva. Después de los daños ocasionados por el terremoto de 2017, su recuperación permitió reencontrarse con una parte fundamental de la memoria religiosa y cultural de Tetela.","convento"],
- mundo:["Un mundo en transformación","La expansión de la inteligencia artificial y de nuevas tecnologías modificó numerosas actividades científicas, educativas y culturales."]
+ local:[
+ "450 años de historia conventual",
+ "El convento conmemoró 450 años vinculados a su historia constructiva. Después de los daños ocasionados por el terremoto de 2017, su recuperación permitió reencontrarse con una parte fundamental de la memoria religiosa y cultural de Tetela del Volcán.",
+ "fachada"
+ ],
+ mundo:[
+ "Un mundo en transformación",
+ "La expansión de la inteligencia artificial y de nuevas tecnologías modificó numerosas actividades científicas, educativas y culturales."
+ ]
  },
+
  {
  fecha:"2025",
- local:["Una historia que continúa","La conservación del patrimonio conventual y la transmisión de su memoria permanecen como responsabilidades para las nuevas generaciones.","convento3"],
- mundo:["Jubileo y elección de León XIV","La Iglesia celebró el Jubileo de la esperanza. El 8 de mayo fue elegido el papa León XIV, Robert Francis Prevost, perteneciente a la Orden de San Agustín."]
+ local:[
+ "Una historia que continúa",
+ "La conservación del patrimonio conventual y la transmisión de su memoria permanecen como responsabilidades para las nuevas generaciones."
+ ],
+ mundo:[
+ "El Jubileo y el papa León XIV",
+ "La Iglesia celebró el Jubileo de la esperanza. El 8 de mayo de 2025 fue elegido el papa León XIV, Robert Francis Prevost, perteneciente a la Orden de San Agustín."
+ ]
  },
+
  {
  fecha:"2026",
- local:["Un día en el convento","El recorrido virtual del Ex Convento de San Juan Bautista de Tetela del Volcán busca conservar y compartir la memoria de este extraordinario patrimonio histórico, artístico y espiritual.","convento"],
- mundo:["500 años de los dominicos en México","Se conmemoran cinco siglos de la llegada de la Orden de Predicadores a México en 1526. Su legado de predicación, estudio y evangelización forma parte fundamental de la historia de Nueva España y del México contemporáneo."]
+ local:[
+ "Un día en el convento",
+ "El recorrido virtual del Ex Convento de San Juan Bautista de Tetela del Volcán busca conservar y compartir la memoria de este extraordinario patrimonio histórico, artístico y espiritual."
+ ],
+ mundo:[
+ "500 años de los dominicos en México",
+ "Se conmemoran cinco siglos de la llegada de la Orden de Predicadores a México en 1526. Su legado de predicación, estudio y evangelización forma parte fundamental de la historia de Nueva España y del México contemporáneo."
+ ]
  }
+
 ]
 }
+
 ];
 
-function crearImagen(clave) {
- const info = imagenes[clave];
- if (!info) return "";
+/*
+ ===========================================
+ CREACIÓN DE IMÁGENES
+ ===========================================
+*/
 
- const ficha = info.ficha
-  ? "https://commons.wikimedia.org/wiki/File:" +
-    encodeURIComponent(info.ficha).replace(/%2F/g,"/")
-  : "";
+function crearImagen(clave){
+
+ const info=imagenes[clave];
+
+ if(!info)return "";
+
+ const src=info.local
+  ?info.local
+  :commons+encodeURIComponent(info.archivo);
+
+ const ficha=info.archivo
+  ?"https://commons.wikimedia.org/wiki/File:"+
+   encodeURIComponent(info.archivo)
+  :"";
+
+ const enlace=ficha
+  ?`<a href="${ficha}" target="_blank"
+       rel="noopener noreferrer">
+       Ver imagen original, autor y licencia
+     </a>`
+  :"";
 
  return `
  <figure class="foto">
-   <img
-     src="${info.src}"
-     alt="${info.pie}"
-     loading="lazy"
-     onerror="this.closest('figure').style.display='none'"
-   >
-   <figcaption>
-     ${info.pie}
-     ${ficha ? `<a href="${ficha}" target="_blank" rel="noopener noreferrer">Ver fuente y licencia</a>` : ""}
-   </figcaption>
+  <img
+   src="${src}"
+   alt="${info.pie}"
+   loading="lazy"
+   onerror="
+    this.style.display='none';
+    this.nextElementSibling.style.display='block';
+   "
+  >
+  <div class="error-imagen">
+   No se pudo cargar esta imagen.
+   ${enlace}
+  </div>
+  <figcaption>
+   ${info.pie}
+   ${ficha?`<div>${enlace}</div>`:""}
+  </figcaption>
  </figure>`;
+
 }
 
-function crearTarjeta(datos, clase) {
- const [titulo, texto, imagen] = datos;
- const etiqueta = clase === "local"
-  ? "TETELA DEL VOLCÁN"
-  : "MÉXICO, EL MUNDO Y LA IGLESIA";
+/*
+ ===========================================
+ CREACIÓN DE TARJETAS
+ ===========================================
+*/
+
+function crearTarjeta(datos,clase){
+
+ const [titulo,texto,imagen]=datos;
+
+ const etiqueta=clase==="local"
+  ?"TETELA DEL VOLCÁN"
+  :"MÉXICO, EL MUNDO Y LA IGLESIA";
 
  return `
  <article class="tarjeta ${clase}">
   <span class="etiqueta">${etiqueta}</span>
   <h3>${titulo}</h3>
   <p>${texto}</p>
-  ${imagen ? crearImagen(imagen) : ""}
+  ${imagen?crearImagen(imagen):""}
  </article>`;
+
 }
 
-function crearEvento(evento) {
+function crearEvento(evento){
+
  return `
  <div class="acontecimiento">
   <div class="fecha">${evento.fecha}</div>
@@ -513,46 +998,64 @@ function crearEvento(evento) {
    ${crearTarjeta(evento.mundo,"mundo")}
   </div>
  </div>`;
+
 }
 
-function crearSiglo(siglo, indice) {
+function crearSiglo(siglo,indice){
+
  return `
  <section
   id="${siglo.id}"
-  class="siglo ${indice===0 ? "activo" : ""}"
+  class="siglo ${indice===0?"activo":""}"
  >
   <h2 class="titulo-siglo">${siglo.titulo}</h2>
+
   <div class="cabeceras">
    <div>Tetela del Volcán</div>
    <div>México, el mundo y la Iglesia</div>
   </div>
+
   ${siglo.eventos.map(crearEvento).join("")}
+
  </section>`;
+
 }
 
-document.getElementById("cronologia").innerHTML =
+/*
+ ===========================================
+ MOSTRAR CRONOLOGÍA
+ ===========================================
+*/
+
+document.getElementById("cronologia").innerHTML=
  siglos.map(crearSiglo).join("");
 
-document.querySelectorAll("#selector button").forEach(boton=>{
- boton.addEventListener("click",function(){
-  document.querySelectorAll(".siglo").forEach(s=>{
-   s.classList.remove("activo");
-  });
+document.querySelectorAll("#selector button")
+.forEach(boton=>{
 
-  document.querySelectorAll("#selector button").forEach(b=>{
-   b.classList.remove("activo");
-  });
+ boton.addEventListener("click",function(){
+
+  document.querySelectorAll(".siglo")
+  .forEach(s=>s.classList.remove("activo"));
+
+  document.querySelectorAll("#selector button")
+  .forEach(b=>b.classList.remove("activo"));
 
   document.getElementById(this.dataset.siglo)
-   .classList.add("activo");
+  .classList.add("activo");
 
   this.classList.add("activo");
 
-  document.getElementById("cronologia").scrollIntoView({
-   behavior:"smooth",block:"start"
+  document.getElementById("cronologia")
+  .scrollIntoView({
+   behavior:"smooth",
+   block:"start"
   });
+
  });
+
 });
+
 </script>
 
 <script
