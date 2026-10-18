@@ -1,112 +1,457 @@
-
 <!doctype html>
 <html lang="es">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rutas de evangelización | Un día en el convento</title>
 
-  <title>Rutas de evangelización de Morelos | Un día en el convento</title>
+<style>
+:root {
+  --verde: #325d4a;
+  --fondo: #f5f1e6;
+}
+* { box-sizing: border-box; }
 
-  <style>
-    body {
-      margin: 0;
-      background-color: #f5f1e6;
-      color: #2f2f2f;
-      text-align: center;
-      font-family: Georgia, "Times New Roman", serif;
-    }
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: #2f2f2f;
+  font-family: Georgia, "Times New Roman", serif;
+  text-align: center;
+}
 
-    .contenido {
-      max-width: 900px;
-      margin: auto;
-      padding: 25px 15px;
-    }
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px 12px 40px;
+}
 
-    h1 {
-      color: #325d4a;
-      font-size: 30px;
-    }
+h1, h2 { color: var(--verde); }
 
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-    }
+h1 { font-size: 30px; }
 
-    .mapa {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 25px auto;
-      border-radius: 10px;
-    }
+p {
+  font-size: 18px;
+  line-height: 1.6;
+}
 
-    .boton-entrada {
-      display: inline-block;
-      padding: 12px 22px;
-      background-color: #325d4a;
-      color: white;
-      border: 2px solid white;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-    }
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
 
-    .boton-entrada:hover {
-      opacity: 0.9;
-    }
+button, .regresar {
+  border: none;
+  border-radius: 9px;
+  padding: 13px 18px;
+  color: white;
+  font: bold 16px Georgia, serif;
+  cursor: pointer;
+}
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 24px;
-      }
+button:disabled {
+  opacity: .5;
+  cursor: default;
+}
 
-      .boton-entrada {
-        max-width: 100%;
-        box-sizing: border-box;
-        font-size: 16px;
-        padding: 12px 15px;
-      }
-    }
-  </style>
+button:focus-visible, .regresar:focus-visible {
+  outline: 3px solid #d6a445;
+  outline-offset: 3px;
+}
+
+.franciscanos { background: #80512f; }
+.agustinos { background: #173b70; }
+.dominicos { background: #171717; }
+.control, .regresar { background: var(--verde); }
+
+.mapa {
+  background: #e9e5d9;
+  border: 2px solid #d5cdbd;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.etiqueta {
+  font: bold 19px Georgia, serif;
+  fill: #222;
+  paint-order: stroke;
+  stroke: #fffdf5;
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+
+.panel {
+  background: #fffdf7;
+  border: 1px solid #d9d2c4;
+  border-radius: 10px;
+  padding: 18px;
+  min-height: 135px;
+}
+
+#lugar {
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--verde);
+}
+
+.nota {
+  font-size: 15px;
+  color: #57534b;
+}
+
+.regresar {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+@media(max-width:600px) {
+  h1 { font-size: 25px; }
+  p { font-size: 16px; }
+  button { font-size: 14px; padding: 12px; }
+}
+</style>
 </head>
 
 <body>
+<main>
 
-  <main class="contenido">
+<h1>Caminos de evangelización de Morelos</h1>
 
-    <h1>Rutas de evangelización de Morelos</h1>
+<p>
+Conoce la presencia de franciscanos, agustinos
+y dominicos en Morelos durante el siglo XVI.
+</p>
 
-    <p>
-      Descubre los caminos que recorrieron los
-      franciscanos, agustinos y dominicos durante
-      la evangelización de Morelos en el siglo XVI.
-    </p>
+<p>Selecciona una orden religiosa.</p>
 
-    <!-- Mapa animado de las tres órdenes religiosas -->
+<div class="botones">
+  <button class="franciscanos"
+    onclick="iniciar('franciscanos')">
+    FRANCISCANOS
+  </button>
 
-    <img
-      class="mapa"
-      src="DDF54539-F3DA-46FD-915D-F31EEE9AFFF9.GIF"
-      alt="Mapa animado de las rutas de evangelización de Morelos"
-    >
+  <button class="agustinos"
+    onclick="iniciar('agustinos')">
+    AGUSTINOS
+  </button>
 
-    <!-- Regresar a la página principal -->
+  <button class="dominicos"
+    onclick="iniciar('dominicos')">
+    DOMINICOS
+  </button>
+</div>
 
-    <a class="boton-entrada" href="index.html">
-      REGRESAR AL INICIO
-    </a>
+<h2 id="titulo">Selecciona una ruta</h2>
 
-  </main>
+<div class="mapa">
+<svg viewBox="0 0 900 570"
+  role="img"
+  aria-label="Mapa esquemático de localidades de Morelos">
 
-  <!-- Contador de visitas GoatCounter -->
+  <rect width="900" height="570" fill="#eee9dd"/>
 
-  <script
-    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-    async
-    src="//gc.zgo.at/count.js">
-  </script>
+  <text x="450" y="42"
+    text-anchor="middle"
+    font-size="25"
+    font-family="Georgia"
+    font-weight="bold"
+    fill="#325d4a">
+    MORELOS
+  </text>
+
+  <text x="450" y="67"
+    text-anchor="middle"
+    font-size="15"
+    fill="#666">
+    Ubicaciones aproximadas
+  </text>
+
+  <g id="lineas"></g>
+  <g id="puntos"></g>
+</svg>
+</div>
+
+<div class="botones">
+  <button class="control" id="pausa"
+    onclick="alternarPausa()" disabled>
+    PAUSAR
+  </button>
+
+  <button class="control" id="repetir"
+    onclick="repetir()" disabled>
+    REPETIR RECORRIDO
+  </button>
+</div>
+
+<div class="panel" aria-live="polite">
+  <div id="lugar">Esperando selección</div>
+  <p id="descripcion">
+    Elige una de las tres órdenes religiosas.
+  </p>
+  <p id="progreso" class="nota"></p>
+</div>
+
+<p class="nota">
+Este es un esquema geográfico inicial.
+Las líneas representan secuencias ilustrativas,
+no caminos históricos documentados.
+Las fechas y atribuciones históricas deberán
+verificarse antes de elaborar la versión definitiva.
+</p>
+
+<a class="regresar" href="index.html">
+REGRESAR AL INICIO
+</a>
+
+</main>
+
+<script>
+const lugares = {
+  cuernavaca: ["Cuernavaca",18.924,-99.221],
+  tlaquiltenango: ["Tlaquiltenango",18.633,-99.163],
+  totolapan: ["Totolapan",18.985,-98.921],
+  atlatlahucan: ["Atlatlahucan",18.935,-98.899],
+  yecapixtla: ["Yecapixtla",18.883,-98.866],
+  ocuituco: ["Ocuituco",18.877,-98.774],
+  zacualpan: ["Zacualpan de Amilpas",18.783,-98.767],
+  tepoztlan: ["Tepoztlán",18.985,-99.099],
+  oaxtepec: ["Oaxtepec",18.907,-98.971],
+  tetela: ["Tetela del Volcán",18.894,-98.729],
+  hueyapan: ["Hueyapan",18.890,-98.690]
+};
+
+const rutas = {
+  franciscanos: {
+    titulo: "Ruta franciscana",
+    color: "#80512f",
+    lugares: ["cuernavaca","tlaquiltenango"]
+  },
+  agustinos: {
+    titulo: "Ruta agustina",
+    color: "#173b70",
+    lugares: [
+      "totolapan","atlatlahucan",
+      "yecapixtla","ocuituco","zacualpan"
+    ]
+  },
+  dominicos: {
+    titulo: "Ruta dominica",
+    color: "#171717",
+    lugares: [
+      "tepoztlan","oaxtepec","tetela","hueyapan"
+    ]
+  }
+};
+
+const NS = "http://www.w3.org/2000/svg";
+const DURACION = 8000;
+
+let nombreActual = null;
+let indice = 0;
+let pausado = false;
+let inicioEspera = 0;
+let restante = DURACION;
+let temporizador = null;
+let animaciones = [];
+
+const lineas = document.getElementById("lineas");
+const puntos = document.getElementById("puntos");
+const botonPausa = document.getElementById("pausa");
+const botonRepetir = document.getElementById("repetir");
+
+function posicion(lugar) {
+  return {
+    x: 80 + ((lugar[2] + 99.40) / .85) * 740,
+    y: 100 + ((19.10 - lugar[1]) / .60) * 390
+  };
+}
+
+function elemento(tipo, atributos) {
+  const e = document.createElementNS(NS,tipo);
+  Object.entries(atributos).forEach(([k,v]) => {
+    e.setAttribute(k,v);
+  });
+  return e;
+}
+
+function limpiar() {
+  clearTimeout(temporizador);
+  animaciones.forEach(a => a.cancel());
+  animaciones = [];
+  lineas.replaceChildren();
+  puntos.replaceChildren();
+  pausado = false;
+  restante = DURACION;
+  botonPausa.textContent = "PAUSAR";
+}
+
+function iniciar(nombre) {
+  limpiar();
+  nombreActual = nombre;
+  indice = 0;
+
+  document.getElementById("titulo").textContent =
+    rutas[nombre].titulo;
+
+  botonPausa.disabled = false;
+  botonRepetir.disabled = false;
+
+  mostrarLugar();
+}
+
+function dibujarLinea(anterior, actual, color) {
+  const a = posicion(anterior);
+  const b = posicion(actual);
+
+  const linea = elemento("line", {
+    x1:a.x, y1:a.y,
+    x2:b.x, y2:b.y,
+    stroke:color,
+    "stroke-width":5,
+    "stroke-linecap":"round"
+  });
+
+  lineas.appendChild(linea);
+
+  const longitud = Math.hypot(b.x-a.x,b.y-a.y);
+
+  linea.setAttribute("stroke-dasharray",longitud);
+  linea.setAttribute("stroke-dashoffset",longitud);
+
+  const animacion = linea.animate(
+    [
+      {strokeDashoffset:longitud},
+      {strokeDashoffset:0}
+    ],
+    {
+      duration:6000,
+      easing:"linear",
+      fill:"forwards"
+    }
+  );
+
+  animaciones.push(animacion);
+}
+
+function dibujarPunto(lugar,color) {
+  const p = posicion(lugar);
+
+  const grupo = elemento("g",{});
+
+  const circulo = elemento("circle",{
+    cx:p.x, cy:p.y,
+    r:9,
+    fill:color,
+    stroke:"white",
+    "stroke-width":3
+  });
+
+  const texto = elemento("text",{
+    x:p.x,
+    y:p.y-19,
+    "text-anchor":"middle",
+    class:"etiqueta"
+  });
+
+  texto.textContent = lugar[0];
+
+  grupo.appendChild(circulo);
+  grupo.appendChild(texto);
+  puntos.appendChild(grupo);
+}
+
+function mostrarLugar() {
+  if (!nombreActual || pausado) return;
+
+  const ruta = rutas[nombreActual];
+  const nombres = ruta.lugares;
+
+  if (indice >= nombres.length) {
+    document.getElementById("descripcion").textContent =
+      "Recorrido terminado. Puedes repetirlo o elegir otra orden.";
+
+    document.getElementById("progreso").textContent =
+      "Recorrido completo";
+
+    botonPausa.disabled = true;
+    return;
+  }
+
+  const actual = lugares[nombres[indice]];
+
+  if (indice > 0) {
+    const anterior = lugares[nombres[indice-1]];
+    dibujarLinea(anterior,actual,ruta.color);
+  }
+
+  dibujarPunto(actual,ruta.color);
+
+  document.getElementById("lugar").textContent =
+    actual[0];
+
+  document.getElementById("descripcion").textContent =
+    "Localidad del recorrido ilustrativo de la " +
+    ruta.titulo.toLowerCase() + ".";
+
+  document.getElementById("progreso").textContent =
+    "Lugar " + (indice+1) + " de " + nombres.length;
+
+  restante = DURACION;
+  programar();
+}
+
+function programar() {
+  clearTimeout(temporizador);
+  inicioEspera = performance.now();
+
+  temporizador = setTimeout(() => {
+    indice++;
+    mostrarLugar();
+  },restante);
+}
+
+function alternarPausa() {
+  if (!nombreActual) return;
+
+  if (!pausado) {
+    pausado = true;
+    clearTimeout(temporizador);
+
+    restante = Math.max(
+      0,
+      restante - (performance.now()-inicioEspera)
+    );
+
+    animaciones.forEach(a => a.pause());
+    botonPausa.textContent = "CONTINUAR";
+  } else {
+    pausado = false;
+    animaciones.forEach(a => a.play());
+    botonPausa.textContent = "PAUSAR";
+    programar();
+  }
+}
+
+function repetir() {
+  if (nombreActual) iniciar(nombreActual);
+}
+</script>
+
+<script
+  data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+  async
+  src="//gc.zgo.at/count.js">
+</script>
 
 </body>
 </html>
