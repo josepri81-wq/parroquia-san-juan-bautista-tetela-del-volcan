@@ -5,27 +5,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>
-Caminos de evangelización |
-Un día en el convento
-</title>
+<title>Caminos de evangelización | Un día en el convento</title>
 
 <meta name="description"
-content="Recorrido histórico y geográfico de las rutas franciscana, agustina y dominica en Morelos, hasta Tetela del Volcán.">
+content="Caminos de evangelización de Morelos: franciscanos, agustinos y dominicos.">
 
-<!-- MAPA GEOGRÁFICO -->
-<link
-rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-integrity="sha256-p4NxAoJBhIIN+hmNHrzC4Uq3d6G8kU8zQeG7C1Qe4qg="
-crossorigin=""
->
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
-
-/* ==========================
-   DISEÑO GENERAL
-========================== */
 
 :root {
   --verde: #325d4a;
@@ -42,63 +30,69 @@ crossorigin=""
 body {
   margin: 0;
   background: var(--pergamino);
-  color: #302c27;
   font-family: Georgia, "Times New Roman", serif;
+  color: #332f29;
   text-align: center;
 }
 
 main {
-  max-width: 1100px;
+  max-width: 1050px;
   margin: auto;
-  padding: 24px 12px 45px;
+  padding: 18px 12px 45px;
+}
+
+.marco {
+  border: 3px double #ae986b;
+  background: #eee2c6;
+  padding: 13px;
+  border-radius: 9px;
+}
+
+.encabezado {
+  padding: 15px 8px;
+  background: #f6edda;
+  border-bottom: 1px solid #c4b18d;
+}
+
+.encabezado .superior {
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: #796c54;
 }
 
 h1 {
   color: var(--verde);
-  font-size: 30px;
-  line-height: 1.25;
+  font-size: 31px;
+  font-weight: normal;
+  margin: 9px 0;
 }
 
 h2 {
   color: var(--verde);
 }
 
-p {
+.descripcion {
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 20px auto;
 }
-
-.subtitulo {
-  font-size: 19px;
-  color: #635646;
-}
-
-.introduccion {
-  max-width: 850px;
-  margin: 18px auto;
-}
-
-/* ==========================
-   BOTONES
-========================== */
 
 .botones {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 11px;
-  margin: 22px 0;
+  gap: 10px;
+  margin: 19px 0;
 }
 
 button,
-.boton-enlace {
-  border: none;
-  border-radius: 9px;
-  padding: 13px 19px;
-  font-family: Georgia, serif;
-  font-size: 15px;
-  font-weight: bold;
+.boton {
+  border: 0;
+  border-radius: 8px;
   color: white;
+  padding: 13px 17px;
+  font: bold 15px Georgia, serif;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
@@ -109,377 +103,237 @@ button:disabled {
   cursor: default;
 }
 
-.franciscanos {
+.franciscano {
   background: var(--cafe);
 }
 
-.agustinos {
+.agustino {
   background: var(--azul);
 }
 
-.dominicos {
+.dominico {
   background: var(--negro);
 }
 
 .control,
-.boton-enlace {
+.boton {
   background: var(--verde);
 }
 
-button:hover:not(:disabled),
-.boton-enlace:hover {
-  filter: brightness(1.12);
-}
-
-button.activo {
-  outline: 3px solid #d5bd7c;
-  outline-offset: 3px;
-}
-
-/* ==========================
-   MARCO HISTÓRICO
-========================== */
-
-.marco {
-  background: #eae1cb;
-  border: 3px solid #bba984;
-  border-radius: 12px;
-  padding: 12px;
-  box-shadow: 0 5px 18px #00000016;
-}
-
-.cabecera-mapa {
-  background: #f7f0df;
-  border-radius: 7px 7px 0 0;
-  padding: 12px;
-}
-
-.cabecera-mapa h2 {
-  margin: 5px 0;
-  font-size: 23px;
-}
-
-#tituloRuta {
-  font-weight: bold;
-  font-size: 17px;
-  margin: 7px 0;
-}
-
-/* ==========================
-   MAPA
-========================== */
-
 #mapa {
-  height: 540px;
+  height: 510px;
   width: 100%;
-  background: #e8dfc9;
+  background: #e4dcc5;
   z-index: 1;
-}
-
-.leaflet-container {
-  font-family: Georgia, serif;
-}
-
-.leaflet-control-attribution {
-  font-size: 10px !important;
 }
 
 .leyenda {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 12px 20px;
-  background: #f7f0df;
-  padding: 14px 8px;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 15px;
+  background: #f6edda;
   font-size: 15px;
 }
 
-.leyenda span {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.muestra {
-  width: 27px;
-  height: 5px;
+.raya {
   display: inline-block;
-  border-radius: 4px;
+  width: 25px;
+  height: 4px;
+  vertical-align: middle;
+  margin-right: 5px;
 }
-
-.muestra.cafe {
-  background: var(--cafe);
-}
-
-.muestra.azul {
-  background: var(--azul);
-}
-
-.muestra.negro {
-  background: var(--negro);
-}
-
-/* ==========================
-   FICHA HISTÓRICA
-========================== */
 
 .ficha {
-  background: #fffaf0;
-  border: 2px solid #d5c7aa;
+  padding: 20px 15px;
+  background: #fff8e9;
+  border: 2px solid #c5b38f;
   border-radius: 10px;
-  padding: 22px 16px;
   margin: 20px auto;
-  min-height: 230px;
-  max-width: 950px;
+  max-width: 900px;
+  min-height: 220px;
 }
 
 #contador {
-  color: #76684e;
+  color: #806c4b;
   font-size: 15px;
-  font-weight: bold;
-  letter-spacing: 1px;
 }
 
-#nombreLugar {
+#localidad {
+  font-size: 28px;
   color: var(--verde);
-  font-size: 27px;
   margin: 12px 0;
 }
 
 #advocacion {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 7px 0;
+  font-size: 21px;
+  margin: 9px 0;
 }
 
 #fecha {
-  font-size: 19px;
-  color: #664f2d;
-  margin: 10px 0;
-}
-
-#detalle {
-  font-size: 16px;
-  margin: 10px 0;
-}
-
-#tipo {
-  color: #655b4b;
-  font-size: 15px;
-}
-
-#progreso {
-  font-size: 14px;
-  color: #655b4b;
-}
-
-/* ==========================
-   PANTALLA FINAL
-========================== */
-
-#pantallaFinal {
-  display: none;
-  margin: 30px auto;
-  max-width: 900px;
-  padding: 28px 17px;
-  background: #fffaf0;
-  border: 3px solid #bba984;
-  border-radius: 14px;
-}
-
-#pantallaFinal h2 {
-  font-size: 29px;
-}
-
-#pantallaFinal h3 {
-  color: var(--verde);
-  font-size: 23px;
-}
-
-.fachada {
-  display: block;
-  width: 100%;
-  max-width: 750px;
-  height: auto;
-  margin: 22px auto;
-  border-radius: 9px;
-  border: 2px solid #d0c2a4;
-}
-
-.orden {
-  font-size: 18px;
+  font-size: 20px;
+  color: #79552d;
   font-weight: bold;
 }
 
+#detalle {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+#orden {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#final {
+  display: none;
+  background: #fff8e9;
+  border: 3px double #ae986b;
+  padding: 25px 15px;
+  margin: 25px auto;
+  border-radius: 12px;
+}
+
+#final h2 {
+  font-size: 27px;
+}
+
+.fachada {
+  width: 100%;
+  max-width: 750px;
+  height: auto;
+  border-radius: 9px;
+  margin: 20px auto;
+}
+
 .nota {
-  max-width: 900px;
-  margin: 18px auto;
   font-size: 14px;
-  color: #625a4c;
+  color: #655b4c;
+  line-height: 1.6;
+  max-width: 850px;
+  margin: 20px auto;
 }
 
-.oculto {
-  display: none !important;
-}
-
-@media (max-width: 600px) {
+@media(max-width:600px) {
 
   h1 {
     font-size: 25px;
   }
 
-  .cabecera-mapa h2 {
-    font-size: 20px;
-  }
-
   #mapa {
-    height: 430px;
+    height: 420px;
   }
 
-  #nombreLugar {
-    font-size: 23px;
+  #localidad {
+    font-size: 24px;
   }
 
   button,
-  .boton-enlace {
+  .boton {
+    padding: 12px;
     font-size: 14px;
-    padding: 12px 14px;
-  }
-
-  .ficha {
-    padding: 18px 12px;
-  }
-
-  #pantallaFinal h2 {
-    font-size: 24px;
   }
 
 }
 
 </style>
-
 </head>
 
 <body>
 
 <main>
 
+<div class="marco">
+
+<header class="encabezado">
+
+<div class="superior">
+CAMINOS DE EVANGELIZACIÓN
+</div>
+
 <h1>
-Caminos de evangelización
+De la Nueva España<br>
+a Tetela del Volcán
 </h1>
 
-<p class="subtitulo">
-De la Nueva España a Tetela del Volcán
+<p>
+MORELOS · CONVENTOS, TEMPLOS Y LUGARES DE MISIÓN
 </p>
 
-<p class="introduccion">
-Durante los siglos XVI y XVII, franciscanos,
-agustinos y dominicos establecieron
-conventos, doctrinas y lugares de misión
-en el territorio que hoy conocemos
-como Morelos.
-</p>
+</header>
 
-<p class="introduccion">
-Selecciona una orden religiosa para
-conocer sus establecimientos, sus
-advocaciones y las referencias
-cronológicas de su historia.
+<p class="descripcion">
+Conoce la presencia de franciscanos,
+agustinos y dominicos en Morelos
+durante los siglos XVI y XVII.
 </p>
-
-<!-- BOTONES DE LAS ÓRDENES -->
 
 <div class="botones">
 
-<button
-id="btnFranciscanos"
-class="franciscanos"
-onclick="iniciarRuta('franciscanos')">
+<button class="franciscano"
+onclick="iniciarDesde('franciscanos')">
 FRANCISCANOS
 </button>
 
-<button
-id="btnAgustinos"
-class="agustinos"
-onclick="iniciarRuta('agustinos')">
+<button class="agustino"
+onclick="iniciarDesde('agustinos')">
 AGUSTINOS
 </button>
 
-<button
-id="btnDominicos"
-class="dominicos"
-onclick="iniciarRuta('dominicos')">
+<button class="dominico"
+onclick="iniciarDesde('dominicos')">
 DOMINICOS
+</button>
+
+<button class="control"
+onclick="iniciarCompleto()">
+VER LAS TRES RUTAS
 </button>
 
 </div>
 
-<!-- MAPA -->
-
-<section class="marco">
-
-<div class="cabecera-mapa">
-
-<h2>
-Rutas de evangelización de Morelos
+<h2 id="tituloRuta">
+Caminos de evangelización de Morelos
 </h2>
 
-<div id="tituloRuta">
-Selecciona una orden religiosa
-</div>
-
-</div>
-
-<div
-id="mapa"
-role="application"
-aria-label="Mapa geográfico interactivo de Morelos">
-</div>
+<div id="mapa"></div>
 
 <div class="leyenda">
 
 <span>
-<i class="muestra cafe"></i>
+<i class="raya" style="background:#80512f"></i>
 Franciscanos
 </span>
 
 <span>
-<i class="muestra azul"></i>
+<i class="raya" style="background:#173b70"></i>
 Agustinos
 </span>
 
 <span>
-<i class="muestra negro"></i>
+<i class="raya" style="background:#171717"></i>
 Dominicos
 </span>
 
 </div>
 
-</section>
-
-<!-- CONTROLES -->
+</div>
 
 <div class="botones">
 
-<button
-id="btnPausa"
-class="control"
-onclick="alternarPausa()"
-disabled>
+<button id="pausa" class="control"
+onclick="alternarPausa()" disabled>
 PAUSAR
 </button>
 
-<button
-id="btnRepetir"
-class="control"
-onclick="repetirRuta()"
-disabled>
-REPETIR RECORRIDO
+<button id="repetir" class="control"
+onclick="repetir()" disabled>
+REPETIR
 </button>
 
 </div>
-
-<!-- FICHA HISTÓRICA -->
 
 <section class="ficha" aria-live="polite">
 
@@ -487,764 +341,513 @@ REPETIR RECORRIDO
 RECORRIDO HISTÓRICO
 </div>
 
-<h2 id="nombreLugar">
-Esperando selección
+<h2 id="localidad">
+Selecciona una ruta
 </h2>
 
-<div id="advocacion">
-Selecciona una de las tres órdenes
-</div>
+<div id="advocacion"></div>
+
+<p id="orden"></p>
 
 <div id="fecha"></div>
 
 <p id="detalle">
-El mapa mostrará progresivamente
-las localidades de cada recorrido.
+Cada localidad aparecerá acompañada
+de su advocación y referencia histórica.
 </p>
-
-<div id="tipo"></div>
-
-<p id="progreso"></p>
 
 </section>
 
-<!-- PANTALLA FINAL -->
-
-<section id="pantallaFinal">
+<section id="final">
 
 <h2>
-Conozca el recorrido virtual de
+Conozca el recorrido virtual de<br>
 Tetela del Volcán, Morelos, México
 </h2>
 
-<h3>
-Parroquia y Ex Convento
+<h2>
+Parroquia y Ex Convento<br>
 de San Juan Bautista
-</h3>
+</h2>
 
-<p class="orden">
+<p>
 Orden de Predicadores — Dominicos
 </p>
 
 <img
 class="fachada"
 src="WhatsApp Image 2026-09-22 17.25.45.jpeg"
-alt="Imagen de la Parroquia y Ex Convento de San Juan Bautista, Tetela del Volcán"
-onerror="this.style.display='none';document.getElementById('avisoFoto').hidden=false;"
+alt="Fachada de la Parroquia y Ex Convento de San Juan Bautista"
+onerror="this.style.display='none';document.getElementById('errorFoto').hidden=false;"
 >
 
-<p id="avisoFoto" hidden>
-La fotografía de la fachada no pudo cargarse.
-Comprueba que su nombre coincida con
-el archivo de imagen de la portada.
+<p id="errorFoto" hidden>
+No se pudo cargar la fotografía original.
+Es necesario comprobar su nombre de archivo.
 </p>
 
-<h3>
+<h2>
 Un día en el convento
-</h3>
+</h2>
 
 <p>
-Un encuentro con la historia,
-la arquitectura y la espiritualidad
-dominica de Tetela del Volcán.
+Descubre la historia, arquitectura y
+espiritualidad del convento dominico
+de Tetela del Volcán.
 </p>
 
-<a
-class="boton-enlace"
-href="recorrido.html">
-CONOCER EL RECORRIDO VIRTUAL
+<a class="boton" href="recorrido.html">
+ENTRAR AL RECORRIDO VIRTUAL
 </a>
 
 <p class="nota">
-Proyecto de divulgación histórica y cultural.
-Las referencias a instituciones patrimoniales
-no implican patrocinio ni aval institucional.
+Historia y ubicación del conjunto conventual.
+Proyecto de divulgación cultural y religiosa.
 </p>
 
 </section>
 
 <p class="nota">
-Las fechas históricas reproducen la relación
-utilizada en una versión anterior de este proyecto.
-Su atribución y precisión documental permanecen
-sujetas a verificación. Las líneas muestran una
-secuencia de visita geográfica y no pretenden
-reconstruir caminos históricos documentados.
+Las fechas reproducen la cronología del mapa
+anterior y requieren comprobación documental.
+Las líneas representan secuencias geográficas
+ilustrativas, no caminos históricos documentados.
 </p>
 
-<a
-class="boton-enlace"
-href="index.html">
+<a class="boton" href="index.html">
 REGRESAR AL INICIO
 </a>
 
 </main>
 
-<!-- BIBLIOTECA DEL MAPA -->
-
-<script
-src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-crossorigin="">
-</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-/* =========================================
-   CONFIGURACIÓN
-========================================= */
-
-/*
-  Cada localidad permanece seis segundos.
-*/
+/* =====================================
+   TIEMPO DE CADA LOCALIDAD
+===================================== */
 
 const DURACION = 6000;
 
-/*
-  Colores de las órdenes religiosas.
-*/
-
-const COLORES = {
-  franciscanos: "#80512f",
-  agustinos: "#173b70",
-  dominicos: "#171717"
-};
-
-const TITULOS = {
-  franciscanos: "Ruta franciscana",
-  agustinos: "Ruta agustina",
-  dominicos: "Ruta dominica"
-};
+/* =====================================
+   DATOS HISTÓRICOS
+===================================== */
 
 /*
-  Las coordenadas son aproximaciones
-  para situar las localidades en el mapa.
-  No representan necesariamente la
-  posición exacta del edificio conventual.
+Cada registro contiene:
 
-  Las cronologías proceden de la relación
-  histórica facilitada para este proyecto
-  y están pendientes de comprobación.
+localidad
+advocación
+fecha
+nota histórica
+latitud
+longitud
+
+Las coordenadas son aproximadas.
 */
 
-/* =========================================
-   BASE DE DATOS HISTÓRICA
-========================================= */
+const datos = {
 
-const establecimientos = {
+franciscanos: [
 
-  /* ===== FRANCISCANOS ===== */
+["Cuernavaca",
+"Asunción de María",
+"1526 – 1552",
+"Inicio en 1526 y conclusión probable en 1552.",
+18.924,-99.221],
 
-  cuernavaca: {
-    nombre: "Cuernavaca",
-    advocacion: "Asunción de María",
-    fecha: "1526 – 1552",
-    detalle: "1526: referencia de inicio. 1552: conclusión probable.",
-    tipo: "Conjunto conventual franciscano",
-    lat: 18.924,
-    lng: -99.221
-  },
+["Ocotepec",
+"Divino Salvador",
+"1536 – 1592",
+"Referencias cronológicas del conjunto.",
+18.969,-99.225],
 
-  ocotepec: {
-    nombre: "Ocotepec",
-    advocacion: "Divino Salvador",
-    fecha: "1536 – 1592",
-    detalle: "Referencias cronológicas del conjunto.",
-    tipo: "Establecimiento franciscano",
-    lat: 18.969,
-    lng: -99.225
-  },
+["Jiutepec",
+"Santiago Apóstol",
+"Antes de 1586",
+"Conjunto terminado antes de 1586.",
+18.882,-99.177],
 
-  jiutepec: {
-    nombre: "Jiutepec",
-    advocacion: "Santiago Apóstol",
-    fecha: "Antes de 1586",
-    detalle: "El conjunto se registra como terminado antes de 1586.",
-    tipo: "Conjunto conventual franciscano",
-    lat: 18.882,
-    lng: -99.177
-  },
+["Xochitepec",
+"San Juan Evangelista",
+"Siglos XVI – XVII",
+"Construcción desarrollada en varias fases.",
+18.781,-99.230],
 
-  xochitepec: {
-    nombre: "Xochitepec",
-    advocacion: "San Juan Evangelista",
-    fecha: "Siglos XVI – XVII",
-    detalle: "Conjunto desarrollado en varias fases.",
-    tipo: "Establecimiento franciscano",
-    lat: 18.781,
-    lng: -99.230
-  },
+["Mazatepec",
+"San Lucas Evangelista",
+"1696",
+"Referencia cronológica del establecimiento.",
+18.727,-99.363],
 
-  temimilcingo: {
-    nombre: "Temimilcingo",
-    advocacion: "Santa María de la Asunción",
-    fecha: "Siglo XVI",
-    detalle: "Fecha de conclusión desconocida.",
-    tipo: "Establecimiento franciscano",
-    lat: 18.690,
-    lng: -99.185
-  },
+["Temimilcingo",
+"Santa María de la Asunción",
+"Siglo XVI",
+"Fecha de conclusión desconocida.",
+18.690,-99.185],
 
-  tlaquiltenango: {
-    nombre: "Tlaquiltenango",
-    advocacion: "Santo Domingo de Guzmán",
-    fecha: "Década de 1570 – antes de 1586",
-    detalle: "Establecimiento de atribución histórica franciscana y dominica. La relación entre ambas órdenes requiere precisar sus etapas.",
-    tipo: "Atribución compartida o sucesiva por verificar",
-    lat: 18.633,
-    lng: -99.163
-  },
+["Tlaquiltenango",
+"Santo Domingo de Guzmán",
+"Década de 1570 – antes de 1586",
+"Atribución franciscana y dominica; etapas por precisar.",
+18.633,-99.163],
 
-  mazatepec: {
-    nombre: "Mazatepec",
-    advocacion: "San Lucas Evangelista",
-    fecha: "1696",
-    detalle: "Referencia cronológica proporcionada para el conjunto.",
-    tipo: "Establecimiento franciscano",
-    lat: 18.727,
-    lng: -99.363
-  },
+["Cuautla",
+"San Diego, antiguo San José",
+"1640",
+"Referencia cronológica del establecimiento franciscano.",
+18.812,-98.954]
 
-  cuautlaSanDiego: {
-    nombre: "Cuautla",
-    advocacion: "San Diego, antiguo San José",
-    fecha: "1640",
-    detalle: "Referencia cronológica del establecimiento.",
-    tipo: "Establecimiento franciscano",
-    lat: 18.812,
-    lng: -98.954
-  },
+],
 
-  /* ===== AGUSTINOS ===== */
+agustinos: [
 
-  ocuituco: {
-    nombre: "Ocuituco",
-    advocacion: "Santiago Apóstol",
-    fecha: "1534",
-    detalle: "Inicio documentado según la relación histórica anterior.",
-    tipo: "Conjunto conventual agustino",
-    lat: 18.877,
-    lng: -98.774
-  },
+["Totolapan",
+"San Guillermo Abad",
+"1534 – 1545",
+"Iglesia concluida hacia 1545.",
+18.985,-98.921],
 
-  totolapan: {
-    nombre: "Totolapan",
-    advocacion: "San Guillermo Abad",
-    fecha: "1534 – 1545",
-    detalle: "1534: referencia inicial. 1545: iglesia concluida.",
-    tipo: "Conjunto conventual agustino",
-    lat: 18.985,
-    lng: -98.921
-  },
+["Tlalnepantla",
+"Purificación / Preciosa Sangre de Cristo",
+"Siglo XVII",
+"Referencia cronológica general.",
+19.009,-98.998],
 
-  yecapixtla: {
-    nombre: "Yecapixtla",
-    advocacion: "San Juan Bautista",
-    fecha: "1535 – 1540",
-    detalle: "Cronología indicada en el mapa anterior; atribución documental por comprobar.",
-    tipo: "Conjunto conventual agustino",
-    lat: 18.883,
-    lng: -98.866
-  },
+["Tlayacapan",
+"San Juan Bautista",
+"1554 – antes de 1572",
+"Referencias cronológicas del conjunto.",
+18.955,-98.981],
 
-  atlatlahucan: {
-    nombre: "Atlatlahucan",
-    advocacion: "San Mateo Apóstol",
-    fecha: "Siglo XVI",
-    detalle: "Datación discutida.",
-    tipo: "Conjunto conventual agustino",
-    lat: 18.935,
-    lng: -98.899
-  },
+["Atlatlahucan",
+"San Mateo Apóstol",
+"Siglo XVI",
+"Datación discutida.",
+18.935,-98.899],
 
-  tlayacapan: {
-    nombre: "Tlayacapan",
-    advocacion: "San Juan Bautista",
-    fecha: "1554 – antes de 1572",
-    detalle: "Referencias cronológicas del desarrollo del conjunto.",
-    tipo: "Conjunto conventual agustino",
-    lat: 18.955,
-    lng: -98.981
-  },
+["Yecapixtla",
+"San Juan Bautista",
+"1535 – 1540",
+"Cronología indicada en la relación anterior.",
+18.883,-98.866],
 
-  zacualpan: {
-    nombre: "Zacualpan de Amilpas",
-    advocacion: "Inmaculada Concepción",
-    fecha: "1567",
-    detalle: "Conclusión del conjunto según la relación anterior.",
-    tipo: "Conjunto conventual agustino",
-    lat: 18.783,
-    lng: -98.767
-  },
+["Nepopualco",
+"Santiago Apóstol",
+"Siglo XVI",
+"Referencia general de época.",
+18.925,-98.820],
 
-  jumiltepec: {
-    nombre: "Jumiltepec",
-    advocacion: "San Andrés Apóstol",
-    fecha: "1570",
-    detalle: "Monasterio ya en funciones.",
-    tipo: "Establecimiento agustino",
-    lat: 18.900,
-    lng: -98.788
-  },
+["Pazulco",
+"Asunción de María",
+"Siglos XVI – XVII",
+"Obra inconclusa.",
+18.920,-98.845],
 
-  jonacatepec: {
-    nombre: "Jonacatepec",
-    advocacion: "San Agustín",
-    fecha: "1558",
-    detalle: "Inicio de construcción.",
-    tipo: "Conjunto conventual agustino",
-    lat: 18.681,
-    lng: -98.803
-  },
+["Ocuituco",
+"Santiago Apóstol",
+"1534",
+"Inicio documentado.",
+18.877,-98.774],
 
-  jantetelco: {
-    nombre: "Jantetelco",
-    advocacion: "San Pedro Apóstol",
-    fecha: "1581",
-    detalle: "El establecimiento ya estaba en servicio.",
-    tipo: "Establecimiento agustino",
-    lat: 18.716,
-    lng: -98.777
-  },
+["Jumiltepec",
+"San Andrés Apóstol",
+"1570",
+"Monasterio ya en funciones.",
+18.900,-98.788],
 
-  amayuca: {
-    nombre: "Amayuca",
-    advocacion: "Santiago Apóstol",
-    fecha: "Siglos XVI – XVII",
-    detalle: "Restos conventuales.",
-    tipo: "Restos de establecimiento agustino",
-    lat: 18.724,
-    lng: -98.801
-  },
+["Zacualpan de Amilpas",
+"Inmaculada Concepción",
+"1567",
+"Conclusión del conjunto.",
+18.783,-98.767],
 
-  clayecac: {
-    nombre: "Cl ayecac".replace(" ", ""),
-    advocacion: "San Marcos Evangelista",
-    fecha: "1605",
-    detalle: "Referencia de fundación.",
-    tipo: "Establecimiento agustino",
-    lat: 18.768,
-    lng: -98.870
-  },
+["Clayecac",
+"San Marcos Evangelista",
+"1605",
+"Referencia de fundación.",
+18.768,-98.870],
 
-  pazulco: {
-    nombre: "Pazulco",
-    advocacion: "Asunción de María",
-    fecha: "Siglos XVI – XVII",
-    detalle: "Obra inconclusa.",
-    tipo: "Establecimiento agustino inconcluso",
-    lat: 18.920,
-    lng: -98.845
-  },
+["Amayuca",
+"Santiago Apóstol",
+"Siglos XVI – XVII",
+"Restos conventuales.",
+18.724,-98.801],
 
-  nepopualco: {
-    nombre: "Nepopualco",
-    advocacion: "Santiago Apóstol",
-    fecha: "Siglo XVI",
-    detalle: "Referencia general de época.",
-    tipo: "Establecimiento agustino",
-    lat: 18.925,
-    lng: -98.820
-  },
+["Jonacatepec",
+"San Agustín",
+"1558",
+"Inicio de construcción.",
+18.681,-98.803],
 
-  tlalnepantla: {
-    nombre: "Tlalnepantla",
-    advocacion: "Purificación / Preciosa Sangre de Cristo",
-    fecha: "Siglo XVII",
-    detalle: "Referencia cronológica general.",
-    tipo: "Establecimiento agustino",
-    lat: 19.009,
-    lng: -98.998
-  },
+["Jantetelco",
+"San Pedro Apóstol",
+"1581",
+"Establecimiento ya en servicio.",
+18.716,-98.777],
 
-  axochiapan: {
-    nombre: "Axochiapan",
-    advocacion: "Establecimiento agustino",
-    fecha: "Siglo XVI",
-    detalle: "Monasterio inconcluso.",
-    tipo: "Restos de establecimiento agustino",
-    lat: 18.502,
-    lng: -98.753
-  },
+["Axochiapan",
+"San Pablo Apóstol",
+"Siglo XVI",
+"Monasterio inconcluso.",
+18.502,-98.753]
 
-  /* ===== DOMINICOS ===== */
+],
 
-  tepoztlan: {
-    nombre: "Tepoztlán",
-    advocacion: "Natividad de María",
-    fecha: "1555 – 1580",
-    detalle: "Referencias cronológicas del conjunto conventual.",
-    tipo: "Conjunto conventual dominico",
-    lat: 18.985,
-    lng: -99.099
-  },
+dominicos: [
 
-  yautepec: {
-    nombre: "Yautepec",
-    advocacion: "Asunción de María",
-    fecha: "Siglo XVI",
-    detalle: "Referencia general de época.",
-    tipo: "Establecimiento dominico",
-    lat: 18.884,
-    lng: -99.066
-  },
+["Tepoztlán",
+"Natividad de María",
+"1555 – 1580",
+"Referencias cronológicas del conjunto conventual.",
+18.985,-99.099],
 
-  tlaltizapan: {
-    nombre: "Tlaltizapán",
-    advocacion: "San Miguel Arcángel",
-    fecha: "Siglo XVI",
-    detalle: "Referencia general de época.",
-    tipo: "Establecimiento dominico",
-    lat: 18.683,
-    lng: -99.118
-  },
+["Yautepec",
+"Asunción de María",
+"Siglo XVI",
+"Establecimiento dominico.",
+18.884,-99.066],
 
-  zamalti: {
-    nombre: "Zamaltitlán",
-    advocacion: "Santa Catalina de Siena",
-    fecha: "Siglo XVI",
-    detalle: "Restos conventuales. Topónimo y ubicación exacta pendientes de comprobación.",
-    tipo: "Restos de establecimiento dominico",
-    lat: null,
-    lng: null
-  },
+["Tlaltizapán",
+"San Miguel Arcángel",
+"Siglo XVI",
+"Establecimiento dominico.",
+18.683,-99.118],
 
-  oaxtepec: {
-    nombre: "Oaxtepec",
-    advocacion: "Santo Domingo de Guzmán",
-    fecha: "1560 – 1580",
-    detalle: "Referencias cronológicas del conjunto.",
-    tipo: "Conjunto conventual dominico",
-    lat: 18.907,
-    lng: -98.971
-  },
+["Zamaltitlán",
+"Santa Catalina de Siena",
+"Siglo XVI",
+"Restos conventuales. Topónimo y ubicación pendientes de verificar.",
+null,null],
 
-  cuautlaDominicos: {
-    nombre: "Cuautla",
-    advocacion: "Santo Domingo / Santiago Apóstol",
-    fecha: "1580",
-    detalle: "Referencia cronológica del establecimiento.",
-    tipo: "Establecimiento dominico",
-    lat: 18.812,
-    lng: -98.954
-  },
+["Oaxtepec",
+"Santo Domingo de Guzmán",
+"1560 – 1580",
+"Referencias cronológicas del conjunto.",
+18.907,-98.971],
 
-  tetela: {
-    nombre: "Tetela del Volcán",
-    advocacion: "San Juan Bautista",
-    fecha: "1571 – 1574",
-    detalle: "Cronología municipal proporcionada para el conjunto. El convento es el destino central de este proyecto.",
-    tipo: "Parroquia y Ex Convento dominico",
-    lat: 18.894,
-    lng: -98.729
-  },
+["Cuautla",
+"Santo Domingo / Santiago Apóstol",
+"1580",
+"Referencia cronológica del establecimiento dominico.",
+18.812,-98.954],
 
-  hueyapan: {
-    nombre: "Hueyapan",
-    advocacion: "Santo Domingo de Guzmán",
-    fecha: "1539",
-    detalle: "Referencia histórica de presencia o actividad dominica. No se presenta como convento equivalente al de Tetela.",
-    tipo: "Lugar de misión dominica",
-    lat: 18.890,
-    lng: -98.690
-  }
+["Tlaquiltenango",
+"Santo Domingo de Guzmán",
+"Década de 1570 – antes de 1586",
+"Atribución franciscana y dominica; etapas por precisar.",
+18.633,-99.163],
+
+["Tetela del Volcán",
+"San Juan Bautista",
+"1571 – 1574",
+"Cronología municipal del conjunto conventual dominico.",
+18.894,-98.729],
+
+["Hueyapan",
+"Santo Domingo de Guzmán",
+"1539",
+"Lugar de misión dominica; no se presenta como convento equivalente al de Tetela.",
+18.890,-98.690]
+
+]
 
 };
 
-/* =========================================
-   ORDEN DE LOS RECORRIDOS
-========================================= */
-
-/*
-  Los recorridos son secuencias
-  geográficas de presentación.
-
-  No deben interpretarse como el
-  orden cronológico de fundación
-  ni como itinerarios documentados.
-*/
-
-const rutas = {
-
-  franciscanos: [
-    "cuernavaca",
-    "ocotepec",
-    "jiutepec",
-    "xochitepec",
-    "mazatepec",
-    "temimilcingo",
-    "tlaquiltenango",
-    "cuautlaSanDiego"
-  ],
-
-  agustinos: [
-    "totolapan",
-    "tlalnepantla",
-    "tlayacapan",
-    "atlatlahucan",
-    "yecapixtla",
-    "nepopualco",
-    "pazulco",
-    "ocuituco",
-    "jumiltepec",
-    "zacualpan",
-    "clayecac",
-    "amayuca",
-    "jonacatepec",
-    "jantetelco",
-    "axochiapan"
-  ],
-
-  dominicos: [
-    "tepoztlan",
-    "yautepec",
-    "tlaltizapan",
-    "zamalti",
-    "oaxtepec",
-    "cuautlaDominicos",
-    "tlaquiltenango",
-    "tetela",
-    "hueyapan"
-  ]
-
-};
-
-/* =========================================
-   CREACIÓN DEL MAPA REAL
-========================================= */
+/* =====================================
+   MAPA GEOGRÁFICO
+===================================== */
 
 const mapa = L.map("mapa", {
   zoomControl: true,
   scrollWheelZoom: false
 });
 
-mapa.setView([18.79, -98.99], 10);
+const limites = [
+  [18.45,-99.52],
+  [19.12,-98.62]
+];
 
-/*
-  Cartografía de OpenStreetMap.
-*/
+mapa.fitBounds(limites);
 
 L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   {
     maxZoom: 18,
     attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    '&copy; OpenStreetMap contributors'
   }
 ).addTo(mapa);
 
-/*
-  Vista general de Morelos.
-*/
+/* =====================================
+   COLORES Y ORDEN
+===================================== */
 
-const limitesMorelos = L.latLngBounds(
-  [18.45, -99.52],
-  [19.12, -98.62]
-);
+const colores = {
+  franciscanos: "#80512f",
+  agustinos: "#173b70",
+  dominicos: "#171717"
+};
 
-mapa.fitBounds(limitesMorelos, {
-  padding: [15, 15]
-});
+const nombres = {
+  franciscanos: "Franciscanos",
+  agustinos: "Agustinos",
+  dominicos: "Dominicos"
+};
 
-/* =========================================
-   VARIABLES DE ANIMACIÓN
-========================================= */
+const secuencia = [
+  "franciscanos",
+  "agustinos",
+  "dominicos"
+];
 
-let rutaActual = null;
+/* =====================================
+   ESTADO DE LA ANIMACIÓN
+===================================== */
 
+let ordenActual = null;
+let posicionOrden = 0;
 let indice = 0;
 
+let automatico = false;
 let pausado = false;
-
-let terminado = false;
+let finalizado = false;
 
 let temporizador = null;
+let tiempoInicio = 0;
+let tiempoPendiente = DURACION;
 
-let inicioEspera = 0;
-
-let tiempoRestante = DURACION;
-
-let capasRuta = L.layerGroup().addTo(mapa);
-
-let marcadores = [];
+let capas = L.layerGroup().addTo(mapa);
+let ultimoPunto = null;
 
 let animacionLinea = null;
+let animacionFrame = null;
+let identificador = 0;
 
-let animacionZoom = null;
+/* =====================================
+   FUNCIONES GENERALES
+===================================== */
 
-let animacionId = null;
-
-let ultimaPosicion = null;
-
-const btnPausa =
-  document.getElementById("btnPausa");
-
-const btnRepetir =
-  document.getElementById("btnRepetir");
-
-const tituloRuta =
-  document.getElementById("tituloRuta");
-
-const pantallaFinal =
-  document.getElementById("pantallaFinal");
-
-/* =========================================
-   FUNCIONES AUXILIARES
-========================================= */
-
-function establecerTexto(id, texto) {
-  document.getElementById(id).textContent = texto;
+function texto(id, valor) {
+  document.getElementById(id).textContent = valor;
 }
 
-function actualizarBotones(nombre) {
-
-  document.querySelectorAll(
-    "#btnFranciscanos, #btnAgustinos, #btnDominicos"
-  ).forEach(boton => {
-    boton.classList.remove("activo");
-  });
-
-  const ids = {
-    franciscanos: "btnFranciscanos",
-    agustinos: "btnAgustinos",
-    dominicos: "btnDominicos"
-  };
-
-  if (nombre) {
-    document.getElementById(
-      ids[nombre]
-    ).classList.add("activo");
-  }
-
-}
-
-function cancelarAnimaciones() {
+function cancelarTiempo() {
 
   clearTimeout(temporizador);
 
-  if (animacionId !== null) {
-    cancelAnimationFrame(animacionId);
-    animacionId = null;
+  if (animacionFrame !== null) {
+    cancelAnimationFrame(animacionFrame);
+    animacionFrame = null;
   }
 
   animacionLinea = null;
 
-  if (animacionZoom !== null) {
-    clearTimeout(animacionZoom);
-    animacionZoom = null;
-  }
+  identificador++;
 
 }
 
-function limpiarRecorrido() {
+function reiniciar() {
 
-  cancelarAnimaciones();
+  cancelarTiempo();
 
-  capasRuta.clearLayers();
+  capas.clearLayers();
 
-  marcadores = [];
-
+  ultimoPunto = null;
   indice = 0;
-
   pausado = false;
+  finalizado = false;
 
-  terminado = false;
+  tiempoPendiente = DURACION;
 
-  ultimaPosicion = null;
+  document.getElementById("final").style.display = "none";
 
-  tiempoRestante = DURACION;
+  document.getElementById("pausa").disabled = false;
+  document.getElementById("repetir").disabled = false;
 
-  btnPausa.textContent = "PAUSAR";
+  document.getElementById("pausa").textContent = "PAUSAR";
 
-  pantallaFinal.style.display = "none";
+  mapa.stop();
 
-}
-
-/* =========================================
-   INICIAR RUTA
-========================================= */
-
-function iniciarRuta(nombre) {
-
-  if (!rutas[nombre]) return;
-
-  limpiarRecorrido();
-
-  rutaActual = nombre;
-
-  actualizarBotones(nombre);
-
-  tituloRuta.textContent =
-    TITULOS[nombre];
-
-  tituloRuta.style.color =
-    COLORES[nombre];
-
-  btnPausa.disabled = false;
-
-  btnRepetir.disabled = false;
-
-  mapa.fitBounds(limitesMorelos, {
-    padding: [15, 15],
-    animate: true
+  mapa.fitBounds(limites, {
+    animate: false
   });
 
-  mostrarLocalidad();
+}
+
+/* =====================================
+   INICIO AUTOMÁTICO
+===================================== */
+
+function iniciarCompleto() {
+
+  reiniciar();
+
+  automatico = true;
+  posicionOrden = 0;
+
+  ordenActual = secuencia[posicionOrden];
+
+  mostrarLugar();
 
 }
 
-/* =========================================
-   DIBUJAR MARCADOR
-========================================= */
+/* =====================================
+   INICIO DE UNA ORDEN
+===================================== */
 
-function dibujarMarcador(lugar, color) {
+function iniciarDesde(orden) {
+
+  reiniciar();
+
+  automatico = false;
+
+  ordenActual = orden;
+
+  posicionOrden = secuencia.indexOf(orden);
+
+  mostrarLugar();
+
+}
+
+/* =====================================
+   MARCADORES
+===================================== */
+
+function dibujarPunto(lugar, color) {
 
   if (
-    lugar.lat === null ||
-    lugar.lng === null
+    lugar[4] === null ||
+    lugar[5] === null
   ) {
-    return null;
+    return;
   }
 
-  const marcador = L.circleMarker(
-    [lugar.lat, lugar.lng],
+  const punto = L.circleMarker(
+    [lugar[4],lugar[5]],
     {
       radius: 8,
-      color: "#ffffff",
+      color: "#fffaf0",
       weight: 3,
       fillColor: color,
       fillOpacity: 1
     }
   );
 
-  marcador.bindPopup(
-    "<strong>" +
-    lugar.nombre +
-    "</strong><br>" +
-    lugar.advocacion +
-    "<br>" +
-    lugar.fecha
+  punto.bindPopup(
+    "<strong>" + lugar[0] + "</strong><br>" +
+    lugar[1] + "<br>" +
+    lugar[2]
   );
 
-  marcador.addTo(capasRuta);
-
-  marcadores.push(marcador);
-
-  return marcador;
+  punto.addTo(capas);
 
 }
 
-/* =========================================
-   DIBUJAR LÍNEA ANIMADA
-========================================= */
-
-/*
-  La línea se dibuja progresivamente
-  entre dos localidades.
-
-  Seis segundos es el intervalo total
-  de presentación por localidad.
-*/
+/* =====================================
+   LÍNEA ANIMADA
+===================================== */
 
 function dibujarLinea(desde, hasta, color) {
 
@@ -1252,230 +855,210 @@ function dibujarLinea(desde, hasta, color) {
 
   const linea = L.polyline(
     [
-      [desde.lat, desde.lng],
-      [desde.lat, desde.lng]
+      [desde[0],desde[1]],
+      [desde[0],desde[1]]
     ],
     {
       color: color,
       weight: 5,
-      opacity: .9,
-      lineCap: "round"
+      opacity: .9
     }
-  ).addTo(capasRuta);
+  ).addTo(capas);
 
-  const duracionLinea = 3500;
+  const duracion = 3600;
 
-  const inicio = performance.now();
+  const miIdentificador = identificador;
 
-  animacionLinea = {
-    linea: linea,
-    desde: desde,
-    hasta: hasta,
-    duracion: duracionLinea,
+  const estado = {
     transcurrido: 0,
-    ultimoTiempo: inicio,
-    terminada: false
+    anterior: performance.now()
   };
 
-  function avanzar(tiempo) {
+  animacionLinea = estado;
 
-    const a = animacionLinea;
+  function animar(ahora) {
 
-    if (!a || a.linea !== linea) {
-      return;
+    if (miIdentificador !== identificador) return;
+
+    const delta = ahora - estado.anterior;
+
+    estado.anterior = ahora;
+
+    if (!pausado) {
+      estado.transcurrido += delta;
     }
-
-    if (pausado) {
-      a.ultimoTiempo = tiempo;
-      animacionId =
-        requestAnimationFrame(avanzar);
-      return;
-    }
-
-    const delta =
-      Math.max(0, tiempo - a.ultimoTiempo);
-
-    a.ultimoTiempo = tiempo;
-
-    a.transcurrido += delta;
 
     const progreso = Math.min(
-      a.transcurrido / a.duracion,
+      estado.transcurrido / duracion,
       1
     );
 
     const lat =
-      desde.lat +
-      (hasta.lat - desde.lat) * progreso;
+      desde[0] +
+      (hasta[0]-desde[0])*progreso;
 
     const lng =
-      desde.lng +
-      (hasta.lng - desde.lng) * progreso;
+      desde[1] +
+      (hasta[1]-desde[1])*progreso;
 
     linea.setLatLngs([
-      [desde.lat, desde.lng],
-      [lat, lng]
+      [desde[0],desde[1]],
+      [lat,lng]
     ]);
 
     if (progreso < 1) {
 
-      animacionId =
-        requestAnimationFrame(avanzar);
+      animacionFrame =
+        requestAnimationFrame(animar);
 
     } else {
 
-      a.terminada = true;
-
-      animacionId = null;
+      animacionFrame = null;
 
     }
 
   }
 
-  animacionId =
-    requestAnimationFrame(avanzar);
+  animacionFrame =
+    requestAnimationFrame(animar);
 
 }
 
-/* =========================================
-   MOSTRAR FICHA DE LOCALIDAD
-========================================= */
+/* =====================================
+   PRESENTACIÓN DE CADA LOCALIDAD
+===================================== */
 
-function mostrarLocalidad() {
+function mostrarLugar() {
 
-  if (!rutaActual || pausado) return;
+  if (pausado || finalizado) return;
 
-  const lista = rutas[rutaActual];
+  const lista = datos[ordenActual];
 
   if (indice >= lista.length) {
-    finalizarRuta();
+
+    terminarOrden();
+
     return;
+
   }
 
-  const clave = lista[indice];
+  const lugar = lista[indice];
 
-  const lugar = establecimientos[clave];
-
-  const color = COLORES[rutaActual];
+  const color = colores[ordenActual];
 
   const numero = indice + 1;
 
-  const total = lista.length;
+  texto(
+    "tituloRuta",
+    "Ruta " + nombres[ordenActual]
+  );
 
-  establecerTexto(
+  texto(
     "contador",
-    TITULOS[rutaActual].toUpperCase() +
+    nombres[ordenActual].toUpperCase() +
     " · " +
-    String(numero).padStart(2, "0") +
-    "/" +
-    String(total).padStart(2, "0")
+    String(numero).padStart(2,"0") +
+    " / " +
+    String(lista.length).padStart(2,"0")
   );
 
-  establecerTexto(
-    "nombreLugar",
-    lugar.nombre
-  );
+  texto("localidad",lugar[0]);
 
-  establecerTexto(
-    "advocacion",
-    lugar.advocacion
-  );
+  texto("advocacion",lugar[1]);
 
-  establecerTexto(
-    "fecha",
-    lugar.fecha
-  );
+  texto("orden",nombres[ordenActual]);
 
-  establecerTexto(
-    "detalle",
-    lugar.detalle
-  );
+  texto("fecha",lugar[2]);
 
-  establecerTexto(
-    "tipo",
-    lugar.tipo
-  );
-
-  establecerTexto(
-    "progreso",
-    "Localidad " +
-    numero +
-    " de " +
-    total +
-    " · Cronología provisional"
-  );
-
-  /*
-    Cuando existe ubicación aproximada,
-    se añade el punto al mapa.
-  */
+  texto("detalle",lugar[3]);
 
   if (
-    lugar.lat !== null &&
-    lugar.lng !== null
+    lugar[4] !== null &&
+    lugar[5] !== null
   ) {
 
-    const posicionActual = {
-      lat: lugar.lat,
-      lng: lugar.lng
-    };
+    const actual = [
+      lugar[4],
+      lugar[5]
+    ];
 
-    if (ultimaPosicion) {
+    if (ultimoPunto) {
 
       dibujarLinea(
-        ultimaPosicion,
-        posicionActual,
+        ultimoPunto,
+        actual,
         color
       );
 
     }
 
-    dibujarMarcador(lugar, color);
+    dibujarPunto(lugar,color);
 
-    ultimaPosicion = posicionActual;
+    ultimoPunto = actual;
 
   }
 
-  /*
-    En localidades con ubicación
-    pendiente de verificación se
-    muestra la ficha, pero no se
-    inventa un punto en el mapa.
-  */
+  tiempoPendiente = DURACION;
 
-  tiempoRestante = DURACION;
-
-  programarSiguiente();
+  programar();
 
 }
 
-/* =========================================
+/* =====================================
    TEMPORIZADOR
-========================================= */
+===================================== */
 
-function programarSiguiente() {
+function programar() {
 
   clearTimeout(temporizador);
 
-  inicioEspera = performance.now();
+  tiempoInicio = performance.now();
 
   temporizador = setTimeout(() => {
 
     indice++;
 
-    mostrarLocalidad();
+    mostrarLugar();
 
-  }, tiempoRestante);
+  },tiempoPendiente);
 
 }
 
-/* =========================================
-   PAUSAR Y CONTINUAR
-========================================= */
+/* =====================================
+   CAMBIO ENTRE ÓRDENES
+===================================== */
+
+function terminarOrden() {
+
+  if (
+    automatico &&
+    posicionOrden < secuencia.length-1
+  ) {
+
+    posicionOrden++;
+
+    ordenActual = secuencia[posicionOrden];
+
+    indice = 0;
+    ultimoPunto = null;
+
+    mostrarLugar();
+
+    return;
+
+  }
+
+  terminarTodo();
+
+}
+
+/* =====================================
+   PAUSA
+===================================== */
 
 function alternarPausa() {
 
-  if (!rutaActual || terminado) return;
+  if (!ordenActual || finalizado) return;
 
   if (!pausado) {
 
@@ -1483,133 +1066,108 @@ function alternarPausa() {
 
     clearTimeout(temporizador);
 
-    tiempoRestante = Math.max(
+    tiempoPendiente = Math.max(
       0,
-      tiempoRestante -
-      (performance.now() - inicioEspera)
+      tiempoPendiente -
+      (performance.now()-tiempoInicio)
     );
 
-    btnPausa.textContent = "CONTINUAR";
+    document.getElementById("pausa").textContent =
+      "CONTINUAR";
 
   } else {
 
     pausado = false;
 
-    btnPausa.textContent = "PAUSAR";
+    document.getElementById("pausa").textContent =
+      "PAUSAR";
 
-    programarSiguiente();
+    programar();
 
   }
 
 }
 
-/* =========================================
+/* =====================================
    REPETIR
-========================================= */
+===================================== */
 
-function repetirRuta() {
+function repetir() {
 
-  if (!rutaActual) return;
+  if (automatico) {
 
-  iniciarRuta(rutaActual);
+    iniciarCompleto();
+
+  } else if (ordenActual) {
+
+    iniciarDesde(ordenActual);
+
+  }
 
 }
 
-/* =========================================
+/* =====================================
    FINAL DEL RECORRIDO
-========================================= */
+===================================== */
 
-function finalizarRuta() {
+function terminarTodo() {
 
-  terminado = true;
+  finalizado = true;
 
-  btnPausa.disabled = true;
+  clearTimeout(temporizador);
 
-  establecerTexto(
+  document.getElementById("pausa").disabled = true;
+
+  texto(
     "contador",
     "RECORRIDO COMPLETO"
   );
 
-  establecerTexto(
-    "progreso",
-    "Puedes repetir el recorrido o elegir otra orden."
+  texto(
+    "tituloRuta",
+    "Destino final: Tetela del Volcán"
   );
 
-  establecerTexto(
-    "detalle",
-    "El recorrido de esta orden religiosa ha concluido."
-  );
-
-  /*
-    Todas las rutas terminan con
-    un acercamiento a Tetela del Volcán.
-  */
-
-  acercarATetela();
-
-}
-
-/* =========================================
-   ZOOM FINAL A TETELA DEL VOLCÁN
-========================================= */
-
-function acercarATetela() {
-
-  const tetela = establecimientos.tetela;
-
-  establecerTexto(
-    "nombreLugar",
+  texto(
+    "localidad",
     "Tetela del Volcán"
   );
 
-  establecerTexto(
+  texto(
     "advocacion",
     "Parroquia y Ex Convento de San Juan Bautista"
   );
 
-  establecerTexto(
+  texto(
+    "orden",
+    "Orden de Predicadores — Dominicos"
+  );
+
+  texto(
     "fecha",
     "1571 – 1574"
   );
 
-  establecerTexto(
+  texto(
     "detalle",
-    "Destino final: Tetela del Volcán, Morelos."
+    "El recorrido concluye en Tetela del Volcán, Morelos."
   );
 
-  establecerTexto(
-    "tipo",
-    "Orden de Predicadores — Dominicos"
-  );
-
-  /*
-    Marcador especial de Tetela.
-  */
+  const tetela = [18.894,-98.729];
 
   L.circleMarker(
-    [tetela.lat, tetela.lng],
+    tetela,
     {
       radius: 13,
-      color: "#ffffff",
+      color: "white",
       weight: 4,
       fillColor: "#325d4a",
       fillOpacity: 1
     }
-  )
-  .addTo(capasRuta)
-  .bindPopup(
-    "<strong>Tetela del Volcán</strong><br>" +
-    "San Juan Bautista<br>" +
-    "1571–1574"
-  )
-  .openPopup();
-
-  /*
-    Acercamiento progresivo.
-  */
+  ).addTo(capas);
 
   mapa.flyTo(
-    [tetela.lat, tetela.lng],
+    tetela,
     13,
     {
       animate: true,
@@ -1617,36 +1175,36 @@ function acercarATetela() {
     }
   );
 
-  /*
-    Tras el acercamiento aparece
-    la invitación al recorrido virtual.
-  */
+  setTimeout(() => {
 
-  animacionZoom = setTimeout(() => {
+    if (!finalizado) return;
 
-    pantallaFinal.style.display = "block";
+    const final =
+      document.getElementById("final");
 
-    pantallaFinal.scrollIntoView({
+    final.style.display = "block";
+
+    final.scrollIntoView({
       behavior: "smooth",
       block: "start"
     });
 
-  }, 4800);
+  },4800);
 
 }
 
-/* =========================================
-   INICIO
-========================================= */
+/* =====================================
+   INICIO DE LA PRESENTACIÓN
+===================================== */
 
-establecerTexto(
-  "tituloRuta",
-  "Selecciona una orden religiosa"
-);
+/*
+El mapa aparece primero completo.
+
+El visitante puede seleccionar una
+orden o iniciar las tres rutas.
+*/
 
 </script>
-
-<!-- CONTADOR GOATCOUNTER -->
 
 <script
 data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
