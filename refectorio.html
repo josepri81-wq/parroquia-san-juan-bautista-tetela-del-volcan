@@ -1,13 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>El refectorio | Un día en el convento</title>
+
     <style>
         * {
             box-sizing: border-box;
         }
+
         body {
             margin: 0;
             padding: 0;
@@ -15,28 +21,82 @@
             color: #2f2f2f;
             font-family: Arial, sans-serif;
         }
+
         .escena {
             width: 100%;
             min-height: 100vh;
             background-color: #f5f1e6;
         }
+
+        /* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
+
+        .escenario {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #171717;
+        }
+
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
+
+        .video-historico {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #171717;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .video-historico.visible {
+            opacity: 1;
+        }
+
+        .rotulo-historico {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 18px;
+            background: rgba(0, 0, 0, 0.72);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            border-radius: 6px;
+            text-align: center;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .rotulo-historico.visible {
+            opacity: 1;
+        }
+
+        /* CONTENIDO HISTÓRICO */
+
         .contenido {
             max-width: 900px;
             margin: 0 auto;
             padding: 24px 28px;
             text-align: center;
         }
+
         .contenido h1 {
             margin-top: 0;
             margin-bottom: 8px;
             font-size: 30px;
             color: #325d4a;
         }
+
         .contenido h2 {
             margin-top: 0;
             margin-bottom: 22px;
@@ -45,6 +105,7 @@
             font-style: italic;
             color: #325d4a;
         }
+
         .contenido p {
             margin: 0 auto 16px auto;
             font-size: 18px;
@@ -52,13 +113,15 @@
             text-align: justify;
         }
 
-        /* FOTO DESPUÉS DEL SISMO */
+        /* FOTOGRAFÍA DESPUÉS DEL SISMO */
+
         .restauracion {
             max-width: 900px;
             margin: 0 auto;
             padding: 5px 28px 20px 28px;
             text-align: center;
         }
+
         .restauracion h2 {
             margin: 0 0 18px 0;
             font-size: 23px;
@@ -66,12 +129,14 @@
             font-style: normal;
             color: #325d4a;
         }
+
         .restauracion img {
             width: 100%;
             height: auto;
             display: block;
             border-radius: 8px;
         }
+
         .restauracion p {
             margin: 10px auto 0 auto;
             font-size: 16px;
@@ -81,16 +146,22 @@
             text-align: center;
         }
 
+        /* MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
         }
+
         audio {
             display: block;
             width: 90%;
             max-width: 500px;
             margin: 0 auto;
         }
+
+        /* BOTONES DE NAVEGACIÓN */
+
         .navegacion {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -101,6 +172,7 @@
             padding: 20px 30px 35px 30px;
             background-color: #f5f1e6;
         }
+
         .boton {
             display: flex;
             align-items: center;
@@ -118,46 +190,63 @@
             line-height: 1.2;
             text-align: center;
         }
+
         .boton:hover {
             opacity: 0.9;
         }
+
         .texto-celular {
             display: none;
         }
+
+        /* ADAPTACIÓN A CELULARES */
+
         @media (max-width: 600px) {
+
             .contenido {
                 padding: 22px 18px;
             }
+
             .contenido h1 {
                 font-size: 25px;
             }
+
             .contenido h2 {
                 font-size: 18px;
             }
+
             .contenido p {
                 font-size: 17px;
                 line-height: 1.65;
             }
+
             .restauracion {
                 padding: 5px 18px 20px 18px;
             }
+
             .restauracion h2 {
                 font-size: 21px;
             }
+
             .restauracion p {
                 font-size: 15px;
             }
+
             .audio {
                 padding: 10px 15px 18px 15px;
             }
+
             audio {
                 width: 100%;
             }
+
             .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
                 gap: 6px;
                 padding: 18px 8px 30px 8px;
             }
+
             .boton {
                 width: 100%;
                 min-width: 0;
@@ -167,17 +256,31 @@
                 line-height: 1;
                 white-space: nowrap;
             }
+
             .texto-escritorio {
                 display: none;
             }
+
             .texto-celular {
                 display: inline;
+            }
+
+            .rotulo-historico {
+                font-size: 11px;
+                padding: 7px 10px;
+                bottom: 10px;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="escena">
+
+<div class="escena">
+
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
+
+    <div class="escenario">
 
         <img
             class="imagen"
@@ -185,82 +288,237 @@
             alt="Refectorio del antiguo convento de San Juan Bautista de Tetela del Volcán"
         >
 
-        <div class="contenido">
-            <h1>El refectorio</h1>
-            <h2>La mesa compartida en la vida conventual</h2>
-
-            <p>
-                El refectorio era el espacio donde la comunidad religiosa se reunía
-                para compartir los alimentos. También este momento cotidiano formaba
-                parte del ritmo ordenado de la vida conventual: los frailes se sentaban
-                juntos a la mesa, haciendo de la comida un acto comunitario.
-            </p>
-
-            <p>
-                Durante los alimentos se procuraba mantener un ambiente de silencio
-                y recogimiento. Mientras los frailes comían, uno de los religiosos
-                realizaba lecturas que podían proceder de la
-                <strong>Sagrada Escritura</strong>, de la
-                <strong>Regla de la Orden</strong> o de otros textos destinados
-                a la formación espiritual de la comunidad.
-            </p>
-
-            <p>
-                De esta manera, el alimento del cuerpo iba acompañado por el alimento
-                de la palabra. Incluso el tiempo de la comida recordaba al fraile que
-                toda su jornada estaba orientada hacia la oración, el estudio,
-                la vida fraterna y la predicación.
-            </p>
-
-            <p>
-                Al continuar nuestro recorrido veremos algunos elementos vinculados
-                directamente con este espacio: el <strong>lavabo</strong>, relacionado
-                con el agua utilizada para lavarse las manos, y el
-                <strong>ambón</strong> desde donde se realizaban las lecturas
-                durante los alimentos.
-            </p>
-        </div>
-
-        <!-- FOTO DESPUÉS DEL SISMO -->
-        <div class="restauracion">
-            <h2>El refectorio después del sismo</h2>
-
-            <img
-                src="PHOTO-2026-10-06-07-26-24.jpg"
-                alt="Refectorio durante los trabajos de restauración posteriores al sismo de 2017"
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            preload="auto"
+        >
+            <source
+                src="frailesrefectorioanimado.MP4"
+                type="video/mp4"
             >
+            Tu navegador no admite reproducción de video.
+        </video>
 
-            <p>
-                El refectorio durante los trabajos de restauración posteriores al sismo de 2017.
-            </p>
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
         </div>
 
-        <div class="audio">
-            <audio controls autoplay loop>
-                <source
-                    src="starostin-worship-gospel-christian-church-music-585716.mp3"
-                    type="audio/mpeg"
-                >
-                Tu navegador no puede reproducir este archivo de audio.
-            </audio>
-        </div>
-
-        <div class="navegacion">
-            <a class="boton" href="sala-de-profundis.html">← REGRESAR</a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-                <span class="texto-celular">🗺 PLANO</span>
-            </a>
-
-            <a class="boton" href="lavabo.html">SEGUIR →</a>
-        </div>
     </div>
 
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+    <!-- TEXTO HISTÓRICO ORIGINAL -->
+
+    <div class="contenido">
+
+        <h1>El refectorio</h1>
+
+        <h2>La mesa compartida en la vida conventual</h2>
+
+        <p>
+            El refectorio era el espacio donde la comunidad
+            religiosa se reunía para compartir los alimentos.
+            También este momento cotidiano formaba parte del
+            ritmo ordenado de la vida conventual: los frailes
+            se sentaban juntos a la mesa, haciendo de la
+            comida un acto comunitario.
+        </p>
+
+        <p>
+            Durante los alimentos se procuraba mantener un
+            ambiente de silencio y recogimiento. Mientras
+            los frailes comían, uno de los religiosos
+            realizaba lecturas que podían proceder de la
+            <strong>Sagrada Escritura</strong>, de la
+            <strong>Regla de la Orden</strong> o de otros
+            textos destinados a la formación espiritual
+            de la comunidad.
+        </p>
+
+        <p>
+            De esta manera, el alimento del cuerpo iba
+            acompañado por el alimento de la palabra.
+            Incluso el tiempo de la comida recordaba al
+            fraile que toda su jornada estaba orientada
+            hacia la oración, el estudio, la vida fraterna
+            y la predicación.
+        </p>
+
+        <p>
+            Al continuar nuestro recorrido veremos algunos
+            elementos vinculados directamente con este
+            espacio: el <strong>lavabo</strong>, relacionado
+            con el agua utilizada para lavarse las manos,
+            y el <strong>ambón</strong> desde donde se
+            realizaban las lecturas durante los alimentos.
+        </p>
+
+    </div>
+
+    <!-- FOTOGRAFÍA POSTERIOR AL SISMO DE 2017 -->
+
+    <div class="restauracion">
+
+        <h2>El refectorio después del sismo</h2>
+
+        <img
+            src="PHOTO-2026-10-06-07-26-24.jpg"
+            alt="Refectorio durante los trabajos de restauración posteriores al sismo de 2017"
+        >
+
+        <p>
+            El refectorio durante los trabajos de
+            restauración posteriores al sismo de 2017.
+        </p>
+
+    </div>
+
+    <!-- MÚSICA AMBIENTAL ORIGINAL -->
+
+    <div class="audio">
+
+        <audio id="musica" controls loop>
+            <source
+                src="starostin-worship-gospel-christian-church-music-585716.mp3"
+                type="audio/mpeg"
+            >
+            Tu navegador no puede reproducir este archivo
+            de audio.
+        </audio>
+
+    </div>
+
+    <!-- BOTONES DE NAVEGACIÓN -->
+
+    <div class="navegacion">
+
+        <a class="boton" href="sala-de-profundis.html">
+            ← REGRESAR
+        </a>
+
+        <a class="boton" href="mapa.html">
+
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
+
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
+
+        </a>
+
+        <a class="boton" href="lavabo.html">
+            SEGUIR →
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ELEMENTOS */
+
+const video = document.getElementById("videoHistorico");
+const rotulo = document.getElementById("rotuloHistorico");
+const musica = document.getElementById("musica");
+
+let reconstruccionIniciada = false;
+
+/* CONFIGURACIÓN DE MÚSICA */
+
+musica.volume = 0.20;
+
+/* MOSTRAR RECONSTRUCCIÓN HISTÓRICA */
+
+function mostrarReconstruccion() {
+
+    if (reconstruccionIniciada) {
+        return;
+    }
+
+    reconstruccionIniciada = true;
+
+    video.currentTime = 0;
+
+    video.play().then(function () {
+
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+
+    }).catch(function () {
+
+        reconstruccionIniciada = false;
+
+        console.log(
+            "El navegador no permitió reproducir el video."
+        );
+
+    });
+
+}
+
+/* REGRESAR A LA FOTOGRAFÍA ORIGINAL */
+
+function finalizarReconstruccion() {
+
+    video.classList.remove("visible");
+    rotulo.classList.remove("visible");
+
+}
+
+/* FINAL DEL VIDEO */
+
+video.addEventListener("ended", function () {
+
+    finalizarReconstruccion();
+
+});
+
+/* ERROR DE VIDEO */
+
+video.addEventListener("error", function () {
+
+    finalizarReconstruccion();
+
+});
+
+/* INICIO AUTOMÁTICO */
+
+window.addEventListener("load", function () {
+
+    musica.play().catch(function () {
+
+        console.log(
+            "El navegador requiere interacción para iniciar la música."
+        );
+
+    });
+
+    /* ESPERAR CINCO SEGUNDOS */
+
+    setTimeout(function () {
+
+        mostrarReconstruccion();
+
+    }, 5000);
+
+});
+
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
+
 </body>
 </html>
