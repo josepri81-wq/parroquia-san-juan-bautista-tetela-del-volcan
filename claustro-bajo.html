@@ -1,212 +1,263 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Claustro bajo | Un día en el convento</title>
+<title>Claustro bajo | Un día en el convento</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f1e6;
-            color: #2f2f2f;
-            font-family: Arial, sans-serif;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    color: #2f2f2f;
+    font-family: Arial, sans-serif;
+}
 
-        .escena {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f1e6;
-        }
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
 
-        .imagen {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+/* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
 
-        .contenido {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px 28px;
-            text-align: center;
-        }
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #171717;
+}
 
-        .contenido h1 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 30px;
-            color: #325d4a;
-        }
+.imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-        .contenido h2 {
-            margin-top: 0;
-            margin-bottom: 22px;
-            font-size: 20px;
-            font-weight: normal;
-            font-style: italic;
-            color: #325d4a;
-        }
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .contenido p {
-            margin: 0 auto 16px auto;
-            font-size: 18px;
-            line-height: 1.7;
-            text-align: justify;
-        }
+.video-historico.visible {
+    opacity: 1;
+}
 
-        /* NARRACIÓN */
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    border-radius: 6px;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .narracion {
-            text-align: center;
-            padding: 5px 20px 18px 20px;
-            background-color: #f5f1e6;
-        }
+.rotulo-historico.visible {
+    opacity: 1;
+}
 
-        .narracion h3 {
-            margin: 0 0 12px 0;
-            color: #325d4a;
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-        }
+/* CONTENIDO */
 
-        .narracion audio {
-            display: block;
-            width: 90%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+.contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+}
 
-        /* MÚSICA AMBIENTAL */
+.contenido h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 30px;
+    color: #325d4a;
+}
 
-        .audio {
-            text-align: center;
-            padding: 10px 20px 20px 20px;
-        }
+.contenido h2 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: italic;
+    color: #325d4a;
+}
 
-        .audio h3 {
-            margin: 0 0 12px 0;
-            color: #325d4a;
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-        }
+.contenido p {
+    margin: 0 auto 16px auto;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: justify;
+}
 
-        audio {
-            display: block;
-            width: 90%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+/* NARRACIÓN */
 
-        .navegacion {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: stretch;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 30px 35px 30px;
-            background-color: #f5f1e6;
-        }
+.narracion {
+    text-align: center;
+    padding: 5px 20px 18px 20px;
+    background-color: #f5f1e6;
+}
 
-        .boton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 54px;
-            padding: 14px 12px;
-            background-color: #325d4a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
+.narracion h3 {
+    margin: 0 0 12px 0;
+    color: #325d4a;
+    font-size: 18px;
+}
 
-        .boton:hover {
-            opacity: 0.9;
-        }
+/* MÚSICA AMBIENTAL */
 
-        .texto-celular {
-            display: none;
-        }
+.audio {
+    text-align: center;
+    padding: 10px 20px 20px 20px;
+}
 
-        @media (max-width: 600px) {
+.audio h3 {
+    margin: 0 0 12px 0;
+    color: #325d4a;
+    font-size: 18px;
+}
 
-            .contenido {
-                padding: 22px 18px;
-            }
+audio {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
 
-            .contenido h1 {
-                font-size: 25px;
-            }
+/* NAVEGACIÓN */
 
-            .contenido h2 {
-                font-size: 18px;
-            }
+.navegacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px 30px;
+    background-color: #f5f1e6;
+}
 
-            .contenido p {
-                font-size: 17px;
-                line-height: 1.65;
-            }
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
 
-            .narracion {
-                padding: 5px 15px 18px 15px;
-            }
+.boton:hover {
+    opacity: 0.9;
+}
 
-            .narracion audio {
-                width: 100%;
-            }
+.texto-celular {
+    display: none;
+}
 
-            .audio {
-                padding: 10px 15px 18px 15px;
-            }
+/* ADAPTACIÓN PARA CELULARES */
 
-            audio {
-                width: 100%;
-            }
+@media (max-width: 600px) {
 
-            .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 6px;
-                padding: 18px 8px 30px 8px;
-            }
+    .contenido {
+        padding: 22px 18px;
+    }
 
-            .boton {
-                width: 100%;
-                min-width: 0;
-                min-height: 48px;
-                padding: 10px 3px;
-                font-size: 12px;
-                line-height: 1;
-                white-space: nowrap;
-            }
+    .contenido h1 {
+        font-size: 25px;
+    }
 
-            .texto-escritorio {
-                display: none;
-            }
+    .contenido h2 {
+        font-size: 18px;
+    }
 
-            .texto-celular {
-                display: inline;
-            }
-        }
-    </style>
+    .contenido p {
+        font-size: 17px;
+        line-height: 1.65;
+    }
+
+    .narracion {
+        padding: 5px 15px 18px 15px;
+    }
+
+    .audio {
+        padding: 10px 15px 18px 15px;
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 18px 8px 30px 8px;
+    }
+
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .texto-escritorio {
+        display: none;
+    }
+
+    .texto-celular {
+        display: inline;
+    }
+
+    .rotulo-historico {
+        font-size: 11px;
+        padding: 7px 10px;
+        bottom: 10px;
+    }
+}
+</style>
+
 </head>
 
 <body>
 
-    <div class="escena">
+<div class="escena">
+
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO HISTÓRICO -->
+
+    <div class="escenario">
 
         <img
             class="imagen"
@@ -214,207 +265,294 @@
             alt="Claustro bajo del Ex Convento de San Juan Bautista"
         >
 
-        <div class="contenido">
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            preload="auto"
+        >
+            <source
+                src="frailes%20caminando.MP4"
+                type="video/mp4"
+            >
+            Tu navegador no admite reproducción de video.
+        </video>
 
-            <h1>El claustro bajo</h1>
-
-            <h2>El corazón de la vida conventual</h2>
-
-            <p>
-                Al atravesar la Puerta Jubilar entramos en uno de los espacios
-                fundamentales del antiguo convento: el claustro bajo. Alrededor de este
-                lugar se articulaba buena parte de la vida cotidiana de la comunidad
-                religiosa. Sus corredores comunicaban los distintos espacios del
-                convento y eran recorridos una y otra vez por los frailes durante
-                la jornada.
-            </p>
-
-            <p>
-                El claustro no era únicamente un lugar de paso. Su disposición alrededor
-                del patio interior favorecía el silencio, el recogimiento y la oración.
-                Mientras el mundo quedaba fuera de los muros del convento, aquí el fraile
-                encontraba un espacio que acompañaba el ritmo de una vida dedicada a
-                Dios, al estudio, a la vida comunitaria y a la predicación.
-            </p>
-
-            <p>
-                Al recorrer sus corredores podemos observar también la presencia del
-                blanco y el negro, colores estrechamente vinculados con la Orden de
-                Predicadores y con el hábito dominicano. Arquitectura, pintura y vida
-                religiosa se encuentran aquí para introducirnos en el ambiente cotidiano
-                de aquellos primeros frailes que habitaron este convento.
-            </p>
-
-        </div>
-
-        <!-- NARRACIÓN -->
-
-        <div class="narracion">
-
-            <h3>🎙️ Narración</h3>
-
-            <audio id="narracion" controls autoplay>
-                <source
-                    src="Claustro-bajo.m4a"
-                    type="audio/mp4"
-                >
-                Tu navegador no admite reproducción de audio.
-            </audio>
-
-        </div>
-
-        <!-- MÚSICA AMBIENTAL -->
-
-        <div class="audio">
-
-            <h3>🎵 Música ambiental</h3>
-
-            <audio id="musica" controls autoplay loop>
-                <source
-                    src="vjgalaxy-gregorian-christian-chant-mane-nobiscum-01-507990.mp3"
-                    type="audio/mpeg"
-                >
-                Tu navegador no admite reproducción de audio.
-            </audio>
-
-        </div>
-
-        <div class="navegacion">
-
-            <a class="boton" href="puerta-jubilar.html">← REGRESAR</a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-                <span class="texto-celular">🗺 PLANO</span>
-            </a>
-
-            <a class="boton" href="claustro-bajo-2.html">SEGUIR →</a>
-
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
         </div>
 
     </div>
 
-    <script>
-        const narracion = document.getElementById("narracion");
-        const musica = document.getElementById("musica");
+    <!-- TEXTO ORIGINAL -->
 
-        let temporizadorMusica = null;
-        let musicaIniciada = false;
+    <div class="contenido">
 
-        /* Narración al 100 % */
-        narracion.volume = 1.0;
+        <h1>El claustro bajo</h1>
 
-        /* Música al 4 % cuando entre */
-        musica.volume = 0.04;
+        <h2>El corazón de la vida conventual</h2>
 
-        /*
-        La música conserva autoplay en el HTML,
-        pero se detiene inicialmente para que
-        comience 60 segundos después de la narración.
-        */
-        musica.pause();
-        musica.currentTime = 0;
+        <p>
+            Al atravesar la Puerta Jubilar entramos en uno de los espacios
+            fundamentales del antiguo convento: el claustro bajo. Alrededor de este
+            lugar se articulaba buena parte de la vida cotidiana de la comunidad
+            religiosa. Sus corredores comunicaban los distintos espacios del
+            convento y eran recorridos una y otra vez por los frailes durante
+            la jornada.
+        </p>
 
-        /*
-        Cuando la narración comienza realmente,
-        empieza a contar el retraso de 60 segundos.
-        */
-        narracion.addEventListener("play", function () {
+        <p>
+            El claustro no era únicamente un lugar de paso. Su disposición alrededor
+            del patio interior favorecía el silencio, el recogimiento y la oración.
+            Mientras el mundo quedaba fuera de los muros del convento, aquí el fraile
+            encontraba un espacio que acompañaba el ritmo de una vida dedicada a
+            Dios, al estudio, a la vida comunitaria y a la predicación.
+        </p>
+
+        <p>
+            Al recorrer sus corredores podemos observar también la presencia del
+            blanco y el negro, colores estrechamente vinculados con la Orden de
+            Predicadores y con el hábito dominicano. Arquitectura, pintura y vida
+            religiosa se encuentran aquí para introducirnos en el ambiente cotidiano
+            de aquellos primeros frailes que habitaron este convento.
+        </p>
+
+    </div>
+
+    <!-- NARRACIÓN ORIGINAL -->
+
+    <div class="narracion">
+
+        <h3>🎙️ Narración</h3>
+
+        <audio id="narracion" controls>
+            <source
+                src="Claustro-bajo.m4a"
+                type="audio/mp4"
+            >
+            Tu navegador no admite reproducción de audio.
+        </audio>
+
+    </div>
+
+    <!-- MÚSICA AMBIENTAL ORIGINAL -->
+
+    <div class="audio">
+
+        <h3>🎵 Música ambiental</h3>
+
+        <audio id="musica" controls loop>
+            <source
+                src="vjgalaxy-gregorian-christian-chant-mane-nobiscum-01-507990.mp3"
+                type="audio/mpeg"
+            >
+            Tu navegador no admite reproducción de audio.
+        </audio>
+
+    </div>
+
+    <!-- NAVEGACIÓN ORIGINAL -->
+
+    <div class="navegacion">
+
+        <a class="boton" href="puerta-jubilar.html">
+            ← REGRESAR
+        </a>
+
+        <a class="boton" href="mapa.html">
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
+        </a>
+
+        <a class="boton" href="claustro-bajo-2.html">
+            SEGUIR →
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ELEMENTOS DE LA ESCENA */
+
+const narracion = document.getElementById("narracion");
+const musica = document.getElementById("musica");
+const video = document.getElementById("videoHistorico");
+const rotulo = document.getElementById("rotuloHistorico");
+
+/* CONTROL DE LA MÚSICA */
+
+let temporizadorMusica = null;
+let musicaIniciada = false;
+
+narracion.volume = 1.0;
+musica.volume = 0.04;
+
+/* 
+   LA MÚSICA COMIENZA 60 SEGUNDOS
+   DESPUÉS DE INICIARSE LA NARRACIÓN.
+*/
+
+narracion.addEventListener("play", function () {
+
+    musica.volume = 0.04;
+
+    if (!musicaIniciada && temporizadorMusica === null) {
+
+        temporizadorMusica = setTimeout(function () {
 
             musica.volume = 0.04;
 
-            if (!musicaIniciada && temporizadorMusica === null) {
-
-                temporizadorMusica = setTimeout(function () {
-
-                    musica.volume = 0.04;
-
-                    musica.play().then(function () {
-                        musicaIniciada = true;
-                    }).catch(function () {
-                        console.log("El navegador bloqueó temporalmente la música automática.");
-                    });
-
-                    temporizadorMusica = null;
-
-                }, 60000);
-            }
-        });
-
-        /*
-        Cuando termina la narración,
-        la música sube al 30 %.
-        */
-        narracion.addEventListener("ended", function () {
-
-            if (temporizadorMusica !== null) {
-                clearTimeout(temporizadorMusica);
-                temporizadorMusica = null;
-            }
-
-            musica.volume = 0.30;
-
-            /*
-            Si la narración termina antes de cumplirse
-            los 60 segundos, la música comienza
-            inmediatamente al terminar la narración.
-            */
-            if (!musicaIniciada) {
-
-                musica.play().then(function () {
-                    musicaIniciada = true;
-                }).catch(function () {
-                    console.log("El navegador bloqueó temporalmente la música automática.");
-                });
-            }
-        });
-
-        /*
-        Si se pausa la narración después de que
-        la música ya comenzó, sube al 30 %.
-        */
-        narracion.addEventListener("pause", function () {
-
-            if (!narracion.ended && musicaIniciada) {
-                musica.volume = 0.30;
-            }
-        });
-
-        /*
-        Si se reanuda la narración y la música
-        ya está sonando, vuelve al 4 %.
-        */
-        narracion.addEventListener("playing", function () {
-
-            if (musicaIniciada) {
-                musica.volume = 0.04;
-            }
-        });
-
-        /*
-        Al cargar la escena intentamos iniciar
-        automáticamente la narración.
-        La música esperará 60 segundos.
-        */
-        window.addEventListener("load", function () {
-
-            musica.pause();
-            musica.currentTime = 0;
-            musica.volume = 0.04;
-
-            narracion.play().catch(function () {
-                console.log("El navegador bloqueó temporalmente la narración automática.");
+            musica.play().then(function () {
+                musicaIniciada = true;
+            }).catch(function () {
+                console.log("El navegador bloqueó la música automática.");
             });
 
-        });
-    </script>
+            temporizadorMusica = null;
 
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+        }, 60000);
+    }
+});
+
+/* 
+   CUANDO TERMINA LA NARRACIÓN,
+   LA MÚSICA SUBE AL 30 %.
+*/
+
+narracion.addEventListener("ended", function () {
+
+    if (temporizadorMusica !== null) {
+        clearTimeout(temporizadorMusica);
+        temporizadorMusica = null;
+    }
+
+    musica.volume = 0.30;
+
+    if (!musicaIniciada) {
+
+        musica.play().then(function () {
+            musicaIniciada = true;
+        }).catch(function () {
+            console.log("El navegador bloqueó la música automática.");
+        });
+    }
+});
+
+/* NARRACIÓN PAUSADA */
+
+narracion.addEventListener("pause", function () {
+
+    if (!narracion.ended && musicaIniciada) {
+        musica.volume = 0.30;
+    }
+});
+
+/* NARRACIÓN REANUDADA */
+
+narracion.addEventListener("playing", function () {
+
+    if (musicaIniciada) {
+        musica.volume = 0.04;
+    }
+});
+
+/* RECONSTRUCCIÓN HISTÓRICA */
+
+let videoIniciado = false;
+
+function mostrarReconstruccion() {
+
+    if (videoIniciado) {
+        return;
+    }
+
+    videoIniciado = true;
+    video.currentTime = 0;
+
+    video.play().then(function () {
+
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+
+    }).catch(function () {
+
+        videoIniciado = false;
+        console.log("No fue posible iniciar el video histórico.");
+
+    });
+}
+
+/* REGRESAR A LA FOTOGRAFÍA ORIGINAL */
+
+function finalizarReconstruccion() {
+
+    video.classList.remove("visible");
+    rotulo.classList.remove("visible");
+
+}
+
+/* EL VIDEO TERMINA Y REGRESA LA FOTOGRAFÍA */
+
+video.addEventListener("ended", function () {
+
+    finalizarReconstruccion();
+
+});
+
+/* SI OCURRE UN ERROR, CONSERVAR LA FOTOGRAFÍA */
+
+video.addEventListener("error", function () {
+
+    finalizarReconstruccion();
+
+});
+
+/* INICIO DE LA ESCENA */
+
+window.addEventListener("load", function () {
+
+    musica.pause();
+    musica.currentTime = 0;
+    musica.volume = 0.04;
+
+    /* Intentar iniciar la narración */
+
+    narracion.play().catch(function () {
+        console.log("El navegador requiere interacción para reproducir la narración.");
+    });
+
+    /* 
+       ESPERAR CINCO SEGUNDOS
+       ANTES DE MOSTRAR LA RECONSTRUCCIÓN.
+    */
+
+    setTimeout(function () {
+
+        mostrarReconstruccion();
+
+    }, 5000);
+
+});
+
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
 
 </body>
-
 </html>
