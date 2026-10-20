@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Sala de Profundis | Un día en el convento</title>
 
@@ -26,11 +28,60 @@
             background-color: #f5f1e6;
         }
 
+        /* FOTOGRAFÍA Y VIDEO HISTÓRICO */
+
+        .escenario {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #171717;
+        }
+
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
+
+        .video-historico {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #171717;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .video-historico.visible {
+            opacity: 1;
+        }
+
+        .rotulo-historico {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 18px;
+            background: rgba(0, 0, 0, 0.72);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            border-radius: 6px;
+            text-align: center;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .rotulo-historico.visible {
+            opacity: 1;
+        }
+
+        /* CONTENIDO HISTÓRICO */
 
         .contenido {
             max-width: 900px;
@@ -62,6 +113,8 @@
             text-align: justify;
         }
 
+        /* MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
@@ -73,6 +126,8 @@
             max-width: 500px;
             margin: 0 auto;
         }
+
+        /* BOTONES DE NAVEGACIÓN */
 
         .navegacion {
             display: grid;
@@ -111,6 +166,8 @@
             display: none;
         }
 
+        /* ADAPTACIÓN A CELULARES */
+
         @media (max-width: 600px) {
 
             .contenido {
@@ -139,7 +196,8 @@
             }
 
             .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
                 gap: 6px;
                 padding: 18px 8px 30px 8px;
             }
@@ -161,13 +219,23 @@
             .texto-celular {
                 display: inline;
             }
+
+            .rotulo-historico {
+                font-size: 11px;
+                padding: 7px 10px;
+                bottom: 10px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="escena">
+<div class="escena">
+
+    <!-- FOTOGRAFÍA ORIGINAL Y RECONSTRUCCIÓN -->
+
+    <div class="escenario">
 
         <img
             class="imagen"
@@ -175,71 +243,214 @@
             alt="Sala de Profundis del antiguo convento de San Juan Bautista de Tetela del Volcán"
         >
 
-        <div class="contenido">
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            preload="auto"
+        >
+            <source
+                src="frailessaladeprofundis.MP4"
+                type="video/mp4"
+            >
+            Tu navegador no admite reproducción de video.
+        </video>
 
-            <h1>Sala de Profundis</h1>
-
-            <h2>Oración y memoria antes de compartir el alimento</h2>
-
-            <p>
-                Antes de entrar al refectorio, los frailes se reunían en este espacio
-                para hacer una pausa de recogimiento y oración dentro de la jornada conventual.
-            </p>
-
-            <p>
-                Su nombre recuerda las primeras palabras del Salmo 130:
-                <em>“De profundis clamavi ad te, Domine”</em>,
-                es decir: <strong>“Desde lo profundo a ti clamo, Señor”</strong>.
-                Aquí la comunidad hacía memoria de sus hermanos difuntos y de quienes
-                habían sido bienhechores del convento.
-            </p>
-
-            <p>
-                Era un lugar de silencio y transición. Antes de compartir el pan,
-                los religiosos recordaban a quienes los habían precedido y se disponían
-                interiormente para continuar la vida comunitaria.
-            </p>
-
-            <p>
-                Después de este momento de oración, los frailes pasaban al
-                <strong>refectorio</strong>, donde compartían los alimentos en comunidad.
-            </p>
-
-        </div>
-
-        <div class="audio">
-
-            <audio controls autoplay loop>
-                <source
-                    src="fidelfortune-religious-chant-absolve-domine-331686.mp3"
-                    type="audio/mpeg"
-                >
-                Tu navegador no puede reproducir este archivo de audio.
-            </audio>
-
-        </div>
-
-        <div class="navegacion">
-
-            <a class="boton" href="claustro-bajo-3.html">← REGRESAR</a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-                <span class="texto-celular">🗺 PLANO</span>
-            </a>
-
-            <a class="boton" href="refectorio.html">SEGUIR →</a>
-
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
         </div>
 
     </div>
 
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+    <!-- TEXTO HISTÓRICO ORIGINAL -->
+
+    <div class="contenido">
+
+        <h1>Sala de Profundis</h1>
+
+        <h2>
+            Oración y memoria antes de compartir el alimento
+        </h2>
+
+        <p>
+            Antes de entrar al refectorio, los frailes se reunían
+            en este espacio para hacer una pausa de recogimiento
+            y oración dentro de la jornada conventual.
+        </p>
+
+        <p>
+            Su nombre recuerda las primeras palabras del Salmo 130:
+            <em>“De profundis clamavi ad te, Domine”</em>,
+            es decir:
+            <strong>
+                “Desde lo profundo a ti clamo, Señor”
+            </strong>.
+            Aquí la comunidad hacía memoria de sus hermanos
+            difuntos y de quienes habían sido bienhechores
+            del convento.
+        </p>
+
+        <p>
+            Era un lugar de silencio y transición. Antes de
+            compartir el pan, los religiosos recordaban a quienes
+            los habían precedido y se disponían interiormente
+            para continuar la vida comunitaria.
+        </p>
+
+        <p>
+            Después de este momento de oración, los frailes
+            pasaban al <strong>refectorio</strong>, donde
+            compartían los alimentos en comunidad.
+        </p>
+
+    </div>
+
+    <!-- MÚSICA AMBIENTAL ORIGINAL -->
+
+    <div class="audio">
+
+        <audio id="musica" controls loop>
+            <source
+                src="fidelfortune-religious-chant-absolve-domine-331686.mp3"
+                type="audio/mpeg"
+            >
+            Tu navegador no puede reproducir este archivo
+            de audio.
+        </audio>
+
+    </div>
+
+    <!-- NAVEGACIÓN ORIGINAL -->
+
+    <div class="navegacion">
+
+        <a class="boton" href="claustro-bajo-3.html">
+            ← REGRESAR
+        </a>
+
+        <a class="boton" href="mapa.html">
+
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
+
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
+
+        </a>
+
+        <a class="boton" href="refectorio.html">
+            SEGUIR →
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ELEMENTOS */
+
+const video = document.getElementById("videoHistorico");
+const rotulo = document.getElementById("rotuloHistorico");
+const musica = document.getElementById("musica");
+
+let reconstruccionIniciada = false;
+
+/* CONFIGURACIÓN DE MÚSICA */
+
+musica.volume = 0.20;
+
+/* MOSTRAR RECONSTRUCCIÓN */
+
+function mostrarReconstruccion() {
+
+    if (reconstruccionIniciada) {
+        return;
+    }
+
+    reconstruccionIniciada = true;
+
+    video.currentTime = 0;
+
+    video.play().then(function () {
+
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+
+    }).catch(function () {
+
+        reconstruccionIniciada = false;
+
+        console.log(
+            "El navegador no permitió reproducir el video."
+        );
+
+    });
+
+}
+
+/* REGRESAR A LA FOTOGRAFÍA */
+
+function finalizarReconstruccion() {
+
+    video.classList.remove("visible");
+    rotulo.classList.remove("visible");
+
+}
+
+/* FINAL DEL VIDEO */
+
+video.addEventListener("ended", function () {
+
+    finalizarReconstruccion();
+
+});
+
+/* ERROR DE VIDEO */
+
+video.addEventListener("error", function () {
+
+    finalizarReconstruccion();
+
+});
+
+/* INICIO AUTOMÁTICO */
+
+window.addEventListener("load", function () {
+
+    musica.play().catch(function () {
+
+        console.log(
+            "El navegador requiere interacción para iniciar la música."
+        );
+
+    });
+
+    /* ESPERAR CINCO SEGUNDOS */
+
+    setTimeout(function () {
+
+        mostrarReconstruccion();
+
+    }, 5000);
+
+});
+
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
 
 </body>
-
 </html>
