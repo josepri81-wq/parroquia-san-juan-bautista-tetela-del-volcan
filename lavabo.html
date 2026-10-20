@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -27,11 +28,60 @@
             background-color: #f5f1e6;
         }
 
+        /* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
+
+        .escenario {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #171717;
+        }
+
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
+
+        .video-historico {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #171717;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .video-historico.visible {
+            opacity: 1;
+        }
+
+        .rotulo-historico {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 18px;
+            background: rgba(0, 0, 0, 0.72);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            border-radius: 6px;
+            text-align: center;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .rotulo-historico.visible {
+            opacity: 1;
+        }
+
+        /* CONTENIDO HISTÓRICO */
 
         .contenido {
             max-width: 900px;
@@ -57,54 +107,26 @@
         }
 
         .contenido p {
-            margin: 0 auto 16px;
+            margin: 0 auto 16px auto;
             font-size: 18px;
             line-height: 1.7;
             text-align: justify;
         }
 
-        /* RECREACIÓN HISTÓRICA */
-
-        .recreacion {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 10px 28px 20px;
-            text-align: center;
-        }
-
-        .recreacion h2 {
-            color: #325d4a;
-            font-size: 23px;
-            margin-bottom: 10px;
-        }
-
-        .recreacion p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #555;
-            font-style: italic;
-        }
-
-        .video-historico {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 8px;
-            background-color: #000;
-        }
-
-        /* RESTAURACIÓN */
+        /* FOTOGRAFÍA DESPUÉS DEL SISMO */
 
         .restauracion {
             max-width: 900px;
             margin: 0 auto;
-            padding: 5px 28px 20px;
+            padding: 5px 28px 20px 28px;
             text-align: center;
         }
 
         .restauracion h2 {
-            margin: 0 0 18px;
+            margin: 0 0 18px 0;
             font-size: 23px;
+            font-weight: bold;
+            font-style: normal;
             color: #325d4a;
         }
 
@@ -116,18 +138,19 @@
         }
 
         .restauracion p {
-            margin: 10px auto 0;
+            margin: 10px auto 0 auto;
             font-size: 16px;
             line-height: 1.5;
             font-style: italic;
             color: #555;
+            text-align: center;
         }
 
-        /* MÚSICA */
+        /* MÚSICA AMBIENTAL */
 
         .audio {
             text-align: center;
-            padding: 10px 20px 20px;
+            padding: 10px 20px 20px 20px;
         }
 
         audio {
@@ -137,15 +160,17 @@
             margin: 0 auto;
         }
 
-        /* NAVEGACIÓN */
+        /* BOTONES DE NAVEGACIÓN */
 
         .navegacion {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: stretch;
             gap: 15px;
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px 30px 35px;
+            padding: 20px 30px 35px 30px;
+            background-color: #f5f1e6;
         }
 
         .boton {
@@ -159,8 +184,10 @@
             text-decoration: none;
             border-radius: 8px;
             border: 2px solid white;
+            font-family: Arial, sans-serif;
             font-size: 16px;
             font-weight: bold;
+            line-height: 1.2;
             text-align: center;
         }
 
@@ -168,7 +195,11 @@
             opacity: 0.9;
         }
 
-        /* ADAPTACIÓN PARA CELULARES */
+        .texto-celular {
+            display: none;
+        }
+
+        /* ADAPTACIÓN A CELULARES */
 
         @media (max-width: 600px) {
 
@@ -189,23 +220,20 @@
                 line-height: 1.65;
             }
 
-            .recreacion,
             .restauracion {
-                padding: 10px 18px 20px;
+                padding: 5px 18px 20px 18px;
             }
 
-            .recreacion h2,
             .restauracion h2 {
                 font-size: 21px;
             }
 
-            .recreacion p,
             .restauracion p {
                 font-size: 15px;
             }
 
             .audio {
-                padding: 10px 15px 18px;
+                padding: 10px 15px 18px 15px;
             }
 
             audio {
@@ -213,17 +241,34 @@
             }
 
             .navegacion {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 8px;
-                padding: 18px 8px 30px;
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 18px 8px 30px 8px;
             }
 
             .boton {
+                width: 100%;
                 min-width: 0;
                 min-height: 48px;
-                padding: 10px 5px;
+                padding: 10px 3px;
                 font-size: 12px;
+                line-height: 1;
                 white-space: nowrap;
+            }
+
+            .texto-escritorio {
+                display: none;
+            }
+
+            .texto-celular {
+                display: inline;
+            }
+
+            .rotulo-historico {
+                font-size: 11px;
+                padding: 7px 10px;
+                bottom: 10px;
             }
         }
     </style>
@@ -233,50 +278,40 @@
 
 <div class="escena">
 
-    <!-- FOTOGRAFÍA ORIGINAL DEL LAVABO -->
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
 
-    <img
-        class="imagen"
-        src="WhatsApp Image 2026-09-19 at 16.05.44.jpeg"
-        alt="Lavabo original del convento de San Juan Bautista"
-    >
+    <div class="escenario">
 
-    <!-- RECREACIÓN HISTÓRICA ANIMADA -->
-
-    <div class="recreacion">
-
-        <h2>El lavabo en la vida conventual</h2>
-
-        <p>
-            Recreación histórica de los frailes dominicos
-            en el siglo XVI.
-        </p>
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-19 at 16.05.44.jpeg"
+            alt="Lavabo del antiguo convento de San Juan Bautista de Tetela del Volcán"
+        >
 
         <video
-            id="videoLavabo"
+            id="videoHistorico"
             class="video-historico"
-            autoplay
             muted
             playsinline
-            preload="metadata"
-            controls
+            preload="auto"
         >
             <source
                 src="fraileslavabo.MP4"
                 type="video/mp4"
             >
-            Tu navegador no puede reproducir este video.
+            Tu navegador no admite reproducción de video.
         </video>
 
-        <p>
-            Representación digital con fines históricos
-            y educativos. No constituye un registro
-            fotográfico de la época.
-        </p>
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
+        </div>
 
     </div>
 
-    <!-- NARRACIÓN HISTÓRICA -->
+    <!-- TEXTO HISTÓRICO ORIGINAL -->
 
     <div class="contenido">
 
@@ -289,44 +324,41 @@
         <p>
             Antes o después de compartir los alimentos,
             los frailes podían lavarse las manos utilizando
-            el agua que se recogía de la lluvia y se
-            conducía hasta este espacio.
-            Era un gesto sencillo, integrado en el orden
-            cotidiano de la vida conventual.
+            el agua que se recogía de la lluvia y se conducía
+            hasta este espacio. Era un gesto sencillo,
+            integrado en el orden cotidiano de la vida
+            conventual.
         </p>
 
         <p>
             En la misma escena se conserva también el
             <strong>ambón</strong> desde donde uno de los
             religiosos realizaba lecturas mientras la
-            comunidad comía.
-
-            De este modo, el refectorio no era solamente
-            un lugar para alimentar el cuerpo, sino también
-            para alimentar el espíritu.
+            comunidad comía. De este modo, el refectorio
+            no era solamente un lugar para alimentar el
+            cuerpo, sino también para alimentar el espíritu.
         </p>
 
         <p>
-            Durante la comida podían escucharse textos de la
-            <strong>Sagrada Escritura</strong>, de la
+            Durante la comida podían escucharse textos de
+            la <strong>Sagrada Escritura</strong>, de la
             <strong>Regla de la Orden</strong> o de otras
-            obras de formación espiritual.
-
-            Mientras uno leía, los demás frailes permanecían
-            en silencio, de manera que incluso el momento
-            de la comida quedaba unido a la oración,
-            la disciplina y la vida comunitaria.
+            obras de formación espiritual. Mientras uno
+            leía, los demás frailes permanecían en silencio,
+            de manera que incluso el momento de la comida
+            quedaba unido a la oración, la disciplina
+            y la vida comunitaria.
         </p>
 
         <p>
             Después de este espacio, el recorrido continúa
-            hacia las <strong>escaleras</strong>, que conducen
-            al claustro alto.
+            hacia las <strong>escaleras</strong>, que
+            conducen al claustro alto.
         </p>
 
     </div>
 
-    <!-- FOTOGRAFÍA POSTERIOR AL SISMO -->
+    <!-- FOTOGRAFÍA POSTERIOR AL SISMO DE 2017 -->
 
     <div class="restauracion">
 
@@ -334,37 +366,49 @@
 
         <img
             src="Ver fotos recientes 3.png"
-            alt="Lavabo durante los trabajos de restauración"
-            loading="lazy"
+            alt="Lavabo durante los trabajos de restauración posteriores al sismo de 2017"
         >
 
         <p>
-            El lavabo durante los trabajos de restauración
-            posteriores al sismo de 2017.
+            El lavabo durante los trabajos de
+            restauración posteriores al sismo de 2017.
         </p>
 
     </div>
 
-    <!-- MÚSICA -->
+    <!-- MÚSICA AMBIENTAL ORIGINAL -->
 
     <div class="audio">
 
-        <audio id="musicaLavabo" controls loop>
+        <audio id="musica" controls loop>
             <source
                 src="misselle-bible-soundtrack-instrumental-6-525868.mp3"
                 type="audio/mpeg"
             >
-            Tu navegador no puede reproducir este audio.
+            Tu navegador no puede reproducir este archivo
+            de audio.
         </audio>
 
     </div>
 
-    <!-- NAVEGACIÓN -->
+    <!-- BOTONES DE NAVEGACIÓN -->
 
     <div class="navegacion">
 
         <a class="boton" href="refectorio.html">
             ← REGRESAR
+        </a>
+
+        <a class="boton" href="mapa.html">
+
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
+
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
+
         </a>
 
         <a class="boton" href="escaleras.html">
@@ -375,43 +419,96 @@
 
 </div>
 
-<!-- REPRODUCCIÓN -->
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    const video = document.getElementById("videoLavabo");
-    const musica = document.getElementById("musicaLavabo");
+/* ELEMENTOS */
 
-    // El video se reproduce una sola vez y sin sonido.
-    video.muted = true;
+const video = document.getElementById("videoHistorico");
+const rotulo = document.getElementById("rotuloHistorico");
+const musica = document.getElementById("musica");
 
-    // Si el navegador permite la reproducción automática,
-    // comienza el video sin intervención del visitante.
-    const intentoVideo = video.play();
+let reconstruccionIniciada = false;
 
-    if (intentoVideo !== undefined) {
-        intentoVideo.catch(function () {
-            // El visitante puede iniciarlo con los controles.
-        });
+/* CONFIGURACIÓN DE MÚSICA */
+
+musica.volume = 0.20;
+
+/* MOSTRAR RECONSTRUCCIÓN HISTÓRICA */
+
+function mostrarReconstruccion() {
+
+    if (reconstruccionIniciada) {
+        return;
     }
 
-    // La música comienza después de 45 segundos.
-    // Algunos navegadores requieren interacción del usuario.
-    setTimeout(function () {
-        musica.volume = 0.45;
+    reconstruccionIniciada = true;
 
-        const intentoAudio = musica.play();
+    video.currentTime = 0;
 
-        if (intentoAudio !== undefined) {
-            intentoAudio.catch(function () {
-                // Los controles permiten reproducirla manualmente.
-            });
-        }
+    video.play().then(function () {
 
-    }, 45000);
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+
+    }).catch(function () {
+
+        reconstruccionIniciada = false;
+
+        console.log(
+            "El navegador no permitió reproducir el video."
+        );
+
+    });
+
+}
+
+/* REGRESAR A LA FOTOGRAFÍA ORIGINAL */
+
+function finalizarReconstruccion() {
+
+    video.classList.remove("visible");
+    rotulo.classList.remove("visible");
+
+}
+
+/* FINAL DEL VIDEO */
+
+video.addEventListener("ended", function () {
+
+    finalizarReconstruccion();
 
 });
+
+/* ERROR DE VIDEO */
+
+video.addEventListener("error", function () {
+
+    finalizarReconstruccion();
+
+});
+
+/* INICIO AUTOMÁTICO */
+
+window.addEventListener("load", function () {
+
+    musica.play().catch(function () {
+
+        console.log(
+            "El navegador requiere interacción para iniciar la música."
+        );
+
+    });
+
+    /* ESPERAR CINCO SEGUNDOS */
+
+    setTimeout(function () {
+
+        mostrarReconstruccion();
+
+    }, 5000);
+
+});
+
 </script>
 
 <!-- CONTADOR GOATCOUNTER -->
@@ -419,7 +516,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <script
     data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
     async
-    src="https://gc.zgo.at/count.js">
+    src="//gc.zgo.at/count.js">
 </script>
 
 </body>
