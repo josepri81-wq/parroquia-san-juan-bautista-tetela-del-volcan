@@ -1,251 +1,279 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Presbiterio | Un día en el convento</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Presbiterio | Un día en el convento</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* { box-sizing: border-box; }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f1e6;
-            color: #2f2f2f;
-            font-family: Arial, sans-serif;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    color: #2f2f2f;
+    font-family: Arial, sans-serif;
+}
 
-        .escena {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f1e6;
-        }
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
 
-        .imagen {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+/* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
 
-        .texto {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px 28px;
-            text-align: center;
-            line-height: 1.7;
-        }
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #171717;
+}
 
-        .texto h2 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 30px;
-            color: #325d4a;
-        }
+.imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-        .texto h3 {
-            margin-top: 0;
-            margin-bottom: 22px;
-            font-size: 20px;
-            font-weight: normal;
-            font-style: italic;
-            color: #325d4a;
-        }
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .texto p {
-            margin: 0 auto 16px auto;
-            font-size: 18px;
-        }
+.video-historico.visible {
+    opacity: 1;
+}
 
-        /* FOTO DURANTE LA RESTAURACIÓN */
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .restauracion {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 5px 28px 20px 28px;
-            text-align: center;
-        }
+.rotulo-historico.visible {
+    opacity: 1;
+}
 
-        .restauracion h2 {
-            margin: 0 0 18px 0;
-            font-size: 23px;
-            color: #325d4a;
-        }
+/* TEXTO HISTÓRICO */
 
-        .restauracion img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 6px;
-        }
+.texto {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+    line-height: 1.7;
+}
 
-        .restauracion p {
-            margin: 10px auto 0 auto;
-            font-size: 16px;
-            line-height: 1.5;
-            font-style: italic;
-            color: #555;
-        }
+.texto h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 30px;
+    color: #325d4a;
+}
 
-        /* NARRACIÓN */
+.texto h3 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: italic;
+    color: #325d4a;
+}
 
-        .narracion {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 5px 20px 18px 20px;
-            text-align: center;
-        }
+.texto p {
+    margin: 0 auto 16px auto;
+    font-size: 18px;
+}
 
-        .narracion h3 {
-            margin: 0 0 12px 0;
-            color: #325d4a;
-            font-size: 18px;
-        }
+/* RESTAURACIÓN */
 
-        .narracion audio {
-            display: block;
-            width: 90%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+.restauracion {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5px 28px 20px 28px;
+    text-align: center;
+}
 
-        /* MÚSICA AMBIENTAL */
+.restauracion h2 {
+    margin: 0 0 18px 0;
+    font-size: 23px;
+    color: #325d4a;
+}
 
-        .audio {
-            text-align: center;
-            padding: 10px 20px 20px 20px;
-        }
+.restauracion img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+}
 
-        .audio h3 {
-            margin: 0 0 12px 0;
-            color: #325d4a;
-            font-size: 18px;
-        }
+.restauracion p {
+    margin: 10px auto 0 auto;
+    font-size: 16px;
+    line-height: 1.5;
+    font-style: italic;
+    color: #555;
+}
 
-        audio {
-            display: block;
-            width: 90%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+/* NARRACIÓN */
 
-        .navegacion {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: stretch;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 30px 35px 30px;
-            background-color: #f5f1e6;
-        }
+.narracion {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5px 20px 18px 20px;
+    text-align: center;
+}
 
-        .boton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 54px;
-            padding: 14px 12px;
-            background-color: #325d4a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
+.narracion h3 {
+    margin: 0 0 12px 0;
+    color: #325d4a;
+    font-size: 18px;
+}
 
-        .boton:hover {
-            opacity: 0.9;
-        }
+.narracion audio {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
 
-        .texto-celular {
-            display: none;
-        }
+/* MÚSICA */
 
-        @media (max-width: 600px) {
+.audio {
+    text-align: center;
+    padding: 10px 20px 20px 20px;
+}
 
-            .texto {
-                padding: 22px 18px;
-            }
+.audio h3 {
+    margin: 0 0 12px 0;
+    color: #325d4a;
+    font-size: 18px;
+}
 
-            .texto h2 {
-                font-size: 25px;
-            }
+audio {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
 
-            .texto h3 {
-                font-size: 18px;
-            }
+/* NAVEGACIÓN */
 
-            .texto p {
-                font-size: 17px;
-            }
+.navegacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px 30px;
+    background-color: #f5f1e6;
+}
 
-            .restauracion {
-                padding: 5px 18px 20px 18px;
-            }
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
 
-            .restauracion h2 {
-                font-size: 21px;
-            }
+.boton:hover { opacity: 0.9; }
 
-            .restauracion p {
-                font-size: 15px;
-            }
+.texto-celular { display: none; }
 
-            .narracion {
-                padding: 5px 15px 18px 15px;
-            }
+/* CELULARES */
 
-            .narracion audio {
-                width: 100%;
-            }
+@media (max-width: 600px) {
 
-            .audio {
-                padding: 10px 15px 18px 15px;
-            }
+    .texto { padding: 22px 18px; }
+    .texto h2 { font-size: 25px; }
+    .texto h3 { font-size: 18px; }
+    .texto p { font-size: 17px; }
 
-            audio {
-                width: 100%;
-            }
+    .restauracion {
+        padding: 5px 18px 20px 18px;
+    }
 
-            .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 6px;
-                padding: 18px 8px 30px 8px;
-            }
+    .restauracion h2 { font-size: 21px; }
+    .restauracion p { font-size: 15px; }
 
-            .boton {
-                width: 100%;
-                min-width: 0;
-                min-height: 48px;
-                padding: 10px 3px;
-                font-size: 12px;
-                line-height: 1;
-                white-space: nowrap;
-            }
+    .narracion {
+        padding: 5px 15px 18px 15px;
+    }
 
-            .texto-escritorio {
-                display: none;
-            }
+    .narracion audio { width: 100%; }
 
-            .texto-celular {
-                display: inline;
-            }
-        }
-    </style>
+    .audio { padding: 10px 15px 18px 15px; }
+    audio { width: 100%; }
+
+    .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 18px 8px 30px 8px;
+    }
+
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .texto-escritorio { display: none; }
+    .texto-celular { display: inline; }
+
+    .rotulo-historico {
+        font-size: 11px;
+        padding: 7px 10px;
+        bottom: 10px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="escena">
+<div class="escena">
 
-        <!-- FOTO ACTUAL -->
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
+
+    <div class="escenario">
 
         <img
             class="imagen"
@@ -253,212 +281,293 @@
             alt="Presbiterio del Ex Convento de San Juan Bautista de Tetela del Volcán"
         >
 
-        <div class="texto">
-
-            <h2>El presbiterio</h2>
-
-            <h3>El lugar del altar y de la acción sagrada</h3>
-
-            <p>
-                El presbiterio es el espacio más sagrado del templo, pues en él se encuentra
-                el altar, signo de Cristo y mesa del sacrificio eucarístico.
-                Desde aquí se preside la celebración litúrgica y se realizan los ritos
-                principales de la misa.
-            </p>
-
-            <p>
-                En la vida conventual y parroquial, este lugar expresa la centralidad de la
-                Eucaristía. Todo en el templo conduce hacia este punto, donde la comunidad
-                se une en la oración y en la alabanza a Dios.
-            </p>
-
-        </div>
-
-        <!-- FOTO DURANTE LA RESTAURACIÓN -->
-
-        <div class="restauracion">
-
-            <h2>El presbiterio después del sismo</h2>
-
-            <img
-                src="PHOTO-2026-10-06-05-30-21.jpg"
-                alt="Presbiterio durante los trabajos de restauración posteriores al sismo de 2017"
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            preload="auto"
+        >
+            <source
+                src="frailesmisapresbiterio.MP4"
+                type="video/mp4"
             >
+            Tu navegador no admite reproducción de video.
+        </video>
 
-            <p>
-                El presbiterio durante los trabajos de restauración posteriores al sismo de 2017.
-            </p>
-
-        </div>
-
-        <!-- NARRACIÓN -->
-
-        <div class="narracion">
-
-            <h3>🎙️ Narración</h3>
-
-            <audio id="narracion" controls autoplay>
-                <source
-                    src="Presbiterio.m4a"
-                    type="audio/mp4"
-                >
-                Tu navegador no admite reproducción de audio.
-            </audio>
-
-        </div>
-
-        <!-- MÚSICA AMBIENTAL -->
-
-        <div class="audio">
-
-            <h3>🎵 Música ambiental</h3>
-
-            <audio id="musica" controls loop>
-                <source
-                    src="tunetank-church-organ-music-347173.mp3"
-                    type="audio/mpeg"
-                >
-                Tu navegador no admite reproducción de audio.
-            </audio>
-
-        </div>
-
-        <!-- NAVEGACIÓN -->
-
-        <div class="navegacion">
-
-            <a class="boton" href="bautisterio.html">
-                ← REGRESAR
-            </a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-                <span class="texto-celular">🗺 PLANO</span>
-            </a>
-
-            <a class="boton" href="coro.html">
-                SEGUIR →
-            </a>
-
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
         </div>
 
     </div>
 
-    <script>
-        const narracion = document.getElementById("narracion");
-        const musica = document.getElementById("musica");
+    <!-- TEXTO ORIGINAL -->
 
-        let temporizadorMusica = null;
-        let musicaIniciada = false;
+    <div class="texto">
 
-        /* Narración al 100 % */
-        narracion.volume = 1.0;
+        <h2>El presbiterio</h2>
 
-        /* Música al 4 % cuando comience */
+        <h3>El lugar del altar y de la acción sagrada</h3>
+
+        <p>
+            El presbiterio es el espacio más sagrado del templo, pues en él se encuentra
+            el altar, signo de Cristo y mesa del sacrificio eucarístico.
+            Desde aquí se preside la celebración litúrgica y se realizan los ritos
+            principales de la misa.
+        </p>
+
+        <p>
+            En la vida conventual y parroquial, este lugar expresa la centralidad de la
+            Eucaristía. Todo en el templo conduce hacia este punto, donde la comunidad
+            se une en la oración y en la alabanza a Dios.
+        </p>
+
+    </div>
+
+    <!-- FOTOGRAFÍA DE RESTAURACIÓN -->
+
+    <div class="restauracion">
+
+        <h2>El presbiterio después del sismo</h2>
+
+        <img
+            src="PHOTO-2026-10-06-05-30-21.jpg"
+            alt="Presbiterio durante los trabajos de restauración posteriores al sismo de 2017"
+        >
+
+        <p>
+            El presbiterio durante los trabajos de restauración posteriores al sismo de 2017.
+        </p>
+
+    </div>
+
+    <!-- NARRACIÓN -->
+
+    <div class="narracion">
+
+        <h3>🎙️ Narración</h3>
+
+        <audio id="narracion" controls>
+            <source
+                src="Presbiterio.m4a"
+                type="audio/mp4"
+            >
+            Tu navegador no admite reproducción de audio.
+        </audio>
+
+    </div>
+
+    <!-- MÚSICA AMBIENTAL -->
+
+    <div class="audio">
+
+        <h3>🎵 Música ambiental</h3>
+
+        <audio id="musica" controls loop>
+            <source
+                src="tunetank-church-organ-music-347173.mp3"
+                type="audio/mpeg"
+            >
+            Tu navegador no admite reproducción de audio.
+        </audio>
+
+    </div>
+
+    <!-- NAVEGACIÓN ORIGINAL -->
+
+    <div class="navegacion">
+
+        <a class="boton" href="bautisterio.html">
+            ← REGRESAR
+        </a>
+
+        <a class="boton" href="mapa.html">
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
+        </a>
+
+        <a class="boton" href="coro.html">
+            SEGUIR →
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ELEMENTOS */
+
+const video = document.getElementById("videoHistorico");
+const rotulo = document.getElementById("rotuloHistorico");
+const narracion = document.getElementById("narracion");
+const musica = document.getElementById("musica");
+
+let reconstruccionIniciada = false;
+let temporizadorMusica = null;
+let musicaIniciada = false;
+
+/* CONFIGURACIÓN ORIGINAL */
+
+narracion.volume = 1.0;
+musica.volume = 0.04;
+
+/* RECONSTRUCCIÓN HISTÓRICA */
+
+function mostrarReconstruccion() {
+
+    if (reconstruccionIniciada) return;
+
+    reconstruccionIniciada = true;
+
+    video.currentTime = 0;
+
+    video.play().then(function () {
+
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+
+    }).catch(function () {
+
+        reconstruccionIniciada = false;
+
+        console.log(
+            "El navegador no permitió reproducir el video."
+        );
+
+    });
+}
+
+/* REGRESAR A LA FOTO */
+
+function finalizarReconstruccion() {
+
+    video.classList.remove("visible");
+    rotulo.classList.remove("visible");
+
+}
+
+/* FINAL DEL VIDEO */
+
+video.addEventListener("ended", function () {
+    finalizarReconstruccion();
+});
+
+/* ERROR DE VIDEO */
+
+video.addEventListener("error", function () {
+    finalizarReconstruccion();
+});
+
+/* MÚSICA DESPUÉS DE 50 SEGUNDOS */
+
+narracion.addEventListener("play", function () {
+
+    if (musicaIniciada) {
         musica.volume = 0.04;
+        return;
+    }
 
-        /*
-        Cuando la narración comienza realmente,
-        empieza la cuenta de 50 segundos.
-        */
-        narracion.addEventListener("play", function () {
+    if (temporizadorMusica === null) {
 
-            if (musicaIniciada) {
-                musica.volume = 0.04;
-                return;
-            }
+        temporizadorMusica = setTimeout(function () {
 
-            if (temporizadorMusica === null) {
-
-                temporizadorMusica = setTimeout(function () {
-
-                    musica.volume = 0.04;
-
-                    musica.play().then(function () {
-                        musicaIniciada = true;
-                    }).catch(function () {
-                        console.log("El navegador bloqueó temporalmente la música automática.");
-                    });
-
-                    temporizadorMusica = null;
-
-                }, 50000);
-            }
-        });
-
-        /*
-        Cuando termina la narración,
-        la música sube al 30 %.
-        */
-        narracion.addEventListener("ended", function () {
-
-            if (temporizadorMusica !== null) {
-                clearTimeout(temporizadorMusica);
-                temporizadorMusica = null;
-            }
-
-            musica.volume = 0.30;
-
-            /*
-            Si la narración termina antes de los 50 segundos,
-            la música comienza al terminar la voz.
-            */
-            if (!musicaIniciada) {
-
-                musica.play().then(function () {
-                    musicaIniciada = true;
-                    musica.volume = 0.30;
-                }).catch(function () {
-                    console.log("El navegador bloqueó temporalmente la música automática.");
-                });
-            }
-        });
-
-        /*
-        Si la narración se pausa y la música ya comenzó,
-        la música sube al 30 %.
-        */
-        narracion.addEventListener("pause", function () {
-
-            if (!narracion.ended && musicaIniciada) {
-                musica.volume = 0.30;
-            }
-        });
-
-        /*
-        Si la narración vuelve a reproducirse,
-        la música baja nuevamente al 4 %.
-        */
-        narracion.addEventListener("playing", function () {
-
-            if (musicaIniciada) {
-                musica.volume = 0.04;
-            }
-        });
-
-        /*
-        Al cargar la página intentamos iniciar
-        automáticamente la narración.
-        La música NO comienza todavía.
-        */
-        window.addEventListener("load", function () {
-
-            musica.pause();
-            musica.currentTime = 0;
             musica.volume = 0.04;
 
-            narracion.play().catch(function () {
-                console.log("El navegador bloqueó temporalmente la narración automática.");
+            musica.play().then(function () {
+                musicaIniciada = true;
+            }).catch(function () {
+                console.log(
+                    "El navegador bloqueó temporalmente la música automática."
+                );
             });
 
-        });
-    </script>
+            temporizadorMusica = null;
 
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+        }, 50000);
+    }
+});
+
+/* AL TERMINAR LA NARRACIÓN */
+
+narracion.addEventListener("ended", function () {
+
+    if (temporizadorMusica !== null) {
+        clearTimeout(temporizadorMusica);
+        temporizadorMusica = null;
+    }
+
+    musica.volume = 0.30;
+
+    if (!musicaIniciada) {
+
+        musica.play().then(function () {
+            musicaIniciada = true;
+            musica.volume = 0.30;
+        }).catch(function () {
+            console.log(
+                "El navegador bloqueó temporalmente la música automática."
+            );
+        });
+    }
+});
+
+/* AL PAUSAR LA NARRACIÓN */
+
+narracion.addEventListener("pause", function () {
+
+    if (!narracion.ended && musicaIniciada) {
+        musica.volume = 0.30;
+    }
+});
+
+/* AL REANUDAR LA NARRACIÓN */
+
+narracion.addEventListener("playing", function () {
+
+    if (musicaIniciada) {
+        musica.volume = 0.04;
+    }
+});
+
+/* INICIO AUTOMÁTICO */
+
+window.addEventListener("load", function () {
+
+    musica.pause();
+    musica.currentTime = 0;
+    musica.volume = 0.04;
+
+    narracion.play().catch(function () {
+        console.log(
+            "El navegador bloqueó temporalmente la narración automática."
+        );
+    });
+
+    /* VIDEO HISTÓRICO DESPUÉS DE 5 SEGUNDOS */
+
+    setTimeout(function () {
+        mostrarReconstruccion();
+    }, 5000);
+
+});
+
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
 
 </body>
 </html>
