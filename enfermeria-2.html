@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,11 +27,60 @@
             background-color: #f5f1e6;
         }
 
+        /* FOTOGRAFÍA Y VIDEO HISTÓRICO */
+
+        .escenario {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #171717;
+        }
+
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
+
+        .video-historico {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #171717;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+
+        .video-historico.visible {
+            opacity: 1;
+        }
+
+        .rotulo {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.65);
+            color: white;
+            padding: 9px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+            width: max-content;
+            max-width: 90%;
+        }
+
+        .rotulo.visible {
+            opacity: 1;
+        }
+
+        /* CONTENIDO HISTÓRICO */
 
         .contenido {
             max-width: 900px;
@@ -53,6 +103,8 @@
             text-align: justify;
         }
 
+        /* MÚSICA GREGORIANA */
+
         .audio {
             text-align: center;
             padding: 25px 20px 20px 20px;
@@ -64,6 +116,8 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* NAVEGACIÓN */
 
         .navegacion {
             display: grid;
@@ -97,6 +151,8 @@
         .boton:hover {
             opacity: 0.9;
         }
+
+        /* ADAPTACIÓN A CELULARES */
 
         @media (max-width: 600px) {
 
@@ -136,6 +192,11 @@
                 line-height: 1;
                 white-space: nowrap;
             }
+
+            .rotulo {
+                font-size: 11px;
+                bottom: 8px;
+            }
         }
     </style>
 </head>
@@ -144,11 +205,36 @@
 
     <div class="escena">
 
-        <img
-            class="imagen"
-            src="WhatsApp Image 2026-09-24 at 23.29.35.jpeg"
-            alt="Enfermería del antiguo convento de San Juan Bautista"
-        >
+        <!-- FOTOGRAFÍA ORIGINAL Y VIDEO HISTÓRICO -->
+
+        <div class="escenario">
+
+            <img
+                class="imagen"
+                src="WhatsApp Image 2026-09-24 at 23.29.35.jpeg"
+                alt="Enfermería del antiguo convento de San Juan Bautista"
+            >
+
+            <video
+                id="videoHistorico"
+                class="video-historico"
+                muted
+                playsinline
+                preload="auto"
+            >
+                <source
+                    src="fraileenlaenfermeria.MP4"
+                    type="video/mp4"
+                >
+            </video>
+
+            <div id="rotuloHistorico" class="rotulo">
+                Reconstrucción histórica — Siglo XVI
+            </div>
+
+        </div>
+
+        <!-- TEXTO HISTÓRICO ORIGINAL -->
 
         <div class="contenido">
 
@@ -173,9 +259,11 @@
 
         </div>
 
+        <!-- MÚSICA ORIGINAL -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <audio id="musica" controls loop>
                 <source
                     src="nickpanek-amo-te-gregorian-chant-in-latin-342517.mp3"
                     type="audio/mpeg"
@@ -185,15 +273,73 @@
 
         </div>
 
+        <!-- BOTONES DE NAVEGACIÓN -->
+
         <div class="navegacion">
 
-            <a class="boton" href="enfermeria.html">← REGRESAR</a>
+            <a class="boton" href="enfermeria.html">
+                ← REGRESAR
+            </a>
 
-            <a class="boton" href="tribuna-de-los-enfermos.html">SEGUIR →</a>
+            <a class="boton" href="tribuna-de-los-enfermos.html">
+                SEGUIR →
+            </a>
 
         </div>
 
     </div>
+
+    <!-- ANIMACIÓN DEL VIDEO -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const video = document.getElementById("videoHistorico");
+            const rotulo = document.getElementById("rotuloHistorico");
+            const musica = document.getElementById("musica");
+
+            function mostrarFotografia() {
+                video.classList.remove("visible");
+                rotulo.classList.remove("visible");
+            }
+
+            function iniciarVideo() {
+                video.currentTime = 0;
+
+                const reproduccion = video.play();
+
+                if (reproduccion !== undefined) {
+                    reproduccion.then(function () {
+                        video.classList.add("visible");
+                        rotulo.classList.add("visible");
+                    }).catch(function () {
+                        mostrarFotografia();
+                    });
+                }
+            }
+
+            video.addEventListener("ended", mostrarFotografia);
+            video.addEventListener("error", mostrarFotografia);
+
+            // Iniciar reconstrucción después de 5 segundos
+            setTimeout(iniciarVideo, 5000);
+
+            // Intentar iniciar la música ambiental
+            musica.volume = 0.30;
+
+            const inicioMusica = musica.play();
+
+            if (inicioMusica !== undefined) {
+                inicioMusica.catch(function () {
+                    // Si el navegador bloquea el inicio
+                    // automático, quedan visibles los controles.
+                });
+            }
+
+        });
+    </script>
+
+    <!-- CONTADOR DE VISITAS GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
