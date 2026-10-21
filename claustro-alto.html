@@ -1,216 +1,275 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Claustro Alto | Un día en el convento</title>
+<title>Claustro Alto | Un día en el convento</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f1e6;
-            color: #2f2f2f;
-            font-family: Arial, sans-serif;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    color: #2f2f2f;
+    font-family: Arial, sans-serif;
+}
 
-        .escena {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f1e6;
-        }
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
 
-        .imagen {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+/* FOTO Y VIDEO HISTÓRICO */
 
-        .contenido {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px 28px;
-            text-align: center;
-        }
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #171717;
+}
 
-        .contenido h1 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 30px;
-            color: #325d4a;
-        }
+.imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-        .contenido h2 {
-            margin-top: 0;
-            margin-bottom: 22px;
-            font-size: 20px;
-            font-weight: normal;
-            color: #325d4a;
-        }
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    pointer-events: none;
+}
 
-        .contenido p {
-            margin: 0 auto 16px auto;
-            font-size: 18px;
-            line-height: 1.7;
-            text-align: justify;
-        }
+.video-historico.visible {
+    opacity: 1;
+}
 
-        /* FOTO DE LA RESTAURACIÓN */
+.rotulo {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.65);
+    color: white;
+    padding: 9px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    pointer-events: none;
+    width: max-content;
+    max-width: 90%;
+}
 
-        .restauracion {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 5px 28px 20px 28px;
-            text-align: center;
-        }
+.rotulo.visible {
+    opacity: 1;
+}
 
-        .restauracion h2 {
-            margin: 0 0 18px 0;
-            font-size: 23px;
-            color: #325d4a;
-        }
+/* CONTENIDO HISTÓRICO */
 
-        .restauracion img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 6px;
-        }
+.contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+}
 
-        .restauracion p {
-            margin: 10px auto 0 auto;
-            font-size: 16px;
-            line-height: 1.5;
-            font-style: italic;
-            color: #555;
-        }
+.contenido h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 30px;
+    color: #325d4a;
+}
 
-        .audio {
-            text-align: center;
-            padding: 10px 20px 20px 20px;
-        }
+.contenido h2 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #325d4a;
+}
 
-        audio {
-            display: block;
-            width: 90%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+.contenido p {
+    margin: 0 auto 16px auto;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: justify;
+}
 
-        .navegacion {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: stretch;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 30px 35px 30px;
-            background-color: #f5f1e6;
-        }
+/* RESTAURACIÓN */
 
-        .boton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 54px;
-            padding: 14px 12px;
-            background-color: #325d4a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
+.restauracion {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5px 28px 20px;
+    text-align: center;
+}
 
-        .boton:hover {
-            opacity: 0.9;
-        }
+.restauracion h2 {
+    margin: 0 0 18px;
+    font-size: 23px;
+    color: #325d4a;
+}
 
-        .texto-celular {
-            display: none;
-        }
+.restauracion img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+}
 
-        @media (max-width: 600px) {
+.restauracion p {
+    margin: 10px auto 0;
+    font-size: 16px;
+    line-height: 1.5;
+    font-style: italic;
+    color: #555;
+}
 
-            .contenido {
-                padding: 22px 18px;
-            }
+/* MÚSICA */
 
-            .contenido h1 {
-                font-size: 25px;
-            }
+.audio {
+    text-align: center;
+    padding: 10px 20px 20px;
+}
 
-            .contenido h2 {
-                font-size: 18px;
-            }
+audio {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
 
-            .contenido p {
-                font-size: 17px;
-                line-height: 1.65;
-            }
+/* NAVEGACIÓN */
 
-            .restauracion {
-                padding: 5px 18px 20px 18px;
-            }
+.navegacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px;
+    background-color: #f5f1e6;
+}
 
-            .restauracion h2 {
-                font-size: 21px;
-            }
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
 
-            .restauracion p {
-                font-size: 15px;
-            }
+.boton:hover {
+    opacity: 0.9;
+}
 
-            .audio {
-                padding: 10px 15px 18px 15px;
-            }
+.texto-celular {
+    display: none;
+}
 
-            audio {
-                width: 100%;
-            }
+@media (max-width: 600px) {
+    .contenido {
+        padding: 22px 18px;
+    }
 
-            .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 6px;
-                padding: 18px 8px 30px 8px;
-            }
+    .contenido h1 {
+        font-size: 25px;
+    }
 
-            .boton {
-                width: 100%;
-                min-width: 0;
-                min-height: 48px;
-                padding: 10px 3px;
-                font-size: 12px;
-                line-height: 1;
-                white-space: nowrap;
-            }
+    .contenido h2 {
+        font-size: 18px;
+    }
 
-            .texto-escritorio {
-                display: none;
-            }
+    .contenido p {
+        font-size: 17px;
+        line-height: 1.65;
+    }
 
-            .texto-celular {
-                display: inline;
-            }
-        }
-    </style>
+    .restauracion {
+        padding: 5px 18px 20px;
+    }
+
+    .restauracion h2 {
+        font-size: 21px;
+    }
+
+    .restauracion p {
+        font-size: 15px;
+    }
+
+    .audio {
+        padding: 10px 15px 18px;
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 18px 8px 30px;
+    }
+
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .texto-escritorio {
+        display: none;
+    }
+
+    .texto-celular {
+        display: inline;
+    }
+
+    .rotulo {
+        font-size: 11px;
+        bottom: 8px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="escena">
+<div class="escena">
 
-        <!-- FOTO ACTUAL DEL CLAUSTRO ALTO -->
+    <!-- FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA -->
+
+    <div class="escenario">
 
         <img
             class="imagen"
@@ -218,86 +277,142 @@
             alt="Claustro alto del Ex Convento de San Juan Bautista de Tetela del Volcán"
         >
 
-        <div class="contenido">
-
-            <h1>El claustro alto</h1>
-            <h2>Silencio y recogimiento</h2>
-
-            <p>
-                Al subir a la planta alta, el claustro adquiere un carácter más silencioso
-                y reservado. Si el claustro bajo concentraba buena parte de la vida
-                comunitaria, este nivel conducía hacia los espacios destinados al descanso,
-                el estudio y la vida más íntima de los frailes.
-            </p>
-
-            <p>
-                Desde sus corredores, los religiosos podían recorrer el convento conservando
-                el ambiente de silencio y recogimiento propio de la vida dominicana.
-                La arquitectura misma ayudaba a separar progresivamente el bullicio exterior
-                de los espacios dedicados a la oración y la contemplación.
-            </p>
-
-        </div>
-
-        <!-- FOTO DURANTE LA RESTAURACIÓN -->
-
-        <div class="restauracion">
-
-            <h2>El claustro después del sismo</h2>
-
-            <img
-                src="PHOTO-2026-10-05-21-22-19.jpg"
-                alt="Claustro alto apuntalado durante los trabajos de restauración"
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            preload="auto"
+        >
+            <source
+                src="frailesporclaustroalto.MP4"
+                type="video/mp4"
             >
+        </video>
 
-            <p>
-                El claustro alto durante los trabajos de restauración
-                posteriores al sismo de 2017.
-            </p>
-
-        </div>
-
-        <!-- MÚSICA -->
-
-        <div class="audio">
-
-            <audio controls autoplay loop>
-                <source
-                    src="lorenzobuczek-incantations-339854.mp3"
-                    type="audio/mpeg"
-                >
-                Tu navegador no puede reproducir este archivo de audio.
-            </audio>
-
-        </div>
-
-        <!-- NAVEGACIÓN -->
-
-        <div class="navegacion">
-
-            <a class="boton" href="escaleras.html">
-                ← REGRESAR
-            </a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-                <span class="texto-celular">🗺 PLANO</span>
-            </a>
-
-            <a class="boton" href="claustro-alto-2.html">
-                SEGUIR →
-            </a>
-
+        <div id="rotuloHistorico" class="rotulo">
+            Reconstrucción histórica — Siglo XVI
         </div>
 
     </div>
 
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+    <!-- TEXTO HISTÓRICO ORIGINAL -->
+
+    <div class="contenido">
+
+        <h1>El claustro alto</h1>
+        <h2>Silencio y recogimiento</h2>
+
+        <p>
+            Al subir a la planta alta, el claustro adquiere un carácter más silencioso
+            y reservado. Si el claustro bajo concentraba buena parte de la vida
+            comunitaria, este nivel conducía hacia los espacios destinados al descanso,
+            el estudio y la vida más íntima de los frailes.
+        </p>
+
+        <p>
+            Desde sus corredores, los religiosos podían recorrer el convento conservando
+            el ambiente de silencio y recogimiento propio de la vida dominicana.
+            La arquitectura misma ayudaba a separar progresivamente el bullicio exterior
+            de los espacios dedicados a la oración y la contemplación.
+        </p>
+
+    </div>
+
+    <!-- FOTOGRAFÍA DE RESTAURACIÓN -->
+
+    <div class="restauracion">
+
+        <h2>El claustro después del sismo</h2>
+
+        <img
+            src="PHOTO-2026-10-05-21-22-19.jpg"
+            alt="Claustro alto apuntalado durante los trabajos de restauración"
+        >
+
+        <p>
+            El claustro alto durante los trabajos de restauración
+            posteriores al sismo de 2017.
+        </p>
+
+    </div>
+
+    <!-- MÚSICA ORIGINAL -->
+
+    <div class="audio">
+
+        <audio controls autoplay loop>
+            <source
+                src="lorenzobuczek-incantations-339854.mp3"
+                type="audio/mpeg"
+            >
+            Tu navegador no puede reproducir este archivo de audio.
+        </audio>
+
+    </div>
+
+    <!-- NAVEGACIÓN ORIGINAL -->
+
+    <div class="navegacion">
+
+        <a class="boton" href="escaleras.html">
+            ← REGRESAR
+        </a>
+
+        <a class="boton" href="mapa.html">
+            <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
+            <span class="texto-celular">🗺 PLANO</span>
+        </a>
+
+        <a class="boton" href="claustro-alto-2.html">
+            SEGUIR →
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const video = document.getElementById("videoHistorico");
+    const rotulo = document.getElementById("rotuloHistorico");
+
+    function mostrarFotografia() {
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+    }
+
+    function iniciarVideo() {
+        video.currentTime = 0;
+
+        const reproduccion = video.play();
+
+        if (reproduccion !== undefined) {
+            reproduccion.then(function () {
+                video.classList.add("visible");
+                rotulo.classList.add("visible");
+            }).catch(function () {
+                mostrarFotografia();
+            });
+        }
+    }
+
+    video.addEventListener("ended", mostrarFotografia);
+    video.addEventListener("error", mostrarFotografia);
+
+    setTimeout(iniciarVideo, 5000);
+
+});
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
 
 </body>
-
 </html>
