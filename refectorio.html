@@ -1,313 +1,277 @@
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El refectorio | Un día en el convento</title>
 
-    <title>El refectorio | Un día en el convento</title>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    color: #2f2f2f;
+    font-family: Arial, sans-serif;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f1e6;
-            color: #2f2f2f;
-            font-family: Arial, sans-serif;
-        }
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
 
-        .escena {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f1e6;
-        }
+/* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
 
-        /* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #171717;
+}
 
-        .escenario {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            background-color: #171717;
-        }
+.imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-        .imagen {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .video-historico {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: #171717;
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-            pointer-events: none;
-        }
+.video-historico.visible {
+    opacity: 1;
+}
 
-        .video-historico.visible {
-            opacity: 1;
-        }
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .rotulo-historico {
-            position: absolute;
-            bottom: 18px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 18px;
-            background: rgba(0, 0, 0, 0.72);
-            color: white;
-            font-family: Georgia, serif;
-            font-size: 15px;
-            border-radius: 6px;
-            text-align: center;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-            pointer-events: none;
-        }
+.rotulo-historico.visible {
+    opacity: 1;
+}
 
-        .rotulo-historico.visible {
-            opacity: 1;
-        }
+/* CONTENIDO HISTÓRICO */
 
-        /* CONTENIDO HISTÓRICO */
+.contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+}
 
-        .contenido {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px 28px;
-            text-align: center;
-        }
+.contenido h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 30px;
+    color: #325d4a;
+}
 
-        .contenido h1 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 30px;
-            color: #325d4a;
-        }
+.contenido h2 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: italic;
+    color: #325d4a;
+}
 
-        .contenido h2 {
-            margin-top: 0;
-            margin-bottom: 22px;
-            font-size: 20px;
-            font-weight: normal;
-            font-style: italic;
-            color: #325d4a;
-        }
+.contenido p {
+    margin: 0 auto 16px;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: justify;
+}
 
-        .contenido p {
-            margin: 0 auto 16px auto;
-            font-size: 18px;
-            line-height: 1.7;
-            text-align: justify;
-        }
+/* FOTOGRAFÍA DESPUÉS DEL SISMO */
 
-        /* FOTOGRAFÍA DESPUÉS DEL SISMO */
+.restauracion {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5px 28px 20px;
+    text-align: center;
+}
 
-        .restauracion {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 5px 28px 20px 28px;
-            text-align: center;
-        }
+.restauracion h2 {
+    margin: 0 0 18px;
+    font-size: 23px;
+    color: #325d4a;
+}
 
-        .restauracion h2 {
-            margin: 0 0 18px;
-            font-size: 23px;
-            color: #325d4a;
-        }
+.restauracion img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
 
-        .restauracion img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 8px;
-        }
+.restauracion p {
+    margin: 10px auto 0;
+    font-size: 16px;
+    line-height: 1.5;
+    font-style: italic;
+    color: #555;
+    text-align: center;
+}
 
-        .restauracion p {
-            margin: 10px auto 0;
-            font-size: 16px;
-            line-height: 1.5;
-            font-style: italic;
-            color: #555;
-            text-align: center;
-        }
+/* NARRACIÓN Y MÚSICA: MODELO SALA DE PROFUNDIS */
 
-        /* CONTROLES DE NARRACIÓN Y MÚSICA */
+.narracion,
+.audio {
+    text-align: center;
+    padding: 10px 20px 20px;
+}
 
-        .controles-audio {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 10px 20px 22px;
-            text-align: center;
-        }
+.narracion h3,
+.audio h3 {
+    margin: 0 0 12px;
+    color: #325d4a;
+    font-size: 18px;
+}
 
-        .controles-audio h3 {
-            margin: 16px 0 12px;
-            font-size: 18px;
-            color: #325d4a;
-        }
+audio {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
 
-        audio {
-            display: block;
-            width: 90%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+/* NAVEGACIÓN ORIGINAL */
 
-        .boton-inicio {
-            display: inline-block;
-            margin: 6px auto 12px;
-            padding: 14px 24px;
-            background-color: #325d4a;
-            color: white;
-            border: 2px solid white;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.navegacion {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px;
+    background-color: #f5f1e6;
+}
 
-        .boton-inicio:hover {
-            opacity: 0.9;
-        }
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
 
-        .estado-audio {
-            max-width: 560px;
-            margin: 5px auto 18px;
-            font-size: 15px;
-            line-height: 1.5;
-            color: #555;
-        }
+.boton:hover {
+    opacity: 0.9;
+}
 
-        .bloque-audio {
-            padding: 6px 0 12px;
-        }
+.texto-celular {
+    display: none;
+}
 
-        /* BOTONES DE NAVEGACIÓN */
+@media (max-width: 600px) {
+    .contenido {
+        padding: 22px 18px;
+    }
 
-        .navegacion {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            align-items: stretch;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 30px 35px;
-            background-color: #f5f1e6;
-        }
+    .contenido h1 {
+        font-size: 25px;
+    }
 
-        .boton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 54px;
-            padding: 14px 12px;
-            background-color: #325d4a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
+    .contenido h2 {
+        font-size: 18px;
+    }
 
-        .boton:hover {
-            opacity: 0.9;
-        }
+    .contenido p {
+        font-size: 17px;
+        line-height: 1.65;
+    }
 
-        .texto-celular {
-            display: none;
-        }
+    .restauracion {
+        padding: 5px 18px 20px;
+    }
 
-        /* ADAPTACIÓN A CELULARES */
+    .restauracion h2 {
+        font-size: 21px;
+    }
 
-        @media (max-width: 600px) {
+    .restauracion p {
+        font-size: 15px;
+    }
 
-            .contenido {
-                padding: 22px 18px;
-            }
+    .narracion,
+    .audio {
+        padding: 10px 15px 18px;
+    }
 
-            .contenido h1 {
-                font-size: 25px;
-            }
+    audio {
+        width: 100%;
+    }
 
-            .contenido h2 {
-                font-size: 18px;
-            }
+    .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 18px 8px 30px;
+    }
 
-            .contenido p {
-                font-size: 17px;
-                line-height: 1.65;
-            }
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
 
-            .restauracion {
-                padding: 5px 18px 20px;
-            }
+    .texto-escritorio {
+        display: none;
+    }
 
-            .restauracion h2 {
-                font-size: 21px;
-            }
+    .texto-celular {
+        display: inline;
+    }
 
-            .restauracion p {
-                font-size: 15px;
-            }
-
-            .controles-audio {
-                padding: 10px 15px 18px;
-            }
-
-            audio {
-                width: 100%;
-            }
-
-            .navegacion {
-                grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
-                gap: 6px;
-                padding: 18px 8px 30px;
-            }
-
-            .boton {
-                width: 100%;
-                min-width: 0;
-                min-height: 48px;
-                padding: 10px 3px;
-                font-size: 12px;
-                line-height: 1;
-                white-space: nowrap;
-            }
-
-            .texto-escritorio {
-                display: none;
-            }
-
-            .texto-celular {
-                display: inline;
-            }
-
-            .rotulo-historico {
-                font-size: 11px;
-                padding: 7px 10px;
-                bottom: 10px;
-            }
-        }
-    </style>
+    .rotulo-historico {
+        font-size: 11px;
+        padding: 7px 10px;
+        bottom: 10px;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -416,63 +380,35 @@
 
     </div>
 
-    <!-- NARRACIÓN Y MÚSICA -->
+    <!-- NARRACIÓN ORIGINAL, SIN BOTONES NUEVOS -->
 
-    <div class="controles-audio">
+    <div class="narracion">
 
-        <button
-            id="botonInicio"
-            class="boton-inicio"
-            type="button"
-        >
-            ▶ Escuchar narración
-        </button>
+        <h3>🎙️ Narración</h3>
 
-        <p
-            id="estadoAudio"
-            class="estado-audio"
-            role="status"
-        >
-            La narración intentará comenzar automáticamente.
-            Si Safari la bloquea, pulsa el botón.
-        </p>
-
-        <div class="bloque-audio">
-
-            <h3>🎙️ Narración</h3>
-
-            <audio
-                id="narracion"
-                controls
-                preload="auto"
+        <audio id="narracion" controls preload="auto">
+            <source
+                src="Narracio%CC%81n%20refectorio.m4a"
+                type="audio/mp4"
             >
-                <source
-                    src="Narracio%CC%81n%20refectorio.m4a"
-                    type="audio/mp4"
-                >
-                Tu navegador no admite reproducción de audio.
-            </audio>
+            Tu navegador no admite reproducción de audio.
+        </audio>
 
-        </div>
+    </div>
 
-        <div class="bloque-audio">
+    <!-- MÚSICA AMBIENTAL ORIGINAL -->
 
-            <h3>🎵 Música ambiental</h3>
+    <div class="audio">
 
-            <audio
-                id="musica"
-                controls
-                loop
-                preload="auto"
+        <h3>🎵 Música ambiental</h3>
+
+        <audio id="musica" controls loop preload="auto">
+            <source
+                src="starostin-worship-gospel-christian-church-music-585716.mp3"
+                type="audio/mpeg"
             >
-                <source
-                    src="starostin-worship-gospel-christian-church-music-585716.mp3"
-                    type="audio/mpeg"
-                >
-                Tu navegador no admite reproducción de audio.
-            </audio>
-
-        </div>
+            Tu navegador no admite reproducción de audio.
+        </audio>
 
     </div>
 
@@ -485,15 +421,12 @@
         </a>
 
         <a class="boton" href="mapa.html">
-
             <span class="texto-escritorio">
                 🗺 VOLVER AL PLANO
             </span>
-
             <span class="texto-celular">
                 🗺 PLANO
             </span>
-
         </a>
 
         <a class="boton" href="lavabo.html">
@@ -509,30 +442,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const video = document.getElementById("videoHistorico");
     const rotulo = document.getElementById("rotuloHistorico");
-
     const narracion = document.getElementById("narracion");
     const musica = document.getElementById("musica");
-
-    const boton = document.getElementById("botonInicio");
-    const estado = document.getElementById("estadoAudio");
 
     narracion.volume = 1.0;
     musica.volume = 0.20;
     video.muted = true;
 
     /*
-       SECUENCIA ACORDADA:
+       MODELO SALA DE PROFUNDIS
 
-       1. Comienza la narración.
-       2. Primera reproducción del video histórico.
-       3. Regresa la fotografía original.
-       4. Termina la narración.
-       5. Comienza la música ambiental.
-       6. Segunda reproducción del video histórico.
-       7. Regresa la fotografía original.
-       8. La música continúa en bucle.
+       1. Narración + primera reproducción del video.
+       2. Regresa la fotografía original.
+       3. Al terminar la voz, comienza la música.
+       4. Música + segunda reproducción del video.
+       5. Regresa la fotografía original.
+       6. La música continúa en bucle.
 
-       El video se reproduce como máximo dos veces.
+       No se crean botones adicionales.
     */
 
     let primeraIniciada = false;
@@ -542,9 +469,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let videoActivo = false;
     let videoPreparando = false;
 
-    function informar(mensaje) {
-        estado.textContent = mensaje;
-    }
+    let inicioNarracionSolicitado = false;
+    let temporizadorSegunda = null;
 
     /* MOSTRAR Y OCULTAR RECONSTRUCCIÓN */
 
@@ -558,7 +484,7 @@ document.addEventListener("DOMContentLoaded", function () {
         rotulo.classList.remove("visible");
     }
 
-    /* REPRODUCIR VIDEO HISTÓRICO */
+    /* REPRODUCIR VIDEO */
 
     function reproducirReconstruccion() {
 
@@ -570,13 +496,20 @@ document.addEventListener("DOMContentLoaded", function () {
         ocultarReconstruccion();
 
         try {
-            video.pause();
             video.currentTime = 0;
         } catch (error) {
             console.log("Esperando disponibilidad del video.");
         }
 
-        const intento = video.play();
+        let intento;
+
+        try {
+            intento = video.play();
+        } catch (error) {
+            videoPreparando = false;
+            console.log("No se pudo iniciar el video:", error);
+            return false;
+        }
 
         if (intento && typeof intento.then === "function") {
 
@@ -593,7 +526,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ocultarReconstruccion();
 
                 console.log(
-                    "No se pudo reproducir el video:",
+                    "El navegador no permitió reproducir el video:",
                     error
                 );
             });
@@ -608,7 +541,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return true;
     }
 
-    /* PRIMER VIDEO: INICIO DE LA NARRACIÓN */
+    /* PRIMER VIDEO: AL COMENZAR LA NARRACIÓN */
 
     function iniciarPrimerVideo() {
 
@@ -616,11 +549,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        if (videoActivo || videoPreparando) {
+            return;
+        }
+
         primeraIniciada = true;
         reproducirReconstruccion();
     }
 
-    /* SEGUNDO VIDEO: INICIO DE LA MÚSICA */
+    /* SEGUNDO VIDEO: AL COMENZAR LA MÚSICA */
 
     function iniciarSegundoVideo() {
 
@@ -629,7 +566,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (videoActivo || videoPreparando) {
-
             segundaPendiente = true;
             return;
         }
@@ -640,7 +576,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reproducirReconstruccion();
     }
 
-    /* FINAL DE CADA VIDEO */
+    /* FINAL DEL VIDEO */
 
     video.addEventListener("ended", function () {
 
@@ -653,8 +589,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             segundaPendiente = false;
 
-            setTimeout(function () {
+            temporizadorSegunda = setTimeout(function () {
+
+                temporizadorSegunda = null;
                 iniciarSegundoVideo();
+
             }, 1600);
         }
     });
@@ -668,166 +607,169 @@ document.addEventListener("DOMContentLoaded", function () {
         videoActivo = false;
         videoPreparando = false;
 
-        informar(
-            "No se pudo cargar la reconstrucción histórica. " +
-            "La narración y la música pueden continuar."
+        console.log(
+            "No se pudo cargar la reconstrucción histórica."
         );
     });
 
-    /* INICIO EFECTIVO DE LA NARRACIÓN */
+    /* COMIENZO DE LA NARRACIÓN */
+
+    narracion.addEventListener("play", function () {
+        musica.pause();
+    });
 
     narracion.addEventListener("playing", function () {
 
         musica.pause();
-
-        informar("Reproduciendo la narración del refectorio.");
-
         iniciarPrimerVideo();
-    });
-
-    /* EVITAR SUPERPOSICIÓN DE AUDIOS */
-
-    narracion.addEventListener("play", function () {
-
-        musica.pause();
-    });
-
-    musica.addEventListener("play", function () {
-
-        if (!narracion.paused) {
-            narracion.pause();
-        }
     });
 
     /* FINAL DE LA NARRACIÓN */
 
     narracion.addEventListener("ended", function () {
-
-        boton.textContent = "▶ Escuchar música ambiental";
-
-        informar(
-            "La narración terminó. Iniciando música ambiental."
-        );
-
         iniciarMusica();
     });
 
-    /* INICIO EFECTIVO DE LA MÚSICA */
+    /* INICIAR MÚSICA AMBIENTAL */
+
+    function iniciarMusica() {
+
+        if (!narracion.paused && !narracion.ended) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        let intento;
+
+        try {
+            intento = musica.play();
+        } catch (error) {
+            console.log("No se pudo iniciar la música:", error);
+            return;
+        }
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function (error) {
+
+                console.log(
+                    "Safari requiere interacción para reproducir la música:",
+                    error
+                );
+            });
+        }
+    }
+
+    /* INICIO DE LA MÚSICA */
+
+    musica.addEventListener("play", function () {
+
+        if (!narracion.paused && !narracion.ended) {
+            narracion.pause();
+        }
+    });
 
     musica.addEventListener("playing", function () {
 
-        informar("Reproduciendo música ambiental.");
+        if (!narracion.paused && !narracion.ended) {
+            musica.pause();
+            return;
+        }
 
         iniciarSegundoVideo();
-    });
-
-    /* DETECTAR ERRORES DE AUDIO */
-
-    narracion.addEventListener("error", function () {
-
-        informar(
-            "No se pudo cargar el archivo de narración. " +
-            "Comprueba el nombre exacto del archivo en GitHub."
-        );
-    });
-
-    musica.addEventListener("error", function () {
-
-        informar(
-            "No se pudo cargar el archivo de música ambiental."
-        );
     });
 
     /* INICIAR NARRACIÓN */
 
     function iniciarNarracion() {
 
-        if (narracion.error) {
+        if (inicioNarracionSolicitado) {
+            return;
+        }
 
-            informar(
-                "El archivo de narración no está disponible."
+        if (!narracion.paused || narracion.ended) {
+            return;
+        }
+
+        inicioNarracionSolicitado = true;
+
+        let intento;
+
+        try {
+            intento = narracion.play();
+        } catch (error) {
+
+            inicioNarracionSolicitado = false;
+
+            console.log(
+                "No se pudo iniciar la narración:",
+                error
             );
 
             return;
         }
 
-        if (narracion.ended) {
-            narracion.currentTime = 0;
-        }
-
-        const intento = narracion.play();
-
         if (intento && typeof intento.catch === "function") {
 
             intento.catch(function (error) {
 
-                console.log(
-                    "No se pudo iniciar la narración:",
-                    error
-                );
+                inicioNarracionSolicitado = false;
 
-                informar(
-                    "Safari impidió el inicio automático. " +
-                    "Pulsa «Escuchar narración» para comenzar."
+                console.log(
+                    "El navegador requiere interacción para iniciar la narración:",
+                    error
                 );
             });
         }
     }
 
-    /* INICIAR MÚSICA */
-
-    function iniciarMusica() {
-
-        if (musica.error) {
-
-            informar(
-                "No se pudo cargar la música ambiental."
-            );
-
-            return;
-        }
-
-        const intento = musica.play();
-
-        if (intento && typeof intento.catch === "function") {
-
-            intento.catch(function (error) {
-
-                console.log(
-                    "No se pudo iniciar la música:",
-                    error
-                );
-
-                informar(
-                    "La narración terminó, pero Safari bloqueó " +
-                    "el inicio automático de la música. " +
-                    "Pulsa reproducir en el control de música."
-                );
-            });
-        }
-    }
-
-    /* BOTÓN PARA SAFARI */
-
-    boton.addEventListener("click", function () {
-
-        if (!narracion.ended) {
-
-            iniciarNarracion();
-
-        } else {
-
-            iniciarMusica();
-        }
-    });
-
-    /* INTENTO DE INICIO AUTOMÁTICO */
+    /* INICIO AUTOMÁTICO */
 
     window.addEventListener("load", function () {
 
         musica.pause();
+        musica.currentTime = 0;
 
         iniciarNarracion();
+    });
+
+    /*
+       RESPALDO PARA SAFARI.
+
+       Si el inicio automático es bloqueado,
+       se puede utilizar el control de audio
+       original, sin agregar ningún botón.
+
+       También se intenta iniciar la narración
+       al tocar una zona libre de la página.
+    */
+
+    document.addEventListener("click", function (evento) {
+
+        if (evento.target.closest("a, audio, button")) {
+            return;
+        }
+
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+            iniciarNarracion();
+        }
+    });
+
+    /* LIMPIEZA AL SALIR DE LA ESCENA */
+
+    window.addEventListener("pagehide", function () {
+
+        if (temporizadorSegunda !== null) {
+            clearTimeout(temporizadorSegunda);
+            temporizadorSegunda = null;
+        }
     });
 
 });
