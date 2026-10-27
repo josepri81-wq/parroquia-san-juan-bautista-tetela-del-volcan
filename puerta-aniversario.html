@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -58,6 +59,12 @@
             padding: 25px 20px 20px 20px;
         }
 
+        .audio h3 {
+            margin: 16px 0 12px;
+            font-size: 18px;
+            color: #325d4a;
+        }
+
         audio {
             display: block;
             width: 90%;
@@ -72,7 +79,7 @@
             gap: 15px;
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px 30px 35px 30px;
+            padding: 20px 30px 35px;
             background-color: #f5f1e6;
         }
 
@@ -114,7 +121,11 @@
             }
 
             .audio {
-                padding: 22px 15px 18px 15px;
+                padding: 22px 15px 18px;
+            }
+
+            .audio h3 {
+                font-size: 17px;
             }
 
             audio {
@@ -124,7 +135,7 @@
             .navegacion {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 8px;
-                padding: 18px 8px 30px 8px;
+                padding: 18px 8px 30px;
             }
 
             .boton {
@@ -144,11 +155,15 @@
 
     <div class="escena">
 
+        <!-- FOTOGRAFÍA ORIGINAL -->
+
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-28 at 23.26.56.jpeg"
             alt="Puerta conmemorativa de los 500 años de la llegada de los dominicos a México"
         >
+
+        <!-- TEXTO HISTÓRICO ORIGINAL -->
 
         <div class="contenido">
 
@@ -223,9 +238,28 @@
 
         </div>
 
+        <!-- NARRACIÓN Y MÚSICA -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <h3>🎙️ Narración</h3>
+
+            <audio
+                id="narracion"
+                controls
+                preload="auto"
+            >
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+
+            <h3>🎵 Música ambiental</h3>
+
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
                 <source
                     src="emand_edroff-te-deum_-lx27impeto-sacro-512113.mp3"
                     type="audio/mpeg"
@@ -235,19 +269,218 @@
 
         </div>
 
+        <!-- NAVEGACIÓN ORIGINAL -->
+
         <div class="navegacion">
 
-            <a class="boton" href="fresco-de-santo-domingo.html">
+            <a
+                class="boton"
+                href="fresco-de-santo-domingo.html"
+            >
                 ← REGRESAR
             </a>
 
-            <a class="boton" href="conclusión.html">
+            <a
+                class="boton"
+                href="conclusión.html"
+            >
                 SEGUIR →
             </a>
 
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const narracion = document.getElementById("narracion");
+            const musica = document.getElementById("musica");
+
+            /*
+                ARCHIVO EXACTO SUBIDO A GITHUB
+            */
+
+            const archivoNarracion =
+                "Narración puerta de los 500 años.m4a";
+
+            /*
+                COMPATIBILIDAD CON ACENTOS
+                EN LOS NOMBRES DE ARCHIVOS
+            */
+
+            const rutasNarracion = [
+                encodeURIComponent(
+                    archivoNarracion.normalize("NFD")
+                ),
+                encodeURIComponent(
+                    archivoNarracion.normalize("NFC")
+                )
+            ].filter(function (ruta, indice, lista) {
+                return lista.indexOf(ruta) === indice;
+            });
+
+            let indiceRuta = 0;
+            let inicioSolicitado = false;
+
+            narracion.src = rutasNarracion[indiceRuta];
+            narracion.load();
+
+            /*
+                VOLUMEN
+            */
+
+            narracion.volume = 1.0;
+            musica.volume = 0.20;
+            musica.loop = true;
+
+            /*
+                INICIO DE LA NARRACIÓN
+            */
+
+            function iniciarNarracion() {
+
+                if (!narracion.paused || narracion.ended) {
+                    return;
+                }
+
+                inicioSolicitado = true;
+
+                const intento = narracion.play();
+
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
+                    intento.catch(function (error) {
+                        console.log(
+                            "Safari puede requerir interacción para iniciar la narración.",
+                            error
+                        );
+                    });
+                }
+            }
+
+            /*
+                RESPALDO PARA NOMBRES ACENTUADOS
+            */
+
+            narracion.addEventListener("error", function () {
+
+                if (indiceRuta + 1 < rutasNarracion.length) {
+
+                    indiceRuta++;
+
+                    narracion.src = rutasNarracion[indiceRuta];
+                    narracion.load();
+
+                    if (inicioSolicitado) {
+                        iniciarNarracion();
+                    }
+
+                } else {
+
+                    console.error(
+                        "No se encontró Narración puerta de los 500 años.m4a."
+                    );
+                }
+            });
+
+            /*
+                EVITAR QUE NARRACIÓN Y MÚSICA
+                SE REPRODUZCAN SIMULTÁNEAMENTE
+            */
+
+            narracion.addEventListener("play", function () {
+                musica.pause();
+            });
+
+            narracion.addEventListener("playing", function () {
+                musica.pause();
+            });
+
+            /*
+                AL TERMINAR LA NARRACIÓN,
+                COMIENZA TE DEUM
+            */
+
+            narracion.addEventListener("ended", function () {
+
+                const intento = musica.play();
+
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
+                    intento.catch(function (error) {
+                        console.log(
+                            "El navegador requiere interacción para iniciar la música.",
+                            error
+                        );
+                    });
+                }
+            });
+
+            /*
+                SI EL VISITANTE INICIA LA MÚSICA,
+                SE DETIENE LA NARRACIÓN
+            */
+
+            musica.addEventListener("play", function () {
+
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
+                    narracion.pause();
+                }
+            });
+
+            /*
+                INICIO AUTOMÁTICO AL ENTRAR
+            */
+
+            musica.pause();
+
+            window.addEventListener("load", function () {
+                iniciarNarracion();
+            });
+
+            /*
+                RESPALDO PARA SAFARI Y IPHONE,
+                SIN AÑADIR BOTONES NUEVOS
+            */
+
+            document.addEventListener("click", function (evento) {
+
+                if (
+                    evento.target.closest("a, audio, button")
+                ) {
+                    return;
+                }
+
+                if (
+                    narracion.paused &&
+                    !narracion.ended &&
+                    narracion.currentTime === 0
+                ) {
+                    iniciarNarracion();
+                }
+            });
+
+            /*
+                DETENER AUDIOS AL SALIR
+            */
+
+            window.addEventListener("pagehide", function () {
+                narracion.pause();
+                musica.pause();
+            });
+
+        });
+    </script>
+
+    <!-- CONTADOR GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
