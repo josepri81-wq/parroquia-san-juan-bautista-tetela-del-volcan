@@ -27,6 +27,8 @@
             background-color: #f5f1e6;
         }
 
+        /* FOTOGRAFÍA ORIGINAL */
+
         .imagen {
             width: 100%;
             height: auto;
@@ -234,7 +236,7 @@
 
         </div>
 
-        <!-- NARRACIÓN DEL BAUTISMO DEL SEÑOR -->
+        <!-- NARRACIÓN: EL BAUTISMO DEL SEÑOR -->
 
         <div class="narracion">
 
@@ -242,7 +244,7 @@
 
             <audio id="narracion" controls preload="auto">
                 <source
-                    src="Bautismo del señor.m4a"
+                    src="El Bautismo del Señor.m4a"
                     type="audio/mp4"
                 >
                 Tu navegador no admite reproducción de audio.
@@ -302,18 +304,15 @@
             narracion.volume = 1.0;
             musica.volume = 0.30;
 
-            let inicioMusicaPendiente = null;
-
-            function cancelarInicioPendiente() {
-                if (inicioMusicaPendiente !== null) {
-                    clearTimeout(inicioMusicaPendiente);
-                    inicioMusicaPendiente = null;
-                }
-            }
+            /*
+             * SECUENCIA:
+             * 1. Comienza la narración.
+             * 2. La música permanece detenida.
+             * 3. Al terminar la narración,
+             *    comienza la música al 30 %.
+             */
 
             function iniciarMusica() {
-
-                cancelarInicioPendiente();
 
                 if (!narracion.paused && !narracion.ended) {
                     return;
@@ -321,46 +320,40 @@
 
                 musica.volume = 0.30;
 
-                if (!musica.paused) {
-                    return;
-                }
+                if (musica.paused) {
 
-                const reproduccion = musica.play();
+                    const intento = musica.play();
 
-                if (reproduccion !== undefined) {
-                    reproduccion.catch(function () {
-                        console.log(
-                            "El navegador requiere interacción para reproducir la música."
-                        );
-                    });
+                    if (intento !== undefined) {
+
+                        intento.catch(function () {
+                            console.log(
+                                "El navegador requiere interacción para reproducir la música."
+                            );
+                        });
+
+                    }
                 }
             }
 
-            /* CUANDO COMIENZA LA NARRACIÓN */
+            /* COMIENZO DE LA NARRACIÓN */
 
             narracion.addEventListener("play", function () {
-                cancelarInicioPendiente();
+
                 musica.pause();
+
             });
 
-            /* CUANDO TERMINA LA NARRACIÓN */
+            /* FINAL DE LA NARRACIÓN */
 
             narracion.addEventListener("ended", function () {
+
                 iniciarMusica();
-            });
-
-            /* SI SE PAUSA LA NARRACIÓN */
-
-            narracion.addEventListener("pause", function () {
-
-                if (!narracion.ended) {
-                    musica.pause();
-                }
 
             });
 
-            /* EVITAR SUPERPOSICIÓN SI SE ACTIVA
-               LA MÚSICA MANUALMENTE */
+            /* EVITAR QUE LA MÚSICA INTERRUMPA
+               UNA NARRACIÓN EN CURSO */
 
             musica.addEventListener("play", function () {
 
@@ -370,21 +363,27 @@
 
             });
 
-            /* INICIO AUTOMÁTICO DE LA NARRACIÓN */
+            /* INICIO AUTOMÁTICO */
 
             window.addEventListener("load", function () {
 
                 musica.pause();
                 musica.currentTime = 0;
 
-                const reproduccion = narracion.play();
+                narracion.volume = 1.0;
 
-                if (reproduccion !== undefined) {
-                    reproduccion.catch(function () {
+                const intento = narracion.play();
+
+                if (intento !== undefined) {
+
+                    intento.catch(function () {
+
                         console.log(
-                            "El navegador requiere interacción para iniciar la narración."
+                            "El navegador requiere pulsar Play para iniciar la narración."
                         );
+
                     });
+
                 }
 
             });
