@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,7 +18,7 @@
             padding: 0;
             background-color: #f5f1e6;
             color: #2f2f2f;
-            font-family: Arial, sans-serif;
+            font-family: Georgia, "Times New Roman", serif;
         }
 
         .escena {
@@ -31,6 +32,8 @@
             height: auto;
             display: block;
         }
+
+        /* CONTENIDO HISTÓRICO */
 
         .contenido {
             max-width: 900px;
@@ -62,9 +65,20 @@
             text-align: justify;
         }
 
+        /* NARRACIÓN Y MÚSICA */
+
+        .narracion,
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
+        }
+
+        .narracion h3,
+        .audio h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
         }
 
         audio {
@@ -73,6 +87,8 @@
             max-width: 500px;
             margin: 0 auto;
         }
+
+        /* NAVEGACIÓN */
 
         .navegacion {
             display: grid;
@@ -111,6 +127,8 @@
             display: none;
         }
 
+        /* ADAPTACIÓN A CELULARES */
+
         @media (max-width: 600px) {
 
             .contenido {
@@ -130,6 +148,7 @@
                 line-height: 1.65;
             }
 
+            .narracion,
             .audio {
                 padding: 10px 15px 18px 15px;
             }
@@ -169,11 +188,15 @@
 
     <div class="escena">
 
+        <!-- FOTOGRAFÍA ORIGINAL -->
+
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-18 at 22.48.05.jpeg"
             alt="Fresco del Bautismo del Señor en el Ex Convento de San Juan Bautista"
         >
+
+        <!-- TEXTO HISTÓRICO ORIGINAL -->
 
         <div class="contenido">
 
@@ -211,9 +234,29 @@
 
         </div>
 
+        <!-- NARRACIÓN DEL BAUTISMO DEL SEÑOR -->
+
+        <div class="narracion">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio id="narracion" controls preload="auto">
+                <source
+                    src="Bautismo del señor.m4a"
+                    type="audio/mp4"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <!-- MÚSICA AMBIENTAL ORIGINAL -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <h3>🎵 Música ambiental</h3>
+
+            <audio id="musica" controls loop preload="auto">
                 <source
                     src="quietphase-instrumental-relax-496352.mp3"
                     type="audio/mpeg"
@@ -223,20 +266,133 @@
 
         </div>
 
+        <!-- NAVEGACIÓN ORIGINAL -->
+
         <div class="navegacion">
 
-            <a class="boton" href="claustro-bajo-2.html">← REGRESAR</a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-                <span class="texto-celular">🗺 PLANO</span>
+            <a class="boton" href="claustro-bajo-2.html">
+                ← REGRESAR
             </a>
 
-            <a class="boton" href="patio.html">SEGUIR →</a>
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">
+                    🗺 VOLVER AL PLANO
+                </span>
+                <span class="texto-celular">
+                    🗺 PLANO
+                </span>
+            </a>
+
+            <a class="boton" href="patio.html">
+                SEGUIR →
+            </a>
 
         </div>
 
     </div>
+
+    <!-- CONTROL DE NARRACIÓN Y MÚSICA -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const narracion = document.getElementById("narracion");
+            const musica = document.getElementById("musica");
+
+            narracion.volume = 1.0;
+            musica.volume = 0.30;
+
+            let inicioMusicaPendiente = null;
+
+            function cancelarInicioPendiente() {
+                if (inicioMusicaPendiente !== null) {
+                    clearTimeout(inicioMusicaPendiente);
+                    inicioMusicaPendiente = null;
+                }
+            }
+
+            function iniciarMusica() {
+
+                cancelarInicioPendiente();
+
+                if (!narracion.paused && !narracion.ended) {
+                    return;
+                }
+
+                musica.volume = 0.30;
+
+                if (!musica.paused) {
+                    return;
+                }
+
+                const reproduccion = musica.play();
+
+                if (reproduccion !== undefined) {
+                    reproduccion.catch(function () {
+                        console.log(
+                            "El navegador requiere interacción para reproducir la música."
+                        );
+                    });
+                }
+            }
+
+            /* CUANDO COMIENZA LA NARRACIÓN */
+
+            narracion.addEventListener("play", function () {
+                cancelarInicioPendiente();
+                musica.pause();
+            });
+
+            /* CUANDO TERMINA LA NARRACIÓN */
+
+            narracion.addEventListener("ended", function () {
+                iniciarMusica();
+            });
+
+            /* SI SE PAUSA LA NARRACIÓN */
+
+            narracion.addEventListener("pause", function () {
+
+                if (!narracion.ended) {
+                    musica.pause();
+                }
+
+            });
+
+            /* EVITAR SUPERPOSICIÓN SI SE ACTIVA
+               LA MÚSICA MANUALMENTE */
+
+            musica.addEventListener("play", function () {
+
+                if (!narracion.paused && !narracion.ended) {
+                    narracion.pause();
+                }
+
+            });
+
+            /* INICIO AUTOMÁTICO DE LA NARRACIÓN */
+
+            window.addEventListener("load", function () {
+
+                musica.pause();
+                musica.currentTime = 0;
+
+                const reproduccion = narracion.play();
+
+                if (reproduccion !== undefined) {
+                    reproduccion.catch(function () {
+                        console.log(
+                            "El navegador requiere interacción para iniciar la narración."
+                        );
+                    });
+                }
+
+            });
+
+        });
+    </script>
+
+    <!-- CONTADOR DE VISITAS GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
