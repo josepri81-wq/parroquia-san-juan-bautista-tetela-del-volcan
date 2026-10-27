@@ -236,7 +236,7 @@
 
         </div>
 
-        <!-- NARRACIÓN: EL BAUTISMO DEL SEÑOR -->
+        <!-- NARRACIÓN CORREGIDA -->
 
         <div class="narracion">
 
@@ -244,7 +244,7 @@
 
             <audio id="narracion" controls preload="auto">
                 <source
-                    src="El Bautismo del Señor.m4a"
+                    src="Bautismo%20del%20sen%CC%83or.m4a"
                     type="audio/mp4"
                 >
                 Tu navegador no admite reproducción de audio.
@@ -306,10 +306,12 @@
 
             /*
              * SECUENCIA:
+             *
              * 1. Comienza la narración.
              * 2. La música permanece detenida.
              * 3. Al terminar la narración,
              *    comienza la música al 30 %.
+             * 4. La música continúa en repetición.
              */
 
             function iniciarMusica() {
@@ -327,9 +329,11 @@
                     if (intento !== undefined) {
 
                         intento.catch(function () {
+
                             console.log(
                                 "El navegador requiere interacción para reproducir la música."
                             );
+
                         });
 
                     }
@@ -352,13 +356,14 @@
 
             });
 
-            /* EVITAR QUE LA MÚSICA INTERRUMPA
-               UNA NARRACIÓN EN CURSO */
+            /* EVITAR SUPERPOSICIÓN DE AUDIO */
 
             musica.addEventListener("play", function () {
 
                 if (!narracion.paused && !narracion.ended) {
+
                     narracion.pause();
+
                 }
 
             });
@@ -369,6 +374,7 @@
 
                 musica.pause();
                 musica.currentTime = 0;
+                musica.volume = 0.30;
 
                 narracion.volume = 1.0;
 
@@ -379,7 +385,7 @@
                     intento.catch(function () {
 
                         console.log(
-                            "El navegador requiere pulsar Play para iniciar la narración."
+                            "Safari puede requerir pulsar Play para iniciar la narración."
                         );
 
                     });
