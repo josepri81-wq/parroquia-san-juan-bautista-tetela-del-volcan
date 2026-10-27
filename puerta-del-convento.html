@@ -27,11 +27,60 @@
             background-color: #f5f1e6;
         }
 
+        /* FOTOGRAFÍA ORIGINAL Y VIDEO HISTÓRICO */
+
+        .escenario {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #171717;
+        }
+
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
+
+        .video-historico {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #171717;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .video-historico.visible {
+            opacity: 1;
+        }
+
+        .rotulo-historico {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 92%;
+            padding: 10px 18px;
+            background: rgba(0, 0, 0, 0.72);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            border-radius: 6px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .rotulo-historico.visible {
+            opacity: 1;
+        }
+
+        /* CONTENIDO HISTÓRICO */
 
         .contenido {
             max-width: 900px;
@@ -54,6 +103,8 @@
             text-align: justify;
         }
 
+        /* NARRACIÓN Y MÚSICA */
+
         .audio {
             text-align: center;
             padding: 25px 20px 20px 20px;
@@ -71,6 +122,8 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* NAVEGACIÓN ORIGINAL */
 
         .navegacion {
             display: grid;
@@ -105,6 +158,8 @@
             opacity: 0.9;
         }
 
+        /* ADAPTACIÓN PARA CELULARES */
+
         @media (max-width: 600px) {
 
             .contenido {
@@ -133,7 +188,8 @@
             }
 
             .navegacion {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
                 gap: 8px;
                 padding: 18px 8px 30px;
             }
@@ -147,6 +203,12 @@
                 line-height: 1;
                 white-space: nowrap;
             }
+
+            .rotulo-historico {
+                font-size: 11px;
+                padding: 7px 10px;
+                bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -155,13 +217,40 @@
 
     <div class="escena">
 
-        <!-- FOTOGRAFÍA ORIGINAL -->
+        <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
 
-        <img
-            class="imagen"
-            src="WhatsApp Image 2026-09-28 at 23.25.19.jpeg"
-            alt="Entrada del antiguo convento de San Juan Bautista"
-        >
+        <div class="escenario">
+
+            <img
+                class="imagen"
+                src="WhatsApp Image 2026-09-28 at 23.25.19.jpeg"
+                alt="Entrada del antiguo convento de San Juan Bautista"
+            >
+
+            <video
+                id="videoHistorico"
+                class="video-historico"
+                muted
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                disablepictureinpicture
+            >
+                <source
+                    src="ingresoconvento.MP4"
+                    type="video/mp4"
+                >
+                Tu navegador no admite reproducción de video.
+            </video>
+
+            <div
+                id="rotuloHistorico"
+                class="rotulo-historico"
+            >
+                Reconstrucción histórica — Siglo XVI
+            </div>
+
+        </div>
 
         <!-- TEXTOS HISTÓRICOS ORIGINALES -->
 
@@ -254,17 +343,18 @@
 
             const narracion = document.getElementById("narracion");
             const musica = document.getElementById("musica");
+            const video = document.getElementById("videoHistorico");
+            const rotulo = document.getElementById("rotuloHistorico");
 
             /*
-                ARCHIVO EXACTO DE GITHUB
+                ARCHIVO ORIGINAL DE NARRACIÓN
             */
 
             const archivoNarracion =
                 "Narración puerta del convento.m4a";
 
             /*
-                COMPATIBILIDAD CON ACENTOS
-                EN NOMBRES DE ARCHIVOS
+                COMPATIBILIDAD CON ACENTOS EN GITHUB
             */
 
             const rutasNarracion = [
@@ -285,15 +375,203 @@
             narracion.load();
 
             /*
-                VOLUMEN DE NARRACIÓN Y MÚSICA
+                CONFIGURACIÓN DE AUDIO Y VIDEO
             */
 
             narracion.volume = 1.0;
             musica.volume = 0.20;
             musica.loop = true;
 
+            video.muted = true;
+            video.defaultMuted = true;
+            video.volume = 0;
+            video.playsInline = true;
+            video.loop = false;
+
             /*
-                INTENTAR INICIAR NARRACIÓN
+                SECUENCIA:
+
+                1. Comienza la narración.
+                2. Primera reproducción del video sin sonido.
+                3. Regresa la fotografía original.
+                4. Termina la narración.
+                5. Comienza la música ambiental.
+                6. Segunda reproducción del video sin sonido.
+                7. Regresa la fotografía original.
+                8. Continúa la música ambiental.
+
+                No hay una tercera reproducción.
+            */
+
+            let primeraIniciada = false;
+            let segundaIniciada = false;
+            let segundaPendiente = false;
+
+            let videoActivo = false;
+            let videoPreparando = false;
+            let videoDisponible = true;
+
+            /*
+                MOSTRAR Y OCULTAR RECONSTRUCCIÓN
+            */
+
+            function mostrarVideo() {
+                video.classList.add("visible");
+                rotulo.classList.add("visible");
+            }
+
+            function mostrarFoto() {
+                video.classList.remove("visible");
+                rotulo.classList.remove("visible");
+            }
+
+            /*
+                REPRODUCIR VIDEO SIN SONIDO
+            */
+
+            async function reproducirVideo(numero) {
+
+                if (!videoDisponible) {
+                    return;
+                }
+
+                if (videoActivo || videoPreparando) {
+
+                    if (numero === 2) {
+                        segundaPendiente = true;
+                    }
+
+                    return;
+                }
+
+                if (numero === 1 && primeraIniciada) {
+                    return;
+                }
+
+                if (numero === 2 && segundaIniciada) {
+                    return;
+                }
+
+                videoPreparando = true;
+                mostrarFoto();
+
+                try {
+
+                    video.pause();
+                    video.currentTime = 0;
+
+                    video.muted = true;
+                    video.volume = 0;
+
+                    await video.play();
+
+                    if (video.paused || video.ended) {
+                        throw new Error(
+                            "El video no comenzó correctamente."
+                        );
+                    }
+
+                    videoActivo = true;
+                    videoPreparando = false;
+
+                    if (numero === 1) {
+                        primeraIniciada = true;
+                    }
+
+                    if (numero === 2) {
+                        segundaIniciada = true;
+                    }
+
+                    mostrarVideo();
+
+                } catch (error) {
+
+                    videoPreparando = false;
+                    videoActivo = false;
+
+                    mostrarFoto();
+
+                    console.log(
+                        "No se pudo reproducir el video:",
+                        error
+                    );
+                }
+            }
+
+            /*
+                PRIMER VIDEO:
+                AL COMENZAR LA NARRACIÓN
+            */
+
+            function iniciarPrimerVideo() {
+
+                if (primeraIniciada) {
+                    return;
+                }
+
+                reproducirVideo(1);
+            }
+
+            /*
+                SEGUNDO VIDEO:
+                AL COMENZAR LA MÚSICA
+            */
+
+            function iniciarSegundoVideo() {
+
+                if (segundaIniciada) {
+                    return;
+                }
+
+                reproducirVideo(2);
+            }
+
+            /*
+                CUANDO TERMINA CADA VIDEO
+            */
+
+            video.addEventListener("ended", function () {
+
+                mostrarFoto();
+
+                videoActivo = false;
+                videoPreparando = false;
+
+                if (
+                    segundaPendiente &&
+                    !segundaIniciada
+                ) {
+
+                    segundaPendiente = false;
+
+                    setTimeout(function () {
+
+                        iniciarSegundoVideo();
+
+                    }, 1600);
+                }
+            });
+
+            /*
+                ERROR DE VIDEO
+            */
+
+            video.addEventListener("error", function () {
+
+                videoDisponible = false;
+
+                mostrarFoto();
+
+                videoActivo = false;
+                videoPreparando = false;
+
+                console.log(
+                    "No se pudo cargar ingresoconvento.MP4."
+                );
+            });
+
+            /*
+                INICIAR NARRACIÓN
             */
 
             function iniciarNarracion() {
@@ -310,9 +588,12 @@
                     intento &&
                     typeof intento.catch === "function"
                 ) {
+
                     intento.catch(function (error) {
+
                         console.log(
-                            "Safari puede requerir interacción para reproducir la narración.",
+                            "Safari puede requerir interacción " +
+                            "para reproducir la narración.",
                             error
                         );
                     });
@@ -320,8 +601,7 @@
             }
 
             /*
-                RESPALDO SI EL NOMBRE DEL ARCHIVO
-                ESTÁ EN OTRA NORMALIZACIÓN UNICODE
+                RESPALDO DE NOMBRE DE NARRACIÓN
             */
 
             narracion.addEventListener("error", function () {
@@ -340,14 +620,13 @@
                 } else {
 
                     console.error(
-                        "No se encontró Narración puerta del convento.m4a."
+                        "No se encontró la narración de la puerta del convento."
                     );
                 }
             });
 
             /*
-                NARRACIÓN Y MÚSICA NO DEBEN
-                REPRODUCIRSE SIMULTÁNEAMENTE
+                COMIENZA LA NARRACIÓN
             */
 
             narracion.addEventListener("play", function () {
@@ -355,15 +634,30 @@
             });
 
             narracion.addEventListener("playing", function () {
+
                 musica.pause();
+
+                iniciarPrimerVideo();
             });
 
             /*
-                AL TERMINAR LA NARRACIÓN,
-                COMIENZA LA MÚSICA AMBIENTAL
+                TERMINA LA NARRACIÓN:
+                COMIENZA LA MÚSICA
             */
 
             narracion.addEventListener("ended", function () {
+
+                iniciarMusica();
+            });
+
+            function iniciarMusica() {
+
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
+                    return;
+                }
 
                 const intento = musica.play();
 
@@ -371,18 +665,21 @@
                     intento &&
                     typeof intento.catch === "function"
                 ) {
+
                     intento.catch(function (error) {
+
                         console.log(
-                            "El navegador requiere interacción para iniciar la música.",
+                            "El navegador requiere interacción " +
+                            "para iniciar la música.",
                             error
                         );
                     });
                 }
-            });
+            }
 
             /*
-                SI EL VISITANTE INICIA LA MÚSICA,
-                SE DETIENE LA NARRACIÓN
+                COMIENZA LA MÚSICA:
+                SEGUNDA REPRODUCCIÓN
             */
 
             musica.addEventListener("play", function () {
@@ -395,8 +692,13 @@
                 }
             });
 
+            musica.addEventListener("playing", function () {
+
+                iniciarSegundoVideo();
+            });
+
             /*
-                INICIO AUTOMÁTICO AL ENTRAR
+                INICIO AUTOMÁTICO DE LA ESCENA
             */
 
             musica.pause();
@@ -406,14 +708,16 @@
             });
 
             /*
-                RESPALDO PARA IPHONE Y SAFARI,
-                SIN AÑADIR BOTONES NUEVOS
+                RESPALDO PARA SAFARI Y CELULARES
+                SIN BOTONES ADICIONALES
             */
 
             document.addEventListener("click", function (evento) {
 
                 if (
-                    evento.target.closest("a, audio, button")
+                    evento.target.closest(
+                        "a, audio, video, button"
+                    )
                 ) {
                     return;
                 }
@@ -428,12 +732,16 @@
             });
 
             /*
-                DETENER AUDIOS AL SALIR
+                DETENER AUDIO Y VIDEO AL SALIR
             */
 
             window.addEventListener("pagehide", function () {
+
                 narracion.pause();
                 musica.pause();
+                video.pause();
+
+                mostrarFoto();
             });
 
         });
@@ -448,5 +756,4 @@
     </script>
 
 </body>
-
 </html>
