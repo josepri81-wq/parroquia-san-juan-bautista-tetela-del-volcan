@@ -32,6 +32,8 @@ body {
     display: block;
 }
 
+/* CONTENIDO HISTÓRICO */
+
 .contenido {
     max-width: 900px;
     margin: 0 auto;
@@ -73,32 +75,6 @@ audio {
     width: 90%;
     max-width: 500px;
     margin: 0 auto;
-}
-
-.boton-inicio {
-    display: inline-block;
-    margin: 6px auto 12px;
-    padding: 14px 24px;
-    background-color: #325d4a;
-    color: white;
-    border: 2px solid white;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.boton-inicio:hover {
-    opacity: 0.9;
-}
-
-.estado-audio {
-    max-width: 560px;
-    margin: 5px auto 18px;
-    font-size: 15px;
-    line-height: 1.5;
-    color: #555;
 }
 
 .bloque-audio {
@@ -143,6 +119,8 @@ audio {
 .texto-celular {
     display: none;
 }
+
+/* ADAPTACIÓN A CELULARES */
 
 @media (max-width: 600px) {
 
@@ -253,26 +231,9 @@ audio {
 
     </div>
 
-    <!-- CONTROLES DE NARRACIÓN Y MÚSICA -->
+    <!-- REPRODUCTORES ORIGINALES -->
 
     <div class="controles-audio">
-
-        <button
-            id="botonInicio"
-            class="boton-inicio"
-            type="button"
-        >
-            ▶ Escuchar narración
-        </button>
-
-        <p
-            id="estadoAudio"
-            class="estado-audio"
-            role="status"
-        >
-            La narración intentará comenzar automáticamente.
-            Si Safari la bloquea, pulsa el botón.
-        </p>
 
         <div class="bloque-audio">
 
@@ -340,102 +301,110 @@ document.addEventListener("DOMContentLoaded", function () {
     const narracion = document.getElementById("narracion");
     const musica = document.getElementById("musica");
 
-    const boton = document.getElementById("botonInicio");
-    const estado = document.getElementById("estadoAudio");
-
     /*
-       ARCHIVO DE VOZ SUBIDO A GITHUB:
-
+       ARCHIVO ORIGINAL:
        Narración celda del fraile.m4a
 
-       Se prueban las dos formas Unicode del
-       nombre para evitar problemas con la tilde.
+       Se prueban las dos codificaciones Unicode
+       para conservar el nombre original en GitHub.
     */
 
-    const nombreNarracion =
-        "Narración celda del fraile.m4a";
+    const nombreNarracion = "Narración celda del fraile.m4a";
 
     const rutasNarracion = [
-        encodeURIComponent(
-            nombreNarracion.normalize("NFD")
-        ),
-        encodeURIComponent(
-            nombreNarracion.normalize("NFC")
-        )
+        encodeURIComponent(nombreNarracion.normalize("NFD")),
+        encodeURIComponent(nombreNarracion.normalize("NFC"))
     ].filter(function (ruta, indice, lista) {
         return lista.indexOf(ruta) === indice;
     });
 
     let indiceRuta = 0;
-    let narracionTerminada = false;
-    let inicioSolicitado = false;
+    let inicioNarracionSolicitado = false;
 
     narracion.src = rutasNarracion[indiceRuta];
+    narracion.load();
 
     narracion.volume = 1.0;
     musica.volume = 0.20;
 
-    function informar(mensaje) {
-        estado.textContent = mensaje;
-    }
-
     /*
-       EVITAR QUE LA VOZ Y LA MÚSICA
-       SE REPRODUZCAN AL MISMO TIEMPO.
+       SECUENCIA:
+
+       1. La narración intenta comenzar automáticamente.
+       2. La música permanece detenida mientras habla la voz.
+       3. Cuando termina la narración, comienza la música.
+       4. La música continúa en repetición.
+
+       No se agregan botones ni mensajes visibles.
     */
+
+    /* EVITAR SUPERPOSICIÓN */
 
     narracion.addEventListener("play", function () {
         musica.pause();
     });
 
+    narracion.addEventListener("playing", function () {
+        musica.pause();
+    });
+
     musica.addEventListener("play", function () {
 
-        if (!narracion.paused) {
+        if (!narracion.paused && !narracion.ended) {
             narracion.pause();
         }
     });
 
     /*
-       NARRACIÓN EN REPRODUCCIÓN
-    */
-
-    narracion.addEventListener("playing", function () {
-
-        musica.pause();
-
-        informar(
-            "Reproduciendo la narración de la celda del fraile."
-        );
-    });
-
-    /*
-       CUANDO TERMINA LA NARRACIÓN,
-       COMIENZA LA MÚSICA AMBIENTAL.
+       AL TERMINAR LA NARRACIÓN,
+       INICIAR LA MÚSICA AMBIENTAL.
     */
 
     narracion.addEventListener("ended", function () {
-
-        narracionTerminada = true;
-
-        boton.textContent =
-            "▶ Escuchar música ambiental";
-
-        informar(
-            "La narración terminó. Iniciando música ambiental."
-        );
-
         iniciarMusica();
     });
 
-    musica.addEventListener("playing", function () {
+    /* INICIAR MÚSICA */
 
-        informar(
-            "Reproduciendo música ambiental."
-        );
-    });
+    function iniciarMusica() {
+
+        if (!narracion.paused && !narracion.ended) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        let intento;
+
+        try {
+            intento = musica.play();
+        } catch (error) {
+
+            console.log(
+                "No se pudo iniciar la música ambiental:",
+                error
+            );
+
+            return;
+        }
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function (error) {
+
+                console.log(
+                    "El navegador requiere interacción para iniciar la música:",
+                    error
+                );
+            });
+        }
+    }
 
     /*
-       RUTA ALTERNATIVA DE LA NARRACIÓN
+       COMPROBAR RUTA ALTERNATIVA
+       DEL ARCHIVO DE NARRACIÓN.
     */
 
     narracion.addEventListener("error", function () {
@@ -444,45 +413,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
             indiceRuta++;
 
-            informar(
-                "Comprobando otra codificación del archivo de voz..."
-            );
-
             narracion.src = rutasNarracion[indiceRuta];
             narracion.load();
 
-            if (inicioSolicitado) {
+            if (inicioNarracionSolicitado) {
+
+                inicioNarracionSolicitado = false;
                 iniciarNarracion();
             }
 
             return;
         }
 
-        informar(
-            "No se pudo cargar la narración. " +
-            "Comprueba el nombre exacto del archivo en GitHub."
+        console.log(
+            "No se pudo cargar Narración celda del fraile.m4a."
         );
     });
 
-    musica.addEventListener("error", function () {
-
-        informar(
-            "No se pudo cargar la música ambiental."
-        );
-    });
-
-    /*
-       INICIAR NARRACIÓN
-    */
+    /* INICIAR NARRACIÓN */
 
     function iniciarNarracion() {
 
-        if (narracionTerminada) {
-            iniciarMusica();
+        if (inicioNarracionSolicitado) {
             return;
         }
 
-        inicioSolicitado = true;
+        if (!narracion.paused || narracion.ended) {
+            return;
+        }
+
+        inicioNarracionSolicitado = true;
 
         let intento;
 
@@ -490,8 +450,11 @@ document.addEventListener("DOMContentLoaded", function () {
             intento = narracion.play();
         } catch (error) {
 
-            informar(
-                "No se pudo iniciar la narración."
+            inicioNarracionSolicitado = false;
+
+            console.log(
+                "No se pudo iniciar la narración:",
+                error
             );
 
             return;
@@ -501,17 +464,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             intento.catch(function (error) {
 
-                if (error.name === "NotAllowedError") {
+                inicioNarracionSolicitado = false;
 
-                    informar(
-                        "Safari bloqueó el inicio automático. " +
-                        "Pulsa «Escuchar narración»."
-                    );
-
-                } else if (error.name !== "AbortError") {
+                if (error.name !== "AbortError") {
 
                     console.log(
-                        "Error de narración:",
+                        "El navegador requiere interacción para iniciar la narración:",
                         error
                     );
                 }
@@ -520,64 +478,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /*
-       INICIAR MÚSICA
-    */
-
-    function iniciarMusica() {
-
-        let intento;
-
-        try {
-            intento = musica.play();
-        } catch (error) {
-
-            informar(
-                "No se pudo iniciar la música ambiental."
-            );
-
-            return;
-        }
-
-        if (intento && typeof intento.catch === "function") {
-
-            intento.catch(function (error) {
-
-                informar(
-                    "La narración terminó, pero Safari bloqueó " +
-                    "la música automática. Pulsa reproducir " +
-                    "en el control de música."
-                );
-
-                console.log(
-                    "Error de música:",
-                    error
-                );
-            });
-        }
-    }
-
-    /*
-       BOTÓN MANUAL PARA SAFARI
-    */
-
-    boton.addEventListener("click", function () {
-
-        if (!narracionTerminada) {
-            iniciarNarracion();
-        } else {
-            iniciarMusica();
-        }
-    });
-
-    /*
-       INTENTO DE INICIO AUTOMÁTICO
+       INICIO AUTOMÁTICO DE LA ESCENA
     */
 
     window.addEventListener("load", function () {
 
         musica.pause();
+        musica.currentTime = 0;
 
         iniciarNarracion();
+    });
+
+    /*
+       RESPALDO PARA SAFARI.
+
+       Si el navegador bloquea el inicio automático,
+       se puede usar el reproductor de narración
+       que ya está presente en la página.
+
+       No se agrega ningún botón.
+    */
+
+    document.addEventListener("click", function (evento) {
+
+        if (evento.target.closest("a, audio, button")) {
+            return;
+        }
+
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+            iniciarNarracion();
+        }
     });
 
 });
