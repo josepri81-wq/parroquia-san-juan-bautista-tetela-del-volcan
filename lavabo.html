@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>El lavabo | Un día en el convento</title>
 
 <style>
@@ -144,18 +143,19 @@ body {
     text-align: center;
 }
 
-/* NARRACIÓN Y MÚSICA */
+/* NARRACIÓN Y MÚSICA AMBIENTAL */
 
-.controles-audio {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 10px 20px 20px;
+.narracion,
+.audio {
     text-align: center;
+    padding: 10px 20px 20px;
 }
 
-.controles-audio h3 {
-    margin: 16px 0 12px;
+.narracion h3,
+.audio h3 {
+    margin: 0 0 12px;
     color: #325d4a;
+    font-family: Arial, sans-serif;
     font-size: 18px;
 }
 
@@ -164,36 +164,6 @@ audio {
     width: 90%;
     max-width: 500px;
     margin: 0 auto;
-}
-
-.boton-inicio {
-    display: inline-block;
-    margin: 8px auto 12px;
-    padding: 14px 24px;
-    background-color: #325d4a;
-    color: white;
-    border: 2px solid white;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.boton-inicio:hover {
-    opacity: 0.9;
-}
-
-.estado-audio {
-    max-width: 560px;
-    margin: 5px auto 18px;
-    font-size: 15px;
-    line-height: 1.5;
-    color: #555;
-}
-
-.bloque-audio {
-    padding: 6px 0 12px;
 }
 
 /* BOTONES DE NAVEGACIÓN */
@@ -268,7 +238,8 @@ audio {
         font-size: 15px;
     }
 
-    .controles-audio {
+    .narracion,
+    .audio {
         padding: 10px 15px 18px;
     }
 
@@ -412,63 +383,48 @@ audio {
 
     </div>
 
-    <!-- CONTROLES DE AUDIO -->
+    <!-- NARRACIÓN: REPRODUCTOR ORIGINAL -->
 
-    <div class="controles-audio">
+    <div class="narracion">
 
-        <button
-            id="botonInicio"
-            class="boton-inicio"
-            type="button"
+        <h3>🎙️ Narración</h3>
+
+        <audio
+            id="narracion"
+            controls
+            preload="auto"
         >
-            ▶ Escuchar narración
-        </button>
-
-        <p
-            id="estadoAudio"
-            class="estado-audio"
-            role="status"
-        >
-            La narración intentará comenzar automáticamente.
-            Si Safari la bloquea, pulsa el botón.
-        </p>
-
-        <div class="bloque-audio">
-
-            <h3>🎙️ Narración</h3>
-
-            <audio
-                id="narracion"
-                controls
-                preload="auto"
+            <source
+                src="Narracio%CC%81n%20del%20lavabo.m4a"
+                type="audio/mp4"
             >
-                Tu navegador no admite reproducción de audio.
-            </audio>
-
-        </div>
-
-        <div class="bloque-audio">
-
-            <h3>🎵 Música ambiental</h3>
-
-            <audio
-                id="musica"
-                controls
-                loop
-                preload="auto"
-            >
-                <source
-                    src="misselle-bible-soundtrack-instrumental-6-525868.mp3"
-                    type="audio/mpeg"
-                >
-                Tu navegador no puede reproducir este archivo de audio.
-            </audio>
-
-        </div>
+            Tu navegador no admite reproducción de audio.
+        </audio>
 
     </div>
 
-    <!-- BOTONES DE NAVEGACIÓN -->
+    <!-- MÚSICA AMBIENTAL ORIGINAL -->
+
+    <div class="audio">
+
+        <h3>🎵 Música ambiental</h3>
+
+        <audio
+            id="musica"
+            controls
+            loop
+            preload="auto"
+        >
+            <source
+                src="misselle-bible-soundtrack-instrumental-6-525868.mp3"
+                type="audio/mpeg"
+            >
+            Tu navegador no puede reproducir este archivo de audio.
+        </audio>
+
+    </div>
+
+    <!-- NAVEGACIÓN ORIGINAL -->
 
     <div class="navegacion">
 
@@ -500,20 +456,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const rotulo = document.getElementById("rotuloHistorico");
     const narracion = document.getElementById("narracion");
     const musica = document.getElementById("musica");
-    const boton = document.getElementById("botonInicio");
-    const estado = document.getElementById("estadoAudio");
 
     narracion.volume = 1.0;
     musica.volume = 0.20;
     video.muted = true;
 
     /*
-       NOMBRE EXACTO DEL ARCHIVO EN GITHUB.
+       MODELO DE SALA DE PROFUNDIS
 
-       Safari y GitHub pueden utilizar diferentes
-       representaciones Unicode de la tilde.
+       1. Comienza la narración y el primer video.
+       2. Termina el primer video y vuelve la foto.
+       3. Al terminar la narración comienza la música.
+       4. Con la música comienza el segundo video.
+       5. Termina el segundo video y vuelve la foto.
+       6. La música continúa en repetición.
 
-       Se prueban NFD y NFC automáticamente.
+       Sin botones adicionales.
+    */
+
+    /*
+       NOMBRE DEL ARCHIVO DE NARRACIÓN.
+
+       Se intenta primero la codificación NFD
+       utilizada habitualmente por macOS.
+
+       Si no existe, se intenta NFC.
     */
 
     const nombreNarracion = "Narración del lavabo.m4a";
@@ -526,73 +493,53 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     let indiceRuta = 0;
-    let narracionSolicitada = false;
-    let narracionTerminada = false;
-    let musicaIniciada = false;
-
-    /*
-       ESTADO DE LAS DOS REPRODUCCIONES.
-    */
-
-    let reproduccionesCompletadas = 0;
-    let videoActivo = false;
-    let videoPreparando = false;
-    let segundaPendiente = false;
-    let videoDisponible = true;
+    let inicioNarracionSolicitado = false;
 
     narracion.src = rutasNarracion[indiceRuta];
     narracion.load();
 
-    function informar(mensaje) {
-        estado.textContent = mensaje;
-    }
+    /*
+       CONTROL DE LAS DOS REPRODUCCIONES
+    */
 
-    function mostrarVideo() {
+    let primeraIniciada = false;
+    let segundaIniciada = false;
+    let segundaPendiente = false;
+
+    let videoActivo = false;
+    let videoPreparando = false;
+    let musicaIniciada = false;
+
+    let temporizadorSegunda = null;
+
+    /* MOSTRAR Y OCULTAR VIDEO */
+
+    function mostrarReconstruccion() {
         video.classList.add("visible");
         rotulo.classList.add("visible");
     }
 
-    function mostrarFotografia() {
+    function ocultarReconstruccion() {
         video.classList.remove("visible");
         rotulo.classList.remove("visible");
     }
 
-    /*
-       REPRODUCIR VIDEO SIN CONTAR INTENTOS FALLIDOS.
-    */
+    /* REPRODUCIR VIDEO HISTÓRICO */
 
-    function reproducirVideo(numero) {
-
-        if (!videoDisponible) {
-            return;
-        }
+    function reproducirReconstruccion(numero) {
 
         if (videoActivo || videoPreparando) {
-
-            if (numero === 2) {
-                segundaPendiente = true;
-            }
-
-            return;
-        }
-
-        if (numero === 1 && reproduccionesCompletadas !== 0) {
-            return;
-        }
-
-        if (numero === 2 && reproduccionesCompletadas !== 1) {
             return;
         }
 
         videoPreparando = true;
-
-        mostrarFotografia();
+        ocultarReconstruccion();
 
         try {
             video.pause();
             video.currentTime = 0;
         } catch (error) {
-            console.log("Preparando video.");
+            console.log("Preparando el video histórico.");
         }
 
         let intento;
@@ -600,22 +547,26 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             intento = video.play();
         } catch (error) {
-
             videoPreparando = false;
-            mostrarFotografia();
-
-            console.log("Error de reproducción:", error);
+            ocultarReconstruccion();
+            console.log("Error al iniciar video:", error);
             return;
         }
 
-        function confirmarReproduccion() {
+        function confirmarInicio() {
 
             videoPreparando = false;
             videoActivo = true;
 
-            reproduccionesCompletadas = numero;
+            if (numero === 1) {
+                primeraIniciada = true;
+            }
 
-            mostrarVideo();
+            if (numero === 2) {
+                segundaIniciada = true;
+            }
+
+            mostrarReconstruccion();
         }
 
         function registrarError(error) {
@@ -623,10 +574,10 @@ document.addEventListener("DOMContentLoaded", function () {
             videoPreparando = false;
             videoActivo = false;
 
-            mostrarFotografia();
+            ocultarReconstruccion();
 
             console.log(
-                "No se pudo reproducir el video:",
+                "No se pudo reproducir el video histórico:",
                 error
             );
         }
@@ -634,35 +585,33 @@ document.addEventListener("DOMContentLoaded", function () {
         if (intento && typeof intento.then === "function") {
 
             intento.then(
-                confirmarReproduccion
+                confirmarInicio
             ).catch(
                 registrarError
             );
 
         } else {
 
-            confirmarReproduccion();
+            confirmarInicio();
         }
     }
 
-    /*
-       PRIMER VIDEO: CON LA NARRACIÓN.
-    */
+    /* PRIMER VIDEO CON LA NARRACIÓN */
 
     function iniciarPrimerVideo() {
 
-        if (reproduccionesCompletadas === 0) {
-            reproducirVideo(1);
+        if (primeraIniciada || videoActivo || videoPreparando) {
+            return;
         }
+
+        reproducirReconstruccion(1);
     }
 
-    /*
-       SEGUNDO VIDEO: CON LA MÚSICA.
-    */
+    /* SEGUNDO VIDEO CON LA MÚSICA */
 
     function iniciarSegundoVideo() {
 
-        if (reproduccionesCompletadas >= 2) {
+        if (!musicaIniciada || segundaIniciada) {
             return;
         }
 
@@ -672,20 +621,16 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (reproduccionesCompletadas === 1) {
+        segundaPendiente = false;
 
-            segundaPendiente = false;
-            reproducirVideo(2);
-        }
+        reproducirReconstruccion(2);
     }
 
-    /*
-       FINAL DEL VIDEO.
-    */
+    /* FINAL DE CADA REPRODUCCIÓN */
 
     video.addEventListener("ended", function () {
 
-        mostrarFotografia();
+        ocultarReconstruccion();
 
         videoActivo = false;
         videoPreparando = false;
@@ -693,67 +638,35 @@ document.addEventListener("DOMContentLoaded", function () {
         if (
             segundaPendiente &&
             musicaIniciada &&
-            reproduccionesCompletadas === 1
+            !segundaIniciada
         ) {
 
             segundaPendiente = false;
 
-            setTimeout(function () {
+            temporizadorSegunda = setTimeout(function () {
 
+                temporizadorSegunda = null;
                 iniciarSegundoVideo();
 
             }, 1600);
         }
     });
 
+    /* ERROR DE VIDEO */
+
     video.addEventListener("error", function () {
 
-        videoDisponible = false;
+        ocultarReconstruccion();
 
         videoActivo = false;
         videoPreparando = false;
 
-        mostrarFotografia();
-
-        informar(
-            "No se pudo cargar la animación. " +
-            "La narración y la música siguen disponibles."
+        console.log(
+            "No se pudo cargar la reconstrucción histórica."
         );
     });
 
-    /*
-       RUTA ALTERNATIVA DE LA NARRACIÓN.
-    */
-
-    narracion.addEventListener("error", function () {
-
-        if (indiceRuta + 1 < rutasNarracion.length) {
-
-            indiceRuta++;
-
-            informar(
-                "Comprobando el archivo de narración..."
-            );
-
-            narracion.src = rutasNarracion[indiceRuta];
-            narracion.load();
-
-            if (narracionSolicitada) {
-                iniciarNarracion();
-            }
-
-            return;
-        }
-
-        informar(
-            "No se pudo cargar la narración. " +
-            "Comprueba el archivo en GitHub."
-        );
-    });
-
-    /*
-       NARRACIÓN: DETENER MÚSICA.
-    */
+    /* NARRACIÓN: DETENER MÚSICA */
 
     narracion.addEventListener("play", function () {
         musica.pause();
@@ -763,118 +676,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
         musica.pause();
 
-        informar(
-            "Reproduciendo la narración del lavabo."
-        );
-
         iniciarPrimerVideo();
     });
 
-    /*
-       FINAL DE NARRACIÓN: COMIENZA MÚSICA.
-    */
+    /* FINAL DE LA NARRACIÓN */
 
     narracion.addEventListener("ended", function () {
-
-        narracionTerminada = true;
-
-        boton.textContent = "▶ Escuchar música ambiental";
-
-        informar(
-            "La narración terminó. Iniciando música ambiental."
-        );
 
         iniciarMusica();
     });
 
-    /*
-       MÚSICA: EVITAR SUPERPOSICIÓN.
-    */
-
-    musica.addEventListener("play", function () {
-
-        if (!narracion.paused && !narracion.ended) {
-            narracion.pause();
-        }
-    });
-
-    musica.addEventListener("playing", function () {
-
-        informar(
-            "Reproduciendo música ambiental."
-        );
-
-        if (!musicaIniciada) {
-
-            musicaIniciada = true;
-
-            iniciarSegundoVideo();
-        }
-    });
-
-    musica.addEventListener("error", function () {
-
-        informar(
-            "No se pudo cargar la música ambiental. " +
-            "Comprueba el archivo MP3 en GitHub."
-        );
-    });
-
-    /*
-       INICIO DE NARRACIÓN.
-    */
-
-    function iniciarNarracion() {
-
-        if (narracionTerminada) {
-            iniciarMusica();
-            return;
-        }
-
-        narracionSolicitada = true;
-
-        let intento;
-
-        try {
-            intento = narracion.play();
-        } catch (error) {
-
-            informar(
-                "No se pudo iniciar la narración."
-            );
-
-            return;
-        }
-
-        if (intento && typeof intento.catch === "function") {
-
-            intento.catch(function (error) {
-
-                if (error.name === "NotAllowedError") {
-
-                    informar(
-                        "Safari bloqueó el audio automático. " +
-                        "Pulsa «Escuchar narración»."
-                    );
-
-                } else if (error.name !== "AbortError") {
-
-                    console.log(
-                        "Error de narración:",
-                        error
-                    );
-                }
-            });
-        }
-    }
-
-    /*
-       INICIO DE MÚSICA.
-    */
+    /* INICIAR MÚSICA AMBIENTAL */
 
     function iniciarMusica() {
 
         if (!narracion.paused && !narracion.ended) {
+            return;
+        }
+
+        if (!musica.paused) {
             return;
         }
 
@@ -884,8 +704,9 @@ document.addEventListener("DOMContentLoaded", function () {
             intento = musica.play();
         } catch (error) {
 
-            informar(
-                "No se pudo iniciar la música."
+            console.log(
+                "No se pudo iniciar la música:",
+                error
             );
 
             return;
@@ -895,38 +716,118 @@ document.addEventListener("DOMContentLoaded", function () {
 
             intento.catch(function (error) {
 
-                informar(
-                    "Safari bloqueó la música automática. " +
-                    "Pulsa reproducir en el control musical."
-                );
-
                 console.log(
-                    "Error de música:",
+                    "Safari requiere interacción para iniciar la música:",
                     error
                 );
             });
         }
     }
 
-    /*
-       BOTÓN MANUAL.
-    */
+    /* MÚSICA: EVITAR SUPERPOSICIÓN */
 
-    boton.addEventListener("click", function () {
+    musica.addEventListener("play", function () {
 
-        if (!narracionTerminada) {
-
-            iniciarNarracion();
-
-        } else {
-
-            iniciarMusica();
+        if (!narracion.paused && !narracion.ended) {
+            narracion.pause();
         }
     });
 
     /*
-       INTENTO AUTOMÁTICO AL CARGAR.
+       EL SEGUNDO VIDEO SE ACTIVA
+       CUANDO LA MÚSICA ESTÁ SONANDO.
     */
+
+    musica.addEventListener("playing", function () {
+
+        if (!narracion.paused && !narracion.ended) {
+            musica.pause();
+            return;
+        }
+
+        if (!musicaIniciada) {
+
+            musicaIniciada = true;
+            iniciarSegundoVideo();
+        }
+    });
+
+    /*
+       RESPALDO PARA LA CODIFICACIÓN
+       DEL NOMBRE DE ARCHIVO EN GITHUB.
+    */
+
+    narracion.addEventListener("error", function () {
+
+        if (indiceRuta + 1 < rutasNarracion.length) {
+
+            indiceRuta++;
+
+            narracion.src = rutasNarracion[indiceRuta];
+            narracion.load();
+
+            if (inicioNarracionSolicitado) {
+
+                inicioNarracionSolicitado = false;
+                iniciarNarracion();
+            }
+
+            return;
+        }
+
+        console.log(
+            "No se pudo cargar Narración del lavabo.m4a."
+        );
+    });
+
+    /* INICIAR NARRACIÓN */
+
+    function iniciarNarracion() {
+
+        if (inicioNarracionSolicitado) {
+            return;
+        }
+
+        if (!narracion.paused || narracion.ended) {
+            return;
+        }
+
+        inicioNarracionSolicitado = true;
+
+        let intento;
+
+        try {
+            intento = narracion.play();
+        } catch (error) {
+
+            inicioNarracionSolicitado = false;
+
+            console.log(
+                "No se pudo iniciar la narración:",
+                error
+            );
+
+            return;
+        }
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function (error) {
+
+                inicioNarracionSolicitado = false;
+
+                if (error.name !== "AbortError") {
+
+                    console.log(
+                        "El navegador requiere interacción para iniciar la narración:",
+                        error
+                    );
+                }
+            });
+        }
+    }
+
+    /* INICIO AUTOMÁTICO DE LA ESCENA */
 
     window.addEventListener("load", function () {
 
@@ -934,6 +835,42 @@ document.addEventListener("DOMContentLoaded", function () {
         musica.currentTime = 0;
 
         iniciarNarracion();
+    });
+
+    /*
+       RESPALDO PARA SAFARI.
+
+       Si el inicio automático se bloquea,
+       el visitante puede utilizar el
+       reproductor de narración existente.
+
+       No se agrega ningún botón.
+    */
+
+    document.addEventListener("click", function (evento) {
+
+        if (evento.target.closest("a, audio, button")) {
+            return;
+        }
+
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+            iniciarNarracion();
+        }
+    });
+
+    /* LIMPIEZA AL SALIR */
+
+    window.addEventListener("pagehide", function () {
+
+        if (temporizadorSegunda !== null) {
+
+            clearTimeout(temporizadorSegunda);
+            temporizadorSegunda = null;
+        }
     });
 
 });
