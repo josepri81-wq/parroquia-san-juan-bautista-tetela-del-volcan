@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -58,6 +59,12 @@
             padding: 25px 20px 20px 20px;
         }
 
+        .audio h3 {
+            margin: 16px 0 12px;
+            font-size: 18px;
+            color: #325d4a;
+        }
+
         audio {
             display: block;
             width: 90%;
@@ -114,7 +121,11 @@
             }
 
             .audio {
-                padding: 22px 15px 18px 15px;
+                padding: 22px 15px 18px;
+            }
+
+            .audio h3 {
+                font-size: 17px;
             }
 
             audio {
@@ -124,7 +135,7 @@
             .navegacion {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 8px;
-                padding: 18px 8px 30px 8px;
+                padding: 18px 8px 30px;
             }
 
             .boton {
@@ -144,11 +155,15 @@
 
     <div class="escena">
 
+        <!-- FOTOGRAFÍA ORIGINAL -->
+
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-28 at 23.25.19.jpeg"
             alt="Entrada del antiguo convento de San Juan Bautista"
         >
+
+        <!-- TEXTOS HISTÓRICOS ORIGINALES -->
 
         <div class="contenido">
 
@@ -181,9 +196,28 @@
 
         </div>
 
+        <!-- NARRACIÓN Y MÚSICA -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <h3>🎙️ Narración</h3>
+
+            <audio
+                id="narracion"
+                controls
+                preload="auto"
+            >
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+
+            <h3>🎵 Música ambiental</h3>
+
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
                 <source
                     src="vjgalaxy-gregorian-christian-chant-alleluia-alleluia-01-507992.mp3"
                     type="audio/mpeg"
@@ -193,19 +227,219 @@
 
         </div>
 
+        <!-- NAVEGACIÓN ORIGINAL -->
+
         <div class="navegacion">
 
-            <a class="boton" href="capilla-del-rosario.html">
+            <a
+                class="boton"
+                href="capilla-del-rosario.html"
+            >
                 ← REGRESAR
             </a>
 
-            <a class="boton" href="fresco-de-santo-domingo.html">
+            <a
+                class="boton"
+                href="fresco-de-santo-domingo.html"
+            >
                 SEGUIR →
             </a>
 
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const narracion = document.getElementById("narracion");
+            const musica = document.getElementById("musica");
+
+            /*
+                ARCHIVO EXACTO DE GITHUB
+            */
+
+            const archivoNarracion =
+                "Narración puerta del convento.m4a";
+
+            /*
+                COMPATIBILIDAD CON ACENTOS
+                EN NOMBRES DE ARCHIVOS
+            */
+
+            const rutasNarracion = [
+                encodeURIComponent(
+                    archivoNarracion.normalize("NFD")
+                ),
+                encodeURIComponent(
+                    archivoNarracion.normalize("NFC")
+                )
+            ].filter(function (ruta, indice, lista) {
+                return lista.indexOf(ruta) === indice;
+            });
+
+            let indiceRuta = 0;
+            let inicioSolicitado = false;
+
+            narracion.src = rutasNarracion[indiceRuta];
+            narracion.load();
+
+            /*
+                VOLUMEN DE NARRACIÓN Y MÚSICA
+            */
+
+            narracion.volume = 1.0;
+            musica.volume = 0.20;
+            musica.loop = true;
+
+            /*
+                INTENTAR INICIAR NARRACIÓN
+            */
+
+            function iniciarNarracion() {
+
+                if (!narracion.paused || narracion.ended) {
+                    return;
+                }
+
+                inicioSolicitado = true;
+
+                const intento = narracion.play();
+
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
+                    intento.catch(function (error) {
+                        console.log(
+                            "Safari puede requerir interacción para reproducir la narración.",
+                            error
+                        );
+                    });
+                }
+            }
+
+            /*
+                RESPALDO SI EL NOMBRE DEL ARCHIVO
+                ESTÁ EN OTRA NORMALIZACIÓN UNICODE
+            */
+
+            narracion.addEventListener("error", function () {
+
+                if (indiceRuta + 1 < rutasNarracion.length) {
+
+                    indiceRuta++;
+
+                    narracion.src = rutasNarracion[indiceRuta];
+                    narracion.load();
+
+                    if (inicioSolicitado) {
+                        iniciarNarracion();
+                    }
+
+                } else {
+
+                    console.error(
+                        "No se encontró Narración puerta del convento.m4a."
+                    );
+                }
+            });
+
+            /*
+                NARRACIÓN Y MÚSICA NO DEBEN
+                REPRODUCIRSE SIMULTÁNEAMENTE
+            */
+
+            narracion.addEventListener("play", function () {
+                musica.pause();
+            });
+
+            narracion.addEventListener("playing", function () {
+                musica.pause();
+            });
+
+            /*
+                AL TERMINAR LA NARRACIÓN,
+                COMIENZA LA MÚSICA AMBIENTAL
+            */
+
+            narracion.addEventListener("ended", function () {
+
+                const intento = musica.play();
+
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
+                    intento.catch(function (error) {
+                        console.log(
+                            "El navegador requiere interacción para iniciar la música.",
+                            error
+                        );
+                    });
+                }
+            });
+
+            /*
+                SI EL VISITANTE INICIA LA MÚSICA,
+                SE DETIENE LA NARRACIÓN
+            */
+
+            musica.addEventListener("play", function () {
+
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
+                    narracion.pause();
+                }
+            });
+
+            /*
+                INICIO AUTOMÁTICO AL ENTRAR
+            */
+
+            musica.pause();
+
+            window.addEventListener("load", function () {
+                iniciarNarracion();
+            });
+
+            /*
+                RESPALDO PARA IPHONE Y SAFARI,
+                SIN AÑADIR BOTONES NUEVOS
+            */
+
+            document.addEventListener("click", function (evento) {
+
+                if (
+                    evento.target.closest("a, audio, button")
+                ) {
+                    return;
+                }
+
+                if (
+                    narracion.paused &&
+                    !narracion.ended &&
+                    narracion.currentTime === 0
+                ) {
+                    iniciarNarracion();
+                }
+            });
+
+            /*
+                DETENER AUDIOS AL SALIR
+            */
+
+            window.addEventListener("pagehide", function () {
+                narracion.pause();
+                musica.pause();
+            });
+
+        });
+    </script>
+
+    <!-- CONTADOR GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
