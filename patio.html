@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,11 +27,15 @@
             background-color: #f5f1e6;
         }
 
+        /* FOTOGRAFÍA ORIGINAL */
+
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
+
+        /* CONTENIDO HISTÓRICO ORIGINAL */
 
         .contenido {
             max-width: 900px;
@@ -62,9 +67,20 @@
             text-align: justify;
         }
 
+        /* NARRACIÓN Y MÚSICA AMBIENTAL */
+
+        .narracion,
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
+        }
+
+        .narracion h3,
+        .audio h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
         }
 
         audio {
@@ -73,6 +89,8 @@
             max-width: 500px;
             margin: 0 auto;
         }
+
+        /* NAVEGACIÓN ORIGINAL */
 
         .navegacion {
             display: grid;
@@ -111,6 +129,8 @@
             display: none;
         }
 
+        /* ADAPTACIÓN A CELULARES */
+
         @media (max-width: 600px) {
 
             .contenido {
@@ -130,6 +150,7 @@
                 line-height: 1.65;
             }
 
+            .narracion,
             .audio {
                 padding: 10px 15px 18px 15px;
             }
@@ -169,11 +190,15 @@
 
     <div class="escena">
 
+        <!-- FOTOGRAFÍA ORIGINAL DEL PATIO -->
+
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-18 at 22.15.13.jpeg"
             alt="Patio del claustro del antiguo convento de San Juan Bautista de Tetela del Volcán"
         >
+
+        <!-- TEXTO HISTÓRICO ORIGINAL -->
 
         <div class="contenido">
 
@@ -205,9 +230,29 @@
 
         </div>
 
+        <!-- NUEVA NARRACIÓN -->
+
+        <div class="narracion">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio id="narracion" controls preload="auto">
+                <source
+                    src="El patio del claustro.m4a"
+                    type="audio/mp4"
+                >
+                Tu navegador no puede reproducir este archivo de audio.
+            </audio>
+
+        </div>
+
+        <!-- MÚSICA AMBIENTAL ORIGINAL -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <h3>🎵 Música ambiental</h3>
+
+            <audio id="musica" controls loop preload="auto">
                 <source
                     src="magicroom-musica-ambiental-del-bosque-con-sonidos-de-naturaleza-591286.mp3"
                     type="audio/mpeg"
@@ -217,20 +262,135 @@
 
         </div>
 
+        <!-- NAVEGACIÓN ORIGINAL -->
+
         <div class="navegacion">
 
-            <a class="boton" href="el-bautismo-del-señor.html">← REGRESAR</a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-                <span class="texto-celular">🗺 PLANO</span>
+            <a class="boton" href="el-bautismo-del-señor.html">
+                ← REGRESAR
             </a>
 
-            <a class="boton" href="claustro-bajo-3.html">SEGUIR →</a>
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">
+                    🗺 VOLVER AL PLANO
+                </span>
+                <span class="texto-celular">
+                    🗺 PLANO
+                </span>
+            </a>
+
+            <a class="boton" href="claustro-bajo-3.html">
+                SEGUIR →
+            </a>
 
         </div>
 
     </div>
+
+    <!-- CONTROL DE NARRACIÓN Y MÚSICA -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const narracion = document.getElementById("narracion");
+            const musica = document.getElementById("musica");
+
+            narracion.volume = 1.0;
+            musica.volume = 0.30;
+
+            /*
+             * SECUENCIA:
+             *
+             * 1. La narración comienza primero.
+             * 2. La música permanece detenida.
+             * 3. Cuando termina la narración,
+             *    comienza la música al 30 %.
+             * 4. La música continúa en bucle.
+             */
+
+            function iniciarMusica() {
+
+                if (!narracion.paused && !narracion.ended) {
+                    return;
+                }
+
+                musica.volume = 0.30;
+
+                if (musica.paused) {
+
+                    const intento = musica.play();
+
+                    if (intento !== undefined) {
+
+                        intento.catch(function () {
+
+                            console.log(
+                                "Safari requiere interacción para iniciar la música."
+                            );
+
+                        });
+
+                    }
+                }
+            }
+
+            /* AL COMENZAR LA NARRACIÓN */
+
+            narracion.addEventListener("play", function () {
+
+                musica.pause();
+
+            });
+
+            /* AL TERMINAR LA NARRACIÓN */
+
+            narracion.addEventListener("ended", function () {
+
+                iniciarMusica();
+
+            });
+
+            /* SI SE ACTIVA MANUALMENTE LA MÚSICA */
+
+            musica.addEventListener("play", function () {
+
+                if (!narracion.paused && !narracion.ended) {
+
+                    narracion.pause();
+
+                }
+
+            });
+
+            /* INTENTO DE REPRODUCCIÓN AUTOMÁTICA */
+
+            window.addEventListener("load", function () {
+
+                musica.pause();
+                musica.currentTime = 0;
+
+                narracion.volume = 1.0;
+
+                const intento = narracion.play();
+
+                if (intento !== undefined) {
+
+                    intento.catch(function () {
+
+                        console.log(
+                            "Safari puede requerir pulsar Play para escuchar la narración."
+                        );
+
+                    });
+
+                }
+
+            });
+
+        });
+    </script>
+
+    <!-- CONTADOR DE VISITAS GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
