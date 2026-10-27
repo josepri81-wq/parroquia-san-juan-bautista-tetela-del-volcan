@@ -24,6 +24,8 @@ body {
     min-height: 100vh;
 }
 
+/* FOTOGRAFÍA Y VIDEO HISTÓRICO */
+
 .escenario {
     position: relative;
     width: 100%;
@@ -76,6 +78,8 @@ body {
     opacity: 1;
 }
 
+/* CONTENIDO HISTÓRICO */
+
 .contenido {
     max-width: 900px;
     margin: 0 auto;
@@ -95,6 +99,8 @@ body {
     line-height: 1.7;
     text-align: justify;
 }
+
+/* FOTOGRAFÍA DE RESTAURACIÓN */
 
 .restauracion {
     max-width: 900px;
@@ -124,6 +130,8 @@ body {
     color: #555;
 }
 
+/* NARRACIÓN Y MÚSICA */
+
 .controles-audio {
     max-width: 900px;
     margin: 0 auto;
@@ -143,6 +151,8 @@ audio {
     max-width: 500px;
     margin: 0 auto;
 }
+
+/* NAVEGACIÓN */
 
 .navegacion {
     display: grid;
@@ -176,6 +186,8 @@ audio {
 .texto-celular {
     display: none;
 }
+
+/* ADAPTACIÓN PARA CELULARES */
 
 @media (max-width: 600px) {
 
@@ -255,6 +267,8 @@ audio {
             alt="Biblioteca del convento"
         >
 
+        <!-- NUEVO VIDEO GLOBO TERRÁQUEO -->
+
         <video
             id="videoHistorico"
             class="video-historico"
@@ -263,7 +277,12 @@ audio {
             webkit-playsinline
             preload="auto"
             disablepictureinpicture
-        ></video>
+        >
+            <source
+                src="globoterraqueo1.MOV"
+            >
+            Tu navegador no admite reproducción de video.
+        </video>
 
         <div
             id="rotuloHistorico"
@@ -274,7 +293,7 @@ audio {
 
     </div>
 
-    <!-- TEXTO HISTÓRICO -->
+    <!-- TEXTO HISTÓRICO ORIGINAL -->
 
     <div class="contenido">
 
@@ -319,7 +338,7 @@ audio {
 
     </div>
 
-    <!-- AUDIO -->
+    <!-- NARRACIÓN Y MÚSICA -->
 
     <div class="controles-audio">
 
@@ -347,7 +366,7 @@ audio {
 
     </div>
 
-    <!-- NAVEGACIÓN -->
+    <!-- NAVEGACIÓN ORIGINAL -->
 
     <div class="navegacion">
 
@@ -390,35 +409,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const musica = document.getElementById("musica");
 
     /*
-       ARCHIVOS ORIGINALES
+       NUEVO ARCHIVO DE VIDEO:
+       globoterraqueo1.MOV
+
+       Se reproduce dos veces:
+       1. Al comenzar la narración.
+       2. Al comenzar la música.
     */
 
-    const archivoVideo = "globo terraqueo.MOV";
-    const archivoNarracion = "Narración biblioteca.m4a";
-
-    /*
-       CARGA DEL VIDEO
-
-       No se fuerza el tipo video/quicktime.
-       El navegador examina el contenido del archivo.
-
-       IMPORTANTE:
-       Si el códec del MOV no es compatible,
-       será necesario convertir el archivo a MP4.
-    */
-
-    video.src = encodeURIComponent(archivoVideo);
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
     video.loop = false;
     video.preload = "auto";
-    video.load();
 
     /*
-       RUTAS DE NARRACIÓN:
+       NARRACIÓN ORIGINAL
        COMPATIBILIDAD CON ACENTOS EN GITHUB
     */
+
+    const archivoNarracion = "Narración biblioteca.m4a";
 
     const rutasNarracion = [
         encodeURIComponent(archivoNarracion.normalize("NFD")),
@@ -428,9 +438,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     let indiceNarracion = 0;
+    let narracionSolicitada = false;
 
     narracion.src = rutasNarracion[indiceNarracion];
-    narracion.volume = 1;
+    narracion.volume = 1.0;
     narracion.load();
 
     musica.volume = 0.20;
@@ -450,12 +461,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let musicaComenzada = false;
 
     let videoDisponible = true;
-    let narracionSolicitada = false;
-
     let temporizador = null;
 
     /*
-       TRANSICIONES
+       MOSTRAR VIDEO Y FOTOGRAFÍA
     */
 
     function mostrarVideo() {
@@ -469,7 +478,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /*
-       RESTABLECER VIDEO
+       DETENER VIDEO
     */
 
     function detenerVideo() {
@@ -488,8 +497,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*
        REPRODUCCIÓN HISTÓRICA
-       numero = 1: CON NARRACIÓN
-       numero = 2: CON MÚSICA
+
+       numero 1: NARRACIÓN
+       numero 2: MÚSICA
     */
 
     async function reproducirReconstruccion(numero) {
@@ -499,9 +509,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (videoEnCurso || videoPreparando) {
+
             if (numero === 2) {
                 segundoVideoPendiente = true;
             }
+
             return;
         }
 
@@ -514,18 +526,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         videoPreparando = true;
-
         mostrarFoto();
 
         try {
 
             video.pause();
             video.currentTime = 0;
-
-            /*
-               Esperar al primer fotograma antes
-               de mostrar el video.
-            */
 
             await video.play();
 
@@ -564,14 +570,14 @@ document.addEventListener("DOMContentLoaded", function () {
             mostrarFoto();
 
             console.log(
-                "No se pudo reproducir la reconstrucción:",
+                "No se pudo reproducir el video:",
                 error
             );
         }
     }
 
     /*
-       FIN DE CADA REPRODUCCIÓN
+       CUANDO TERMINA EL VIDEO
     */
 
     video.addEventListener("ended", function () {
@@ -590,14 +596,16 @@ document.addEventListener("DOMContentLoaded", function () {
             segundoVideoPendiente = false;
 
             temporizador = setTimeout(function () {
+
                 temporizador = null;
                 reproducirReconstruccion(2);
+
             }, 1600);
         }
     });
 
     /*
-       ERRORES DEL ARCHIVO MOV
+       ERROR DEL ARCHIVO MOV
     */
 
     video.addEventListener("error", function () {
@@ -607,15 +615,15 @@ document.addEventListener("DOMContentLoaded", function () {
         detenerVideo();
 
         console.error(
-            "No se puede reproducir globo terraqueo.MOV. " +
-            "Comprueba que el archivo exista y que su " +
-            "códec sea compatible con el navegador."
+            "No se pudo reproducir globoterraqueo1.MOV. " +
+            "Comprueba que el archivo exista y que " +
+            "su códec sea compatible con el navegador."
         );
     });
 
     /*
        PRIMER VIDEO:
-       CUANDO COMIENZA LA NARRACIÓN
+       AL COMENZAR LA NARRACIÓN
     */
 
     narracion.addEventListener("playing", function () {
@@ -646,8 +654,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /*
-       TERMINA NARRACIÓN:
-       COMIENZA MÚSICA
+       AL TERMINAR LA NARRACIÓN:
+       COMIENZA LA MÚSICA
     */
 
     narracion.addEventListener("ended", function () {
@@ -666,8 +674,10 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             await musica.play();
         } catch (error) {
+
             console.log(
-                "La música requiere interacción del visitante.",
+                "El navegador requiere interacción " +
+                "para iniciar la música.",
                 error
             );
         }
@@ -675,7 +685,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*
        SEGUNDO VIDEO:
-       CUANDO COMIENZA LA MÚSICA
+       AL COMENZAR LA MÚSICA
     */
 
     musica.addEventListener("playing", function () {
@@ -700,11 +710,6 @@ document.addEventListener("DOMContentLoaded", function () {
             reproducirReconstruccion(2);
         }
     });
-
-    /*
-       SI EL VIDEO TERMINÓ Y LA MÚSICA
-       CONTINÚA, NO VOLVER A REPRODUCIRLO
-    */
 
     /*
        CARGA ALTERNATIVA DE LA NARRACIÓN
@@ -737,7 +742,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /*
-       INICIAR NARRACIÓN AUTOMÁTICAMENTE
+       INICIO AUTOMÁTICO DE NARRACIÓN
     */
 
     async function iniciarNarracion() {
@@ -749,7 +754,9 @@ document.addEventListener("DOMContentLoaded", function () {
         narracionSolicitada = true;
 
         try {
+
             await narracion.play();
+
         } catch (error) {
 
             console.log(
@@ -761,7 +768,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /*
-       INICIO DE ESCENA
+       INICIO DE LA ESCENA
     */
 
     musica.pause();
@@ -783,8 +790,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /*
-       RESPALDO PARA IPHONE Y SAFARI:
-       SIN AÑADIR BOTONES A LA PÁGINA
+       RESPALDO PARA SAFARI Y CELULARES.
+       SIN BOTONES ADICIONALES.
     */
 
     document.addEventListener("click", function (evento) {
