@@ -33,7 +33,7 @@ body {
     position: relative;
     width: 100%;
     overflow: hidden;
-    background: #171717;
+    background-color: #171717;
 }
 
 .imagen {
@@ -48,7 +48,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #171717;
+    background-color: #171717;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
     pointer-events: none;
@@ -66,8 +66,8 @@ body {
     padding: 10px 18px;
     background: rgba(0, 0, 0, 0.72);
     color: white;
-    font-size: 15px;
     font-family: Georgia, serif;
+    font-size: 15px;
     border-radius: 6px;
     text-align: center;
     white-space: nowrap;
@@ -80,7 +80,7 @@ body {
     opacity: 1;
 }
 
-/* CONTENIDO */
+/* CONTENIDO HISTÓRICO */
 
 .contenido {
     max-width: 900px;
@@ -112,27 +112,15 @@ body {
     text-align: justify;
 }
 
-/* NARRACIÓN */
+/* NARRACIÓN Y MÚSICA AMBIENTAL */
 
-.narracion {
-    text-align: center;
-    padding: 5px 20px 18px 20px;
-    background-color: #f5f1e6;
-}
-
-.narracion h3 {
-    margin: 0 0 12px 0;
-    color: #325d4a;
-    font-size: 18px;
-}
-
-/* MÚSICA AMBIENTAL */
-
+.narracion,
 .audio {
     text-align: center;
     padding: 10px 20px 20px 20px;
 }
 
+.narracion h3,
 .audio h3 {
     margin: 0 0 12px 0;
     color: #325d4a;
@@ -146,7 +134,7 @@ audio {
     margin: 0 auto;
 }
 
-/* NAVEGACIÓN */
+/* BOTONES DE NAVEGACIÓN */
 
 .navegacion {
     display: grid;
@@ -205,10 +193,7 @@ audio {
         line-height: 1.65;
     }
 
-    .narracion {
-        padding: 5px 15px 18px 15px;
-    }
-
+    .narracion,
     .audio {
         padding: 10px 15px 18px 15px;
     }
@@ -248,7 +233,6 @@ audio {
     }
 }
 </style>
-
 </head>
 
 <body>
@@ -288,7 +272,7 @@ audio {
 
     </div>
 
-    <!-- TEXTO ORIGINAL -->
+    <!-- TEXTO HISTÓRICO ORIGINAL -->
 
     <div class="contenido">
 
@@ -329,7 +313,7 @@ audio {
 
         <h3>🎙️ Narración</h3>
 
-        <audio id="narracion" controls>
+        <audio id="narracion" controls preload="auto">
             <source
                 src="Claustro-bajo.m4a"
                 type="audio/mp4"
@@ -345,7 +329,7 @@ audio {
 
         <h3>🎵 Música ambiental</h3>
 
-        <audio id="musica" controls loop>
+        <audio id="musica" controls loop preload="auto">
             <source
                 src="vjgalaxy-gregorian-christian-chant-mane-nobiscum-01-507990.mp3"
                 type="audio/mpeg"
@@ -364,12 +348,15 @@ audio {
         </a>
 
         <a class="boton" href="mapa.html">
+
             <span class="texto-escritorio">
                 🗺 VOLVER AL PLANO
             </span>
+
             <span class="texto-celular">
                 🗺 PLANO
             </span>
+
         </a>
 
         <a class="boton" href="claustro-bajo-2.html">
@@ -382,165 +369,311 @@ audio {
 
 <script>
 
-/* ELEMENTOS DE LA ESCENA */
+document.addEventListener("DOMContentLoaded", function () {
 
-const narracion = document.getElementById("narracion");
-const musica = document.getElementById("musica");
-const video = document.getElementById("videoHistorico");
-const rotulo = document.getElementById("rotuloHistorico");
+    const video = document.getElementById("videoHistorico");
+    const rotulo = document.getElementById("rotuloHistorico");
+    const narracion = document.getElementById("narracion");
+    const musica = document.getElementById("musica");
 
-/* CONTROL DE LA MÚSICA */
+    narracion.volume = 1.0;
+    musica.volume = 0.20;
+    video.muted = true;
 
-let temporizadorMusica = null;
-let musicaIniciada = false;
+    /*
+       SECUENCIA HISTÓRICA:
 
-narracion.volume = 1.0;
-musica.volume = 0.04;
-
-/* 
-   LA MÚSICA COMIENZA 60 SEGUNDOS
-   DESPUÉS DE INICIARSE LA NARRACIÓN.
-*/
-
-narracion.addEventListener("play", function () {
-
-    musica.volume = 0.04;
-
-    if (!musicaIniciada && temporizadorMusica === null) {
-
-        temporizadorMusica = setTimeout(function () {
-
-            musica.volume = 0.04;
-
-            musica.play().then(function () {
-                musicaIniciada = true;
-            }).catch(function () {
-                console.log("El navegador bloqueó la música automática.");
-            });
-
-            temporizadorMusica = null;
-
-        }, 60000);
-    }
-});
-
-/* 
-   CUANDO TERMINA LA NARRACIÓN,
-   LA MÚSICA SUBE AL 30 %.
-*/
-
-narracion.addEventListener("ended", function () {
-
-    if (temporizadorMusica !== null) {
-        clearTimeout(temporizadorMusica);
-        temporizadorMusica = null;
-    }
-
-    musica.volume = 0.30;
-
-    if (!musicaIniciada) {
-
-        musica.play().then(function () {
-            musicaIniciada = true;
-        }).catch(function () {
-            console.log("El navegador bloqueó la música automática.");
-        });
-    }
-});
-
-/* NARRACIÓN PAUSADA */
-
-narracion.addEventListener("pause", function () {
-
-    if (!narracion.ended && musicaIniciada) {
-        musica.volume = 0.30;
-    }
-});
-
-/* NARRACIÓN REANUDADA */
-
-narracion.addEventListener("playing", function () {
-
-    if (musicaIniciada) {
-        musica.volume = 0.04;
-    }
-});
-
-/* RECONSTRUCCIÓN HISTÓRICA */
-
-let videoIniciado = false;
-
-function mostrarReconstruccion() {
-
-    if (videoIniciado) {
-        return;
-    }
-
-    videoIniciado = true;
-    video.currentTime = 0;
-
-    video.play().then(function () {
-
-        video.classList.add("visible");
-        rotulo.classList.add("visible");
-
-    }).catch(function () {
-
-        videoIniciado = false;
-        console.log("No fue posible iniciar el video histórico.");
-
-    });
-}
-
-/* REGRESAR A LA FOTOGRAFÍA ORIGINAL */
-
-function finalizarReconstruccion() {
-
-    video.classList.remove("visible");
-    rotulo.classList.remove("visible");
-
-}
-
-/* EL VIDEO TERMINA Y REGRESA LA FOTOGRAFÍA */
-
-video.addEventListener("ended", function () {
-
-    finalizarReconstruccion();
-
-});
-
-/* SI OCURRE UN ERROR, CONSERVAR LA FOTOGRAFÍA */
-
-video.addEventListener("error", function () {
-
-    finalizarReconstruccion();
-
-});
-
-/* INICIO DE LA ESCENA */
-
-window.addEventListener("load", function () {
-
-    musica.pause();
-    musica.currentTime = 0;
-    musica.volume = 0.04;
-
-    /* Intentar iniciar la narración */
-
-    narracion.play().catch(function () {
-        console.log("El navegador requiere interacción para reproducir la narración.");
-    });
-
-    /* 
-       ESPERAR CINCO SEGUNDOS
-       ANTES DE MOSTRAR LA RECONSTRUCCIÓN.
+       1. Comienza la narración.
+       2. Primera reproducción del video.
+       3. Regresa la fotografía original.
+       4. Termina la narración.
+       5. Comienza la música ambiental.
+       6. Segunda reproducción del video.
+       7. Regresa la fotografía original.
+       8. Continúa la música ambiental.
     */
 
-    setTimeout(function () {
+    let primeraIniciada = false;
+    let segundaIniciada = false;
+    let segundaPendiente = false;
 
-        mostrarReconstruccion();
+    let videoActivo = false;
+    let videoPreparando = false;
 
-    }, 5000);
+    let inicioNarracionSolicitado = false;
+
+    /* OCULTAR LA RECONSTRUCCIÓN HISTÓRICA */
+
+    function ocultarReconstruccion() {
+
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+
+    }
+
+    /* REPRODUCIR LA RECONSTRUCCIÓN HISTÓRICA */
+
+    function reproducirReconstruccion() {
+
+        if (videoActivo || videoPreparando) {
+            return false;
+        }
+
+        videoPreparando = true;
+
+        ocultarReconstruccion();
+
+        try {
+            video.currentTime = 0;
+        } catch (error) {
+            console.log("Esperando disponibilidad del video.");
+        }
+
+        const intento = video.play();
+
+        if (intento && typeof intento.then === "function") {
+
+            intento.then(function () {
+
+                videoPreparando = false;
+                videoActivo = true;
+
+                video.classList.add("visible");
+                rotulo.classList.add("visible");
+
+            }).catch(function () {
+
+                videoPreparando = false;
+                videoActivo = false;
+
+                ocultarReconstruccion();
+
+                console.log(
+                    "El navegador no permitió reproducir el video."
+                );
+
+            });
+
+        } else {
+
+            videoPreparando = false;
+            videoActivo = true;
+
+            video.classList.add("visible");
+            rotulo.classList.add("visible");
+
+        }
+
+        return true;
+    }
+
+    /* PRIMER VIDEO: AL COMENZAR LA NARRACIÓN */
+
+    function iniciarPrimerVideo() {
+
+        if (primeraIniciada) {
+            return;
+        }
+
+        primeraIniciada = true;
+
+        reproducirReconstruccion();
+
+    }
+
+    /* SEGUNDO VIDEO: AL COMENZAR LA MÚSICA */
+
+    function iniciarSegundoVideo() {
+
+        if (segundaIniciada) {
+            return;
+        }
+
+        if (videoActivo || videoPreparando) {
+
+            segundaPendiente = true;
+            return;
+
+        }
+
+        segundaIniciada = true;
+        segundaPendiente = false;
+
+        reproducirReconstruccion();
+
+    }
+
+    /* CUANDO TERMINA EL VIDEO */
+
+    video.addEventListener("ended", function () {
+
+        ocultarReconstruccion();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        if (segundaPendiente && !segundaIniciada) {
+
+            segundaPendiente = false;
+
+            setTimeout(function () {
+
+                iniciarSegundoVideo();
+
+            }, 1600);
+
+        }
+
+    });
+
+    /* SI OCURRE UN ERROR DE VIDEO */
+
+    video.addEventListener("error", function () {
+
+        ocultarReconstruccion();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+    });
+
+    /* CUANDO COMIENZA LA NARRACIÓN */
+
+    narracion.addEventListener("play", function () {
+
+        musica.pause();
+
+        iniciarPrimerVideo();
+
+    });
+
+    narracion.addEventListener("playing", function () {
+
+        musica.pause();
+
+    });
+
+    /* CUANDO TERMINA LA NARRACIÓN */
+
+    narracion.addEventListener("ended", function () {
+
+        iniciarMusica();
+
+    });
+
+    /* INICIAR MÚSICA AMBIENTAL */
+
+    function iniciarMusica() {
+
+        if (!narracion.paused && !narracion.ended) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        const intento = musica.play();
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function () {
+
+                console.log(
+                    "El navegador requiere interacción para reproducir la música."
+                );
+
+            });
+
+        }
+
+    }
+
+    /* CUANDO COMIENZA LA MÚSICA */
+
+    musica.addEventListener("play", function () {
+
+        if (!narracion.paused && !narracion.ended) {
+
+            narracion.pause();
+
+        }
+
+        iniciarSegundoVideo();
+
+    });
+
+    /* INICIAR NARRACIÓN */
+
+    function iniciarNarracion() {
+
+        if (inicioNarracionSolicitado) {
+            return;
+        }
+
+        if (!narracion.paused || narracion.ended) {
+            return;
+        }
+
+        inicioNarracionSolicitado = true;
+
+        const intento = narracion.play();
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function () {
+
+                inicioNarracionSolicitado = false;
+
+                console.log(
+                    "El navegador requiere interacción para iniciar la narración."
+                );
+
+            });
+
+        }
+
+    }
+
+    /* INICIO AUTOMÁTICO DE LA ESCENA */
+
+    window.addEventListener("load", function () {
+
+        musica.pause();
+        musica.currentTime = 0;
+
+        iniciarNarracion();
+
+    });
+
+    /*
+       RESPALDO PARA SAFARI Y DISPOSITIVOS MÓVILES.
+
+       Si se bloquea el inicio automático,
+       el visitante puede pulsar el reproductor
+       de narración.
+
+       También puede tocar una zona libre
+       de la página para iniciar la narración.
+    */
+
+    document.addEventListener("click", function (evento) {
+
+        if (evento.target.closest("a, audio, button")) {
+            return;
+        }
+
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+
+            iniciarNarracion();
+
+        }
+
+    });
 
 });
 
