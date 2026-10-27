@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -56,6 +57,12 @@
         .audio {
             text-align: center;
             padding: 25px 20px 20px 20px;
+        }
+
+        .audio h3 {
+            margin: 16px 0 12px;
+            font-size: 18px;
+            color: #325d4a;
         }
 
         audio {
@@ -117,6 +124,10 @@
                 padding: 22px 15px 18px 15px;
             }
 
+            .audio h3 {
+                font-size: 17px;
+            }
+
             audio {
                 width: 100%;
             }
@@ -144,11 +155,15 @@
 
     <div class="escena">
 
+        <!-- FOTOGRAFÍA ORIGINAL -->
+
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-28 at 23.22.17.jpeg"
             alt="Capilla del Rosario del antiguo convento de San Juan Bautista"
         >
+
+        <!-- CONTENIDO HISTÓRICO ORIGINAL -->
 
         <div class="contenido">
 
@@ -181,9 +196,28 @@
 
         </div>
 
+        <!-- NARRACIÓN Y MÚSICA -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <h3>🎙️ Narración</h3>
+
+            <audio
+                id="narracion"
+                controls
+                preload="auto"
+            >
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+
+            <h3>🎵 Música ambiental</h3>
+
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
                 <source
                     src="nickpanek-ave-maria-417992.mp3"
                     type="audio/mpeg"
@@ -193,19 +227,223 @@
 
         </div>
 
+        <!-- NAVEGACIÓN ORIGINAL -->
+
         <div class="navegacion">
 
-            <a class="boton" href="tribuna-de-los-enfermos-2.html">
+            <a
+                class="boton"
+                href="tribuna-de-los-enfermos-2.html"
+            >
                 ← REGRESAR
             </a>
 
-            <a class="boton" href="puerta-del-convento.html">
+            <a
+                class="boton"
+                href="puerta-del-convento.html"
+            >
                 SEGUIR →
             </a>
 
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const narracion = document.getElementById("narracion");
+            const musica = document.getElementById("musica");
+
+            /*
+                ARCHIVO DE NARRACIÓN SUBIDO A GITHUB
+            */
+
+            const archivoNarracion =
+                "Narración capilla del Rosario.m4a";
+
+            /*
+                COMPATIBILIDAD CON NOMBRES ACENTUADOS
+                EN GITHUB Y SAFARI
+            */
+
+            const rutasNarracion = [
+                encodeURIComponent(
+                    archivoNarracion.normalize("NFD")
+                ),
+                encodeURIComponent(
+                    archivoNarracion.normalize("NFC")
+                )
+            ].filter(function (ruta, indice, lista) {
+                return lista.indexOf(ruta) === indice;
+            });
+
+            let indiceRuta = 0;
+            let inicioSolicitado = false;
+
+            narracion.src = rutasNarracion[indiceRuta];
+            narracion.load();
+
+            /*
+                VOLUMEN
+            */
+
+            narracion.volume = 1.0;
+            musica.volume = 0.20;
+            musica.loop = true;
+
+            /*
+                INICIAR NARRACIÓN
+            */
+
+            function iniciarNarracion() {
+
+                if (!narracion.paused || narracion.ended) {
+                    return;
+                }
+
+                inicioSolicitado = true;
+
+                const intento = narracion.play();
+
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
+                    intento.catch(function (error) {
+                        console.log(
+                            "Safari puede requerir interacción para reproducir la narración.",
+                            error
+                        );
+                    });
+                }
+            }
+
+            /*
+                SI EL NOMBRE ACENTUADO NO SE ENCUENTRA,
+                INTENTAR SU OTRA NORMALIZACIÓN
+            */
+
+            narracion.addEventListener("error", function () {
+
+                if (indiceRuta + 1 < rutasNarracion.length) {
+
+                    indiceRuta++;
+
+                    narracion.src = rutasNarracion[indiceRuta];
+                    narracion.load();
+
+                    if (inicioSolicitado) {
+                        iniciarNarracion();
+                    }
+
+                } else {
+
+                    console.error(
+                        "No se encontró el archivo de narración de la Capilla del Rosario."
+                    );
+                }
+            });
+
+            /*
+                EVITAR SUPERPOSICIÓN:
+                LA NARRACIÓN TIENE PRIORIDAD
+            */
+
+            narracion.addEventListener("play", function () {
+                musica.pause();
+            });
+
+            narracion.addEventListener("playing", function () {
+                musica.pause();
+            });
+
+            /*
+                AL TERMINAR LA NARRACIÓN,
+                COMIENZA LA MÚSICA
+            */
+
+            narracion.addEventListener("ended", function () {
+
+                const intento = musica.play();
+
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
+                    intento.catch(function (error) {
+                        console.log(
+                            "El navegador requiere interacción para iniciar la música.",
+                            error
+                        );
+                    });
+                }
+            });
+
+            /*
+                SI EL VISITANTE REPRODUCE
+                MANUALMENTE LA MÚSICA,
+                SE DETIENE LA NARRACIÓN
+            */
+
+            musica.addEventListener("play", function () {
+
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
+                    narracion.pause();
+                }
+            });
+
+            /*
+                INICIO AUTOMÁTICO AL ENTRAR
+            */
+
+            musica.pause();
+
+            window.addEventListener("load", function () {
+                iniciarNarracion();
+            });
+
+            /*
+                RESPALDO PARA IPHONE Y SAFARI.
+                NO SE AÑADEN BOTONES NUEVOS.
+
+                Si Safari bloquea el inicio automático,
+                se puede utilizar el reproductor original.
+            */
+
+            document.addEventListener("click", function (evento) {
+
+                if (
+                    evento.target.closest("a, audio, button")
+                ) {
+                    return;
+                }
+
+                if (
+                    narracion.paused &&
+                    !narracion.ended &&
+                    narracion.currentTime === 0
+                ) {
+                    iniciarNarracion();
+                }
+            });
+
+            /*
+                DETENER AUDIO AL SALIR DE LA ESCENA
+            */
+
+            window.addEventListener("pagehide", function () {
+                narracion.pause();
+                musica.pause();
+            });
+
+        });
+    </script>
+
+    <!-- CONTADOR GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
