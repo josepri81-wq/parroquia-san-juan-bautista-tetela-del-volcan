@@ -146,11 +146,19 @@
             text-align: center;
         }
 
-        /* MÚSICA AMBIENTAL */
+        /* NARRACIÓN Y MÚSICA AMBIENTAL */
 
+        .narracion,
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
+        }
+
+        .narracion h3,
+        .audio h3 {
+            margin: 0 0 12px 0;
+            color: #325d4a;
+            font-size: 18px;
         }
 
         audio {
@@ -232,6 +240,7 @@
                 font-size: 15px;
             }
 
+            .narracion,
             .audio {
                 padding: 10px 15px 18px 15px;
             }
@@ -377,11 +386,38 @@
 
     </div>
 
+    <!-- NUEVA NARRACIÓN -->
+
+    <div class="narracion">
+
+        <h3>🎙️ Narración</h3>
+
+        <audio
+            id="narracion"
+            controls
+            preload="auto"
+        >
+            <source
+                src="Narraci%C3%B3n%20refectorio.m4a"
+                type="audio/mp4"
+            >
+            Tu navegador no admite reproducción de audio.
+        </audio>
+
+    </div>
+
     <!-- MÚSICA AMBIENTAL ORIGINAL -->
 
     <div class="audio">
 
-        <audio id="musica" controls loop>
+        <h3>🎵 Música ambiental</h3>
+
+        <audio
+            id="musica"
+            controls
+            loop
+            preload="auto"
+        >
             <source
                 src="starostin-worship-gospel-christian-church-music-585716.mp3"
                 type="audio/mpeg"
@@ -422,91 +458,278 @@
 
 <script>
 
-/* ELEMENTOS */
+document.addEventListener("DOMContentLoaded", function () {
 
-const video = document.getElementById("videoHistorico");
-const rotulo = document.getElementById("rotuloHistorico");
-const musica = document.getElementById("musica");
+    const video = document.getElementById("videoHistorico");
+    const rotulo = document.getElementById("rotuloHistorico");
+    const narracion = document.getElementById("narracion");
+    const musica = document.getElementById("musica");
 
-let reconstruccionIniciada = false;
+    narracion.volume = 1.0;
+    musica.volume = 0.20;
+    video.muted = true;
 
-/* CONFIGURACIÓN DE MÚSICA */
+    /*
+       SECUENCIA ACORDADA:
 
-musica.volume = 0.20;
+       1. Comienza la narración.
+       2. Se reproduce por primera vez el video.
+       3. Termina el video y vuelve la fotografía.
+       4. Termina la narración.
+       5. Comienza la música ambiental.
+       6. Se reproduce por segunda vez el video.
+       7. Vuelve la fotografía original.
+       8. La música continúa en bucle.
 
-/* MOSTRAR RECONSTRUCCIÓN HISTÓRICA */
+       El video se reproduce como máximo dos veces.
+    */
 
-function mostrarReconstruccion() {
+    let primeraIniciada = false;
+    let segundaIniciada = false;
+    let segundaPendiente = false;
 
-    if (reconstruccionIniciada) {
-        return;
+    let videoActivo = false;
+    let videoPreparando = false;
+
+    let inicioNarracionSolicitado = false;
+
+    /* OCULTAR RECONSTRUCCIÓN */
+
+    function ocultarReconstruccion() {
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
     }
 
-    reconstruccionIniciada = true;
+    /* REPRODUCIR VIDEO */
 
-    video.currentTime = 0;
+    function reproducirReconstruccion() {
 
-    video.play().then(function () {
+        if (videoActivo || videoPreparando) {
+            return false;
+        }
 
-        video.classList.add("visible");
-        rotulo.classList.add("visible");
+        videoPreparando = true;
+        ocultarReconstruccion();
 
-    }).catch(function () {
+        try {
+            video.currentTime = 0;
+        } catch (error) {
+            console.log("Esperando disponibilidad del video.");
+        }
 
-        reconstruccionIniciada = false;
+        const intento = video.play();
 
-        console.log(
-            "El navegador no permitió reproducir el video."
-        );
+        if (intento && typeof intento.then === "function") {
 
+            intento.then(function () {
+
+                videoPreparando = false;
+                videoActivo = true;
+
+                video.classList.add("visible");
+                rotulo.classList.add("visible");
+
+            }).catch(function () {
+
+                videoPreparando = false;
+                videoActivo = false;
+                ocultarReconstruccion();
+
+                console.log(
+                    "El navegador no permitió reproducir el video."
+                );
+            });
+
+        } else {
+
+            videoPreparando = false;
+            videoActivo = true;
+
+            video.classList.add("visible");
+            rotulo.classList.add("visible");
+        }
+
+        return true;
+    }
+
+    /* PRIMER VIDEO: AL COMENZAR LA NARRACIÓN */
+
+    function iniciarPrimerVideo() {
+
+        if (primeraIniciada) {
+            return;
+        }
+
+        primeraIniciada = true;
+        reproducirReconstruccion();
+    }
+
+    /* SEGUNDO VIDEO: AL COMENZAR LA MÚSICA */
+
+    function iniciarSegundoVideo() {
+
+        if (segundaIniciada) {
+            return;
+        }
+
+        if (videoActivo || videoPreparando) {
+            segundaPendiente = true;
+            return;
+        }
+
+        segundaIniciada = true;
+        segundaPendiente = false;
+
+        reproducirReconstruccion();
+    }
+
+    /* FINAL DEL VIDEO */
+
+    video.addEventListener("ended", function () {
+
+        ocultarReconstruccion();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        if (segundaPendiente && !segundaIniciada) {
+
+            segundaPendiente = false;
+
+            setTimeout(function () {
+                iniciarSegundoVideo();
+            }, 1600);
+        }
     });
 
-}
+    /* ERROR DE VIDEO */
 
-/* REGRESAR A LA FOTOGRAFÍA ORIGINAL */
+    video.addEventListener("error", function () {
 
-function finalizarReconstruccion() {
+        ocultarReconstruccion();
 
-    video.classList.remove("visible");
-    rotulo.classList.remove("visible");
-
-}
-
-/* FINAL DEL VIDEO */
-
-video.addEventListener("ended", function () {
-
-    finalizarReconstruccion();
-
-});
-
-/* ERROR DE VIDEO */
-
-video.addEventListener("error", function () {
-
-    finalizarReconstruccion();
-
-});
-
-/* INICIO AUTOMÁTICO */
-
-window.addEventListener("load", function () {
-
-    musica.play().catch(function () {
-
-        console.log(
-            "El navegador requiere interacción para iniciar la música."
-        );
-
+        videoActivo = false;
+        videoPreparando = false;
     });
 
-    /* ESPERAR CINCO SEGUNDOS */
+    /* INICIO DE LA NARRACIÓN */
 
-    setTimeout(function () {
+    narracion.addEventListener("play", function () {
 
-        mostrarReconstruccion();
+        musica.pause();
+        iniciarPrimerVideo();
+    });
 
-    }, 5000);
+    narracion.addEventListener("playing", function () {
+        musica.pause();
+    });
+
+    /* FINAL DE LA NARRACIÓN */
+
+    narracion.addEventListener("ended", function () {
+        iniciarMusica();
+    });
+
+    /* INICIAR MÚSICA */
+
+    function iniciarMusica() {
+
+        if (!narracion.paused && !narracion.ended) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        const intento = musica.play();
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function () {
+
+                console.log(
+                    "El navegador requiere interacción para iniciar la música."
+                );
+            });
+        }
+    }
+
+    /* SEGUNDO VIDEO CUANDO COMIENZA LA MÚSICA */
+
+    musica.addEventListener("play", function () {
+
+        if (!narracion.paused && !narracion.ended) {
+            narracion.pause();
+        }
+
+        iniciarSegundoVideo();
+    });
+
+    /* INTENTAR INICIO AUTOMÁTICO */
+
+    function iniciarNarracion() {
+
+        if (inicioNarracionSolicitado) {
+            return;
+        }
+
+        if (!narracion.paused || narracion.ended) {
+            return;
+        }
+
+        inicioNarracionSolicitado = true;
+
+        const intento = narracion.play();
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function () {
+
+                inicioNarracionSolicitado = false;
+
+                console.log(
+                    "Safari u otro navegador requiere interacción para iniciar la narración."
+                );
+            });
+        }
+    }
+
+    /* CARGA DE LA ESCENA */
+
+    window.addEventListener("load", function () {
+
+        musica.pause();
+        musica.currentTime = 0;
+
+        iniciarNarracion();
+    });
+
+    /*
+       RESPALDO PARA SAFARI Y CELULARES.
+
+       Si el navegador bloquea la reproducción
+       automática, el visitante puede pulsar
+       Play en el reproductor de narración.
+
+       La primera reproducción del video se
+       activará cuando comience la voz.
+    */
+
+    document.addEventListener("click", function (evento) {
+
+        if (evento.target.closest("a, audio, button")) {
+            return;
+        }
+
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+            iniciarNarracion();
+        }
+    });
 
 });
 
