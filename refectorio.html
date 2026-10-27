@@ -123,10 +123,8 @@
         }
 
         .restauracion h2 {
-            margin: 0 0 18px 0;
+            margin: 0 0 18px;
             font-size: 23px;
-            font-weight: bold;
-            font-style: normal;
             color: #325d4a;
         }
 
@@ -138,7 +136,7 @@
         }
 
         .restauracion p {
-            margin: 10px auto 0 auto;
+            margin: 10px auto 0;
             font-size: 16px;
             line-height: 1.5;
             font-style: italic;
@@ -146,19 +144,19 @@
             text-align: center;
         }
 
-        /* NARRACIÓN Y MÚSICA AMBIENTAL */
+        /* CONTROLES DE NARRACIÓN Y MÚSICA */
 
-        .narracion,
-        .audio {
+        .controles-audio {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px 20px 22px;
             text-align: center;
-            padding: 10px 20px 20px 20px;
         }
 
-        .narracion h3,
-        .audio h3 {
-            margin: 0 0 12px 0;
-            color: #325d4a;
+        .controles-audio h3 {
+            margin: 16px 0 12px;
             font-size: 18px;
+            color: #325d4a;
         }
 
         audio {
@@ -168,16 +166,46 @@
             margin: 0 auto;
         }
 
+        .boton-inicio {
+            display: inline-block;
+            margin: 6px auto 12px;
+            padding: 14px 24px;
+            background-color: #325d4a;
+            color: white;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .boton-inicio:hover {
+            opacity: 0.9;
+        }
+
+        .estado-audio {
+            max-width: 560px;
+            margin: 5px auto 18px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .bloque-audio {
+            padding: 6px 0 12px;
+        }
+
         /* BOTONES DE NAVEGACIÓN */
 
         .navegacion {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             align-items: stretch;
             gap: 15px;
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px 30px 35px 30px;
+            padding: 20px 30px 35px;
             background-color: #f5f1e6;
         }
 
@@ -229,7 +257,7 @@
             }
 
             .restauracion {
-                padding: 5px 18px 20px 18px;
+                padding: 5px 18px 20px;
             }
 
             .restauracion h2 {
@@ -240,9 +268,8 @@
                 font-size: 15px;
             }
 
-            .narracion,
-            .audio {
-                padding: 10px 15px 18px 15px;
+            .controles-audio {
+                padding: 10px 15px 18px;
             }
 
             audio {
@@ -253,7 +280,7 @@
                 grid-template-columns:
                     repeat(3, minmax(0, 1fr));
                 gap: 6px;
-                padding: 18px 8px 30px 8px;
+                padding: 18px 8px 30px;
             }
 
             .boton {
@@ -302,6 +329,7 @@
             class="video-historico"
             muted
             playsinline
+            webkit-playsinline
             preload="auto"
         >
             <source
@@ -326,7 +354,9 @@
 
         <h1>El refectorio</h1>
 
-        <h2>La mesa compartida en la vida conventual</h2>
+        <h2>
+            La mesa compartida en la vida conventual
+        </h2>
 
         <p>
             El refectorio era el espacio donde la comunidad
@@ -386,45 +416,63 @@
 
     </div>
 
-    <!-- NUEVA NARRACIÓN -->
+    <!-- NARRACIÓN Y MÚSICA -->
 
-    <div class="narracion">
+    <div class="controles-audio">
 
-        <h3>🎙️ Narración</h3>
-
-        <audio
-            id="narracion"
-            controls
-            preload="auto"
+        <button
+            id="botonInicio"
+            class="boton-inicio"
+            type="button"
         >
-            <source
-                src="Narraci%C3%B3n%20refectorio.m4a"
-                type="audio/mp4"
-            >
-            Tu navegador no admite reproducción de audio.
-        </audio>
+            ▶ Escuchar narración
+        </button>
 
-    </div>
-
-    <!-- MÚSICA AMBIENTAL ORIGINAL -->
-
-    <div class="audio">
-
-        <h3>🎵 Música ambiental</h3>
-
-        <audio
-            id="musica"
-            controls
-            loop
-            preload="auto"
+        <p
+            id="estadoAudio"
+            class="estado-audio"
+            role="status"
         >
-            <source
-                src="starostin-worship-gospel-christian-church-music-585716.mp3"
-                type="audio/mpeg"
+            La narración intentará comenzar automáticamente.
+            Si Safari la bloquea, pulsa el botón.
+        </p>
+
+        <div class="bloque-audio">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio
+                id="narracion"
+                controls
+                preload="auto"
             >
-            Tu navegador no puede reproducir este archivo
-            de audio.
-        </audio>
+                <source
+                    src="Narracio%CC%81n%20refectorio.m4a"
+                    type="audio/mp4"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
+
+        <div class="bloque-audio">
+
+            <h3>🎵 Música ambiental</h3>
+
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
+                <source
+                    src="starostin-worship-gospel-christian-church-music-585716.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
+
+        </div>
 
     </div>
 
@@ -457,13 +505,16 @@
 </div>
 
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const video = document.getElementById("videoHistorico");
     const rotulo = document.getElementById("rotuloHistorico");
+
     const narracion = document.getElementById("narracion");
     const musica = document.getElementById("musica");
+
+    const boton = document.getElementById("botonInicio");
+    const estado = document.getElementById("estadoAudio");
 
     narracion.volume = 1.0;
     musica.volume = 0.20;
@@ -473,12 +524,12 @@ document.addEventListener("DOMContentLoaded", function () {
        SECUENCIA ACORDADA:
 
        1. Comienza la narración.
-       2. Se reproduce por primera vez el video.
-       3. Termina el video y vuelve la fotografía.
+       2. Primera reproducción del video histórico.
+       3. Regresa la fotografía original.
        4. Termina la narración.
        5. Comienza la música ambiental.
-       6. Se reproduce por segunda vez el video.
-       7. Vuelve la fotografía original.
+       6. Segunda reproducción del video histórico.
+       7. Regresa la fotografía original.
        8. La música continúa en bucle.
 
        El video se reproduce como máximo dos veces.
@@ -491,16 +542,23 @@ document.addEventListener("DOMContentLoaded", function () {
     let videoActivo = false;
     let videoPreparando = false;
 
-    let inicioNarracionSolicitado = false;
+    function informar(mensaje) {
+        estado.textContent = mensaje;
+    }
 
-    /* OCULTAR RECONSTRUCCIÓN */
+    /* MOSTRAR Y OCULTAR RECONSTRUCCIÓN */
+
+    function mostrarReconstruccion() {
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+    }
 
     function ocultarReconstruccion() {
         video.classList.remove("visible");
         rotulo.classList.remove("visible");
     }
 
-    /* REPRODUCIR VIDEO */
+    /* REPRODUCIR VIDEO HISTÓRICO */
 
     function reproducirReconstruccion() {
 
@@ -512,6 +570,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ocultarReconstruccion();
 
         try {
+            video.pause();
             video.currentTime = 0;
         } catch (error) {
             console.log("Esperando disponibilidad del video.");
@@ -525,18 +584,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 videoPreparando = false;
                 videoActivo = true;
+                mostrarReconstruccion();
 
-                video.classList.add("visible");
-                rotulo.classList.add("visible");
-
-            }).catch(function () {
+            }).catch(function (error) {
 
                 videoPreparando = false;
                 videoActivo = false;
                 ocultarReconstruccion();
 
                 console.log(
-                    "El navegador no permitió reproducir el video."
+                    "No se pudo reproducir el video:",
+                    error
                 );
             });
 
@@ -544,15 +602,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             videoPreparando = false;
             videoActivo = true;
-
-            video.classList.add("visible");
-            rotulo.classList.add("visible");
+            mostrarReconstruccion();
         }
 
         return true;
     }
 
-    /* PRIMER VIDEO: AL COMENZAR LA NARRACIÓN */
+    /* PRIMER VIDEO: INICIO DE LA NARRACIÓN */
 
     function iniciarPrimerVideo() {
 
@@ -564,7 +620,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reproducirReconstruccion();
     }
 
-    /* SEGUNDO VIDEO: AL COMENZAR LA MÚSICA */
+    /* SEGUNDO VIDEO: INICIO DE LA MÚSICA */
 
     function iniciarSegundoVideo() {
 
@@ -573,6 +629,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (videoActivo || videoPreparando) {
+
             segundaPendiente = true;
             return;
         }
@@ -583,7 +640,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reproducirReconstruccion();
     }
 
-    /* FINAL DEL VIDEO */
+    /* FINAL DE CADA VIDEO */
 
     video.addEventListener("ended", function () {
 
@@ -610,35 +667,123 @@ document.addEventListener("DOMContentLoaded", function () {
 
         videoActivo = false;
         videoPreparando = false;
+
+        informar(
+            "No se pudo cargar la reconstrucción histórica. " +
+            "La narración y la música pueden continuar."
+        );
     });
 
-    /* INICIO DE LA NARRACIÓN */
+    /* INICIO EFECTIVO DE LA NARRACIÓN */
+
+    narracion.addEventListener("playing", function () {
+
+        musica.pause();
+
+        informar("Reproduciendo la narración del refectorio.");
+
+        iniciarPrimerVideo();
+    });
+
+    /* EVITAR SUPERPOSICIÓN DE AUDIOS */
 
     narracion.addEventListener("play", function () {
 
         musica.pause();
-        iniciarPrimerVideo();
     });
 
-    narracion.addEventListener("playing", function () {
-        musica.pause();
+    musica.addEventListener("play", function () {
+
+        if (!narracion.paused) {
+            narracion.pause();
+        }
     });
 
     /* FINAL DE LA NARRACIÓN */
 
     narracion.addEventListener("ended", function () {
+
+        boton.textContent = "▶ Escuchar música ambiental";
+
+        informar(
+            "La narración terminó. Iniciando música ambiental."
+        );
+
         iniciarMusica();
     });
+
+    /* INICIO EFECTIVO DE LA MÚSICA */
+
+    musica.addEventListener("playing", function () {
+
+        informar("Reproduciendo música ambiental.");
+
+        iniciarSegundoVideo();
+    });
+
+    /* DETECTAR ERRORES DE AUDIO */
+
+    narracion.addEventListener("error", function () {
+
+        informar(
+            "No se pudo cargar el archivo de narración. " +
+            "Comprueba el nombre exacto del archivo en GitHub."
+        );
+    });
+
+    musica.addEventListener("error", function () {
+
+        informar(
+            "No se pudo cargar el archivo de música ambiental."
+        );
+    });
+
+    /* INICIAR NARRACIÓN */
+
+    function iniciarNarracion() {
+
+        if (narracion.error) {
+
+            informar(
+                "El archivo de narración no está disponible."
+            );
+
+            return;
+        }
+
+        if (narracion.ended) {
+            narracion.currentTime = 0;
+        }
+
+        const intento = narracion.play();
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function (error) {
+
+                console.log(
+                    "No se pudo iniciar la narración:",
+                    error
+                );
+
+                informar(
+                    "Safari impidió el inicio automático. " +
+                    "Pulsa «Escuchar narración» para comenzar."
+                );
+            });
+        }
+    }
 
     /* INICIAR MÚSICA */
 
     function iniciarMusica() {
 
-        if (!narracion.paused && !narracion.ended) {
-            return;
-        }
+        if (musica.error) {
 
-        if (!musica.paused) {
+            informar(
+                "No se pudo cargar la música ambiental."
+            );
+
             return;
         }
 
@@ -646,93 +791,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (intento && typeof intento.catch === "function") {
 
-            intento.catch(function () {
+            intento.catch(function (error) {
 
                 console.log(
-                    "El navegador requiere interacción para iniciar la música."
+                    "No se pudo iniciar la música:",
+                    error
+                );
+
+                informar(
+                    "La narración terminó, pero Safari bloqueó " +
+                    "el inicio automático de la música. " +
+                    "Pulsa reproducir en el control de música."
                 );
             });
         }
     }
 
-    /* SEGUNDO VIDEO CUANDO COMIENZA LA MÚSICA */
+    /* BOTÓN PARA SAFARI */
 
-    musica.addEventListener("play", function () {
+    boton.addEventListener("click", function () {
 
-        if (!narracion.paused && !narracion.ended) {
-            narracion.pause();
+        if (!narracion.ended) {
+
+            iniciarNarracion();
+
+        } else {
+
+            iniciarMusica();
         }
-
-        iniciarSegundoVideo();
     });
 
-    /* INTENTAR INICIO AUTOMÁTICO */
-
-    function iniciarNarracion() {
-
-        if (inicioNarracionSolicitado) {
-            return;
-        }
-
-        if (!narracion.paused || narracion.ended) {
-            return;
-        }
-
-        inicioNarracionSolicitado = true;
-
-        const intento = narracion.play();
-
-        if (intento && typeof intento.catch === "function") {
-
-            intento.catch(function () {
-
-                inicioNarracionSolicitado = false;
-
-                console.log(
-                    "Safari u otro navegador requiere interacción para iniciar la narración."
-                );
-            });
-        }
-    }
-
-    /* CARGA DE LA ESCENA */
+    /* INTENTO DE INICIO AUTOMÁTICO */
 
     window.addEventListener("load", function () {
 
         musica.pause();
-        musica.currentTime = 0;
 
         iniciarNarracion();
     });
 
-    /*
-       RESPALDO PARA SAFARI Y CELULARES.
-
-       Si el navegador bloquea la reproducción
-       automática, el visitante puede pulsar
-       Play en el reproductor de narración.
-
-       La primera reproducción del video se
-       activará cuando comience la voz.
-    */
-
-    document.addEventListener("click", function (evento) {
-
-        if (evento.target.closest("a, audio, button")) {
-            return;
-        }
-
-        if (
-            narracion.paused &&
-            !narracion.ended &&
-            narracion.currentTime === 0
-        ) {
-            iniciarNarracion();
-        }
-    });
-
 });
-
 </script>
 
 <!-- CONTADOR GOATCOUNTER -->
