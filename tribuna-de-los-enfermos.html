@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -53,9 +54,21 @@
             text-align: justify;
         }
 
+        /* NARRACIÓN Y MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 25px 20px 20px 20px;
+        }
+
+        .bloque-audio {
+            margin-bottom: 24px;
+        }
+
+        .bloque-audio h3 {
+            margin: 0 0 12px;
+            font-size: 18px;
+            color: #325d4a;
         }
 
         audio {
@@ -64,6 +77,8 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* NAVEGACIÓN ORIGINAL */
 
         .navegacion {
             display: grid;
@@ -101,6 +116,8 @@
         .texto-celular {
             display: none;
         }
+
+        /* ADAPTACIÓN A CELULARES */
 
         @media (max-width: 600px) {
 
@@ -156,11 +173,15 @@
 
     <div class="escena">
 
+        <!-- FOTOGRAFÍA ORIGINAL -->
+
         <img
             class="imagen"
             src="WhatsApp Image 2026-09-28 at 23.14.28.jpeg"
             alt="Tribuna de los enfermos del antiguo convento de San Juan Bautista"
         >
+
+        <!-- TEXTO HISTÓRICO ORIGINAL -->
 
         <div class="contenido">
 
@@ -183,32 +204,303 @@
 
         </div>
 
+        <!-- NARRACIÓN Y MÚSICA AMBIENTAL -->
+
         <div class="audio">
 
-            <audio controls autoplay loop>
-                <source
-                    src="leberch-nature-584950.mp3"
-                    type="audio/mpeg"
+            <div class="bloque-audio">
+
+                <h3>🎙️ Narración</h3>
+
+                <audio
+                    id="narracion"
+                    controls
+                    preload="auto"
                 >
-                Tu navegador no soporta el elemento de audio.
-            </audio>
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+
+            </div>
+
+            <div class="bloque-audio">
+
+                <h3>🎵 Música ambiental</h3>
+
+                <audio
+                    id="musica"
+                    controls
+                    loop
+                    preload="auto"
+                >
+                    <source
+                        src="leberch-nature-584950.mp3"
+                        type="audio/mpeg"
+                    >
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+
+            </div>
 
         </div>
 
+        <!-- NAVEGACIÓN ORIGINAL -->
+
         <div class="navegacion">
 
-            <a class="boton" href="enfermeria-2.html">← REGRESAR</a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-                <span class="texto-celular">🗺 PLANO</span>
+            <a class="boton" href="enfermeria-2.html">
+                ← REGRESAR
             </a>
 
-            <a class="boton" href="tribuna-de-los-enfermos-2.html">SEGUIR →</a>
+            <a class="boton" href="mapa.html">
+                <span class="texto-escritorio">
+                    🗺 VOLVER AL PLANO
+                </span>
+                <span class="texto-celular">
+                    🗺 PLANO
+                </span>
+            </a>
+
+            <a class="boton" href="tribuna-de-los-enfermos-2.html">
+                SEGUIR →
+            </a>
 
         </div>
 
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const narracion = document.getElementById("narracion");
+        const musica = document.getElementById("musica");
+
+        /*
+           ARCHIVO ORIGINAL SUBIDO A GITHUB:
+
+           Narración tribuna.m4a
+
+           Se comprueban las dos formas Unicode
+           para conservar el nombre original.
+        */
+
+        const nombreNarracion = "Narración tribuna.m4a";
+
+        const rutasNarracion = [
+            encodeURIComponent(nombreNarracion.normalize("NFD")),
+            encodeURIComponent(nombreNarracion.normalize("NFC"))
+        ].filter(function (ruta, indice, lista) {
+            return lista.indexOf(ruta) === indice;
+        });
+
+        let indiceRuta = 0;
+        let inicioNarracionSolicitado = false;
+        let narracionIntentada = false;
+
+        narracion.src = rutasNarracion[indiceRuta];
+        narracion.load();
+
+        narracion.volume = 1.0;
+        musica.volume = 0.20;
+
+        /*
+           SECUENCIA DE AUDIO:
+
+           1. Intentar iniciar la narración
+              automáticamente al entrar.
+
+           2. Mientras se escucha la voz,
+              la música permanece detenida.
+
+           3. Al terminar la narración,
+              comienza la música ambiental.
+
+           4. La música continúa en repetición.
+
+           Sin botones adicionales.
+        */
+
+        /* EVITAR SUPERPOSICIÓN */
+
+        narracion.addEventListener("play", function () {
+            musica.pause();
+        });
+
+        narracion.addEventListener("playing", function () {
+            musica.pause();
+        });
+
+        musica.addEventListener("play", function () {
+
+            if (!narracion.paused && !narracion.ended) {
+                narracion.pause();
+            }
+        });
+
+        /*
+           AL TERMINAR LA NARRACIÓN,
+           INICIAR LA MÚSICA AMBIENTAL.
+        */
+
+        narracion.addEventListener("ended", function () {
+            iniciarMusica();
+        });
+
+        /* INICIAR MÚSICA */
+
+        function iniciarMusica() {
+
+            if (!narracion.paused && !narracion.ended) {
+                return;
+            }
+
+            if (!musica.paused) {
+                return;
+            }
+
+            let intento;
+
+            try {
+                intento = musica.play();
+            } catch (error) {
+
+                console.log(
+                    "No se pudo iniciar la música ambiental:",
+                    error
+                );
+
+                return;
+            }
+
+            if (intento && typeof intento.catch === "function") {
+
+                intento.catch(function (error) {
+
+                    console.log(
+                        "El navegador requiere interacción para iniciar la música:",
+                        error
+                    );
+                });
+            }
+        }
+
+        /*
+           SI LA PRIMERA CODIFICACIÓN
+           DEL NOMBRE NO EXISTE,
+           INTENTAR LA SEGUNDA.
+        */
+
+        narracion.addEventListener("error", function () {
+
+            if (indiceRuta + 1 < rutasNarracion.length) {
+
+                indiceRuta++;
+
+                narracion.src = rutasNarracion[indiceRuta];
+                narracion.load();
+
+                if (narracionIntentada) {
+
+                    inicioNarracionSolicitado = false;
+                    iniciarNarracion();
+                }
+
+                return;
+            }
+
+            console.log(
+                "No se pudo cargar Narración tribuna.m4a."
+            );
+        });
+
+        /* INICIAR NARRACIÓN */
+
+        function iniciarNarracion() {
+
+            if (inicioNarracionSolicitado) {
+                return;
+            }
+
+            if (!narracion.paused || narracion.ended) {
+                return;
+            }
+
+            inicioNarracionSolicitado = true;
+            narracionIntentada = true;
+
+            let intento;
+
+            try {
+                intento = narracion.play();
+            } catch (error) {
+
+                inicioNarracionSolicitado = false;
+
+                console.log(
+                    "No se pudo iniciar la narración:",
+                    error
+                );
+
+                return;
+            }
+
+            if (intento && typeof intento.catch === "function") {
+
+                intento.catch(function (error) {
+
+                    inicioNarracionSolicitado = false;
+
+                    if (error.name !== "AbortError") {
+
+                        console.log(
+                            "El navegador requiere interacción para iniciar la narración:",
+                            error
+                        );
+                    }
+                });
+            }
+        }
+
+        /* INICIO AUTOMÁTICO DE LA ESCENA */
+
+        window.addEventListener("load", function () {
+
+            musica.pause();
+            musica.currentTime = 0;
+
+            iniciarNarracion();
+        });
+
+        /*
+           RESPALDO PARA SAFARI.
+
+           Si el navegador bloquea el inicio
+           automático, se utiliza el reproductor
+           de narración existente.
+
+           También se permite un nuevo intento
+           al tocar una zona libre de la página,
+           sin añadir ningún botón.
+        */
+
+        document.addEventListener("click", function (evento) {
+
+            if (evento.target.closest("a, audio, button")) {
+                return;
+            }
+
+            if (
+                narracion.paused &&
+                !narracion.ended &&
+                narracion.currentTime === 0
+            ) {
+                iniciarNarracion();
+            }
+        });
+
+    });
+    </script>
+
+    <!-- CONTADOR GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
