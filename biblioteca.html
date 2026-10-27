@@ -26,12 +26,58 @@ body {
     background-color: #f5f1e6;
 }
 
-/* FOTOGRAFÍA ORIGINAL */
+/* FOTOGRAFÍA Y VIDEO HISTÓRICO */
+
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #171717;
+}
 
 .imagen {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
+}
+
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+.video-historico.visible {
+    opacity: 1;
+}
+
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+    width: max-content;
+    max-width: 92%;
+}
+
+.rotulo-historico.visible {
+    opacity: 1;
 }
 
 /* CONTENIDO HISTÓRICO */
@@ -51,13 +97,13 @@ body {
 }
 
 .contenido p {
-    margin: 0 auto 16px auto;
+    margin: 0 auto 16px;
     font-size: 18px;
     line-height: 1.7;
     text-align: justify;
 }
 
-/* FOTOGRAFÍA DESPUÉS DEL SISMO */
+/* FOTOGRAFÍA DE RESTAURACIÓN */
 
 .restauracion {
     max-width: 900px;
@@ -74,9 +120,9 @@ body {
 }
 
 .restauracion img {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
     border-radius: 8px;
 }
 
@@ -89,7 +135,7 @@ body {
     text-align: center;
 }
 
-/* NARRACIÓN Y MÚSICA AMBIENTAL */
+/* NARRACIÓN Y MÚSICA */
 
 .controles-audio {
     max-width: 900px;
@@ -111,7 +157,7 @@ audio {
     margin: 0 auto;
 }
 
-/* BOTONES DE NAVEGACIÓN */
+/* NAVEGACIÓN */
 
 .navegacion {
     display: grid;
@@ -150,10 +196,7 @@ audio {
     display: none;
 }
 
-/* ADAPTACIÓN A CELULARES */
-
 @media (max-width: 600px) {
-
     .contenido {
         padding: 22px 18px;
     }
@@ -207,6 +250,12 @@ audio {
     .texto-celular {
         display: inline;
     }
+
+    .rotulo-historico {
+        bottom: 10px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
 }
 </style>
 </head>
@@ -215,13 +264,39 @@ audio {
 
 <div class="escena">
 
-    <!-- FOTOGRAFÍA ORIGINAL -->
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
 
-    <img
-        class="imagen"
-        src="WhatsApp Image 2026-09-24 at 16.35.14.jpeg"
-        alt="Biblioteca del convento"
-    >
+    <div class="escenario">
+
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-24 at 16.35.14.jpeg"
+            alt="Biblioteca del convento"
+        >
+
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            webkit-playsinline
+            preload="auto"
+        >
+            <source
+                src="globo%20terraqueo.MOV"
+                type="video/quicktime"
+            >
+            Tu navegador no admite reproducción de video.
+        </video>
+
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
+        </div>
+
+    </div>
 
     <!-- TEXTO HISTÓRICO ORIGINAL -->
 
@@ -268,7 +343,7 @@ audio {
 
     </div>
 
-    <!-- NARRACIÓN ORIGINAL, SIN BOTÓN ADICIONAL -->
+    <!-- REPRODUCTORES ORIGINALES -->
 
     <div class="controles-audio">
 
@@ -323,19 +398,29 @@ audio {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
+    const video = document.getElementById("videoHistorico");
+    const rotulo = document.getElementById("rotuloHistorico");
     const narracion = document.getElementById("narracion");
     const musica = document.getElementById("musica");
 
     narracion.volume = 1.0;
     musica.volume = 0.30;
+    video.muted = true;
 
     /*
-       ARCHIVO ORIGINAL:
-       Narración biblioteca.m4a
+       SECUENCIA DE SALA DE PROFUNDIS:
 
-       Se conserva el nombre exacto y se
-       comprueban sus formas Unicode NFD y NFC.
+       1. Comienza la narración y el primer video.
+       2. Termina el video y vuelve la fotografía.
+       3. Al terminar la narración comienza la música.
+       4. El video se reproduce por segunda vez.
+       5. Vuelve la fotografía original.
+       6. La música continúa en repetición.
+
+       No se añaden botones adicionales.
     */
+
+    /* NOMBRE ORIGINAL DE LA NARRACIÓN */
 
     const nombreNarracion = "Narración biblioteca.m4a";
 
@@ -348,23 +433,174 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let indiceRuta = 0;
     let inicioNarracionSolicitado = false;
-    let reproduccionAutomaticaSolicitada = false;
+    let narracionIntentada = false;
 
     narracion.src = rutasNarracion[indiceRuta];
     narracion.load();
 
-    /*
-       SECUENCIA:
+    /* CONTROL DE LAS DOS REPRODUCCIONES */
 
-       1. Intentar iniciar automáticamente la narración.
-       2. Mantener detenida la música durante la voz.
-       3. Al terminar la narración, iniciar la música.
-       4. Continuar la música en repetición.
+    let primeraIniciada = false;
+    let segundaIniciada = false;
+    let segundaPendiente = false;
 
-       Sin botones nuevos ni mensajes de estado.
-    */
+    let videoActivo = false;
+    let videoPreparando = false;
+    let musicaIniciada = false;
 
-    /* IMPEDIR SUPERPOSICIÓN */
+    let temporizadorSegunda = null;
+
+    /* TRANSICIONES VISUALES */
+
+    function mostrarReconstruccion() {
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+    }
+
+    function mostrarFotografia() {
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+    }
+
+    /* REPRODUCCIÓN DEL VIDEO */
+
+    function reproducirVideo(numero) {
+
+        if (videoActivo || videoPreparando) {
+            return;
+        }
+
+        if (numero === 1 && primeraIniciada) {
+            return;
+        }
+
+        if (numero === 2 && segundaIniciada) {
+            return;
+        }
+
+        videoPreparando = true;
+        mostrarFotografia();
+
+        try {
+            video.pause();
+            video.currentTime = 0;
+        } catch (error) {
+            console.log("Preparando video de biblioteca.");
+        }
+
+        let intento;
+
+        try {
+            intento = video.play();
+        } catch (error) {
+            videoPreparando = false;
+            mostrarFotografia();
+            console.log("Error al iniciar video:", error);
+            return;
+        }
+
+        function confirmarInicio() {
+
+            videoPreparando = false;
+            videoActivo = true;
+
+            if (numero === 1) {
+                primeraIniciada = true;
+            }
+
+            if (numero === 2) {
+                segundaIniciada = true;
+            }
+
+            mostrarReconstruccion();
+        }
+
+        function registrarError(error) {
+
+            videoPreparando = false;
+            videoActivo = false;
+            mostrarFotografia();
+
+            console.log(
+                "No se pudo reproducir el video:",
+                error
+            );
+        }
+
+        if (intento && typeof intento.then === "function") {
+            intento.then(confirmarInicio).catch(registrarError);
+        } else {
+            confirmarInicio();
+        }
+    }
+
+    /* PRIMER VIDEO CON LA NARRACIÓN */
+
+    function iniciarPrimerVideo() {
+
+        if (primeraIniciada || videoActivo || videoPreparando) {
+            return;
+        }
+
+        reproducirVideo(1);
+    }
+
+    /* SEGUNDO VIDEO CON LA MÚSICA */
+
+    function iniciarSegundoVideo() {
+
+        if (!musicaIniciada || segundaIniciada) {
+            return;
+        }
+
+        if (videoActivo || videoPreparando) {
+            segundaPendiente = true;
+            return;
+        }
+
+        segundaPendiente = false;
+        reproducirVideo(2);
+    }
+
+    /* CUANDO TERMINA EL VIDEO */
+
+    video.addEventListener("ended", function () {
+
+        mostrarFotografia();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        if (
+            segundaPendiente &&
+            musicaIniciada &&
+            !segundaIniciada
+        ) {
+
+            segundaPendiente = false;
+
+            temporizadorSegunda = setTimeout(function () {
+                temporizadorSegunda = null;
+                iniciarSegundoVideo();
+            }, 1600);
+        }
+    });
+
+    /* SI FALLA EL VIDEO, CONSERVAR LA FOTO */
+
+    video.addEventListener("error", function () {
+
+        mostrarFotografia();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        console.log(
+            "No se pudo cargar globo terraqueo.MOV."
+        );
+    });
+
+    /* NARRACIÓN: DETENER MÚSICA */
 
     narracion.addEventListener("play", function () {
         musica.pause();
@@ -372,25 +608,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     narracion.addEventListener("playing", function () {
         musica.pause();
+        iniciarPrimerVideo();
     });
 
-    musica.addEventListener("play", function () {
-
-        if (!narracion.paused && !narracion.ended) {
-            narracion.pause();
-        }
-    });
-
-    /*
-       AL TERMINAR LA NARRACIÓN,
-       COMENZAR LA MÚSICA.
-    */
+    /* FINAL DE LA NARRACIÓN */
 
     narracion.addEventListener("ended", function () {
         iniciarMusica();
     });
 
-    /* INICIAR MÚSICA AMBIENTAL */
+    /* INICIAR MÚSICA */
 
     function iniciarMusica() {
 
@@ -407,19 +634,15 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             intento = musica.play();
         } catch (error) {
-
             console.log(
                 "No se pudo iniciar la música:",
                 error
             );
-
             return;
         }
 
         if (intento && typeof intento.catch === "function") {
-
             intento.catch(function (error) {
-
                 console.log(
                     "El navegador requiere interacción para iniciar la música:",
                     error
@@ -428,10 +651,31 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    /*
-       SI EL ARCHIVO NFD NO EXISTE,
-       INTENTAR LA FORMA NFC.
-    */
+    /* EVITAR QUE VOZ Y MÚSICA SE SUPERPONGAN */
+
+    musica.addEventListener("play", function () {
+
+        if (!narracion.paused && !narracion.ended) {
+            narracion.pause();
+        }
+    });
+
+    /* SEGUNDO VIDEO AL COMENZAR LA MÚSICA */
+
+    musica.addEventListener("playing", function () {
+
+        if (!narracion.paused && !narracion.ended) {
+            musica.pause();
+            return;
+        }
+
+        if (!musicaIniciada) {
+            musicaIniciada = true;
+            iniciarSegundoVideo();
+        }
+    });
+
+    /* CODIFICACIÓN ALTERNATIVA DE NARRACIÓN */
 
     narracion.addEventListener("error", function () {
 
@@ -442,8 +686,7 @@ document.addEventListener("DOMContentLoaded", function () {
             narracion.src = rutasNarracion[indiceRuta];
             narracion.load();
 
-            if (reproduccionAutomaticaSolicitada) {
-
+            if (narracionIntentada) {
                 inicioNarracionSolicitado = false;
                 iniciarNarracion();
             }
@@ -469,21 +712,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         inicioNarracionSolicitado = true;
-        reproduccionAutomaticaSolicitada = true;
+        narracionIntentada = true;
 
         let intento;
 
         try {
             intento = narracion.play();
         } catch (error) {
-
             inicioNarracionSolicitado = false;
-
             console.log(
                 "No se pudo iniciar la narración:",
                 error
             );
-
             return;
         }
 
@@ -494,7 +734,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 inicioNarracionSolicitado = false;
 
                 if (error.name !== "AbortError") {
-
                     console.log(
                         "El navegador requiere interacción para iniciar la narración:",
                         error
@@ -504,7 +743,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    /* INICIO AUTOMÁTICO DE LA ESCENA */
+    /* INICIO AUTOMÁTICO */
 
     window.addEventListener("load", function () {
 
@@ -515,13 +754,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /*
-       RESPALDO PARA SAFARI Y CELULARES.
+       RESPALDO PARA SAFARI:
 
-       Si el navegador bloquea el inicio automático,
+       Si se bloquea la reproducción automática,
        el visitante puede usar el reproductor
        original de narración.
 
-       No se añade ningún botón.
+       También puede reintentarse al tocar
+       una zona libre de la página.
     */
 
     document.addEventListener("click", function (evento) {
@@ -536,6 +776,16 @@ document.addEventListener("DOMContentLoaded", function () {
             narracion.currentTime === 0
         ) {
             iniciarNarracion();
+        }
+    });
+
+    /* LIMPIEZA AL SALIR */
+
+    window.addEventListener("pagehide", function () {
+
+        if (temporizadorSegunda !== null) {
+            clearTimeout(temporizadorSegunda);
+            temporizadorSegunda = null;
         }
     });
 
