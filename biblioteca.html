@@ -14,8 +14,7 @@
 
 body {
     margin: 0;
-    padding: 0;
-    background-color: #f5f1e6;
+    background: #f5f1e6;
     color: #2f2f2f;
     font-family: Arial, sans-serif;
 }
@@ -23,16 +22,13 @@ body {
 .escena {
     width: 100%;
     min-height: 100vh;
-    background-color: #f5f1e6;
 }
-
-/* FOTOGRAFÍA Y VIDEO HISTÓRICO */
 
 .escenario {
     position: relative;
     width: 100%;
     overflow: hidden;
-    background-color: #171717;
+    background: #171717;
 }
 
 .imagen {
@@ -47,9 +43,9 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background-color: #171717;
+    background: #171717;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.5s ease;
     pointer-events: none;
 }
 
@@ -70,7 +66,7 @@ body {
     text-align: center;
     border-radius: 6px;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.5s ease;
     pointer-events: none;
     width: max-content;
     max-width: 92%;
@@ -80,20 +76,17 @@ body {
     opacity: 1;
 }
 
-/* CONTENIDO HISTÓRICO */
-
 .contenido {
     max-width: 900px;
     margin: 0 auto;
     padding: 24px 28px;
-    text-align: center;
 }
 
 .contenido h1 {
-    margin-top: 0;
-    margin-bottom: 22px;
+    margin: 0 0 22px;
     font-size: 30px;
     color: #325d4a;
+    text-align: center;
 }
 
 .contenido p {
@@ -102,8 +95,6 @@ body {
     line-height: 1.7;
     text-align: justify;
 }
-
-/* FOTOGRAFÍA DE RESTAURACIÓN */
 
 .restauracion {
     max-width: 900px;
@@ -115,7 +106,6 @@ body {
 .restauracion h2 {
     margin: 0 0 18px;
     font-size: 23px;
-    font-weight: bold;
     color: #325d4a;
 }
 
@@ -132,10 +122,7 @@ body {
     line-height: 1.5;
     font-style: italic;
     color: #555;
-    text-align: center;
 }
-
-/* NARRACIÓN Y MÚSICA */
 
 .controles-audio {
     max-width: 900px;
@@ -157,17 +144,13 @@ audio {
     margin: 0 auto;
 }
 
-/* NAVEGACIÓN */
-
 .navegacion {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: stretch;
     gap: 15px;
     max-width: 900px;
     margin: 0 auto;
     padding: 20px 30px 35px;
-    background-color: #f5f1e6;
 }
 
 .boton {
@@ -176,15 +159,13 @@ audio {
     justify-content: center;
     min-height: 54px;
     padding: 14px 12px;
-    background-color: #325d4a;
+    background: #325d4a;
     color: white;
     text-decoration: none;
-    border-radius: 8px;
     border: 2px solid white;
-    font-family: Arial, sans-serif;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
-    line-height: 1.2;
     text-align: center;
 }
 
@@ -197,6 +178,7 @@ audio {
 }
 
 @media (max-width: 600px) {
+
     .contenido {
         padding: 22px 18px;
     }
@@ -239,7 +221,6 @@ audio {
         min-height: 48px;
         padding: 10px 3px;
         font-size: 12px;
-        line-height: 1;
         white-space: nowrap;
     }
 
@@ -264,7 +245,7 @@ audio {
 
 <div class="escena">
 
-    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
+    <!-- FOTOGRAFÍA ORIGINAL Y RECONSTRUCCIÓN -->
 
     <div class="escenario">
 
@@ -281,13 +262,8 @@ audio {
             playsinline
             webkit-playsinline
             preload="auto"
-        >
-            <source
-                src="globo%20terraqueo.MOV"
-                type="video/quicktime"
-            >
-            Tu navegador no admite reproducción de video.
-        </video>
+            disablepictureinpicture
+        ></video>
 
         <div
             id="rotuloHistorico"
@@ -298,7 +274,7 @@ audio {
 
     </div>
 
-    <!-- TEXTO HISTÓRICO ORIGINAL -->
+    <!-- TEXTO HISTÓRICO -->
 
     <div class="contenido">
 
@@ -326,7 +302,7 @@ audio {
 
     </div>
 
-    <!-- FOTOGRAFÍA DESPUÉS DEL SISMO -->
+    <!-- FOTOGRAFÍA DE RESTAURACIÓN -->
 
     <div class="restauracion">
 
@@ -343,7 +319,7 @@ audio {
 
     </div>
 
-    <!-- REPRODUCTORES ORIGINALES -->
+    <!-- AUDIO -->
 
     <div class="controles-audio">
 
@@ -353,9 +329,7 @@ audio {
             id="narracion"
             controls
             preload="auto"
-        >
-            Tu navegador no admite reproducción de audio.
-        </audio>
+        ></audio>
 
         <h3>🎵 Música ambiental</h3>
 
@@ -369,25 +343,37 @@ audio {
                 src="leberch-piano-piano-music-606084.mp3"
                 type="audio/mpeg"
             >
-            Tu navegador no admite reproducción de audio.
         </audio>
 
     </div>
 
-    <!-- NAVEGACIÓN ORIGINAL -->
+    <!-- NAVEGACIÓN -->
 
     <div class="navegacion">
 
-        <a class="boton" href="celda-del-fraile-2.html">
+        <a
+            class="boton"
+            href="celda-del-fraile-2.html"
+        >
             ← REGRESAR
         </a>
 
-        <a class="boton" href="mapa.html">
-            <span class="texto-escritorio">🗺 VOLVER AL PLANO</span>
-            <span class="texto-celular">🗺 PLANO</span>
+        <a
+            class="boton"
+            href="mapa.html"
+        >
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
         </a>
 
-        <a class="boton" href="biblioteca-2.html">
+        <a
+            class="boton"
+            href="biblioteca-2.html"
+        >
             SEGUIR →
         </a>
 
@@ -403,370 +389,411 @@ document.addEventListener("DOMContentLoaded", function () {
     const narracion = document.getElementById("narracion");
     const musica = document.getElementById("musica");
 
-    narracion.volume = 1.0;
-    musica.volume = 0.30;
-    video.muted = true;
-
     /*
-       SECUENCIA DE SALA DE PROFUNDIS:
-
-       1. Comienza la narración y el primer video.
-       2. Termina el video y vuelve la fotografía.
-       3. Al terminar la narración comienza la música.
-       4. El video se reproduce por segunda vez.
-       5. Vuelve la fotografía original.
-       6. La música continúa en repetición.
-
-       No se añaden botones adicionales.
+       ARCHIVOS ORIGINALES
     */
 
-    /* NOMBRE ORIGINAL DE LA NARRACIÓN */
+    const archivoVideo = "globo terraqueo.MOV";
+    const archivoNarracion = "Narración biblioteca.m4a";
 
-    const nombreNarracion = "Narración biblioteca.m4a";
+    /*
+       CARGA DEL VIDEO
+
+       No se fuerza el tipo video/quicktime.
+       El navegador examina el contenido del archivo.
+
+       IMPORTANTE:
+       Si el códec del MOV no es compatible,
+       será necesario convertir el archivo a MP4.
+    */
+
+    video.src = encodeURIComponent(archivoVideo);
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.loop = false;
+    video.preload = "auto";
+    video.load();
+
+    /*
+       RUTAS DE NARRACIÓN:
+       COMPATIBILIDAD CON ACENTOS EN GITHUB
+    */
 
     const rutasNarracion = [
-        encodeURIComponent(nombreNarracion.normalize("NFD")),
-        encodeURIComponent(nombreNarracion.normalize("NFC"))
+        encodeURIComponent(archivoNarracion.normalize("NFD")),
+        encodeURIComponent(archivoNarracion.normalize("NFC"))
     ].filter(function (ruta, indice, lista) {
         return lista.indexOf(ruta) === indice;
     });
 
-    let indiceRuta = 0;
-    let inicioNarracionSolicitado = false;
-    let narracionIntentada = false;
+    let indiceNarracion = 0;
 
-    narracion.src = rutasNarracion[indiceRuta];
+    narracion.src = rutasNarracion[indiceNarracion];
+    narracion.volume = 1;
     narracion.load();
 
-    /* CONTROL DE LAS DOS REPRODUCCIONES */
+    musica.volume = 0.20;
+    musica.loop = true;
 
-    let primeraIniciada = false;
-    let segundaIniciada = false;
-    let segundaPendiente = false;
+    /*
+       ESTADOS DE LA SECUENCIA
+    */
 
-    let videoActivo = false;
+    let primeraReproduccion = false;
+    let segundaReproduccion = false;
+
+    let videoEnCurso = false;
     let videoPreparando = false;
-    let musicaIniciada = false;
 
-    let temporizadorSegunda = null;
+    let segundoVideoPendiente = false;
+    let musicaComenzada = false;
 
-    /* TRANSICIONES VISUALES */
+    let videoDisponible = true;
+    let narracionSolicitada = false;
 
-    function mostrarReconstruccion() {
+    let temporizador = null;
+
+    /*
+       TRANSICIONES
+    */
+
+    function mostrarVideo() {
         video.classList.add("visible");
         rotulo.classList.add("visible");
     }
 
-    function mostrarFotografia() {
+    function mostrarFoto() {
         video.classList.remove("visible");
         rotulo.classList.remove("visible");
     }
 
-    /* REPRODUCCIÓN DEL VIDEO */
+    /*
+       RESTABLECER VIDEO
+    */
 
-    function reproducirVideo(numero) {
+    function detenerVideo() {
 
-        if (videoActivo || videoPreparando) {
+        mostrarFoto();
+
+        try {
+            video.pause();
+        } catch (error) {
+            console.log(error);
+        }
+
+        videoEnCurso = false;
+        videoPreparando = false;
+    }
+
+    /*
+       REPRODUCCIÓN HISTÓRICA
+       numero = 1: CON NARRACIÓN
+       numero = 2: CON MÚSICA
+    */
+
+    async function reproducirReconstruccion(numero) {
+
+        if (!videoDisponible) {
             return;
         }
 
-        if (numero === 1 && primeraIniciada) {
+        if (videoEnCurso || videoPreparando) {
+            if (numero === 2) {
+                segundoVideoPendiente = true;
+            }
             return;
         }
 
-        if (numero === 2 && segundaIniciada) {
+        if (numero === 1 && primeraReproduccion) {
+            return;
+        }
+
+        if (numero === 2 && segundaReproduccion) {
             return;
         }
 
         videoPreparando = true;
-        mostrarFotografia();
+
+        mostrarFoto();
 
         try {
+
             video.pause();
             video.currentTime = 0;
-        } catch (error) {
-            console.log("Preparando video de biblioteca.");
-        }
 
-        let intento;
+            /*
+               Esperar al primer fotograma antes
+               de mostrar el video.
+            */
 
-        try {
-            intento = video.play();
-        } catch (error) {
+            await video.play();
+
+            if (video.paused || video.ended) {
+                throw new Error(
+                    "El video no comenzó correctamente."
+                );
+            }
+
+            videoEnCurso = true;
             videoPreparando = false;
-            mostrarFotografia();
-            console.log("Error al iniciar video:", error);
-            return;
-        }
-
-        function confirmarInicio() {
-
-            videoPreparando = false;
-            videoActivo = true;
 
             if (numero === 1) {
-                primeraIniciada = true;
+                primeraReproduccion = true;
             }
 
             if (numero === 2) {
-                segundaIniciada = true;
+                segundaReproduccion = true;
             }
 
-            mostrarReconstruccion();
-        }
+            if (video.readyState >= 2) {
+                mostrarVideo();
+            } else {
+                video.addEventListener(
+                    "loadeddata",
+                    mostrarVideo,
+                    { once: true }
+                );
+            }
 
-        function registrarError(error) {
+        } catch (error) {
 
             videoPreparando = false;
-            videoActivo = false;
-            mostrarFotografia();
+            videoEnCurso = false;
+
+            mostrarFoto();
 
             console.log(
-                "No se pudo reproducir el video:",
+                "No se pudo reproducir la reconstrucción:",
                 error
             );
         }
-
-        if (intento && typeof intento.then === "function") {
-            intento.then(confirmarInicio).catch(registrarError);
-        } else {
-            confirmarInicio();
-        }
     }
 
-    /* PRIMER VIDEO CON LA NARRACIÓN */
-
-    function iniciarPrimerVideo() {
-
-        if (primeraIniciada || videoActivo || videoPreparando) {
-            return;
-        }
-
-        reproducirVideo(1);
-    }
-
-    /* SEGUNDO VIDEO CON LA MÚSICA */
-
-    function iniciarSegundoVideo() {
-
-        if (!musicaIniciada || segundaIniciada) {
-            return;
-        }
-
-        if (videoActivo || videoPreparando) {
-            segundaPendiente = true;
-            return;
-        }
-
-        segundaPendiente = false;
-        reproducirVideo(2);
-    }
-
-    /* CUANDO TERMINA EL VIDEO */
+    /*
+       FIN DE CADA REPRODUCCIÓN
+    */
 
     video.addEventListener("ended", function () {
 
-        mostrarFotografia();
+        mostrarFoto();
 
-        videoActivo = false;
+        videoEnCurso = false;
         videoPreparando = false;
 
         if (
-            segundaPendiente &&
-            musicaIniciada &&
-            !segundaIniciada
+            segundoVideoPendiente &&
+            musicaComenzada &&
+            !segundaReproduccion
         ) {
 
-            segundaPendiente = false;
+            segundoVideoPendiente = false;
 
-            temporizadorSegunda = setTimeout(function () {
-                temporizadorSegunda = null;
-                iniciarSegundoVideo();
+            temporizador = setTimeout(function () {
+                temporizador = null;
+                reproducirReconstruccion(2);
             }, 1600);
         }
     });
 
-    /* SI FALLA EL VIDEO, CONSERVAR LA FOTO */
+    /*
+       ERRORES DEL ARCHIVO MOV
+    */
 
     video.addEventListener("error", function () {
 
-        mostrarFotografia();
+        videoDisponible = false;
 
-        videoActivo = false;
-        videoPreparando = false;
+        detenerVideo();
 
-        console.log(
-            "No se pudo cargar globo terraqueo.MOV."
+        console.error(
+            "No se puede reproducir globo terraqueo.MOV. " +
+            "Comprueba que el archivo exista y que su " +
+            "códec sea compatible con el navegador."
         );
     });
 
-    /* NARRACIÓN: DETENER MÚSICA */
+    /*
+       PRIMER VIDEO:
+       CUANDO COMIENZA LA NARRACIÓN
+    */
+
+    narracion.addEventListener("playing", function () {
+
+        musica.pause();
+
+        if (!primeraReproduccion) {
+            reproducirReconstruccion(1);
+        }
+    });
+
+    /*
+       EVITAR SUPERPOSICIÓN DE AUDIO
+    */
 
     narracion.addEventListener("play", function () {
         musica.pause();
     });
 
-    narracion.addEventListener("playing", function () {
-        musica.pause();
-        iniciarPrimerVideo();
+    musica.addEventListener("play", function () {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            narracion.pause();
+        }
     });
 
-    /* FINAL DE LA NARRACIÓN */
+    /*
+       TERMINA NARRACIÓN:
+       COMIENZA MÚSICA
+    */
 
     narracion.addEventListener("ended", function () {
         iniciarMusica();
     });
 
-    /* INICIAR MÚSICA */
+    async function iniciarMusica() {
 
-    function iniciarMusica() {
-
-        if (!narracion.paused && !narracion.ended) {
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
             return;
         }
-
-        if (!musica.paused) {
-            return;
-        }
-
-        let intento;
 
         try {
-            intento = musica.play();
+            await musica.play();
         } catch (error) {
             console.log(
-                "No se pudo iniciar la música:",
+                "La música requiere interacción del visitante.",
                 error
             );
-            return;
-        }
-
-        if (intento && typeof intento.catch === "function") {
-            intento.catch(function (error) {
-                console.log(
-                    "El navegador requiere interacción para iniciar la música:",
-                    error
-                );
-            });
         }
     }
 
-    /* EVITAR QUE VOZ Y MÚSICA SE SUPERPONGAN */
-
-    musica.addEventListener("play", function () {
-
-        if (!narracion.paused && !narracion.ended) {
-            narracion.pause();
-        }
-    });
-
-    /* SEGUNDO VIDEO AL COMENZAR LA MÚSICA */
+    /*
+       SEGUNDO VIDEO:
+       CUANDO COMIENZA LA MÚSICA
+    */
 
     musica.addEventListener("playing", function () {
 
-        if (!narracion.paused && !narracion.ended) {
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
             musica.pause();
             return;
         }
 
-        if (!musicaIniciada) {
-            musicaIniciada = true;
-            iniciarSegundoVideo();
+        if (musicaComenzada) {
+            return;
+        }
+
+        musicaComenzada = true;
+
+        if (videoEnCurso || videoPreparando) {
+            segundoVideoPendiente = true;
+        } else {
+            reproducirReconstruccion(2);
         }
     });
 
-    /* CODIFICACIÓN ALTERNATIVA DE NARRACIÓN */
+    /*
+       SI EL VIDEO TERMINÓ Y LA MÚSICA
+       CONTINÚA, NO VOLVER A REPRODUCIRLO
+    */
+
+    /*
+       CARGA ALTERNATIVA DE LA NARRACIÓN
+    */
 
     narracion.addEventListener("error", function () {
 
-        if (indiceRuta + 1 < rutasNarracion.length) {
+        if (
+            indiceNarracion + 1 <
+            rutasNarracion.length
+        ) {
 
-            indiceRuta++;
+            indiceNarracion++;
 
-            narracion.src = rutasNarracion[indiceRuta];
+            narracion.src =
+                rutasNarracion[indiceNarracion];
+
             narracion.load();
 
-            if (narracionIntentada) {
-                inicioNarracionSolicitado = false;
+            if (narracionSolicitada) {
                 iniciarNarracion();
             }
 
-            return;
-        }
+        } else {
 
-        console.log(
-            "No se pudo cargar Narración biblioteca.m4a."
-        );
+            console.error(
+                "No se encontró Narración biblioteca.m4a."
+            );
+        }
     });
 
-    /* INICIAR NARRACIÓN */
+    /*
+       INICIAR NARRACIÓN AUTOMÁTICAMENTE
+    */
 
-    function iniciarNarracion() {
-
-        if (inicioNarracionSolicitado) {
-            return;
-        }
+    async function iniciarNarracion() {
 
         if (!narracion.paused || narracion.ended) {
             return;
         }
 
-        inicioNarracionSolicitado = true;
-        narracionIntentada = true;
-
-        let intento;
+        narracionSolicitada = true;
 
         try {
-            intento = narracion.play();
+            await narracion.play();
         } catch (error) {
-            inicioNarracionSolicitado = false;
+
             console.log(
-                "No se pudo iniciar la narración:",
+                "Safari puede bloquear el inicio automático. " +
+                "El visitante puede utilizar el reproductor.",
                 error
             );
-            return;
-        }
-
-        if (intento && typeof intento.catch === "function") {
-
-            intento.catch(function (error) {
-
-                inicioNarracionSolicitado = false;
-
-                if (error.name !== "AbortError") {
-                    console.log(
-                        "El navegador requiere interacción para iniciar la narración:",
-                        error
-                    );
-                }
-            });
         }
     }
 
-    /* INICIO AUTOMÁTICO */
+    /*
+       INICIO DE ESCENA
+    */
 
-    window.addEventListener("load", function () {
+    musica.pause();
 
-        musica.pause();
+    try {
         musica.currentTime = 0;
+    } catch (error) {
+        console.log(error);
+    }
 
+    if (document.readyState === "complete") {
         iniciarNarracion();
-    });
+    } else {
+        window.addEventListener(
+            "load",
+            iniciarNarracion,
+            { once: true }
+        );
+    }
 
     /*
-       RESPALDO PARA SAFARI:
-
-       Si se bloquea la reproducción automática,
-       el visitante puede usar el reproductor
-       original de narración.
-
-       También puede reintentarse al tocar
-       una zona libre de la página.
+       RESPALDO PARA IPHONE Y SAFARI:
+       SIN AÑADIR BOTONES A LA PÁGINA
     */
 
     document.addEventListener("click", function (evento) {
 
-        if (evento.target.closest("a, audio, button")) {
+        if (
+            evento.target.closest(
+                "a, audio, video, button"
+            )
+        ) {
             return;
         }
 
@@ -779,14 +806,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    /* LIMPIEZA AL SALIR */
+    /*
+       LIMPIEZA AL SALIR
+    */
 
     window.addEventListener("pagehide", function () {
 
-        if (temporizadorSegunda !== null) {
-            clearTimeout(temporizadorSegunda);
-            temporizadorSegunda = null;
+        if (temporizador !== null) {
+            clearTimeout(temporizador);
+            temporizador = null;
         }
+
+        detenerVideo();
+
+        narracion.pause();
+        musica.pause();
     });
 
 });
