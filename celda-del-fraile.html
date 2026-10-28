@@ -26,10 +26,57 @@ body {
     background-color: #f5f1e6;
 }
 
+/* FOTOGRAFÍA Y VIDEO HISTÓRICO */
+
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #171717;
+}
+
 .imagen {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+.video-historico.visible {
+    opacity: 1;
+}
+
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 92%;
+    padding: 10px 18px;
+    background: rgba(0,0,0,0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+.rotulo-historico.visible {
+    opacity: 1;
 }
 
 /* CONTENIDO HISTÓRICO */
@@ -146,7 +193,8 @@ audio {
     }
 
     .navegacion {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
         gap: 6px;
         padding: 18px 8px 30px;
     }
@@ -168,6 +216,12 @@ audio {
     .texto-celular {
         display: inline;
     }
+
+    .rotulo-historico {
+        bottom: 10px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
 }
 </style>
 </head>
@@ -176,13 +230,40 @@ audio {
 
 <div class="escena">
 
-    <!-- FOTOGRAFÍA ORIGINAL -->
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
 
-    <img
-        class="imagen"
-        src="WhatsApp Image 2026-09-24 at 13.20.55.jpeg"
-        alt="Celda del fraile en el Ex Convento de San Juan Bautista"
-    >
+    <div class="escenario">
+
+        <img
+            class="imagen"
+            src="WhatsApp Image 2026-09-24 at 13.20.55.jpeg"
+            alt="Celda del fraile en el Ex Convento de San Juan Bautista"
+        >
+
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            webkit-playsinline
+            preload="auto"
+            disablepictureinpicture
+        >
+            <source
+                src="frailecelda.MP4"
+                type="video/mp4"
+            >
+            Tu navegador no admite video.
+        </video>
+
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
+        </div>
+
+    </div>
 
     <!-- TEXTO HISTÓRICO ORIGINAL -->
 
@@ -298,22 +379,32 @@ audio {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    const narracion = document.getElementById("narracion");
-    const musica = document.getElementById("musica");
+    const narracion =
+        document.getElementById("narracion");
+
+    const musica =
+        document.getElementById("musica");
+
+    const video =
+        document.getElementById("videoHistorico");
+
+    const rotulo =
+        document.getElementById("rotuloHistorico");
 
     /*
-       ARCHIVO ORIGINAL:
-       Narración celda del fraile.m4a
-
-       Se prueban las dos codificaciones Unicode
-       para conservar el nombre original en GitHub.
+       ARCHIVOS ORIGINALES
     */
 
-    const nombreNarracion = "Narración celda del fraile.m4a";
+    const nombreNarracion =
+        "Narración celda del fraile.m4a";
 
     const rutasNarracion = [
-        encodeURIComponent(nombreNarracion.normalize("NFD")),
-        encodeURIComponent(nombreNarracion.normalize("NFC"))
+        encodeURIComponent(
+            nombreNarracion.normalize("NFD")
+        ),
+        encodeURIComponent(
+            nombreNarracion.normalize("NFC")
+        )
     ].filter(function (ruta, indice, lista) {
         return lista.indexOf(ruta) === indice;
     });
@@ -326,49 +417,233 @@ document.addEventListener("DOMContentLoaded", function () {
 
     narracion.volume = 1.0;
     musica.volume = 0.20;
+    musica.loop = true;
+
+    /*
+       VIDEO COMPLETAMENTE SILENCIOSO
+    */
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+    video.playsInline = true;
+    video.loop = false;
 
     /*
        SECUENCIA:
 
-       1. La narración intenta comenzar automáticamente.
-       2. La música permanece detenida mientras habla la voz.
-       3. Cuando termina la narración, comienza la música.
-       4. La música continúa en repetición.
+       1. Comienza la narración.
+       2. Primera reproducción del video.
+       3. Regresa la fotografía original.
+       4. Termina la narración.
+       5. Comienza la música ambiental.
+       6. Segunda reproducción del video.
+       7. Regresa la fotografía original.
+       8. La música continúa en bucle.
 
-       No se agregan botones ni mensajes visibles.
+       No se reproduce el video por tercera vez.
     */
 
-    /* EVITAR SUPERPOSICIÓN */
+    let primeraReproduccion = false;
+    let segundaReproduccion = false;
+
+    let videoEnCurso = false;
+    let videoPreparando = false;
+
+    let segundoVideoPendiente = false;
+    let musicaComenzada = false;
+
+    let videoDisponible = true;
+    let temporizador = null;
+
+    /*
+       TRANSICIONES
+    */
+
+    function mostrarVideo() {
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+    }
+
+    function mostrarFoto() {
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+    }
+
+    /*
+       REPRODUCIR VIDEO SIN SONIDO
+    */
+
+    async function reproducirReconstruccion(numero) {
+
+        if (!videoDisponible) {
+            return;
+        }
+
+        if (videoEnCurso || videoPreparando) {
+
+            if (numero === 2) {
+                segundoVideoPendiente = true;
+            }
+
+            return;
+        }
+
+        if (numero === 1 && primeraReproduccion) {
+            return;
+        }
+
+        if (numero === 2 && segundaReproduccion) {
+            return;
+        }
+
+        videoPreparando = true;
+        mostrarFoto();
+
+        try {
+
+            video.pause();
+            video.currentTime = 0;
+
+            video.muted = true;
+            video.volume = 0;
+
+            await video.play();
+
+            if (video.paused || video.ended) {
+                throw new Error(
+                    "El video no comenzó correctamente."
+                );
+            }
+
+            videoEnCurso = true;
+            videoPreparando = false;
+
+            if (numero === 1) {
+                primeraReproduccion = true;
+            }
+
+            if (numero === 2) {
+                segundaReproduccion = true;
+            }
+
+            if (video.readyState >= 2) {
+                mostrarVideo();
+            } else {
+                video.addEventListener(
+                    "loadeddata",
+                    mostrarVideo,
+                    { once: true }
+                );
+            }
+
+        } catch (error) {
+
+            videoPreparando = false;
+            videoEnCurso = false;
+
+            mostrarFoto();
+
+            console.log(
+                "No se pudo reproducir frailecelda.MP4:",
+                error
+            );
+        }
+    }
+
+    /*
+       FIN DE CADA REPRODUCCIÓN
+    */
+
+    video.addEventListener("ended", function () {
+
+        mostrarFoto();
+
+        videoEnCurso = false;
+        videoPreparando = false;
+
+        if (
+            segundoVideoPendiente &&
+            musicaComenzada &&
+            !segundaReproduccion
+        ) {
+
+            segundoVideoPendiente = false;
+
+            temporizador = setTimeout(function () {
+
+                temporizador = null;
+                reproducirReconstruccion(2);
+
+            }, 1600);
+        }
+    });
+
+    /*
+       ERROR DEL VIDEO
+    */
+
+    video.addEventListener("error", function () {
+
+        videoDisponible = false;
+
+        mostrarFoto();
+
+        videoEnCurso = false;
+        videoPreparando = false;
+
+        console.error(
+            "No se pudo cargar frailecelda.MP4."
+        );
+    });
+
+    /*
+       PRIMER VIDEO:
+       CUANDO COMIENZA LA NARRACIÓN
+    */
+
+    narracion.addEventListener("playing", function () {
+
+        musica.pause();
+
+        if (!primeraReproduccion) {
+            reproducirReconstruccion(1);
+        }
+    });
+
+    /*
+       EVITAR SUPERPOSICIÓN DE AUDIOS
+    */
 
     narracion.addEventListener("play", function () {
         musica.pause();
     });
 
-    narracion.addEventListener("playing", function () {
-        musica.pause();
-    });
-
     musica.addEventListener("play", function () {
 
-        if (!narracion.paused && !narracion.ended) {
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
             narracion.pause();
         }
     });
 
     /*
-       AL TERMINAR LA NARRACIÓN,
-       INICIAR LA MÚSICA AMBIENTAL.
+       TERMINA LA NARRACIÓN:
+       COMIENZA LA MÚSICA
     */
 
     narracion.addEventListener("ended", function () {
         iniciarMusica();
     });
 
-    /* INICIAR MÚSICA */
+    async function iniciarMusica() {
 
-    function iniciarMusica() {
-
-        if (!narracion.paused && !narracion.ended) {
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
             return;
         }
 
@@ -376,35 +651,49 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        let intento;
-
         try {
-            intento = musica.play();
+
+            await musica.play();
+
         } catch (error) {
 
             console.log(
-                "No se pudo iniciar la música ambiental:",
+                "La música requiere interacción del visitante.",
                 error
             );
-
-            return;
-        }
-
-        if (intento && typeof intento.catch === "function") {
-
-            intento.catch(function (error) {
-
-                console.log(
-                    "El navegador requiere interacción para iniciar la música:",
-                    error
-                );
-            });
         }
     }
 
     /*
-       COMPROBAR RUTA ALTERNATIVA
-       DEL ARCHIVO DE NARRACIÓN.
+       SEGUNDO VIDEO:
+       CUANDO COMIENZA LA MÚSICA
+    */
+
+    musica.addEventListener("playing", function () {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            musica.pause();
+            return;
+        }
+
+        if (musicaComenzada) {
+            return;
+        }
+
+        musicaComenzada = true;
+
+        if (videoEnCurso || videoPreparando) {
+            segundoVideoPendiente = true;
+        } else {
+            reproducirReconstruccion(2);
+        }
+    });
+
+    /*
+       RUTA ALTERNATIVA DE LA NARRACIÓN
     */
 
     narracion.addEventListener("error", function () {
@@ -425,12 +714,14 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        console.log(
+        console.error(
             "No se pudo cargar Narración celda del fraile.m4a."
         );
     });
 
-    /* INICIAR NARRACIÓN */
+    /*
+       INICIAR NARRACIÓN
+    */
 
     function iniciarNarracion() {
 
@@ -447,20 +738,19 @@ document.addEventListener("DOMContentLoaded", function () {
         let intento;
 
         try {
+
             intento = narracion.play();
+
         } catch (error) {
 
             inicioNarracionSolicitado = false;
-
-            console.log(
-                "No se pudo iniciar la narración:",
-                error
-            );
-
             return;
         }
 
-        if (intento && typeof intento.catch === "function") {
+        if (
+            intento &&
+            typeof intento.catch === "function"
+        ) {
 
             intento.catch(function (error) {
 
@@ -469,7 +759,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (error.name !== "AbortError") {
 
                     console.log(
-                        "El navegador requiere interacción para iniciar la narración:",
+                        "El navegador requiere interacción " +
+                        "para iniciar la narración.",
                         error
                     );
                 }
@@ -481,27 +772,31 @@ document.addEventListener("DOMContentLoaded", function () {
        INICIO AUTOMÁTICO DE LA ESCENA
     */
 
-    window.addEventListener("load", function () {
+    musica.pause();
 
-        musica.pause();
-        musica.currentTime = 0;
-
+    if (document.readyState === "complete") {
         iniciarNarracion();
-    });
+    } else {
+
+        window.addEventListener(
+            "load",
+            iniciarNarracion,
+            { once: true }
+        );
+    }
 
     /*
-       RESPALDO PARA SAFARI.
-
-       Si el navegador bloquea el inicio automático,
-       se puede usar el reproductor de narración
-       que ya está presente en la página.
-
-       No se agrega ningún botón.
+       RESPALDO PARA SAFARI Y CELULARES.
+       NO SE AGREGAN BOTONES NUEVOS.
     */
 
     document.addEventListener("click", function (evento) {
 
-        if (evento.target.closest("a, audio, button")) {
+        if (
+            evento.target.closest(
+                "a, audio, video, button"
+            )
+        ) {
             return;
         }
 
@@ -512,6 +807,24 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
             iniciarNarracion();
         }
+    });
+
+    /*
+       DETENER TODO AL SALIR
+    */
+
+    window.addEventListener("pagehide", function () {
+
+        if (temporizador !== null) {
+            clearTimeout(temporizador);
+            temporizador = null;
+        }
+
+        video.pause();
+        mostrarFoto();
+
+        narracion.pause();
+        musica.pause();
     });
 
 });
