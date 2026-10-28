@@ -27,12 +27,57 @@
             background-color: #f5f1e6;
         }
 
-        /* FOTOGRAFÍA ORIGINAL */
+        /* FOTOGRAFÍA ORIGINAL Y VIDEO */
+
+        .escenario {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #171717;
+        }
 
         .imagen {
             width: 100%;
             height: auto;
             display: block;
+        }
+
+        .video-historico {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #171717;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .video-historico.visible {
+            opacity: 1;
+        }
+
+        .rotulo-historico {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 92%;
+            padding: 10px 18px;
+            background: rgba(0, 0, 0, 0.72);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            border-radius: 6px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .rotulo-historico.visible {
+            opacity: 1;
         }
 
         /* CONTENIDO HISTÓRICO ORIGINAL */
@@ -67,19 +112,18 @@
             text-align: justify;
         }
 
-        /* NARRACIÓN Y MÚSICA AMBIENTAL */
+        /* NARRACIÓN Y MÚSICA */
 
         .narracion,
         .audio {
             text-align: center;
-            padding: 10px 20px 20px 20px;
+            padding: 10px 20px 20px;
         }
 
         .narracion h3,
         .audio h3 {
-            margin: 0 0 12px 0;
+            margin: 0 0 12px;
             color: #325d4a;
-            font-family: Arial, sans-serif;
             font-size: 18px;
         }
 
@@ -99,7 +143,7 @@
             gap: 15px;
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px 30px 35px 30px;
+            padding: 20px 30px 35px;
             background-color: #f5f1e6;
         }
 
@@ -114,7 +158,6 @@
             text-decoration: none;
             border-radius: 8px;
             border: 2px solid white;
-            font-family: Arial, sans-serif;
             font-size: 16px;
             font-weight: bold;
             line-height: 1.2;
@@ -152,7 +195,7 @@
 
             .narracion,
             .audio {
-                padding: 10px 15px 18px 15px;
+                padding: 10px 15px 18px;
             }
 
             audio {
@@ -160,9 +203,10 @@
             }
 
             .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
                 gap: 6px;
-                padding: 18px 8px 30px 8px;
+                padding: 18px 8px 30px;
             }
 
             .boton {
@@ -182,6 +226,12 @@
             .texto-celular {
                 display: inline;
             }
+
+            .rotulo-historico {
+                bottom: 10px;
+                padding: 7px 10px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -190,13 +240,40 @@
 
     <div class="escena">
 
-        <!-- FOTOGRAFÍA ORIGINAL DEL PATIO -->
+        <!-- FOTOGRAFÍA ORIGINAL Y VIDEO HISTÓRICO -->
 
-        <img
-            class="imagen"
-            src="WhatsApp Image 2026-09-18 at 22.15.13.jpeg"
-            alt="Patio del claustro del antiguo convento de San Juan Bautista de Tetela del Volcán"
-        >
+        <div class="escenario">
+
+            <img
+                class="imagen"
+                src="WhatsApp Image 2026-09-18 at 22.15.13.jpeg"
+                alt="Patio del claustro del antiguo convento de San Juan Bautista de Tetela del Volcán"
+            >
+
+            <video
+                id="videoHistorico"
+                class="video-historico"
+                muted
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                disablepictureinpicture
+            >
+                <source
+                    src="frailespatio.MOV"
+                    type="video/quicktime"
+                >
+                Tu navegador no admite este video.
+            </video>
+
+            <div
+                id="rotuloHistorico"
+                class="rotulo-historico"
+            >
+                Reconstrucción histórica — Siglo XVI
+            </div>
+
+        </div>
 
         <!-- TEXTO HISTÓRICO ORIGINAL -->
 
@@ -204,7 +281,9 @@
 
             <h1>El patio del claustro</h1>
 
-            <h2>Un espacio abierto al cielo y marcado por la identidad dominicana</h2>
+            <h2>
+                Un espacio abierto al cielo y marcado por la identidad dominicana
+            </h2>
 
             <p>
                 En el corazón del claustro se abre este patio, un espacio de luz y silencio
@@ -230,18 +309,22 @@
 
         </div>
 
-        <!-- NUEVA NARRACIÓN -->
+        <!-- NARRACIÓN ORIGINAL -->
 
         <div class="narracion">
 
             <h3>🎙️ Narración</h3>
 
-            <audio id="narracion" controls preload="auto">
+            <audio
+                id="narracion"
+                controls
+                preload="auto"
+            >
                 <source
                     src="El patio del claustro.m4a"
                     type="audio/mp4"
                 >
-                Tu navegador no puede reproducir este archivo de audio.
+                Tu navegador no puede reproducir este audio.
             </audio>
 
         </div>
@@ -252,12 +335,17 @@
 
             <h3>🎵 Música ambiental</h3>
 
-            <audio id="musica" controls loop preload="auto">
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
                 <source
                     src="magicroom-musica-ambiental-del-bosque-con-sonidos-de-naturaleza-591286.mp3"
                     type="audio/mpeg"
                 >
-                Tu navegador no puede reproducir este archivo de audio.
+                Tu navegador no puede reproducir este audio.
             </audio>
 
         </div>
@@ -266,20 +354,30 @@
 
         <div class="navegacion">
 
-            <a class="boton" href="el-bautismo-del-señor.html">
+            <a
+                class="boton"
+                href="el-bautismo-del-señor.html"
+            >
                 ← REGRESAR
             </a>
 
-            <a class="boton" href="mapa.html">
+            <a
+                class="boton"
+                href="mapa.html"
+            >
                 <span class="texto-escritorio">
                     🗺 VOLVER AL PLANO
                 </span>
+
                 <span class="texto-celular">
                     🗺 PLANO
                 </span>
             </a>
 
-            <a class="boton" href="claustro-bajo-3.html">
+            <a
+                class="boton"
+                href="claustro-bajo-3.html"
+            >
                 SEGUIR →
             </a>
 
@@ -287,30 +385,287 @@
 
     </div>
 
-    <!-- CONTROL DE NARRACIÓN Y MÚSICA -->
+    <!-- CONTROL DE NARRACIÓN, MÚSICA Y VIDEO -->
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
-            const narracion = document.getElementById("narracion");
-            const musica = document.getElementById("musica");
+            const narracion =
+                document.getElementById("narracion");
+
+            const musica =
+                document.getElementById("musica");
+
+            const video =
+                document.getElementById("videoHistorico");
+
+            const rotulo =
+                document.getElementById("rotuloHistorico");
+
+            /*
+             * CONFIGURACIÓN ORIGINAL DE AUDIO
+             */
 
             narracion.volume = 1.0;
             musica.volume = 0.30;
+            musica.loop = true;
+
+            /*
+             * VIDEO COMPLETAMENTE SILENCIOSO
+             */
+
+            video.muted = true;
+            video.defaultMuted = true;
+            video.volume = 0;
+            video.playsInline = true;
+            video.loop = false;
 
             /*
              * SECUENCIA:
              *
-             * 1. La narración comienza primero.
-             * 2. La música permanece detenida.
-             * 3. Cuando termina la narración,
-             *    comienza la música al 30 %.
-             * 4. La música continúa en bucle.
+             * 1. Comienza la narración.
+             * 2. Primera reproducción del video.
+             * 3. Regresa la fotografía original.
+             * 4. Termina la narración.
+             * 5. Comienza la música.
+             * 6. Segunda reproducción del video.
+             * 7. Regresa la fotografía original.
+             * 8. La música continúa en bucle.
+             *
+             * El video solo se reproduce dos veces.
              */
+
+            let primeraIniciada = false;
+            let segundaIniciada = false;
+
+            let videoActivo = false;
+            let videoPreparando = false;
+
+            let segundaPendiente = false;
+            let musicaComenzada = false;
+
+            let videoDisponible = true;
+
+            let temporizador = null;
+            let identificadorIntento = 0;
+
+            /*
+             * TRANSICIONES VISUALES
+             */
+
+            function mostrarVideo() {
+
+                video.classList.add("visible");
+                rotulo.classList.add("visible");
+
+            }
+
+            function mostrarFoto() {
+
+                video.classList.remove("visible");
+                rotulo.classList.remove("visible");
+
+            }
+
+            /*
+             * REPRODUCCIÓN DEL VIDEO
+             */
+
+            async function reproducirVideo(numero) {
+
+                if (!videoDisponible) {
+                    return;
+                }
+
+                if (numero === 1 && primeraIniciada) {
+                    return;
+                }
+
+                if (numero === 2 && segundaIniciada) {
+                    return;
+                }
+
+                if (videoActivo || videoPreparando) {
+
+                    if (numero === 2) {
+                        segundaPendiente = true;
+                    }
+
+                    return;
+                }
+
+                videoPreparando = true;
+
+                const intentoActual = ++identificadorIntento;
+
+                mostrarFoto();
+
+                try {
+
+                    video.pause();
+                    video.currentTime = 0;
+
+                    video.muted = true;
+                    video.volume = 0;
+
+                    await video.play();
+
+                    if (intentoActual !== identificadorIntento) {
+                        return;
+                    }
+
+                    if (video.paused || video.ended) {
+
+                        throw new Error(
+                            "El video no comenzó correctamente."
+                        );
+                    }
+
+                    videoActivo = true;
+                    videoPreparando = false;
+
+                    if (numero === 1) {
+                        primeraIniciada = true;
+                    }
+
+                    if (numero === 2) {
+                        segundaIniciada = true;
+                    }
+
+                    if (video.readyState >= 2) {
+
+                        mostrarVideo();
+
+                    } else {
+
+                        video.addEventListener(
+                            "loadeddata",
+                            function () {
+
+                                if (
+                                    intentoActual === identificadorIntento &&
+                                    !video.paused
+                                ) {
+                                    mostrarVideo();
+                                }
+
+                            },
+                            { once: true }
+                        );
+                    }
+
+                } catch (error) {
+
+                    if (intentoActual !== identificadorIntento) {
+                        return;
+                    }
+
+                    videoActivo = false;
+                    videoPreparando = false;
+
+                    mostrarFoto();
+
+                    console.log(
+                        "No se pudo reproducir frailespatio.MOV:",
+                        error
+                    );
+
+                    if (
+                        numero === 1 &&
+                        segundaPendiente &&
+                        !segundaIniciada
+                    ) {
+
+                        segundaPendiente = false;
+
+                        reproducirVideo(2);
+                    }
+                }
+            }
+
+            /*
+             * CUANDO TERMINA CADA VIDEO
+             */
+
+            video.addEventListener("ended", function () {
+
+                mostrarFoto();
+
+                videoActivo = false;
+                videoPreparando = false;
+
+                if (
+                    segundaPendiente &&
+                    musicaComenzada &&
+                    !segundaIniciada
+                ) {
+
+                    segundaPendiente = false;
+
+                    temporizador = setTimeout(function () {
+
+                        temporizador = null;
+                        reproducirVideo(2);
+
+                    }, 1600);
+                }
+            });
+
+            /*
+             * ERROR DE VIDEO
+             */
+
+            video.addEventListener("error", function () {
+
+                videoDisponible = false;
+
+                videoActivo = false;
+                videoPreparando = false;
+
+                mostrarFoto();
+
+                console.error(
+                    "No se pudo cargar frailespatio.MOV."
+                );
+            });
+
+            /*
+             * PRIMER VIDEO:
+             * AL COMENZAR LA NARRACIÓN
+             */
+
+            narracion.addEventListener("play", function () {
+
+                musica.pause();
+
+            });
+
+            narracion.addEventListener("playing", function () {
+
+                musica.pause();
+
+                if (!primeraIniciada) {
+                    reproducirVideo(1);
+                }
+            });
+
+            /*
+             * TERMINA LA NARRACIÓN:
+             * COMIENZA LA MÚSICA
+             */
+
+            narracion.addEventListener("ended", function () {
+
+                iniciarMusica();
+
+            });
 
             function iniciarMusica() {
 
-                if (!narracion.paused && !narracion.ended) {
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
                     return;
                 }
 
@@ -320,77 +675,173 @@
 
                     const intento = musica.play();
 
-                    if (intento !== undefined) {
+                    if (
+                        intento &&
+                        typeof intento.catch === "function"
+                    ) {
 
                         intento.catch(function () {
 
                             console.log(
-                                "Safari requiere interacción para iniciar la música."
+                                "Safari puede requerir interacción " +
+                                "para iniciar la música."
                             );
 
                         });
-
                     }
                 }
             }
 
-            /* AL COMENZAR LA NARRACIÓN */
-
-            narracion.addEventListener("play", function () {
-
-                musica.pause();
-
-            });
-
-            /* AL TERMINAR LA NARRACIÓN */
-
-            narracion.addEventListener("ended", function () {
-
-                iniciarMusica();
-
-            });
-
-            /* SI SE ACTIVA MANUALMENTE LA MÚSICA */
+            /*
+             * EVITAR SUPERPOSICIÓN DE AUDIOS
+             */
 
             musica.addEventListener("play", function () {
 
-                if (!narracion.paused && !narracion.ended) {
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
 
                     narracion.pause();
-
                 }
-
             });
 
-            /* INTENTO DE REPRODUCCIÓN AUTOMÁTICA */
+            /*
+             * SEGUNDO VIDEO:
+             * AL COMENZAR LA MÚSICA
+             */
 
-            window.addEventListener("load", function () {
+            musica.addEventListener("playing", function () {
 
-                musica.pause();
-                musica.currentTime = 0;
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
+
+                    musica.pause();
+                    return;
+                }
+
+                if (musicaComenzada) {
+                    return;
+                }
+
+                musicaComenzada = true;
+
+                if (videoActivo || videoPreparando) {
+
+                    segundaPendiente = true;
+
+                } else {
+
+                    reproducirVideo(2);
+                }
+            });
+
+            /*
+             * INICIO AUTOMÁTICO DE LA ESCENA
+             */
+
+            function iniciarNarracion() {
+
+                if (
+                    !narracion.paused ||
+                    narracion.ended
+                ) {
+                    return;
+                }
 
                 narracion.volume = 1.0;
 
                 const intento = narracion.play();
 
-                if (intento !== undefined) {
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
 
                     intento.catch(function () {
 
                         console.log(
-                            "Safari puede requerir pulsar Play para escuchar la narración."
+                            "Safari puede requerir pulsar Play " +
+                            "para escuchar la narración."
                         );
 
                     });
-
                 }
+            }
+
+            if (document.readyState === "complete") {
+
+                musica.pause();
+                musica.currentTime = 0;
+
+                iniciarNarracion();
+
+            } else {
+
+                window.addEventListener("load", function () {
+
+                    musica.pause();
+                    musica.currentTime = 0;
+
+                    iniciarNarracion();
+
+                }, { once: true });
+            }
+
+            /*
+             * RESPALDO PARA SAFARI Y CELULARES
+             * SIN BOTONES ADICIONALES
+             */
+
+            document.addEventListener("click", function (evento) {
+
+                if (
+                    evento.target.closest(
+                        "a, audio, video, button"
+                    )
+                ) {
+                    return;
+                }
+
+                if (
+                    narracion.paused &&
+                    !narracion.ended &&
+                    narracion.currentTime === 0
+                ) {
+
+                    iniciarNarracion();
+                }
+            });
+
+            /*
+             * DETENER TODO AL SALIR
+             */
+
+            window.addEventListener("pagehide", function () {
+
+                if (temporizador !== null) {
+
+                    clearTimeout(temporizador);
+                    temporizador = null;
+                }
+
+                identificadorIntento++;
+
+                video.pause();
+                mostrarFoto();
+
+                narracion.pause();
+                musica.pause();
 
             });
 
         });
     </script>
 
-    <!-- CONTADOR DE VISITAS GOATCOUNTER -->
+    <!-- CONTADOR GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
@@ -399,5 +850,4 @@
     </script>
 
 </body>
-
 </html>
