@@ -1,161 +1,222 @@
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capilla del Rosario | Un día en el convento</title>
 
-    <title>Capilla del Rosario | Un día en el convento</title>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background: #f5f1e6;
+    color: #2f2f2f;
+    font-family: Arial, sans-serif;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f1e6;
-            color: #2f2f2f;
-            font-family: Arial, sans-serif;
-        }
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background: #f5f1e6;
+}
 
-        .escena {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f1e6;
-        }
+/* FOTOGRAFÍA ORIGINAL Y VIDEO */
 
-        .imagen {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #171717;
+}
 
-        .contenido {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px 28px;
-            text-align: center;
-        }
+.imagen {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 
-        .contenido h1 {
-            margin-top: 0;
-            margin-bottom: 22px;
-            font-size: 30px;
-            color: #325d4a;
-        }
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .contenido p {
-            margin: 0 auto 16px auto;
-            font-size: 18px;
-            line-height: 1.7;
-            text-align: justify;
-        }
+.video-historico.visible {
+    opacity: 1;
+}
 
-        .audio {
-            text-align: center;
-            padding: 25px 20px 20px 20px;
-        }
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 92%;
+    padding: 10px 18px;
+    background: rgba(0,0,0,0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .audio h3 {
-            margin: 16px 0 12px;
-            font-size: 18px;
-            color: #325d4a;
-        }
+.rotulo-historico.visible {
+    opacity: 1;
+}
 
-        audio {
-            display: block;
-            width: 90%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+/* CONTENIDO HISTÓRICO ORIGINAL */
 
-        .navegacion {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: stretch;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 30px 35px 30px;
-            background-color: #f5f1e6;
-        }
+.contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+}
 
-        .boton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 54px;
-            padding: 14px 12px;
-            background-color: #325d4a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
+.contenido h1 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    font-size: 30px;
+    color: #325d4a;
+}
 
-        .boton:hover {
-            opacity: 0.9;
-        }
+.contenido p {
+    margin: 0 auto 16px;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: justify;
+}
 
-        @media (max-width: 600px) {
+/* NARRACIÓN Y MÚSICA */
 
-            .contenido {
-                padding: 22px 18px;
-            }
+.audio {
+    text-align: center;
+    padding: 25px 20px 20px;
+}
 
-            .contenido h1 {
-                font-size: 25px;
-            }
+.audio h3 {
+    margin: 16px 0 12px;
+    font-size: 18px;
+    color: #325d4a;
+}
 
-            .contenido p {
-                font-size: 17px;
-                line-height: 1.65;
-            }
+audio {
+    display: block;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-            .audio {
-                padding: 22px 15px 18px 15px;
-            }
+/* NAVEGACIÓN ORIGINAL */
 
-            .audio h3 {
-                font-size: 17px;
-            }
+.navegacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px;
+    background: #f5f1e6;
+}
 
-            audio {
-                width: 100%;
-            }
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
 
-            .navegacion {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 8px;
-                padding: 18px 8px 30px 8px;
-            }
+.boton:hover {
+    opacity: 0.9;
+}
 
-            .boton {
-                width: 100%;
-                min-width: 0;
-                min-height: 48px;
-                padding: 10px 5px;
-                font-size: 12px;
-                line-height: 1;
-                white-space: nowrap;
-            }
-        }
-    </style>
+/* ADAPTACIÓN A CELULARES */
+
+@media (max-width: 600px) {
+
+    .contenido {
+        padding: 22px 18px;
+    }
+
+    .contenido h1 {
+        font-size: 25px;
+    }
+
+    .contenido p {
+        font-size: 17px;
+        line-height: 1.65;
+    }
+
+    .audio {
+        padding: 22px 15px 18px;
+    }
+
+    .audio h3 {
+        font-size: 17px;
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    .navegacion {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding: 18px 8px 30px;
+    }
+
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 5px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .rotulo-historico {
+        bottom: 10px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="escena">
+<div class="escena">
 
-        <!-- FOTOGRAFÍA ORIGINAL -->
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO NUEVO -->
+
+    <div class="escenario">
 
         <img
             class="imagen"
@@ -163,294 +224,597 @@
             alt="Capilla del Rosario del antiguo convento de San Juan Bautista"
         >
 
-        <!-- CONTENIDO HISTÓRICO ORIGINAL -->
-
-        <div class="contenido">
-
-            <h1>Capilla del Rosario</h1>
-
-            <p>
-                La Capilla del Rosario forma parte de los espacios que nos permiten comprender
-                el encuentro entre la tradición cristiana traída por los evangelizadores y
-                la manera en que los pueblos indígenas acostumbraban reunirse para sus
-                celebraciones. Durante el proceso de evangelización fue necesario encontrar
-                formas arquitectónicas que facilitaran este encuentro entre dos culturas.
-            </p>
-
-            <p>
-                En el mundo indígena, muchas de las grandes ceremonias religiosas se
-                desarrollaban al aire libre, en amplios espacios ceremoniales. Por ello,
-                los espacios abiertos vinculados a los conventos resultaron especialmente
-                adecuados para reunir a grandes comunidades y permitir que la predicación,
-                la enseñanza de la doctrina y las celebraciones cristianas pudieran realizarse
-                ante numerosas personas.
-            </p>
-
-            <p>
-                Estos espacios muestran cómo la arquitectura conventual también se convirtió
-                en instrumento de evangelización. El espacio abierto establecía una transición
-                entre las antiguas formas de reunión comunitaria y la nueva liturgia cristiana,
-                permitiendo que la fe fuera enseñada y celebrada de una manera cercana a la
-                experiencia de los pueblos originarios.
-            </p>
-
-        </div>
-
-        <!-- NARRACIÓN Y MÚSICA -->
-
-        <div class="audio">
-
-            <h3>🎙️ Narración</h3>
-
-            <audio
-                id="narracion"
-                controls
-                preload="auto"
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            webkit-playsinline
+            preload="auto"
+            disablepictureinpicture
+        >
+            <source
+                src="misacapilladelrosario.MP4"
+                type="video/mp4"
             >
-                Tu navegador no soporta el elemento de audio.
-            </audio>
+            Tu navegador no admite video.
+        </video>
 
-            <h3>🎵 Música ambiental</h3>
-
-            <audio
-                id="musica"
-                controls
-                loop
-                preload="auto"
-            >
-                <source
-                    src="nickpanek-ave-maria-417992.mp3"
-                    type="audio/mpeg"
-                >
-                Tu navegador no soporta el elemento de audio.
-            </audio>
-
-        </div>
-
-        <!-- NAVEGACIÓN ORIGINAL -->
-
-        <div class="navegacion">
-
-            <a
-                class="boton"
-                href="tribuna-de-los-enfermos-2.html"
-            >
-                ← REGRESAR
-            </a>
-
-            <a
-                class="boton"
-                href="puerta-del-convento.html"
-            >
-                SEGUIR →
-            </a>
-
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
         </div>
 
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
+    <!-- TEXTOS HISTÓRICOS ORIGINALES -->
 
-            const narracion = document.getElementById("narracion");
-            const musica = document.getElementById("musica");
+    <div class="contenido">
 
-            /*
-                ARCHIVO DE NARRACIÓN SUBIDO A GITHUB
-            */
+        <h1>Capilla del Rosario</h1>
 
-            const archivoNarracion =
-                "Narración capilla del Rosario.m4a";
+        <p>
+            La Capilla del Rosario forma parte de los espacios que nos permiten comprender
+            el encuentro entre la tradición cristiana traída por los evangelizadores y
+            la manera en que los pueblos indígenas acostumbraban reunirse para sus
+            celebraciones. Durante el proceso de evangelización fue necesario encontrar
+            formas arquitectónicas que facilitaran este encuentro entre dos culturas.
+        </p>
 
-            /*
-                COMPATIBILIDAD CON NOMBRES ACENTUADOS
-                EN GITHUB Y SAFARI
-            */
+        <p>
+            En el mundo indígena, muchas de las grandes ceremonias religiosas se
+            desarrollaban al aire libre, en amplios espacios ceremoniales. Por ello,
+            los espacios abiertos vinculados a los conventos resultaron especialmente
+            adecuados para reunir a grandes comunidades y permitir que la predicación,
+            la enseñanza de la doctrina y las celebraciones cristianas pudieran realizarse
+            ante numerosas personas.
+        </p>
 
-            const rutasNarracion = [
-                encodeURIComponent(
-                    archivoNarracion.normalize("NFD")
-                ),
-                encodeURIComponent(
-                    archivoNarracion.normalize("NFC")
-                )
-            ].filter(function (ruta, indice, lista) {
-                return lista.indexOf(ruta) === indice;
-            });
+        <p>
+            Estos espacios muestran cómo la arquitectura conventual también se convirtió
+            en instrumento de evangelización. El espacio abierto establecía una transición
+            entre las antiguas formas de reunión comunitaria y la nueva liturgia cristiana,
+            permitiendo que la fe fuera enseñada y celebrada de una manera cercana a la
+            experiencia de los pueblos originarios.
+        </p>
 
-            let indiceRuta = 0;
-            let inicioSolicitado = false;
+    </div>
+
+    <!-- NARRACIÓN Y MÚSICA ORIGINALES -->
+
+    <div class="audio">
+
+        <h3>🎙️ Narración</h3>
+
+        <audio
+            id="narracion"
+            controls
+            preload="auto"
+        >
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+
+        <h3>🎵 Música ambiental</h3>
+
+        <audio
+            id="musica"
+            controls
+            loop
+            preload="auto"
+        >
+            <source
+                src="nickpanek-ave-maria-417992.mp3"
+                type="audio/mpeg"
+            >
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+
+    </div>
+
+    <!-- NAVEGACIÓN ORIGINAL -->
+
+    <div class="navegacion">
+
+        <a
+            class="boton"
+            href="tribuna-de-los-enfermos-2.html"
+        >
+            ← REGRESAR
+        </a>
+
+        <a
+            class="boton"
+            href="puerta-del-convento.html"
+        >
+            SEGUIR →
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const narracion =
+        document.getElementById("narracion");
+
+    const musica =
+        document.getElementById("musica");
+
+    const video =
+        document.getElementById("videoHistorico");
+
+    const rotulo =
+        document.getElementById("rotuloHistorico");
+
+    /*
+       ARCHIVO ORIGINAL DE NARRACIÓN
+    */
+
+    const archivoNarracion =
+        "Narración capilla del Rosario.m4a";
+
+    const rutasNarracion = [
+        encodeURIComponent(
+            archivoNarracion.normalize("NFD")
+        ),
+        encodeURIComponent(
+            archivoNarracion.normalize("NFC")
+        )
+    ].filter(function (ruta, indice, lista) {
+        return lista.indexOf(ruta) === indice;
+    });
+
+    let indiceRuta = 0;
+    let inicioSolicitado = false;
+
+    narracion.src = rutasNarracion[indiceRuta];
+    narracion.load();
+
+    /*
+       CONFIGURACIÓN DE AUDIO Y VIDEO
+    */
+
+    narracion.volume = 1.0;
+    musica.volume = 0.20;
+    musica.loop = true;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+    video.playsInline = true;
+    video.loop = false;
+
+    /*
+       SECUENCIA DE LA ESCENA
+
+       1. Comienza la narración.
+       2. Se reproduce el video sin sonido.
+       3. Regresa la fotografía original.
+       4. Termina la narración.
+       5. Comienza la música ambiental.
+       6. Se reproduce el mismo video sin sonido.
+       7. Regresa la fotografía original.
+       8. Continúa la música en bucle.
+
+       EL VIDEO SE REPRODUCE SOLO DOS VECES.
+    */
+
+    let primeraIniciada = false;
+    let segundaIniciada = false;
+
+    let videoActivo = false;
+    let videoPreparando = false;
+
+    let segundaPendiente = false;
+    let videoDisponible = true;
+
+    let temporizador = null;
+    let intentoActual = 0;
+
+    /*
+       MOSTRAR VIDEO
+    */
+
+    function mostrarVideo() {
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+    }
+
+    /*
+       RESTAURAR FOTOGRAFÍA ORIGINAL
+    */
+
+    function mostrarFotografia() {
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+    }
+
+    /*
+       REPRODUCCIÓN DEL VIDEO SILENCIOSO
+    */
+
+    async function reproducirVideo(numero) {
+
+        if (!videoDisponible) {
+            return;
+        }
+
+        if (numero === 1 && primeraIniciada) {
+            return;
+        }
+
+        if (numero === 2 && segundaIniciada) {
+            return;
+        }
+
+        if (videoActivo || videoPreparando) {
+
+            if (numero === 2) {
+                segundaPendiente = true;
+            }
+
+            return;
+        }
+
+        videoPreparando = true;
+
+        const identificador = ++intentoActual;
+
+        mostrarFotografia();
+
+        try {
+
+            video.pause();
+            video.currentTime = 0;
+
+            video.muted = true;
+            video.volume = 0;
+
+            await video.play();
+
+            if (identificador !== intentoActual) {
+                return;
+            }
+
+            if (video.paused || video.ended) {
+                throw new Error(
+                    "El video no comenzó correctamente."
+                );
+            }
+
+            videoActivo = true;
+            videoPreparando = false;
+
+            if (numero === 1) {
+                primeraIniciada = true;
+            }
+
+            if (numero === 2) {
+                segundaIniciada = true;
+            }
+
+            if (video.readyState >= 2) {
+                mostrarVideo();
+            } else {
+
+                video.addEventListener(
+                    "loadeddata",
+                    function () {
+                        if (
+                            identificador === intentoActual &&
+                            !video.paused
+                        ) {
+                            mostrarVideo();
+                        }
+                    },
+                    { once: true }
+                );
+            }
+
+        } catch (error) {
+
+            if (identificador !== intentoActual) {
+                return;
+            }
+
+            videoPreparando = false;
+            videoActivo = false;
+
+            mostrarFotografia();
+
+            console.log(
+                "No se pudo reproducir el video:",
+                error
+            );
+
+            if (
+                numero === 1 &&
+                segundaPendiente &&
+                !segundaIniciada
+            ) {
+                segundaPendiente = false;
+                reproducirVideo(2);
+            }
+        }
+    }
+
+    /*
+       CUANDO TERMINA CADA VIDEO
+    */
+
+    video.addEventListener("ended", function () {
+
+        mostrarFotografia();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        if (
+            segundaPendiente &&
+            !segundaIniciada
+        ) {
+
+            segundaPendiente = false;
+
+            temporizador = setTimeout(function () {
+
+                temporizador = null;
+                reproducirVideo(2);
+
+            }, 1600);
+        }
+    });
+
+    /*
+       SI EL VIDEO NO SE PUEDE CARGAR
+    */
+
+    video.addEventListener("error", function () {
+
+        videoDisponible = false;
+        videoActivo = false;
+        videoPreparando = false;
+
+        mostrarFotografia();
+
+        console.error(
+            "No se pudo cargar misacapilladelrosario.MP4."
+        );
+    });
+
+    /*
+       PRIMERA REPRODUCCIÓN:
+       AL COMENZAR LA NARRACIÓN
+    */
+
+    narracion.addEventListener("play", function () {
+        musica.pause();
+    });
+
+    narracion.addEventListener("playing", function () {
+
+        musica.pause();
+
+        if (!primeraIniciada) {
+            reproducirVideo(1);
+        }
+    });
+
+    /*
+       CUANDO TERMINA LA NARRACIÓN
+       COMIENZA LA MÚSICA
+    */
+
+    narracion.addEventListener("ended", function () {
+
+        iniciarMusica();
+
+    });
+
+    async function iniciarMusica() {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        try {
+
+            await musica.play();
+
+        } catch (error) {
+
+            console.log(
+                "Safari puede requerir interacción " +
+                "para iniciar la música.",
+                error
+            );
+        }
+    }
+
+    /*
+       SEGUNDA REPRODUCCIÓN:
+       AL COMENZAR LA MÚSICA
+    */
+
+    musica.addEventListener("play", function () {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            narracion.pause();
+        }
+    });
+
+    musica.addEventListener("playing", function () {
+
+        if (segundaIniciada) {
+            return;
+        }
+
+        if (videoActivo || videoPreparando) {
+
+            segundaPendiente = true;
+
+        } else {
+
+            reproducirVideo(2);
+        }
+    });
+
+    /*
+       NARRACIÓN:
+       COMPATIBILIDAD CON ACENTOS
+    */
+
+    narracion.addEventListener("error", function () {
+
+        if (indiceRuta + 1 < rutasNarracion.length) {
+
+            indiceRuta++;
 
             narracion.src = rutasNarracion[indiceRuta];
             narracion.load();
 
-            /*
-                VOLUMEN
-            */
-
-            narracion.volume = 1.0;
-            musica.volume = 0.20;
-            musica.loop = true;
-
-            /*
-                INICIAR NARRACIÓN
-            */
-
-            function iniciarNarracion() {
-
-                if (!narracion.paused || narracion.ended) {
-                    return;
-                }
-
-                inicioSolicitado = true;
-
-                const intento = narracion.play();
-
-                if (
-                    intento &&
-                    typeof intento.catch === "function"
-                ) {
-                    intento.catch(function (error) {
-                        console.log(
-                            "Safari puede requerir interacción para reproducir la narración.",
-                            error
-                        );
-                    });
-                }
+            if (inicioSolicitado) {
+                iniciarNarracion();
             }
 
-            /*
-                SI EL NOMBRE ACENTUADO NO SE ENCUENTRA,
-                INTENTAR SU OTRA NORMALIZACIÓN
-            */
+        } else {
 
-            narracion.addEventListener("error", function () {
+            console.error(
+                "No se encontró la narración " +
+                "de la Capilla del Rosario."
+            );
+        }
+    });
 
-                if (indiceRuta + 1 < rutasNarracion.length) {
+    /*
+       INICIO AUTOMÁTICO DE NARRACIÓN
+    */
 
-                    indiceRuta++;
+    function iniciarNarracion() {
 
-                    narracion.src = rutasNarracion[indiceRuta];
-                    narracion.load();
+        if (!narracion.paused || narracion.ended) {
+            return;
+        }
 
-                    if (inicioSolicitado) {
-                        iniciarNarracion();
-                    }
+        inicioSolicitado = true;
 
-                } else {
+        let intento;
 
-                    console.error(
-                        "No se encontró el archivo de narración de la Capilla del Rosario."
-                    );
-                }
+        try {
+
+            intento = narracion.play();
+
+        } catch (error) {
+
+            console.log(error);
+            return;
+        }
+
+        if (
+            intento &&
+            typeof intento.catch === "function"
+        ) {
+
+            intento.catch(function (error) {
+
+                console.log(
+                    "El navegador puede requerir " +
+                    "interacción para iniciar la narración.",
+                    error
+                );
             });
+        }
+    }
 
-            /*
-                EVITAR SUPERPOSICIÓN:
-                LA NARRACIÓN TIENE PRIORIDAD
-            */
+    /*
+       INICIO DE LA ESCENA
+    */
 
-            narracion.addEventListener("play", function () {
-                musica.pause();
-            });
+    musica.pause();
 
-            narracion.addEventListener("playing", function () {
-                musica.pause();
-            });
+    if (document.readyState === "complete") {
 
-            /*
-                AL TERMINAR LA NARRACIÓN,
-                COMIENZA LA MÚSICA
-            */
+        iniciarNarracion();
 
-            narracion.addEventListener("ended", function () {
+    } else {
 
-                const intento = musica.play();
+        window.addEventListener(
+            "load",
+            iniciarNarracion,
+            { once: true }
+        );
+    }
 
-                if (
-                    intento &&
-                    typeof intento.catch === "function"
-                ) {
-                    intento.catch(function (error) {
-                        console.log(
-                            "El navegador requiere interacción para iniciar la música.",
-                            error
-                        );
-                    });
-                }
-            });
+    /*
+       RESPALDO PARA SAFARI Y CELULARES
+       SIN BOTONES ADICIONALES
+    */
 
-            /*
-                SI EL VISITANTE REPRODUCE
-                MANUALMENTE LA MÚSICA,
-                SE DETIENE LA NARRACIÓN
-            */
+    document.addEventListener("click", function (evento) {
 
-            musica.addEventListener("play", function () {
+        if (
+            evento.target.closest(
+                "a, audio, video, button"
+            )
+        ) {
+            return;
+        }
 
-                if (
-                    !narracion.paused &&
-                    !narracion.ended
-                ) {
-                    narracion.pause();
-                }
-            });
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+            iniciarNarracion();
+        }
+    });
 
-            /*
-                INICIO AUTOMÁTICO AL ENTRAR
-            */
+    /*
+       DETENER TODO AL SALIR
+    */
 
-            musica.pause();
+    window.addEventListener("pagehide", function () {
 
-            window.addEventListener("load", function () {
-                iniciarNarracion();
-            });
+        if (temporizador !== null) {
 
-            /*
-                RESPALDO PARA IPHONE Y SAFARI.
-                NO SE AÑADEN BOTONES NUEVOS.
+            clearTimeout(temporizador);
+            temporizador = null;
+        }
 
-                Si Safari bloquea el inicio automático,
-                se puede utilizar el reproductor original.
-            */
+        intentoActual++;
 
-            document.addEventListener("click", function (evento) {
+        video.pause();
+        mostrarFotografia();
 
-                if (
-                    evento.target.closest("a, audio, button")
-                ) {
-                    return;
-                }
+        narracion.pause();
+        musica.pause();
 
-                if (
-                    narracion.paused &&
-                    !narracion.ended &&
-                    narracion.currentTime === 0
-                ) {
-                    iniciarNarracion();
-                }
-            });
+    });
 
-            /*
-                DETENER AUDIO AL SALIR DE LA ESCENA
-            */
+});
+</script>
 
-            window.addEventListener("pagehide", function () {
-                narracion.pause();
-                musica.pause();
-            });
+<!-- CONTADOR GOATCOUNTER ORIGINAL -->
 
-        });
-    </script>
-
-    <!-- CONTADOR GOATCOUNTER -->
-
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
 
 </body>
-
 </html>
