@@ -1,179 +1,234 @@
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tribuna de los enfermos | Un día en el convento</title>
 
-    <title>Tribuna de los enfermos | Un día en el convento</title>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    color: #2f2f2f;
+    font-family: Arial, sans-serif;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f1e6;
-            color: #2f2f2f;
-            font-family: Arial, sans-serif;
-        }
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
 
-        .escena {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f1e6;
-        }
+/* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
 
-        .imagen {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #171717;
+}
 
-        .contenido {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px 28px;
-            text-align: center;
-        }
+.imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-        .contenido h1 {
-            margin-top: 0;
-            margin-bottom: 22px;
-            font-size: 30px;
-            color: #325d4a;
-        }
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .contenido p {
-            margin: 0 auto 16px auto;
-            font-size: 18px;
-            line-height: 1.7;
-            text-align: justify;
-        }
+.video-historico.visible {
+    opacity: 1;
+}
 
-        /* NARRACIÓN Y MÚSICA AMBIENTAL */
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 92%;
+    padding: 10px 18px;
+    background: rgba(0,0,0,0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .audio {
-            text-align: center;
-            padding: 25px 20px 20px 20px;
-        }
+.rotulo-historico.visible {
+    opacity: 1;
+}
 
-        .bloque-audio {
-            margin-bottom: 24px;
-        }
+/* CONTENIDO HISTÓRICO */
 
-        .bloque-audio h3 {
-            margin: 0 0 12px;
-            font-size: 18px;
-            color: #325d4a;
-        }
+.contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+}
 
-        audio {
-            display: block;
-            width: 90%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+.contenido h1 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    font-size: 30px;
+    color: #325d4a;
+}
 
-        /* NAVEGACIÓN ORIGINAL */
+.contenido p {
+    margin: 0 auto 16px auto;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: justify;
+}
 
-        .navegacion {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: stretch;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 30px 35px 30px;
-            background-color: #f5f1e6;
-        }
+/* NARRACIÓN Y MÚSICA AMBIENTAL */
 
-        .boton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 54px;
-            padding: 14px 12px;
-            background-color: #325d4a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
+.audio {
+    text-align: center;
+    padding: 25px 20px 20px 20px;
+}
 
-        .boton:hover {
-            opacity: 0.9;
-        }
+.bloque-audio {
+    margin-bottom: 24px;
+}
 
-        .texto-celular {
-            display: none;
-        }
+.bloque-audio h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    color: #325d4a;
+}
 
-        /* ADAPTACIÓN A CELULARES */
+audio {
+    display: block;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-        @media (max-width: 600px) {
+/* NAVEGACIÓN ORIGINAL */
 
-            .contenido {
-                padding: 22px 18px;
-            }
+.navegacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px 30px;
+    background-color: #f5f1e6;
+}
 
-            .contenido h1 {
-                font-size: 25px;
-            }
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
 
-            .contenido p {
-                font-size: 17px;
-                line-height: 1.65;
-            }
+.boton:hover {
+    opacity: 0.9;
+}
 
-            .audio {
-                padding: 22px 15px 18px 15px;
-            }
+.texto-celular {
+    display: none;
+}
 
-            audio {
-                width: 100%;
-            }
+/* ADAPTACIÓN PARA CELULARES */
 
-            .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 6px;
-                padding: 18px 8px 30px 8px;
-            }
+@media (max-width: 600px) {
 
-            .boton {
-                width: 100%;
-                min-width: 0;
-                min-height: 48px;
-                padding: 10px 3px;
-                font-size: 12px;
-                line-height: 1;
-                white-space: nowrap;
-            }
+    .contenido {
+        padding: 22px 18px;
+    }
 
-            .texto-escritorio {
-                display: none;
-            }
+    .contenido h1 {
+        font-size: 25px;
+    }
 
-            .texto-celular {
-                display: inline;
-            }
-        }
-    </style>
+    .contenido p {
+        font-size: 17px;
+        line-height: 1.65;
+    }
+
+    .audio {
+        padding: 22px 15px 18px 15px;
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 18px 8px 30px 8px;
+    }
+
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .texto-escritorio {
+        display: none;
+    }
+
+    .texto-celular {
+        display: inline;
+    }
+
+    .rotulo-historico {
+        bottom: 10px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="escena">
+<div class="escena">
 
-        <!-- FOTOGRAFÍA ORIGINAL -->
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
+
+    <div class="escenario">
 
         <img
             class="imagen"
@@ -181,333 +236,610 @@
             alt="Tribuna de los enfermos del antiguo convento de San Juan Bautista"
         >
 
-        <!-- TEXTO HISTÓRICO ORIGINAL -->
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            webkit-playsinline
+            preload="auto"
+            disablepictureinpicture
+        >
+            <source
+                src="fraileentribuna.MOV"
+                type="video/quicktime"
+            >
+            Tu navegador no admite este video.
+        </video>
 
-        <div class="contenido">
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
+        </div>
 
-            <h1>Tribuna de los enfermos</h1>
+    </div>
 
-            <p>
-                Junto a la enfermería se encontraba un espacio especialmente significativo
-                dentro de la vida del convento: la tribuna de los enfermos. Desde este lugar,
-                los frailes que por enfermedad o debilidad no podían incorporarse plenamente
-                a las actividades de la comunidad podían permanecer vinculados a las
-                celebraciones religiosas.
-            </p>
+    <!-- TEXTO HISTÓRICO ORIGINAL -->
 
-            <p>
-                La tribuna permitía contemplar y seguir las celebraciones que tenían lugar
-                en el templo sin necesidad de realizar los desplazamientos habituales por
-                el convento. De esta manera, incluso durante la enfermedad, el religioso
-                podía continuar unido a la oración y a la vida litúrgica de su comunidad.
-            </p>
+    <div class="contenido">
+
+        <h1>Tribuna de los enfermos</h1>
+
+        <p>
+            Junto a la enfermería se encontraba un espacio especialmente significativo
+            dentro de la vida del convento: la tribuna de los enfermos. Desde este lugar,
+            los frailes que por enfermedad o debilidad no podían incorporarse plenamente
+            a las actividades de la comunidad podían permanecer vinculados a las
+            celebraciones religiosas.
+        </p>
+
+        <p>
+            La tribuna permitía contemplar y seguir las celebraciones que tenían lugar
+            en el templo sin necesidad de realizar los desplazamientos habituales por
+            el convento. De esta manera, incluso durante la enfermedad, el religioso
+            podía continuar unido a la oración y a la vida litúrgica de su comunidad.
+        </p>
+
+    </div>
+
+    <!-- NARRACIÓN Y MÚSICA AMBIENTAL -->
+
+    <div class="audio">
+
+        <div class="bloque-audio">
+
+            <h3>🎙️ Narración</h3>
+
+            <audio
+                id="narracion"
+                controls
+                preload="auto"
+            >
+                Tu navegador no soporta el elemento de audio.
+            </audio>
 
         </div>
 
-        <!-- NARRACIÓN Y MÚSICA AMBIENTAL -->
+        <div class="bloque-audio">
 
-        <div class="audio">
+            <h3>🎵 Música ambiental</h3>
 
-            <div class="bloque-audio">
-
-                <h3>🎙️ Narración</h3>
-
-                <audio
-                    id="narracion"
-                    controls
-                    preload="auto"
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
+                <source
+                    src="leberch-nature-584950.mp3"
+                    type="audio/mpeg"
                 >
-                    Tu navegador no soporta el elemento de audio.
-                </audio>
-
-            </div>
-
-            <div class="bloque-audio">
-
-                <h3>🎵 Música ambiental</h3>
-
-                <audio
-                    id="musica"
-                    controls
-                    loop
-                    preload="auto"
-                >
-                    <source
-                        src="leberch-nature-584950.mp3"
-                        type="audio/mpeg"
-                    >
-                    Tu navegador no soporta el elemento de audio.
-                </audio>
-
-            </div>
-
-        </div>
-
-        <!-- NAVEGACIÓN ORIGINAL -->
-
-        <div class="navegacion">
-
-            <a class="boton" href="enfermeria-2.html">
-                ← REGRESAR
-            </a>
-
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">
-                    🗺 VOLVER AL PLANO
-                </span>
-                <span class="texto-celular">
-                    🗺 PLANO
-                </span>
-            </a>
-
-            <a class="boton" href="tribuna-de-los-enfermos-2.html">
-                SEGUIR →
-            </a>
+                Tu navegador no soporta el elemento de audio.
+            </audio>
 
         </div>
 
     </div>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    <!-- NAVEGACIÓN ORIGINAL -->
 
-        const narracion = document.getElementById("narracion");
-        const musica = document.getElementById("musica");
+    <div class="navegacion">
 
-        /*
-           ARCHIVO ORIGINAL SUBIDO A GITHUB:
+        <a class="boton" href="enfermeria-2.html">
+            ← REGRESAR
+        </a>
 
-           Narración tribuna.m4a
+        <a class="boton" href="mapa.html">
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
+        </a>
 
-           Se comprueban las dos formas Unicode
-           para conservar el nombre original.
-        */
+        <a class="boton" href="tribuna-de-los-enfermos-2.html">
+            SEGUIR →
+        </a>
 
-        const nombreNarracion = "Narración tribuna.m4a";
+    </div>
 
-        const rutasNarracion = [
-            encodeURIComponent(nombreNarracion.normalize("NFD")),
-            encodeURIComponent(nombreNarracion.normalize("NFC"))
-        ].filter(function (ruta, indice, lista) {
-            return lista.indexOf(ruta) === indice;
-        });
+</div>
 
-        let indiceRuta = 0;
-        let inicioNarracionSolicitado = false;
-        let narracionIntentada = false;
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-        narracion.src = rutasNarracion[indiceRuta];
-        narracion.load();
+    const narracion = document.getElementById("narracion");
+    const musica = document.getElementById("musica");
+    const video = document.getElementById("videoHistorico");
+    const rotulo = document.getElementById("rotuloHistorico");
 
-        narracion.volume = 1.0;
-        musica.volume = 0.20;
+    /*
+       ARCHIVOS ORIGINALES
+    */
 
-        /*
-           SECUENCIA DE AUDIO:
+    const nombreNarracion = "Narración tribuna.m4a";
 
-           1. Intentar iniciar la narración
-              automáticamente al entrar.
+    const rutasNarracion = [
+        encodeURIComponent(nombreNarracion.normalize("NFD")),
+        encodeURIComponent(nombreNarracion.normalize("NFC"))
+    ].filter(function (ruta, indice, lista) {
+        return lista.indexOf(ruta) === indice;
+    });
 
-           2. Mientras se escucha la voz,
-              la música permanece detenida.
+    let indiceRuta = 0;
+    let inicioSolicitado = false;
 
-           3. Al terminar la narración,
-              comienza la música ambiental.
+    narracion.src = rutasNarracion[indiceRuta];
+    narracion.load();
 
-           4. La música continúa en repetición.
+    narracion.volume = 1.0;
+    musica.volume = 0.20;
+    musica.loop = true;
 
-           Sin botones adicionales.
-        */
+    /*
+       VIDEO SIN SONIDO
+    */
 
-        /* EVITAR SUPERPOSICIÓN */
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+    video.playsInline = true;
+    video.loop = false;
 
-        narracion.addEventListener("play", function () {
-            musica.pause();
-        });
+    /*
+       CONTROL DE LAS DOS REPRODUCCIONES
 
-        narracion.addEventListener("playing", function () {
-            musica.pause();
-        });
+       1. Narración: primer video.
+       2. Regresa fotografía.
+       3. Música: segundo video.
+       4. Regresa fotografía.
+       5. Música continúa en bucle.
 
-        musica.addEventListener("play", function () {
+       El video no se repite una tercera vez.
+    */
 
-            if (!narracion.paused && !narracion.ended) {
-                narracion.pause();
-            }
-        });
+    let primeraIniciada = false;
+    let segundaIniciada = false;
 
-        /*
-           AL TERMINAR LA NARRACIÓN,
-           INICIAR LA MÚSICA AMBIENTAL.
-        */
+    let videoActivo = false;
+    let videoPreparando = false;
+    let segundaPendiente = false;
 
-        narracion.addEventListener("ended", function () {
-            iniciarMusica();
-        });
+    let videoDisponible = true;
+    let musicaComenzada = false;
 
-        /* INICIAR MÚSICA */
+    let temporizador = null;
+    let identificadorIntento = 0;
 
-        function iniciarMusica() {
+    /*
+       TRANSICIONES VISUALES
+    */
 
-            if (!narracion.paused && !narracion.ended) {
-                return;
-            }
+    function mostrarVideo() {
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+    }
 
-            if (!musica.paused) {
-                return;
-            }
+    function mostrarFoto() {
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+    }
 
-            let intento;
+    /*
+       REPRODUCCIÓN DEL VIDEO HISTÓRICO
+    */
 
-            try {
-                intento = musica.play();
-            } catch (error) {
+    async function reproducirVideo(numero) {
 
-                console.log(
-                    "No se pudo iniciar la música ambiental:",
-                    error
-                );
-
-                return;
-            }
-
-            if (intento && typeof intento.catch === "function") {
-
-                intento.catch(function (error) {
-
-                    console.log(
-                        "El navegador requiere interacción para iniciar la música:",
-                        error
-                    );
-                });
-            }
+        if (!videoDisponible) {
+            return;
         }
 
-        /*
-           SI LA PRIMERA CODIFICACIÓN
-           DEL NOMBRE NO EXISTE,
-           INTENTAR LA SEGUNDA.
-        */
+        if (numero === 1 && primeraIniciada) {
+            return;
+        }
 
-        narracion.addEventListener("error", function () {
+        if (numero === 2 && segundaIniciada) {
+            return;
+        }
 
-            if (indiceRuta + 1 < rutasNarracion.length) {
+        if (videoActivo || videoPreparando) {
 
-                indiceRuta++;
+            if (numero === 2) {
+                segundaPendiente = true;
+            }
 
-                narracion.src = rutasNarracion[indiceRuta];
-                narracion.load();
+            return;
+        }
 
-                if (narracionIntentada) {
+        videoPreparando = true;
 
-                    inicioNarracionSolicitado = false;
-                    iniciarNarracion();
-                }
+        const intentoActual = ++identificadorIntento;
 
+        mostrarFoto();
+
+        try {
+
+            video.pause();
+            video.currentTime = 0;
+
+            video.muted = true;
+            video.volume = 0;
+
+            await video.play();
+
+            if (intentoActual !== identificadorIntento) {
                 return;
             }
+
+            if (video.paused || video.ended) {
+                throw new Error(
+                    "El video no comenzó correctamente."
+                );
+            }
+
+            videoActivo = true;
+            videoPreparando = false;
+
+            if (numero === 1) {
+                primeraIniciada = true;
+            }
+
+            if (numero === 2) {
+                segundaIniciada = true;
+            }
+
+            if (video.readyState >= 2) {
+
+                mostrarVideo();
+
+            } else {
+
+                video.addEventListener(
+                    "loadeddata",
+                    function () {
+
+                        if (
+                            intentoActual === identificadorIntento &&
+                            !video.paused
+                        ) {
+                            mostrarVideo();
+                        }
+
+                    },
+                    { once: true }
+                );
+            }
+
+        } catch (error) {
+
+            if (intentoActual !== identificadorIntento) {
+                return;
+            }
+
+            videoActivo = false;
+            videoPreparando = false;
+
+            mostrarFoto();
 
             console.log(
-                "No se pudo cargar Narración tribuna.m4a."
+                "No se pudo reproducir fraileentribuna.MOV:",
+                error
             );
-        });
-
-        /* INICIAR NARRACIÓN */
-
-        function iniciarNarracion() {
-
-            if (inicioNarracionSolicitado) {
-                return;
-            }
-
-            if (!narracion.paused || narracion.ended) {
-                return;
-            }
-
-            inicioNarracionSolicitado = true;
-            narracionIntentada = true;
-
-            let intento;
-
-            try {
-                intento = narracion.play();
-            } catch (error) {
-
-                inicioNarracionSolicitado = false;
-
-                console.log(
-                    "No se pudo iniciar la narración:",
-                    error
-                );
-
-                return;
-            }
-
-            if (intento && typeof intento.catch === "function") {
-
-                intento.catch(function (error) {
-
-                    inicioNarracionSolicitado = false;
-
-                    if (error.name !== "AbortError") {
-
-                        console.log(
-                            "El navegador requiere interacción para iniciar la narración:",
-                            error
-                        );
-                    }
-                });
-            }
-        }
-
-        /* INICIO AUTOMÁTICO DE LA ESCENA */
-
-        window.addEventListener("load", function () {
-
-            musica.pause();
-            musica.currentTime = 0;
-
-            iniciarNarracion();
-        });
-
-        /*
-           RESPALDO PARA SAFARI.
-
-           Si el navegador bloquea el inicio
-           automático, se utiliza el reproductor
-           de narración existente.
-
-           También se permite un nuevo intento
-           al tocar una zona libre de la página,
-           sin añadir ningún botón.
-        */
-
-        document.addEventListener("click", function (evento) {
-
-            if (evento.target.closest("a, audio, button")) {
-                return;
-            }
 
             if (
-                narracion.paused &&
-                !narracion.ended &&
-                narracion.currentTime === 0
+                numero === 1 &&
+                segundaPendiente &&
+                !segundaIniciada
             ) {
-                iniciarNarracion();
+
+                segundaPendiente = false;
+
+                reproducirVideo(2);
             }
-        });
+        }
+    }
+
+    /*
+       FINAL DE CADA VIDEO
+    */
+
+    video.addEventListener("ended", function () {
+
+        mostrarFoto();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        if (
+            segundaPendiente &&
+            musicaComenzada &&
+            !segundaIniciada
+        ) {
+
+            segundaPendiente = false;
+
+            temporizador = setTimeout(function () {
+
+                temporizador = null;
+                reproducirVideo(2);
+
+            }, 1600);
+        }
+    });
+
+    /*
+       ERROR DE CARGA DEL VIDEO
+    */
+
+    video.addEventListener("error", function () {
+
+        videoDisponible = false;
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        mostrarFoto();
+
+        console.error(
+            "No se pudo cargar fraileentribuna.MOV."
+        );
+    });
+
+    /*
+       PRIMER VIDEO:
+       CUANDO COMIENZA LA NARRACIÓN
+    */
+
+    narracion.addEventListener("play", function () {
+        musica.pause();
+    });
+
+    narracion.addEventListener("playing", function () {
+
+        musica.pause();
+
+        if (!primeraIniciada) {
+            reproducirVideo(1);
+        }
+    });
+
+    /*
+       AL TERMINAR LA NARRACIÓN:
+       COMIENZA LA MÚSICA
+    */
+
+    narracion.addEventListener("ended", function () {
+
+        iniciarMusica();
 
     });
-    </script>
 
-    <!-- CONTADOR GOATCOUNTER -->
+    async function iniciarMusica() {
 
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        try {
+
+            await musica.play();
+
+        } catch (error) {
+
+            console.log(
+                "Safari puede requerir interacción " +
+                "para iniciar la música.",
+                error
+            );
+        }
+    }
+
+    /*
+       EVITAR SUPERPOSICIÓN DE AUDIOS
+    */
+
+    musica.addEventListener("play", function () {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            narracion.pause();
+        }
+    });
+
+    /*
+       SEGUNDO VIDEO:
+       CUANDO COMIENZA LA MÚSICA
+    */
+
+    musica.addEventListener("playing", function () {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            musica.pause();
+            return;
+        }
+
+        if (musicaComenzada) {
+            return;
+        }
+
+        musicaComenzada = true;
+
+        if (videoActivo || videoPreparando) {
+
+            segundaPendiente = true;
+
+        } else {
+
+            reproducirVideo(2);
+        }
+    });
+
+    /*
+       COMPATIBILIDAD CON NOMBRE ACENTUADO
+    */
+
+    narracion.addEventListener("error", function () {
+
+        if (indiceRuta + 1 < rutasNarracion.length) {
+
+            indiceRuta++;
+
+            narracion.src = rutasNarracion[indiceRuta];
+            narracion.load();
+
+            if (inicioSolicitado) {
+
+                inicioSolicitado = false;
+                iniciarNarracion();
+            }
+
+            return;
+        }
+
+        console.error(
+            "No se pudo cargar Narración tribuna.m4a."
+        );
+    });
+
+    /*
+       INICIAR NARRACIÓN
+    */
+
+    function iniciarNarracion() {
+
+        if (inicioSolicitado) {
+            return;
+        }
+
+        if (!narracion.paused || narracion.ended) {
+            return;
+        }
+
+        inicioSolicitado = true;
+
+        let intento;
+
+        try {
+
+            intento = narracion.play();
+
+        } catch (error) {
+
+            inicioSolicitado = false;
+            return;
+        }
+
+        if (
+            intento &&
+            typeof intento.catch === "function"
+        ) {
+
+            intento.catch(function (error) {
+
+                inicioSolicitado = false;
+
+                if (error.name !== "AbortError") {
+
+                    console.log(
+                        "Safari puede requerir interacción " +
+                        "para iniciar la narración.",
+                        error
+                    );
+                }
+            });
+        }
+    }
+
+    /*
+       INICIO AUTOMÁTICO DE LA ESCENA
+    */
+
+    musica.pause();
+
+    if (document.readyState === "complete") {
+
+        iniciarNarracion();
+
+    } else {
+
+        window.addEventListener(
+            "load",
+            iniciarNarracion,
+            { once: true }
+        );
+    }
+
+    /*
+       RESPALDO PARA SAFARI Y CELULARES
+       SIN BOTONES ADICIONALES
+    */
+
+    document.addEventListener("click", function (evento) {
+
+        if (
+            evento.target.closest(
+                "a, audio, video, button"
+            )
+        ) {
+            return;
+        }
+
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+            iniciarNarracion();
+        }
+    });
+
+    /*
+       DETENER TODO AL SALIR
+    */
+
+    window.addEventListener("pagehide", function () {
+
+        if (temporizador !== null) {
+
+            clearTimeout(temporizador);
+            temporizador = null;
+        }
+
+        identificadorIntento++;
+
+        video.pause();
+        mostrarFoto();
+
+        narracion.pause();
+        musica.pause();
+    });
+
+});
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
 
 </body>
-
 </html>
