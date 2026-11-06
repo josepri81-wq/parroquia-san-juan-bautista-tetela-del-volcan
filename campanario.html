@@ -1,283 +1,338 @@
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El campanario | Un día en el convento</title>
 
-    <title>El campanario | Un día en el convento</title>
+<style>
+* { box-sizing: border-box; }
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    font-family: Arial, sans-serif;
+    color: #2f2f2f;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f1e6;
-            font-family: Arial, sans-serif;
-            color: #2f2f2f;
-        }
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
 
-        .escena {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f1e6;
-        }
+.contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+}
 
-        .contenido {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px 28px;
-            text-align: center;
-        }
+h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 30px;
+    color: #325d4a;
+}
 
-        h1 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 30px;
-            color: #325d4a;
-        }
+h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: italic;
+    color: #325d4a;
+}
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 25px;
-            font-size: 20px;
-            font-weight: normal;
-            font-style: italic;
-            color: #325d4a;
-        }
+/* FOTOGRAFÍA ORIGINAL Y VIDEO HISTÓRICO */
 
-        .imagen {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin-bottom: 30px;
-            border-radius: 8px;
-        }
+.escenario {
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #171717;
+}
 
-        .texto {
-            font-size: 18px;
-            line-height: 1.8;
-            text-align: justify;
-        }
+.imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-        .texto p {
-            margin: 0 0 22px 0;
-        }
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .subtitulo {
-            color: #325d4a;
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 35px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
+.video-historico.visible {
+    opacity: 1;
+}
 
-        .reflexion {
-            background-color: #325d4a;
-            color: white;
-            padding: 25px;
-            margin-top: 35px;
-            border-radius: 10px;
-            text-align: justify;
-            line-height: 1.8;
-        }
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 92%;
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .reflexion h3 {
-            margin-top: 0;
-            text-align: center;
-            font-size: 22px;
-            color: white;
-        }
+.rotulo-historico.visible {
+    opacity: 1;
+}
 
-        /* FOTO DURANTE LA RESTAURACIÓN */
+/* TEXTO HISTÓRICO ORIGINAL */
 
-        .restauracion {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 5px 28px 20px 28px;
-            text-align: center;
-        }
+.texto {
+    font-size: 18px;
+    line-height: 1.8;
+    text-align: justify;
+}
 
-        .restauracion h2 {
-            margin: 0 0 18px 0;
-            font-size: 23px;
-            font-weight: bold;
-            font-style: normal;
-            color: #325d4a;
-        }
+.texto p {
+    margin: 0 0 22px 0;
+}
 
-        .restauracion img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 8px;
-        }
+.subtitulo {
+    color: #325d4a;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    text-align: left;
+}
 
-        .restauracion p {
-            margin: 10px auto 0 auto;
-            font-size: 16px;
-            line-height: 1.5;
-            font-style: italic;
-            color: #555;
-        }
+.reflexion {
+    background-color: #325d4a;
+    color: white;
+    padding: 25px;
+    margin-top: 35px;
+    border-radius: 10px;
+    text-align: justify;
+    line-height: 1.8;
+}
 
-        /* NARRACIÓN Y MÚSICA AMBIENTAL */
+.reflexion h3 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 22px;
+    color: white;
+}
 
-        .controles-audio {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 20px 20px;
-            text-align: center;
-        }
+/* FOTO DURANTE LA RESTAURACIÓN */
 
-        .bloque-audio {
-            padding: 8px 0 16px;
-        }
+.restauracion {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5px 28px 20px 28px;
+    text-align: center;
+}
 
-        .bloque-audio h3 {
-            margin: 12px 0;
-            font-size: 18px;
-            color: #325d4a;
-        }
+.restauracion h2 {
+    margin: 0 0 18px 0;
+    font-size: 23px;
+    font-weight: bold;
+    font-style: normal;
+    color: #325d4a;
+}
 
-        audio {
-            display: block;
-            width: 90%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+.restauracion img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
 
-        /* NAVEGACIÓN */
+.restauracion p {
+    margin: 10px auto 0 auto;
+    font-size: 16px;
+    line-height: 1.5;
+    font-style: italic;
+    color: #555;
+}
 
-        .navegacion {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: stretch;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 30px 35px 30px;
-            background-color: #f5f1e6;
-        }
+/* NARRACIÓN Y MÚSICA AMBIENTAL */
 
-        .boton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 54px;
-            padding: 14px 12px;
-            background-color: #325d4a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
+.controles-audio {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 20px 20px;
+    text-align: center;
+}
 
-        .boton:hover {
-            opacity: 0.9;
-        }
+.bloque-audio {
+    padding: 8px 0 16px;
+}
 
-        .texto-celular {
-            display: none;
-        }
+.bloque-audio h3 {
+    margin: 12px 0;
+    font-size: 18px;
+    color: #325d4a;
+}
 
-        @media (max-width: 600px) {
+audio {
+    display: block;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-            .contenido {
-                padding: 22px 18px;
-            }
+/* NAVEGACIÓN ORIGINAL */
 
-            h1 {
-                font-size: 25px;
-            }
+.navegacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px 30px;
+    background-color: #f5f1e6;
+}
 
-            h2 {
-                font-size: 18px;
-            }
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
 
-            .texto {
-                font-size: 17px;
-                line-height: 1.65;
-            }
+.boton:hover {
+    opacity: 0.9;
+}
 
-            .subtitulo {
-                font-size: 20px;
-            }
+.texto-celular {
+    display: none;
+}
 
-            .reflexion {
-                padding: 20px;
-            }
+/* ADAPTACIÓN A CELULARES */
 
-            .reflexion h3 {
-                font-size: 20px;
-            }
+@media (max-width: 600px) {
+    .contenido {
+        padding: 22px 18px;
+    }
 
-            .restauracion {
-                padding: 5px 18px 20px 18px;
-            }
+    h1 {
+        font-size: 25px;
+    }
 
-            .restauracion h2 {
-                font-size: 21px;
-            }
+    h2 {
+        font-size: 18px;
+    }
 
-            .restauracion p {
-                font-size: 15px;
-            }
+    .texto {
+        font-size: 17px;
+        line-height: 1.65;
+    }
 
-            .controles-audio {
-                padding: 20px 15px 18px;
-            }
+    .subtitulo {
+        font-size: 20px;
+    }
 
-            audio {
-                width: 100%;
-            }
+    .reflexion {
+        padding: 20px;
+    }
 
-            .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 6px;
-                padding: 18px 8px 30px 8px;
-            }
+    .reflexion h3 {
+        font-size: 20px;
+    }
 
-            .boton {
-                width: 100%;
-                min-width: 0;
-                min-height: 48px;
-                padding: 10px 3px;
-                font-size: 12px;
-                line-height: 1;
-                white-space: nowrap;
-            }
+    .restauracion {
+        padding: 5px 18px 20px 18px;
+    }
 
-            .texto-escritorio {
-                display: none;
-            }
+    .restauracion h2 {
+        font-size: 21px;
+    }
 
-            .texto-celular {
-                display: inline;
-            }
-        }
-    </style>
+    .restauracion p {
+        font-size: 15px;
+    }
+
+    .controles-audio {
+        padding: 20px 15px 18px;
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 18px 8px 30px 8px;
+    }
+
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .texto-escritorio {
+        display: none;
+    }
+
+    .texto-celular {
+        display: inline;
+    }
+
+    .rotulo-historico {
+        bottom: 10px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+}
+</style>
 </head>
 
 <body>
+<div class="escena">
 
-    <div class="escena">
+    <div class="contenido">
 
-        <div class="contenido">
+        <h1>El campanario</h1>
+        <h2>La voz del convento y de la comunidad</h2>
 
-            <h1>El campanario</h1>
+        <!-- FOTO ORIGINAL Y RECONSTRUCCIÓN -->
 
-            <h2>La voz del convento y de la comunidad</h2>
+        <div class="escenario">
 
             <img
                 class="imagen"
@@ -285,419 +340,709 @@
                 alt="Campanario del Ex Convento de San Juan Bautista de Tetela del Volcán"
             >
 
-            <div class="texto">
+            <video
+                id="videoHistorico"
+                class="video-historico"
+                muted
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                disablepictureinpicture
+            >
+                <source
+                    src="frailecampanario.MP4"
+                    type="video/mp4"
+                >
+                Tu navegador no admite reproducción de video.
+            </video>
 
-                <p>
-                    El campanario era mucho más que el lugar donde se encontraban
-                    las campanas. Desde lo alto del conjunto conventual, su sonido
-                    podía extenderse a gran distancia y convertirse en una verdadera
-                    voz que comunicaba al convento con la población.
-                </p>
-
-                <div class="subtitulo">
-                    El campanario y la vida de los frailes
-                </div>
-
-                <p>
-                    Para los frailes, las campanas tenían una función fundamental
-                    dentro de la vida cotidiana del convento. La jornada religiosa
-                    estaba organizada en diferentes momentos dedicados a la oración,
-                    al estudio, al trabajo, a los alimentos y al descanso.
-                </p>
-
-                <p>
-                    El sonido de la campana ayudaba a señalar esos momentos y,
-                    especialmente, convocaba a los religiosos para reunirse como
-                    comunidad. Cuando la campana sonaba, el fraile sabía que había
-                    llegado el momento de dejar su ocupación particular y responder
-                    a una llamada común.
-                </p>
-
-                <p>
-                    De esta manera, la campana no solamente organizaba el tiempo.
-                    Su sonido podía adquirir también un significado espiritual:
-                    recordaba al religioso que su vida no estaba organizada
-                    únicamente alrededor de sus propias actividades, sino en torno
-                    a Dios y a la comunidad de hermanos con quienes compartía
-                    la vida conventual.
-                </p>
-
-                <div class="subtitulo">
-                    El campanario y la comunidad
-                </div>
-
-                <p>
-                    Pero la voz de las campanas no permanecía encerrada dentro de
-                    los muros del convento. Su sonido se extendía hacia las casas,
-                    los caminos y los campos de Tetela del Volcán.
-                </p>
-
-                <p>
-                    En una época en la que no existían los medios de comunicación
-                    actuales, las campanas cumplían también una importante función
-                    comunitaria. Sus distintos toques podían convocar a las
-                    celebraciones religiosas, acompañar las fiestas y solemnidades,
-                    anunciar acontecimientos importantes y hacerse presentes
-                    también en los momentos de duelo.
-                </p>
-
-                <p>
-                    Así, el campanario establecía un vínculo entre la vida que
-                    transcurría dentro del convento y la vida cotidiana del pueblo.
-                    Frailes y habitantes escuchaban una misma voz que marcaba
-                    determinados momentos del día y acompañaba los acontecimientos
-                    de la comunidad.
-                </p>
-
-                <div class="reflexion">
-
-                    <h3>Para contemplar</h3>
-
-                    Durante siglos, generaciones de frailes y habitantes de
-                    Tetela del Volcán escucharon el sonido de estas campanas.
-                    Cambiaron las personas, las costumbres y las épocas, pero
-                    desde lo alto del convento continuó escuchándose su llamada.
-
-                    <br><br>
-
-                    El campanario nos recuerda que el convento no era una realidad
-                    completamente aislada detrás de sus muros. Su vida se encontraba
-                    profundamente relacionada con la comunidad que había crecido
-                    a su alrededor.
-
-                    <br><br>
-
-                    <strong>
-                        A través de sus campanas, el convento hablaba al pueblo,
-                        mientras el ritmo de la vida religiosa se hacía también
-                        parte de la vida de la comunidad.
-                    </strong>
-
-                </div>
-
+            <div
+                id="rotuloHistorico"
+                class="rotulo-historico"
+            >
+                Reconstrucción histórica — Siglo XVI
             </div>
 
         </div>
 
-        <!-- FOTO DURANTE LA RESTAURACIÓN -->
+        <!-- TEXTO HISTÓRICO ORIGINAL -->
 
-        <div class="restauracion">
-
-            <h2>El campanario después del sismo</h2>
-
-            <img
-                src="PHOTO-2026-10-06-05-29-55.jpg"
-                alt="Campanario durante los trabajos de restauración posteriores al sismo de 2017"
-            >
+        <div class="texto">
 
             <p>
-                El campanario durante los trabajos de restauración posteriores al sismo de 2017.
+                El campanario era mucho más que el lugar donde se encontraban
+                las campanas. Desde lo alto del conjunto conventual, su sonido
+                podía extenderse a gran distancia y convertirse en una verdadera
+                voz que comunicaba al convento con la población.
             </p>
 
-        </div>
-
-        <!-- NARRACIÓN Y MÚSICA -->
-
-        <div class="controles-audio">
-
-            <div class="bloque-audio">
-
-                <h3>🎙️ Narración</h3>
-
-                <audio
-                    id="narracion"
-                    controls
-                    preload="auto"
-                >
-                    Tu navegador no admite reproducción de audio.
-                </audio>
-
+            <div class="subtitulo">
+                El campanario y la vida de los frailes
             </div>
 
-            <div class="bloque-audio">
+            <p>
+                Para los frailes, las campanas tenían una función fundamental
+                dentro de la vida cotidiana del convento. La jornada religiosa
+                estaba organizada en diferentes momentos dedicados a la oración,
+                al estudio, al trabajo, a los alimentos y al descanso.
+            </p>
 
-                <h3>🎵 Música ambiental</h3>
+            <p>
+                El sonido de la campana ayudaba a señalar esos momentos y,
+                especialmente, convocaba a los religiosos para reunirse como
+                comunidad. Cuando la campana sonaba, el fraile sabía que había
+                llegado el momento de dejar su ocupación particular y responder
+                a una llamada común.
+            </p>
 
-                <audio
-                    id="musica"
-                    controls
-                    loop
-                    preload="auto"
-                >
-                    <source
-                        src="antipodeanwriter-cinematic-soundtrack-irish-melody-12432.mp3"
-                        type="audio/mpeg"
-                    >
-                    Tu navegador no admite reproducción de audio.
-                </audio>
+            <p>
+                De esta manera, la campana no solamente organizaba el tiempo.
+                Su sonido podía adquirir también un significado espiritual:
+                recordaba al religioso que su vida no estaba organizada
+                únicamente alrededor de sus propias actividades, sino en torno
+                a Dios y a la comunidad de hermanos con quienes compartía
+                la vida conventual.
+            </p>
 
+            <div class="subtitulo">
+                El campanario y la comunidad
             </div>
 
+            <p>
+                Pero la voz de las campanas no permanecía encerrada dentro de
+                los muros del convento. Su sonido se extendía hacia las casas,
+                los caminos y los campos de Tetela del Volcán.
+            </p>
+
+            <p>
+                En una época en la que no existían los medios de comunicación
+                actuales, las campanas cumplían también una importante función
+                comunitaria. Sus distintos toques podían convocar a las
+                celebraciones religiosas, acompañar las fiestas y solemnidades,
+                anunciar acontecimientos importantes y hacerse presentes
+                también en los momentos de duelo.
+            </p>
+
+            <p>
+                Así, el campanario establecía un vínculo entre la vida que
+                transcurría dentro del convento y la vida cotidiana del pueblo.
+                Frailes y habitantes escuchaban una misma voz que marcaba
+                determinados momentos del día y acompañaba los acontecimientos
+                de la comunidad.
+            </p>
+
+            <div class="reflexion">
+
+                <h3>Para contemplar</h3>
+
+                Durante siglos, generaciones de frailes y habitantes de
+                Tetela del Volcán escucharon el sonido de estas campanas.
+                Cambiaron las personas, las costumbres y las épocas, pero
+                desde lo alto del convento continuó escuchándose su llamada.
+
+                <br><br>
+
+                El campanario nos recuerda que el convento no era una realidad
+                completamente aislada detrás de sus muros. Su vida se encontraba
+                profundamente relacionada con la comunidad que había crecido
+                a su alrededor.
+
+                <br><br>
+
+                <strong>
+                    A través de sus campanas, el convento hablaba al pueblo,
+                    mientras el ritmo de la vida religiosa se hacía también
+                    parte de la vida de la comunidad.
+                </strong>
+
+            </div>
         </div>
+    </div>
 
-        <!-- NAVEGACIÓN ORIGINAL -->
+    <!-- FOTO DURANTE LA RESTAURACIÓN -->
 
-        <div class="navegacion">
+    <div class="restauracion">
 
-            <a class="boton" href="biblioteca-2.html">
-                ← REGRESAR
-            </a>
+        <h2>El campanario después del sismo</h2>
 
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">
-                    🗺 VOLVER AL PLANO
-                </span>
-                <span class="texto-celular">
-                    🗺 PLANO
-                </span>
-            </a>
+        <img
+            src="PHOTO-2026-10-06-05-29-55.jpg"
+            alt="Campanario durante los trabajos de restauración posteriores al sismo de 2017"
+        >
 
-            <a class="boton" href="enfermeria.html">
-                SEGUIR →
-            </a>
-
-        </div>
+        <p>
+            El campanario durante los trabajos de restauración posteriores al sismo de 2017.
+        </p>
 
     </div>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    <!-- NARRACIÓN Y MÚSICA -->
 
-        const narracion = document.getElementById("narracion");
-        const musica = document.getElementById("musica");
+    <div class="controles-audio">
 
-        /*
-           ARCHIVO SUBIDO A GITHUB:
+        <div class="bloque-audio">
 
-           Narración campanario.m4a
+            <h3>🎙️ Narración</h3>
 
-           Se comprueban las dos formas Unicode
-           para respetar el nombre original.
-        */
+            <audio
+                id="narracion"
+                controls
+                preload="auto"
+            >
+                Tu navegador no admite reproducción de audio.
+            </audio>
 
-        const nombreNarracion = "Narración campanario.m4a";
+        </div>
 
-        const rutasNarracion = [
-            encodeURIComponent(nombreNarracion.normalize("NFD")),
-            encodeURIComponent(nombreNarracion.normalize("NFC"))
-        ].filter(function (ruta, indice, lista) {
-            return lista.indexOf(ruta) === indice;
-        });
+        <div class="bloque-audio">
 
-        let indiceRuta = 0;
-        let inicioNarracionSolicitado = false;
-        let narracionIntentada = false;
+            <h3>🎵 Música ambiental</h3>
 
-        narracion.src = rutasNarracion[indiceRuta];
-        narracion.load();
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
+                <source
+                    src="antipodeanwriter-cinematic-soundtrack-irish-melody-12432.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
 
-        narracion.volume = 1.0;
-        musica.volume = 0.20;
+        </div>
+    </div>
 
-        /*
-           SECUENCIA:
+    <!-- NAVEGACIÓN ORIGINAL -->
 
-           1. La narración intenta comenzar
-              automáticamente al entrar.
+    <div class="navegacion">
 
-           2. Mientras se escucha la voz,
-              la música permanece detenida.
+        <a class="boton" href="biblioteca-2.html">
+            ← REGRESAR
+        </a>
 
-           3. Cuando termina la narración,
-              comienza la música ambiental.
+        <a class="boton" href="mapa.html">
 
-           4. La música continúa en repetición.
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
 
-           No se añaden botones adicionales.
-        */
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
 
-        /* EVITAR SUPERPOSICIÓN */
+        </a>
 
-        narracion.addEventListener("play", function () {
-            musica.pause();
-        });
+        <a class="boton" href="enfermeria.html">
+            SEGUIR →
+        </a>
 
-        narracion.addEventListener("playing", function () {
-            musica.pause();
-        });
+    </div>
+</div>
 
-        musica.addEventListener("play", function () {
+<!-- CONTROL DE NARRACIÓN, VIDEO Y MÚSICA -->
 
-            if (!narracion.paused && !narracion.ended) {
-                narracion.pause();
-            }
-        });
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-        /*
-           AL TERMINAR LA NARRACIÓN,
-           INICIAR LA MÚSICA.
-        */
+    const narracion = document.getElementById("narracion");
+    const musica = document.getElementById("musica");
+    const video = document.getElementById("videoHistorico");
+    const rotulo = document.getElementById("rotuloHistorico");
 
-        narracion.addEventListener("ended", function () {
-            iniciarMusica();
-        });
+    /*
+       ARCHIVO ORIGINAL DE NARRACIÓN.
+       COMPATIBILIDAD CON ACENTOS NFD Y NFC.
+    */
 
-        /* INICIAR MÚSICA AMBIENTAL */
+    const nombreNarracion = "Narración campanario.m4a";
 
-        function iniciarMusica() {
+    const rutasNarracion = [
+        encodeURIComponent(nombreNarracion.normalize("NFD")),
+        encodeURIComponent(nombreNarracion.normalize("NFC"))
+    ].filter(function (ruta, indice, lista) {
+        return lista.indexOf(ruta) === indice;
+    });
 
-            if (!narracion.paused && !narracion.ended) {
-                return;
-            }
+    let indiceRuta = 0;
+    let inicioNarracionSolicitado = false;
+    let narracionIntentada = false;
 
-            if (!musica.paused) {
-                return;
-            }
+    narracion.src = rutasNarracion[indiceRuta];
+    narracion.load();
 
-            let intento;
+    /*
+       VOLUMEN ORIGINAL
+    */
 
-            try {
-                intento = musica.play();
-            } catch (error) {
+    narracion.volume = 1.0;
+    musica.volume = 0.20;
+    musica.loop = true;
+
+    /*
+       VIDEO COMPLETAMENTE SILENCIOSO
+    */
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+    video.playsInline = true;
+    video.loop = false;
+
+    /*
+       SECUENCIA:
+
+       1. Fotografía original.
+       2. Comienza la narración.
+       3. Entra el video histórico.
+       4. Termina el video y regresa la foto.
+       5. La narración continúa.
+       6. Termina la narración.
+       7. Comienza la música ambiental.
+       8. Se reproduce nuevamente el video.
+       9. Regresa la fotografía.
+      10. La música continúa en bucle.
+
+       El video no se repite en cada vuelta
+       de la música.
+    */
+
+    let primeraIniciada = false;
+    let segundaIniciada = false;
+    let segundaPendiente = false;
+
+    let videoActivo = false;
+    let videoPreparando = false;
+    let videoDisponible = true;
+
+    let musicaComenzada = false;
+    let temporizadorPrimero = null;
+    let temporizadorSegundo = null;
+
+    /*
+       OCULTAR VIDEO Y MOSTRAR FOTOGRAFÍA
+    */
+
+    function ocultarReconstruccion() {
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+    }
+
+    /*
+       MOSTRAR RECONSTRUCCIÓN HISTÓRICA
+    */
+
+    function mostrarReconstruccion() {
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+    }
+
+    /*
+       REPRODUCIR VIDEO HISTÓRICO
+    */
+
+    function reproducirReconstruccion() {
+
+        if (!videoDisponible) {
+            return false;
+        }
+
+        if (videoActivo || videoPreparando) {
+            return false;
+        }
+
+        videoPreparando = true;
+
+        ocultarReconstruccion();
+
+        video.pause();
+
+        try {
+            video.currentTime = 0;
+        } catch (error) {
+            console.log("Esperando disponibilidad del video.");
+        }
+
+        video.muted = true;
+        video.volume = 0;
+
+        let intento;
+
+        try {
+            intento = video.play();
+        } catch (error) {
+
+            videoPreparando = false;
+            videoActivo = false;
+
+            ocultarReconstruccion();
+
+            console.log("No se pudo iniciar el video:", error);
+
+            return false;
+        }
+
+        if (intento && typeof intento.then === "function") {
+
+            intento.then(function () {
+
+                videoPreparando = false;
+                videoActivo = true;
+
+                mostrarReconstruccion();
+
+            }).catch(function (error) {
+
+                videoPreparando = false;
+                videoActivo = false;
+
+                ocultarReconstruccion();
 
                 console.log(
-                    "No se pudo iniciar la música ambiental:",
+                    "El navegador no permitió reproducir el video:",
                     error
                 );
 
-                return;
-            }
+            });
 
-            if (intento && typeof intento.catch === "function") {
+        } else {
 
-                intento.catch(function (error) {
+            videoPreparando = false;
+            videoActivo = true;
 
-                    console.log(
-                        "El navegador requiere interacción para iniciar la música:",
-                        error
-                    );
-                });
-            }
+            mostrarReconstruccion();
         }
 
-        /*
-           SI LA PRIMERA CODIFICACIÓN DEL
-           NOMBRE NO EXISTE, PROBAR LA OTRA.
-        */
+        return true;
+    }
 
-        narracion.addEventListener("error", function () {
+    /*
+       PRIMER VIDEO:
+       POCO DESPUÉS DE INICIAR LA NARRACIÓN
+    */
 
-            if (indiceRuta + 1 < rutasNarracion.length) {
+    function iniciarPrimerVideo() {
 
-                indiceRuta++;
+        if (primeraIniciada) {
+            return;
+        }
 
-                narracion.src = rutasNarracion[indiceRuta];
-                narracion.load();
+        primeraIniciada = true;
 
-                if (narracionIntentada) {
+        temporizadorPrimero = setTimeout(function () {
 
-                    inicioNarracionSolicitado = false;
-                    iniciarNarracion();
-                }
+            temporizadorPrimero = null;
 
-                return;
-            }
+            reproducirReconstruccion();
+
+        }, 1500);
+    }
+
+    /*
+       SEGUNDO VIDEO:
+       AL COMENZAR LA MÚSICA
+    */
+
+    function iniciarSegundoVideo() {
+
+        if (segundaIniciada) {
+            return;
+        }
+
+        if (videoActivo || videoPreparando) {
+
+            segundaPendiente = true;
+            return;
+        }
+
+        segundaIniciada = true;
+        segundaPendiente = false;
+
+        reproducirReconstruccion();
+    }
+
+    /*
+       AL TERMINAR EL VIDEO,
+       REGRESA LA FOTOGRAFÍA ORIGINAL
+    */
+
+    video.addEventListener("ended", function () {
+
+        ocultarReconstruccion();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        if (segundaPendiente && !segundaIniciada) {
+
+            segundaPendiente = false;
+
+            temporizadorSegundo = setTimeout(function () {
+
+                temporizadorSegundo = null;
+
+                iniciarSegundoVideo();
+
+            }, 1600);
+        }
+    });
+
+    /*
+       SI EL VIDEO FALLA,
+       LA FOTOGRAFÍA PERMANECE VISIBLE
+    */
+
+    video.addEventListener("error", function () {
+
+        videoDisponible = false;
+
+        ocultarReconstruccion();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        console.log(
+            "No se pudo cargar frailecampanario.MP4"
+        );
+    });
+
+    /*
+       EVITAR SUPERPOSICIÓN DE AUDIOS
+    */
+
+    narracion.addEventListener("play", function () {
+        musica.pause();
+    });
+
+    narracion.addEventListener("playing", function () {
+
+        musica.pause();
+
+        iniciarPrimerVideo();
+    });
+
+    musica.addEventListener("play", function () {
+
+        if (!narracion.paused && !narracion.ended) {
+            narracion.pause();
+        }
+    });
+
+    /*
+       AL TERMINAR LA NARRACIÓN,
+       COMIENZA LA MÚSICA
+    */
+
+    narracion.addEventListener("ended", function () {
+
+        iniciarMusica();
+    });
+
+    /*
+       INICIAR MÚSICA AMBIENTAL
+    */
+
+    function iniciarMusica() {
+
+        if (!narracion.paused && !narracion.ended) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        let intento;
+
+        try {
+            intento = musica.play();
+        } catch (error) {
 
             console.log(
-                "No se pudo cargar Narración campanario.m4a."
+                "No se pudo iniciar la música ambiental:",
+                error
             );
-        });
 
-        /* INICIAR NARRACIÓN */
+            return;
+        }
 
-        function iniciarNarracion() {
+        if (intento && typeof intento.catch === "function") {
 
-            if (inicioNarracionSolicitado) {
-                return;
+            intento.catch(function (error) {
+
+                console.log(
+                    "El navegador requiere interacción para iniciar la música:",
+                    error
+                );
+            });
+        }
+    }
+
+    /*
+       SEGUNDO VIDEO AL COMENZAR LA MÚSICA
+    */
+
+    musica.addEventListener("playing", function () {
+
+        if (musicaComenzada) {
+            return;
+        }
+
+        musicaComenzada = true;
+
+        iniciarSegundoVideo();
+    });
+
+    /*
+       RESPALDO DE NARRACIÓN:
+       ACENTOS NFD Y NFC
+    */
+
+    narracion.addEventListener("error", function () {
+
+        if (indiceRuta + 1 < rutasNarracion.length) {
+
+            indiceRuta++;
+
+            narracion.src = rutasNarracion[indiceRuta];
+            narracion.load();
+
+            if (narracionIntentada) {
+
+                inicioNarracionSolicitado = false;
+                iniciarNarracion();
             }
 
-            if (!narracion.paused || narracion.ended) {
-                return;
-            }
+            return;
+        }
 
-            inicioNarracionSolicitado = true;
-            narracionIntentada = true;
+        console.log(
+            "No se pudo cargar Narración campanario.m4a."
+        );
+    });
 
-            let intento;
+    /*
+       INICIAR NARRACIÓN AUTOMÁTICAMENTE
+    */
 
-            try {
-                intento = narracion.play();
-            } catch (error) {
+    function iniciarNarracion() {
+
+        if (inicioNarracionSolicitado) {
+            return;
+        }
+
+        if (!narracion.paused || narracion.ended) {
+            return;
+        }
+
+        inicioNarracionSolicitado = true;
+        narracionIntentada = true;
+
+        let intento;
+
+        try {
+            intento = narracion.play();
+        } catch (error) {
+
+            inicioNarracionSolicitado = false;
+
+            console.log(
+                "No se pudo iniciar la narración:",
+                error
+            );
+
+            return;
+        }
+
+        if (intento && typeof intento.catch === "function") {
+
+            intento.catch(function (error) {
 
                 inicioNarracionSolicitado = false;
 
-                console.log(
-                    "No se pudo iniciar la narración:",
-                    error
-                );
+                if (error.name !== "AbortError") {
 
-                return;
-            }
+                    console.log(
+                        "El navegador requiere interacción para iniciar la narración:",
+                        error
+                    );
+                }
+            });
+        }
+    }
 
-            if (intento && typeof intento.catch === "function") {
+    /*
+       INICIO DE LA ESCENA
+    */
 
-                intento.catch(function (error) {
+    ocultarReconstruccion();
 
-                    inicioNarracionSolicitado = false;
+    window.addEventListener("load", function () {
 
-                    if (error.name !== "AbortError") {
+        musica.pause();
+        musica.currentTime = 0;
 
-                        console.log(
-                            "El navegador requiere interacción para iniciar la narración:",
-                            error
-                        );
-                    }
-                });
-            }
+        iniciarNarracion();
+    });
+
+    /*
+       RESPALDO PARA SAFARI Y CELULARES:
+       SIN BOTONES ADICIONALES
+    */
+
+    document.addEventListener("click", function (evento) {
+
+        if (
+            evento.target.closest(
+                "a, audio, video, button"
+            )
+        ) {
+            return;
         }
 
-        /* INICIO AUTOMÁTICO */
-
-        window.addEventListener("load", function () {
-
-            musica.pause();
-            musica.currentTime = 0;
-
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
             iniciarNarracion();
-        });
-
-        /*
-           RESPALDO PARA SAFARI:
-
-           Si se bloquea la reproducción
-           automática, el visitante puede
-           utilizar el reproductor de voz.
-
-           También se permite reintentar
-           mediante un toque en la página,
-           sin agregar botones.
-        */
-
-        document.addEventListener("click", function (evento) {
-
-            if (evento.target.closest("a, audio, button")) {
-                return;
-            }
-
-            if (
-                narracion.paused &&
-                !narracion.ended &&
-                narracion.currentTime === 0
-            ) {
-                iniciarNarracion();
-            }
-        });
-
+        }
     });
-    </script>
 
-    <!-- CONTADOR GOATCOUNTER -->
+    /*
+       DETENER TODO AL SALIR DE LA ESCENA
+    */
 
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+    window.addEventListener("pagehide", function () {
+
+        if (temporizadorPrimero !== null) {
+            clearTimeout(temporizadorPrimero);
+            temporizadorPrimero = null;
+        }
+
+        if (temporizadorSegundo !== null) {
+            clearTimeout(temporizadorSegundo);
+            temporizadorSegundo = null;
+        }
+
+        video.pause();
+        ocultarReconstruccion();
+
+        narracion.pause();
+        musica.pause();
+    });
+
+});
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
 
 </body>
 </html>
