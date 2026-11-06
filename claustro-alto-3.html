@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,11 +27,61 @@
             background-color: #f5f1e6;
         }
 
+        /* FOTOGRAFÍA ORIGINAL Y VIDEO */
+
+        .escenario {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #171717;
+        }
+
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
+
+        .video-historico {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #171717;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .video-historico.visible {
+            opacity: 1;
+        }
+
+        .rotulo-historico {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 92%;
+            padding: 10px 18px;
+            background: rgba(0, 0, 0, 0.72);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            border-radius: 6px;
+            text-align: center;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .rotulo-historico.visible {
+            opacity: 1;
+        }
+
+        /* CONTENIDO HISTÓRICO ORIGINAL */
 
         .contenido {
             max-width: 900px;
@@ -83,6 +134,8 @@
             color: #555;
         }
 
+        /* MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 10px 20px 20px 20px;
@@ -94,6 +147,8 @@
             max-width: 500px;
             margin: 0 auto;
         }
+
+        /* NAVEGACIÓN ORIGINAL */
 
         .navegacion {
             display: grid;
@@ -127,6 +182,8 @@
         .boton:hover {
             opacity: 0.9;
         }
+
+        /* ADAPTACIÓN A CELULARES */
 
         @media (max-width: 600px) {
 
@@ -164,7 +221,8 @@
             }
 
             .navegacion {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
                 gap: 8px;
                 padding: 18px 8px 30px 8px;
             }
@@ -178,6 +236,12 @@
                 line-height: 1;
                 white-space: nowrap;
             }
+
+            .rotulo-historico {
+                bottom: 10px;
+                padding: 7px 10px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -186,13 +250,42 @@
 
     <div class="escena">
 
-        <!-- FOTO ACTUAL -->
+        <!-- FOTO ACTUAL Y VIDEO HISTÓRICO -->
 
-        <img
-            class="imagen"
-            src="WhatsApp Image 2026-09-24 at 12.38.10.jpeg"
-            alt="Claustro Alto del Ex Convento de San Juan Bautista"
-        >
+        <div class="escenario">
+
+            <img
+                class="imagen"
+                src="WhatsApp Image 2026-09-24 at 12.38.10.jpeg"
+                alt="Claustro Alto del Ex Convento de San Juan Bautista"
+            >
+
+            <video
+                id="videoHistorico"
+                class="video-historico"
+                muted
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                disablepictureinpicture
+            >
+                <source
+                    src="vista-campanario.MP4"
+                    type="video/mp4"
+                >
+                Tu navegador no admite reproducción de video.
+            </video>
+
+            <div
+                id="rotuloHistorico"
+                class="rotulo-historico"
+            >
+                Reconstrucción histórica — Siglo XVI
+            </div>
+
+        </div>
+
+        <!-- TEXTO HISTÓRICO ORIGINAL -->
 
         <div class="contenido">
 
@@ -229,11 +322,16 @@
 
         </div>
 
-        <!-- MÚSICA -->
+        <!-- MÚSICA ORIGINAL -->
 
         <div class="audio">
 
-            <audio controls autoplay loop>
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
                 <source
                     src="musicword-waltz-of-the-rain-385007.mp3"
                     type="audio/mpeg"
@@ -243,7 +341,7 @@
 
         </div>
 
-        <!-- NAVEGACIÓN -->
+        <!-- NAVEGACIÓN ORIGINAL -->
 
         <div class="navegacion">
 
@@ -259,7 +357,319 @@
 
     </div>
 
-    <!-- CONTADOR DE VISITAS -->
+    <!-- CONTROL DE MÚSICA Y VIDEO -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const video =
+                document.getElementById("videoHistorico");
+
+            const rotulo =
+                document.getElementById("rotuloHistorico");
+
+            const musica =
+                document.getElementById("musica");
+
+            /*
+             * CONFIGURACIÓN
+             */
+
+            musica.volume = 0.20;
+            musica.loop = true;
+
+            video.muted = true;
+            video.defaultMuted = true;
+            video.volume = 0;
+            video.playsInline = true;
+            video.loop = false;
+
+            /*
+             * SECUENCIA:
+             *
+             * 1. Aparece la fotografía original.
+             * 2. Comienza la música.
+             * 3. Después de una breve pausa,
+             *    comienza el video sin sonido.
+             * 4. El video termina.
+             * 5. Regresa la fotografía original.
+             * 6. La música continúa en bucle.
+             */
+
+            let videoIniciado = false;
+            let videoActivo = false;
+            let videoPreparando = false;
+            let videoDisponible = true;
+
+            let temporizadorVideo = null;
+            let inicioMusicaSolicitado = false;
+
+            /*
+             * OCULTAR VIDEO
+             */
+
+            function ocultarReconstruccion() {
+
+                video.classList.remove("visible");
+                rotulo.classList.remove("visible");
+
+            }
+
+            /*
+             * MOSTRAR VIDEO
+             */
+
+            function mostrarReconstruccion() {
+
+                video.classList.add("visible");
+                rotulo.classList.add("visible");
+
+            }
+
+            /*
+             * REPRODUCIR VIDEO HISTÓRICO
+             */
+
+            function reproducirReconstruccion() {
+
+                if (!videoDisponible) {
+                    return;
+                }
+
+                if (
+                    videoIniciado ||
+                    videoActivo ||
+                    videoPreparando
+                ) {
+                    return;
+                }
+
+                videoIniciado = true;
+                videoPreparando = true;
+
+                ocultarReconstruccion();
+
+                video.muted = true;
+                video.volume = 0;
+
+                try {
+                    video.currentTime = 0;
+                } catch (error) {
+                    console.log(
+                        "Esperando disponibilidad del video."
+                    );
+                }
+
+                let intento;
+
+                try {
+
+                    intento = video.play();
+
+                } catch (error) {
+
+                    videoPreparando = false;
+                    videoActivo = false;
+
+                    ocultarReconstruccion();
+
+                    console.log(
+                        "No se pudo iniciar el video.",
+                        error
+                    );
+
+                    return;
+                }
+
+                if (
+                    intento &&
+                    typeof intento.then === "function"
+                ) {
+
+                    intento.then(function () {
+
+                        videoPreparando = false;
+                        videoActivo = true;
+
+                        mostrarReconstruccion();
+
+                    }).catch(function (error) {
+
+                        videoPreparando = false;
+                        videoActivo = false;
+
+                        ocultarReconstruccion();
+
+                        console.log(
+                            "El navegador no permitió reproducir el video.",
+                            error
+                        );
+
+                    });
+
+                } else {
+
+                    videoPreparando = false;
+                    videoActivo = true;
+
+                    mostrarReconstruccion();
+
+                }
+            }
+
+            /*
+             * CUANDO TERMINA EL VIDEO,
+             * REGRESA LA FOTO ORIGINAL
+             */
+
+            video.addEventListener("ended", function () {
+
+                ocultarReconstruccion();
+
+                videoActivo = false;
+                videoPreparando = false;
+
+            });
+
+            /*
+             * SI EL VIDEO FALLA,
+             * CONSERVAR LA FOTOGRAFÍA
+             */
+
+            video.addEventListener("error", function () {
+
+                videoDisponible = false;
+
+                ocultarReconstruccion();
+
+                videoActivo = false;
+                videoPreparando = false;
+
+                console.log(
+                    "No se pudo cargar vista-campanario.MP4"
+                );
+
+            });
+
+            /*
+             * INICIAR VIDEO POCO DESPUÉS
+             * DE QUE COMIENCE LA MÚSICA
+             */
+
+            musica.addEventListener("playing", function () {
+
+                if (
+                    videoIniciado ||
+                    temporizadorVideo !== null
+                ) {
+                    return;
+                }
+
+                temporizadorVideo = setTimeout(
+                    function () {
+
+                        temporizadorVideo = null;
+
+                        reproducirReconstruccion();
+
+                    },
+                    1500
+                );
+
+            });
+
+            /*
+             * INICIAR MÚSICA AUTOMÁTICAMENTE
+             */
+
+            function iniciarMusica() {
+
+                if (!musica.paused) {
+                    return;
+                }
+
+                inicioMusicaSolicitado = true;
+
+                const intento = musica.play();
+
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
+
+                    intento.catch(function (error) {
+
+                        console.log(
+                            "Safari puede requerir interacción para iniciar la música.",
+                            error
+                        );
+
+                    });
+
+                }
+            }
+
+            /*
+             * INICIO DE LA ESCENA
+             */
+
+            ocultarReconstruccion();
+
+            window.addEventListener("load", function () {
+
+                musica.currentTime = 0;
+
+                iniciarMusica();
+
+            });
+
+            /*
+             * RESPALDO PARA SAFARI Y CELULARES
+             * SIN BOTONES ADICIONALES
+             */
+
+            document.addEventListener("click", function (evento) {
+
+                if (
+                    evento.target.closest(
+                        "a, audio, video, button"
+                    )
+                ) {
+                    return;
+                }
+
+                if (musica.paused && musica.currentTime === 0) {
+
+                    iniciarMusica();
+
+                }
+
+            });
+
+            /*
+             * DETENER TODO AL SALIR
+             */
+
+            window.addEventListener("pagehide", function () {
+
+                if (temporizadorVideo !== null) {
+
+                    clearTimeout(temporizadorVideo);
+                    temporizadorVideo = null;
+
+                }
+
+                video.pause();
+                ocultarReconstruccion();
+
+                musica.pause();
+
+            });
+
+        });
+    </script>
+
+    <!-- CONTADOR DE VISITAS GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
@@ -268,5 +678,4 @@
     </script>
 
 </body>
-
 </html>
