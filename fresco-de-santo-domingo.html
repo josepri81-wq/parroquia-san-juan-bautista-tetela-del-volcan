@@ -27,11 +27,61 @@
             background-color: #f5f1e6;
         }
 
+        /* FOTOGRAFÍA ORIGINAL Y VIDEO HISTÓRICO */
+
+        .escenario {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #171717;
+        }
+
         .imagen {
             width: 100%;
             height: auto;
             display: block;
         }
+
+        .video-historico {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #171717;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .video-historico.visible {
+            opacity: 1;
+        }
+
+        .rotulo-historico {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 92%;
+            padding: 10px 18px;
+            background: rgba(0, 0, 0, 0.72);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            border-radius: 6px;
+            text-align: center;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .rotulo-historico.visible {
+            opacity: 1;
+        }
+
+        /* CONTENIDO HISTÓRICO ORIGINAL */
 
         .contenido {
             max-width: 900px;
@@ -54,6 +104,8 @@
             text-align: justify;
         }
 
+        /* NARRACIÓN Y MÚSICA AMBIENTAL */
+
         .audio {
             text-align: center;
             padding: 25px 20px 20px 20px;
@@ -71,6 +123,8 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* NAVEGACIÓN ORIGINAL */
 
         .navegacion {
             display: grid;
@@ -104,6 +158,8 @@
         .boton:hover {
             opacity: 0.9;
         }
+
+        /* ADAPTACIÓN A CELULARES */
 
         @media (max-width: 600px) {
 
@@ -147,6 +203,12 @@
                 line-height: 1;
                 white-space: nowrap;
             }
+
+            .rotulo-historico {
+                bottom: 10px;
+                padding: 7px 10px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -155,13 +217,40 @@
 
     <div class="escena">
 
-        <!-- FOTOGRAFÍA ORIGINAL -->
+        <!-- FOTOGRAFÍA ORIGINAL Y RECONSTRUCCIÓN HISTÓRICA -->
 
-        <img
-            class="imagen"
-            src="WhatsApp Image 2026-09-28 at 23.25.03.jpeg"
-            alt="Fresco de Santo Domingo de Guzmán en el antiguo convento de San Juan Bautista"
-        >
+        <div class="escenario">
+
+            <img
+                class="imagen"
+                src="WhatsApp Image 2026-09-28 at 23.25.03.jpeg"
+                alt="Fresco de Santo Domingo de Guzmán en el antiguo convento de San Juan Bautista"
+            >
+
+            <video
+                id="videoHistorico"
+                class="video-historico"
+                muted
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                disablepictureinpicture
+            >
+                <source
+                    src="santodomingo_720p_compatible.mp4"
+                    type="video/mp4"
+                >
+                Tu navegador no admite reproducción de video.
+            </video>
+
+            <div
+                id="rotuloHistorico"
+                class="rotulo-historico"
+            >
+                Reconstrucción histórica — Siglo XVI
+            </div>
+
+        </div>
 
         <!-- TEXTO HISTÓRICO ORIGINAL -->
 
@@ -205,7 +294,7 @@
 
         </div>
 
-        <!-- NARRACIÓN Y MÚSICA -->
+        <!-- NARRACIÓN Y MÚSICA ORIGINAL -->
 
         <div class="audio">
 
@@ -258,23 +347,30 @@
 
     </div>
 
+    <!-- CONTROL DE NARRACIÓN, MÚSICA Y VIDEO -->
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
-            const narracion = document.getElementById("narracion");
-            const musica = document.getElementById("musica");
+            const narracion =
+                document.getElementById("narracion");
+
+            const musica =
+                document.getElementById("musica");
+
+            const video =
+                document.getElementById("videoHistorico");
+
+            const rotulo =
+                document.getElementById("rotuloHistorico");
 
             /*
-                NOMBRE EXACTO DEL ARCHIVO EN GITHUB
-            */
+             * ARCHIVO ORIGINAL DE NARRACIÓN
+             * COMPATIBLE CON ACENTOS NFD Y NFC
+             */
 
             const archivoNarracion =
                 "Narración fresco de Santo Domingo.m4a";
-
-            /*
-                COMPATIBILIDAD CON ACENTOS:
-                NFD Y NFC
-            */
 
             const rutasNarracion = [
                 encodeURIComponent(
@@ -294,20 +390,394 @@
             narracion.load();
 
             /*
-                VOLUMEN DE LOS AUDIOS
-            */
+             * CONFIGURACIÓN DE AUDIO
+             */
 
             narracion.volume = 1.0;
             musica.volume = 0.20;
             musica.loop = true;
 
             /*
-                INICIAR LA NARRACIÓN
-            */
+             * VIDEO SIN SONIDO
+             */
+
+            video.muted = true;
+            video.defaultMuted = true;
+            video.volume = 0;
+            video.playsInline = true;
+            video.loop = false;
+
+            /*
+             * SECUENCIA:
+             *
+             * 1. Fotografía original.
+             * 2. Comienza la narración.
+             * 3. Primera reproducción del video.
+             * 4. Regresa la fotografía original.
+             * 5. Continúa y termina la narración.
+             * 6. Comienza Salve Regina.
+             * 7. Segunda reproducción del video.
+             * 8. Regresa la fotografía original.
+             * 9. La música continúa en bucle.
+             */
+
+            let primeraIniciada = false;
+            let segundaIniciada = false;
+            let segundaPendiente = false;
+
+            let videoActivo = false;
+            let videoPreparando = false;
+            let videoDisponible = true;
+
+            let musicaComenzada = false;
+            let temporizadorSegundoVideo = null;
+
+            /*
+             * OCULTAR VIDEO Y MOSTRAR FOTOGRAFÍA
+             */
+
+            function ocultarReconstruccion() {
+
+                video.classList.remove("visible");
+                rotulo.classList.remove("visible");
+
+            }
+
+            /*
+             * MOSTRAR VIDEO
+             */
+
+            function mostrarReconstruccion() {
+
+                video.classList.add("visible");
+                rotulo.classList.add("visible");
+
+            }
+
+            /*
+             * REPRODUCIR RECONSTRUCCIÓN HISTÓRICA
+             */
+
+            function reproducirReconstruccion() {
+
+                if (!videoDisponible) {
+                    return false;
+                }
+
+                if (videoActivo || videoPreparando) {
+                    return false;
+                }
+
+                videoPreparando = true;
+
+                ocultarReconstruccion();
+
+                video.pause();
+
+                try {
+                    video.currentTime = 0;
+                } catch (error) {
+                    console.log(
+                        "Esperando disponibilidad del video."
+                    );
+                }
+
+                video.muted = true;
+                video.volume = 0;
+
+                let intento;
+
+                try {
+
+                    intento = video.play();
+
+                } catch (error) {
+
+                    videoPreparando = false;
+                    videoActivo = false;
+
+                    ocultarReconstruccion();
+
+                    console.log(
+                        "No se pudo iniciar el video.",
+                        error
+                    );
+
+                    return false;
+                }
+
+                if (
+                    intento &&
+                    typeof intento.then === "function"
+                ) {
+
+                    intento.then(function () {
+
+                        videoPreparando = false;
+                        videoActivo = true;
+
+                        mostrarReconstruccion();
+
+                    }).catch(function (error) {
+
+                        videoPreparando = false;
+                        videoActivo = false;
+
+                        ocultarReconstruccion();
+
+                        console.log(
+                            "El navegador no permitió reproducir el video.",
+                            error
+                        );
+
+                    });
+
+                } else {
+
+                    videoPreparando = false;
+                    videoActivo = true;
+
+                    mostrarReconstruccion();
+
+                }
+
+                return true;
+            }
+
+            /*
+             * PRIMER VIDEO:
+             * AL COMENZAR LA NARRACIÓN
+             */
+
+            function iniciarPrimerVideo() {
+
+                if (primeraIniciada) {
+                    return;
+                }
+
+                primeraIniciada = true;
+
+                reproducirReconstruccion();
+
+            }
+
+            /*
+             * SEGUNDO VIDEO:
+             * AL COMENZAR LA MÚSICA
+             */
+
+            function iniciarSegundoVideo() {
+
+                if (segundaIniciada) {
+                    return;
+                }
+
+                if (videoActivo || videoPreparando) {
+
+                    segundaPendiente = true;
+                    return;
+                }
+
+                segundaIniciada = true;
+                segundaPendiente = false;
+
+                reproducirReconstruccion();
+
+            }
+
+            /*
+             * CUANDO TERMINA EL VIDEO
+             */
+
+            video.addEventListener("ended", function () {
+
+                ocultarReconstruccion();
+
+                videoActivo = false;
+                videoPreparando = false;
+
+                if (
+                    segundaPendiente &&
+                    !segundaIniciada
+                ) {
+
+                    segundaPendiente = false;
+
+                    temporizadorSegundoVideo =
+                        setTimeout(function () {
+
+                            temporizadorSegundoVideo = null;
+
+                            iniciarSegundoVideo();
+
+                        }, 1600);
+                }
+
+            });
+
+            /*
+             * SI EL VIDEO FALLA,
+             * PERMANECE LA FOTOGRAFÍA
+             */
+
+            video.addEventListener("error", function () {
+
+                videoDisponible = false;
+
+                ocultarReconstruccion();
+
+                videoActivo = false;
+                videoPreparando = false;
+
+                console.log(
+                    "No se pudo cargar santodomingo_720p_compatible.mp4"
+                );
+
+            });
+
+            /*
+             * RESPALDO PARA NARRACIÓN
+             * CON ACENTOS DIFERENTES
+             */
+
+            narracion.addEventListener("error", function () {
+
+                if (
+                    indiceRuta + 1 <
+                    rutasNarracion.length
+                ) {
+
+                    indiceRuta++;
+
+                    narracion.src =
+                        rutasNarracion[indiceRuta];
+
+                    narracion.load();
+
+                    if (inicioSolicitado) {
+                        iniciarNarracion();
+                    }
+
+                } else {
+
+                    console.error(
+                        "No se encontró Narración fresco de Santo Domingo.m4a"
+                    );
+
+                }
+
+            });
+
+            /*
+             * CUANDO COMIENZA LA NARRACIÓN
+             */
+
+            narracion.addEventListener("play", function () {
+
+                musica.pause();
+
+            });
+
+            narracion.addEventListener("playing", function () {
+
+                musica.pause();
+
+                iniciarPrimerVideo();
+
+            });
+
+            /*
+             * AL TERMINAR LA NARRACIÓN
+             */
+
+            narracion.addEventListener("ended", function () {
+
+                iniciarMusica();
+
+            });
+
+            /*
+             * INICIAR MÚSICA AMBIENTAL
+             */
+
+            function iniciarMusica() {
+
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
+                    return;
+                }
+
+                if (!musica.paused) {
+                    return;
+                }
+
+                musica.volume = 0.20;
+
+                const intento = musica.play();
+
+                if (
+                    intento &&
+                    typeof intento.catch === "function"
+                ) {
+
+                    intento.catch(function (error) {
+
+                        console.log(
+                            "Safari puede requerir interacción para iniciar la música.",
+                            error
+                        );
+
+                    });
+
+                }
+
+            }
+
+            /*
+             * EVITAR SUPERPOSICIÓN DE AUDIOS
+             */
+
+            musica.addEventListener("play", function () {
+
+                if (
+                    !narracion.paused &&
+                    !narracion.ended
+                ) {
+
+                    narracion.pause();
+
+                }
+
+            });
+
+            /*
+             * SEGUNDO VIDEO AL COMENZAR LA MÚSICA
+             */
+
+            musica.addEventListener("playing", function () {
+
+                if (musicaComenzada) {
+                    return;
+                }
+
+                musicaComenzada = true;
+
+                iniciarSegundoVideo();
+
+            });
+
+            /*
+             * INICIO AUTOMÁTICO DE NARRACIÓN
+             */
 
             function iniciarNarracion() {
 
-                if (!narracion.paused || narracion.ended) {
+                if (
+                    !narracion.paused ||
+                    narracion.ended
+                ) {
                     return;
                 }
 
@@ -319,108 +789,49 @@
                     intento &&
                     typeof intento.catch === "function"
                 ) {
+
                     intento.catch(function (error) {
+
                         console.log(
                             "Safari puede requerir interacción para iniciar la narración.",
                             error
                         );
+
                     });
+
                 }
+
             }
 
             /*
-                RESPALDO PARA ARCHIVOS CON ACENTOS
-            */
+             * INICIO DE LA ESCENA:
+             * PRIMERO LA FOTOGRAFÍA
+             */
 
-            narracion.addEventListener("error", function () {
-
-                if (indiceRuta + 1 < rutasNarracion.length) {
-
-                    indiceRuta++;
-
-                    narracion.src = rutasNarracion[indiceRuta];
-                    narracion.load();
-
-                    if (inicioSolicitado) {
-                        iniciarNarracion();
-                    }
-
-                } else {
-
-                    console.error(
-                        "No se encontró Narración fresco de Santo Domingo.m4a."
-                    );
-                }
-            });
-
-            /*
-                NARRACIÓN Y MÚSICA SIN SUPERPOSICIÓN
-            */
-
-            narracion.addEventListener("play", function () {
-                musica.pause();
-            });
-
-            narracion.addEventListener("playing", function () {
-                musica.pause();
-            });
-
-            /*
-                AL TERMINAR LA NARRACIÓN,
-                COMIENZA SALVE REGINA
-            */
-
-            narracion.addEventListener("ended", function () {
-
-                const intento = musica.play();
-
-                if (
-                    intento &&
-                    typeof intento.catch === "function"
-                ) {
-                    intento.catch(function (error) {
-                        console.log(
-                            "El navegador requiere interacción para iniciar la música.",
-                            error
-                        );
-                    });
-                }
-            });
-
-            /*
-                SI EL VISITANTE INICIA LA MÚSICA,
-                SE DETIENE LA NARRACIÓN
-            */
-
-            musica.addEventListener("play", function () {
-
-                if (
-                    !narracion.paused &&
-                    !narracion.ended
-                ) {
-                    narracion.pause();
-                }
-            });
-
-            /*
-                INICIO AUTOMÁTICO AL ENTRAR
-            */
+            ocultarReconstruccion();
 
             musica.pause();
 
             window.addEventListener("load", function () {
+
+                musica.pause();
+                musica.currentTime = 0;
+
                 iniciarNarracion();
+
             });
 
             /*
-                RESPALDO PARA IPHONE Y SAFARI:
-                SIN AGREGAR BOTONES
-            */
+             * RESPALDO PARA SAFARI Y CELULARES
+             * SIN BOTONES ADICIONALES
+             */
 
             document.addEventListener("click", function (evento) {
 
                 if (
-                    evento.target.closest("a, audio, button")
+                    evento.target.closest(
+                        "a, audio, video, button"
+                    )
                 ) {
                     return;
                 }
@@ -430,23 +841,42 @@
                     !narracion.ended &&
                     narracion.currentTime === 0
                 ) {
+
                     iniciarNarracion();
+
                 }
+
             });
 
             /*
-                DETENER AUDIO AL SALIR
-            */
+             * DETENER TODO AL SALIR
+             */
 
             window.addEventListener("pagehide", function () {
+
+                if (
+                    temporizadorSegundoVideo !== null
+                ) {
+
+                    clearTimeout(
+                        temporizadorSegundoVideo
+                    );
+
+                    temporizadorSegundoVideo = null;
+                }
+
+                video.pause();
+                ocultarReconstruccion();
+
                 narracion.pause();
                 musica.pause();
+
             });
 
         });
     </script>
 
-    <!-- CONTADOR GOATCOUNTER -->
+    <!-- CONTADOR DE VISITAS GOATCOUNTER -->
 
     <script
         data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
@@ -455,5 +885,4 @@
     </script>
 
 </body>
-
 </html>
