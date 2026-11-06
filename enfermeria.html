@@ -3,235 +3,296 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La enfermería | Un día en el convento</title>
 
-    <title>La enfermería | Un día en el convento</title>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    font-family: Arial, sans-serif;
+    color: #2f2f2f;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f1e6;
-            font-family: Arial, sans-serif;
-            color: #2f2f2f;
-        }
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
 
-        .escena {
-            width: 100%;
-            min-height: 100vh;
-            background-color: #f5f1e6;
-        }
+.contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+}
 
-        .contenido {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 24px 28px;
-            text-align: center;
-        }
+h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 30px;
+    color: #325d4a;
+}
 
-        h1 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 30px;
-            color: #325d4a;
-        }
+h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: italic;
+    color: #325d4a;
+}
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 25px;
-            font-size: 20px;
-            font-weight: normal;
-            font-style: italic;
-            color: #325d4a;
-        }
+/* FOTOGRAFÍA Y VIDEO HISTÓRICO */
 
-        .imagen {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin-bottom: 30px;
-            border-radius: 8px;
-        }
+.escenario {
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    overflow: hidden;
+    background-color: #171717;
+    border-radius: 8px;
+}
 
-        .texto {
-            font-size: 18px;
-            line-height: 1.8;
-            text-align: justify;
-        }
+.imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
-        .texto p {
-            margin: 0 0 22px 0;
-        }
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .subtitulo {
-            color: #325d4a;
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 35px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
+.video-historico.visible {
+    opacity: 1;
+}
 
-        .reflexion {
-            background-color: #325d4a;
-            color: white;
-            padding: 25px;
-            margin-top: 35px;
-            border-radius: 10px;
-            text-align: justify;
-            line-height: 1.8;
-        }
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 92%;
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
 
-        .reflexion h3 {
-            margin-top: 0;
-            text-align: center;
-            font-size: 22px;
-            color: white;
-        }
+.rotulo-historico.visible {
+    opacity: 1;
+}
 
-        /* REPRODUCTORES DE AUDIO */
+/* TEXTO HISTÓRICO ORIGINAL */
 
-        .audio {
-            text-align: center;
-            padding: 30px 20px 20px 20px;
-        }
+.texto {
+    font-size: 18px;
+    line-height: 1.8;
+    text-align: justify;
+}
 
-        .audio h3 {
-            color: #325d4a;
-            font-size: 18px;
-            margin: 0 0 12px;
-        }
+.texto p {
+    margin: 0 0 22px 0;
+}
 
-        .bloque-audio {
-            margin-bottom: 24px;
-        }
+.subtitulo {
+    color: #325d4a;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    text-align: left;
+}
 
-        audio {
-            display: block;
-            width: 90%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+.reflexion {
+    background-color: #325d4a;
+    color: white;
+    padding: 25px;
+    margin-top: 35px;
+    border-radius: 10px;
+    text-align: justify;
+    line-height: 1.8;
+}
 
-        /* NAVEGACIÓN ORIGINAL */
+.reflexion h3 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 22px;
+    color: white;
+}
 
-        .navegacion {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            align-items: stretch;
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 30px 35px 30px;
-            background-color: #f5f1e6;
-        }
+/* REPRODUCTORES DE AUDIO */
 
-        .boton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 54px;
-            padding: 14px 12px;
-            background-color: #325d4a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid white;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
+.audio {
+    text-align: center;
+    padding: 30px 20px 20px 20px;
+}
 
-        .boton:hover {
-            opacity: 0.9;
-        }
+.audio h3 {
+    color: #325d4a;
+    font-size: 18px;
+    margin: 0 0 12px;
+}
 
-        .texto-celular {
-            display: none;
-        }
+.bloque-audio {
+    margin-bottom: 24px;
+}
 
-        @media (max-width: 600px) {
+audio {
+    display: block;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-            .contenido {
-                padding: 22px 18px;
-            }
+/* NAVEGACIÓN ORIGINAL */
 
-            h1 {
-                font-size: 25px;
-            }
+.navegacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px 30px;
+    background-color: #f5f1e6;
+}
 
-            h2 {
-                font-size: 18px;
-            }
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
 
-            .texto {
-                font-size: 17px;
-                line-height: 1.65;
-            }
+.boton:hover {
+    opacity: 0.9;
+}
 
-            .subtitulo {
-                font-size: 20px;
-            }
+.texto-celular {
+    display: none;
+}
 
-            .reflexion {
-                padding: 20px;
-            }
+/* ADAPTACIÓN A CELULARES */
 
-            .reflexion h3 {
-                font-size: 20px;
-            }
+@media (max-width: 600px) {
 
-            .audio {
-                padding: 25px 15px 18px 15px;
-            }
+    .contenido {
+        padding: 22px 18px;
+    }
 
-            audio {
-                width: 100%;
-            }
+    h1 {
+        font-size: 25px;
+    }
 
-            .navegacion {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 6px;
-                padding: 18px 8px 30px 8px;
-            }
+    h2 {
+        font-size: 18px;
+    }
 
-            .boton {
-                width: 100%;
-                min-width: 0;
-                min-height: 48px;
-                padding: 10px 3px;
-                font-size: 12px;
-                line-height: 1;
-                white-space: nowrap;
-            }
+    .texto {
+        font-size: 17px;
+        line-height: 1.65;
+    }
 
-            .texto-escritorio {
-                display: none;
-            }
+    .subtitulo {
+        font-size: 20px;
+    }
 
-            .texto-celular {
-                display: inline;
-            }
-        }
-    </style>
+    .reflexion {
+        padding: 20px;
+    }
+
+    .reflexion h3 {
+        font-size: 20px;
+    }
+
+    .audio {
+        padding: 25px 15px 18px 15px;
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 18px 8px 30px 8px;
+    }
+
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .texto-escritorio {
+        display: none;
+    }
+
+    .texto-celular {
+        display: inline;
+    }
+
+    .rotulo-historico {
+        bottom: 10px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="escena">
+<div class="escena">
 
-        <div class="contenido">
+    <div class="contenido">
 
-            <h1>La enfermería</h1>
+        <h1>La enfermería</h1>
 
-            <h2>El cuidado del hermano enfermo</h2>
+        <h2>El cuidado del hermano enfermo</h2>
+
+        <!-- FOTOGRAFÍA ORIGINAL Y VIDEO -->
+
+        <div class="escenario">
 
             <img
                 class="imagen"
@@ -239,442 +300,832 @@
                 alt="Enfermería del Ex Convento de San Juan Bautista de Tetela del Volcán"
             >
 
-            <div class="texto">
+            <video
+                id="videoHistorico"
+                class="video-historico"
+                muted
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                disablepictureinpicture
+            >
+                <source
+                    src="enfermeria-doctor.MP4"
+                    type="video/mp4"
+                >
+                Tu navegador no admite reproducción de video.
+            </video>
 
-                <p>
-                    La vida conventual también debía reservar un espacio para la
-                    enfermedad. La enfermería era el lugar destinado al cuidado
-                    de los frailes que, por su edad, enfermedad o alguna condición
-                    física, necesitaban reposo y una atención especial.
-                </p>
-
-                <div class="subtitulo">
-                    Remedios y plantas medicinales
-                </div>
-
-                <p>
-                    El cuidado de la salud combinaba los conocimientos médicos
-                    disponibles en aquella época con el uso de plantas medicinales.
-                    Los religiosos europeos poseían conocimientos sobre remedios
-                    elaborados con hierbas, pero al establecerse en estas tierras
-                    encontraron también una antigua y extensa tradición indígena
-                    acerca de las propiedades curativas de las plantas.
-                </p>
-
-                <p>
-                    El encuentro entre ambos conocimientos permitió conocer y
-                    aprovechar numerosas especies que crecían en la región.
-                    Hierbas, raíces, flores y otras plantas podían utilizarse
-                    para preparar infusiones, ungüentos, emplastos y diversos
-                    remedios destinados a aliviar enfermedades y malestares.
-                </p>
-
-                <p>
-                    Los frailes recurrían así tanto a los conocimientos que habían
-                    recibido como a lo aprendido de los habitantes originarios y
-                    a los recursos naturales disponibles en el lugar.
-                </p>
-
-                <p>
-                    La enfermería nos recuerda, por tanto, un aspecto importante
-                    de la vida cotidiana del convento: ante la enfermedad era
-                    necesario cuidar al hermano y utilizar los medios que aquella
-                    época tenía a su alcance para procurar su recuperación.
-                </p>
-
-                <div class="subtitulo">
-                    El médico de la peste
-                </div>
-
-                <p>
-                    La característica figura del llamado médico de la peste,
-                    vestido con una larga túnica y una máscara con forma de pico,
-                    nos recuerda las grandes epidemias que afectaron a distintas
-                    regiones de Europa durante varios siglos.
-                </p>
-
-                <p>
-                    Es importante señalar que no tenemos evidencia histórica de
-                    que este traje haya sido utilizado por los frailes de este
-                    convento ni en Tetela del Volcán. Su presencia en esta escena
-                    tiene un carácter ilustrativo y nos permite comprender algunas
-                    de las maneras en que las sociedades de otros lugares
-                    intentaron protegerse frente a enfermedades cuyo mecanismo
-                    de transmisión todavía desconocían.
-                </p>
-
-                <p>
-                    Aunque la gran epidemia conocida como la Peste Negra ocurrió
-                    principalmente durante el siglo XIV, la peste volvió a
-                    presentarse en distintos lugares durante los siglos
-                    posteriores.
-                </p>
-
-                <p>
-                    El conocido atuendo con máscara de pico se relaciona
-                    especialmente con los médicos de la peste de la Europa
-                    del siglo XVII.
-                </p>
-
-                <p>
-                    En el largo pico de la máscara podían colocarse hierbas
-                    aromáticas, especias y otras sustancias olorosas. En aquella
-                    época se creía que algunas enfermedades podían transmitirse
-                    mediante un aire corrompido o a través de los malos olores.
-                    Esta explicación sería conocida como la teoría de los miasmas.
-                </p>
-
-                <p>
-                    Por esta razón, las sustancias aromáticas colocadas dentro
-                    del pico pretendían proteger a quien utilizaba la máscara
-                    del aire considerado peligroso. Al mismo tiempo, podían
-                    ayudar a soportar los fuertes olores presentes alrededor
-                    de los enfermos y de los cuerpos en descomposición.
-                </p>
-
-                <p>
-                    Hoy sabemos que aquellas explicaciones sobre el contagio
-                    eran equivocadas. Sin embargo, este singular traje permanece
-                    como testimonio de los esfuerzos realizados por las sociedades
-                    de aquella época para enfrentarse a enfermedades que todavía
-                    no podían comprender científicamente.
-                </p>
-
-                <div class="reflexion">
-
-                    <h3>Para contemplar</h3>
-
-                    La enfermería nos muestra otra dimensión de la vida conventual:
-                    cuidar al hermano que ya no podía seguir el ritmo ordinario
-                    de la comunidad.
-
-                    <br><br>
-
-                    Aquí, los conocimientos disponibles, las plantas medicinales,
-                    los remedios y los cuidados se ponían al servicio de quien
-                    estaba enfermo.
-
-                    <br><br>
-
-                    La enfermedad hacía visible la fragilidad humana, pero también
-                    convertía el cuidado en una expresión concreta de fraternidad.
-
-                    <br><br>
-
-                    <strong>
-                        Cuando un hermano enfermaba, la comunidad debía hacerse
-                        cargo de él.
-                    </strong>
-
-                </div>
-
+            <div
+                id="rotuloHistorico"
+                class="rotulo-historico"
+            >
+                Reconstrucción histórica — Siglo XVI
             </div>
 
         </div>
 
-        <!-- NARRACIÓN Y MÚSICA AMBIENTAL -->
+        <!-- TEXTO HISTÓRICO ORIGINAL -->
 
-        <div class="audio">
+        <div class="texto">
 
-            <div class="bloque-audio">
+            <p>
+                La vida conventual también debía reservar un espacio para la
+                enfermedad. La enfermería era el lugar destinado al cuidado
+                de los frailes que, por su edad, enfermedad o alguna condición
+                física, necesitaban reposo y una atención especial.
+            </p>
 
-                <h3>🎙️ Narración</h3>
-
-                <audio
-                    id="narracion"
-                    controls
-                    preload="auto"
-                >
-                    Tu navegador no admite reproducción de audio.
-                </audio>
-
+            <div class="subtitulo">
+                Remedios y plantas medicinales
             </div>
 
-            <div class="bloque-audio">
+            <p>
+                El cuidado de la salud combinaba los conocimientos médicos
+                disponibles en aquella época con el uso de plantas medicinales.
+                Los religiosos europeos poseían conocimientos sobre remedios
+                elaborados con hierbas, pero al establecerse en estas tierras
+                encontraron también una antigua y extensa tradición indígena
+                acerca de las propiedades curativas de las plantas.
+            </p>
 
-                <h3>🎵 Música ambiental</h3>
+            <p>
+                El encuentro entre ambos conocimientos permitió conocer y
+                aprovechar numerosas especies que crecían en la región.
+                Hierbas, raíces, flores y otras plantas podían utilizarse
+                para preparar infusiones, ungüentos, emplastos y diversos
+                remedios destinados a aliviar enfermedades y malestares.
+            </p>
 
-                <audio
-                    id="musica"
-                    controls
-                    loop
-                    preload="auto"
-                >
-                    <source
-                        src="nickpanek-amo-te-gregorian-chant-in-latin-342517.mp3"
-                        type="audio/mpeg"
-                    >
-                    Tu navegador no admite reproducción de audio.
-                </audio>
+            <p>
+                Los frailes recurrían así tanto a los conocimientos que habían
+                recibido como a lo aprendido de los habitantes originarios y
+                a los recursos naturales disponibles en el lugar.
+            </p>
 
+            <p>
+                La enfermería nos recuerda, por tanto, un aspecto importante
+                de la vida cotidiana del convento: ante la enfermedad era
+                necesario cuidar al hermano y utilizar los medios que aquella
+                época tenía a su alcance para procurar su recuperación.
+            </p>
+
+            <div class="subtitulo">
+                El médico de la peste
             </div>
 
-        </div>
+            <p>
+                La característica figura del llamado médico de la peste,
+                vestido con una larga túnica y una máscara con forma de pico,
+                nos recuerda las grandes epidemias que afectaron a distintas
+                regiones de Europa durante varios siglos.
+            </p>
 
-        <!-- NAVEGACIÓN ORIGINAL -->
+            <p>
+                Es importante señalar que no tenemos evidencia histórica de
+                que este traje haya sido utilizado por los frailes de este
+                convento ni en Tetela del Volcán. Su presencia en esta escena
+                tiene un carácter ilustrativo y nos permite comprender algunas
+                de las maneras en que las sociedades de otros lugares
+                intentaron protegerse frente a enfermedades cuyo mecanismo
+                de transmisión todavía desconocían.
+            </p>
 
-        <div class="navegacion">
+            <p>
+                Aunque la gran epidemia conocida como la Peste Negra ocurrió
+                principalmente durante el siglo XIV, la peste volvió a
+                presentarse en distintos lugares durante los siglos
+                posteriores.
+            </p>
 
-            <a class="boton" href="campanario.html">
-                ← REGRESAR
-            </a>
+            <p>
+                El conocido atuendo con máscara de pico se relaciona
+                especialmente con los médicos de la peste de la Europa
+                del siglo XVII.
+            </p>
 
-            <a class="boton" href="mapa.html">
-                <span class="texto-escritorio">
-                    🗺 VOLVER AL PLANO
-                </span>
-                <span class="texto-celular">
-                    🗺 PLANO
-                </span>
-            </a>
+            <p>
+                En el largo pico de la máscara podían colocarse hierbas
+                aromáticas, especias y otras sustancias olorosas. En aquella
+                época se creía que algunas enfermedades podían transmitirse
+                mediante un aire corrompido o a través de los malos olores.
+                Esta explicación sería conocida como la teoría de los miasmas.
+            </p>
 
-            <a class="boton" href="enfermeria-2.html">
-                SEGUIR →
-            </a>
+            <p>
+                Por esta razón, las sustancias aromáticas colocadas dentro
+                del pico pretendían proteger a quien utilizaba la máscara
+                del aire considerado peligroso. Al mismo tiempo, podían
+                ayudar a soportar los fuertes olores presentes alrededor
+                de los enfermos y de los cuerpos en descomposición.
+            </p>
+
+            <p>
+                Hoy sabemos que aquellas explicaciones sobre el contagio
+                eran equivocadas. Sin embargo, este singular traje permanece
+                como testimonio de los esfuerzos realizados por las sociedades
+                de aquella época para enfrentarse a enfermedades que todavía
+                no podían comprender científicamente.
+            </p>
+
+            <div class="reflexion">
+
+                <h3>Para contemplar</h3>
+
+                La enfermería nos muestra otra dimensión de la vida conventual:
+                cuidar al hermano que ya no podía seguir el ritmo ordinario
+                de la comunidad.
+
+                <br><br>
+
+                Aquí, los conocimientos disponibles, las plantas medicinales,
+                los remedios y los cuidados se ponían al servicio de quien
+                estaba enfermo.
+
+                <br><br>
+
+                La enfermedad hacía visible la fragilidad humana, pero también
+                convertía el cuidado en una expresión concreta de fraternidad.
+
+                <br><br>
+
+                <strong>
+                    Cuando un hermano enfermaba, la comunidad debía hacerse
+                    cargo de él.
+                </strong>
+
+            </div>
 
         </div>
 
     </div>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    <!-- NARRACIÓN Y MÚSICA AMBIENTAL -->
 
-        const narracion = document.getElementById("narracion");
-        const musica = document.getElementById("musica");
+    <div class="audio">
 
-        /*
-           ARCHIVO SUBIDO A GITHUB:
+        <div class="bloque-audio">
 
-           Narración enfermería.m4a
+            <h3>🎙️ Narración</h3>
 
-           Se comprueban las dos codificaciones
-           del nombre con acentos: NFD y NFC.
-        */
+            <audio
+                id="narracion"
+                controls
+                preload="auto"
+            >
+                Tu navegador no admite reproducción de audio.
+            </audio>
 
-        const nombreNarracion = "Narración enfermería.m4a";
+        </div>
 
-        const rutasNarracion = [
-            encodeURIComponent(nombreNarracion.normalize("NFD")),
-            encodeURIComponent(nombreNarracion.normalize("NFC"))
-        ].filter(function (ruta, indice, lista) {
-            return lista.indexOf(ruta) === indice;
-        });
+        <div class="bloque-audio">
 
-        let indiceRuta = 0;
-        let inicioNarracionSolicitado = false;
-        let narracionIntentada = false;
+            <h3>🎵 Música ambiental</h3>
 
-        narracion.src = rutasNarracion[indiceRuta];
-        narracion.load();
+            <audio
+                id="musica"
+                controls
+                loop
+                preload="auto"
+            >
+                <source
+                    src="nickpanek-amo-te-gregorian-chant-in-latin-342517.mp3"
+                    type="audio/mpeg"
+                >
+                Tu navegador no admite reproducción de audio.
+            </audio>
 
-        narracion.volume = 1.0;
-        musica.volume = 0.20;
+        </div>
 
-        /*
-           SECUENCIA:
+    </div>
 
-           1. Intentar reproducir automáticamente
-              la narración al entrar.
+    <!-- NAVEGACIÓN ORIGINAL -->
 
-           2. La música permanece detenida
-              mientras se escucha la voz.
+    <div class="navegacion">
 
-           3. Al terminar la narración,
-              comienza la música ambiental.
+        <a class="boton" href="campanario.html">
+            ← REGRESAR
+        </a>
 
-           4. La música continúa en repetición.
+        <a class="boton" href="mapa.html">
 
-           No se añaden botones nuevos.
-        */
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
 
-        /* EVITAR SUPERPOSICIÓN */
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
 
-        narracion.addEventListener("play", function () {
-            musica.pause();
-        });
+        </a>
 
-        narracion.addEventListener("playing", function () {
-            musica.pause();
-        });
+        <a class="boton" href="enfermeria-2.html">
+            SEGUIR →
+        </a>
 
-        musica.addEventListener("play", function () {
+    </div>
 
-            if (!narracion.paused && !narracion.ended) {
-                narracion.pause();
-            }
-        });
+</div>
 
-        /*
-           AL TERMINAR LA NARRACIÓN,
-           COMENZAR LA MÚSICA.
-        */
+<!-- CONTROL DE NARRACIÓN, VIDEO Y MÚSICA -->
 
-        narracion.addEventListener("ended", function () {
-            iniciarMusica();
-        });
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-        /* INICIAR MÚSICA AMBIENTAL */
+    const narracion =
+        document.getElementById("narracion");
 
-        function iniciarMusica() {
+    const musica =
+        document.getElementById("musica");
 
-            if (!narracion.paused && !narracion.ended) {
-                return;
-            }
+    const video =
+        document.getElementById("videoHistorico");
 
-            if (!musica.paused) {
-                return;
-            }
+    const rotulo =
+        document.getElementById("rotuloHistorico");
 
-            let intento;
+    /*
+       NOMBRE ORIGINAL DE LA NARRACIÓN.
+       COMPATIBILIDAD CON ACENTOS NFD Y NFC.
+    */
 
-            try {
-                intento = musica.play();
-            } catch (error) {
+    const nombreNarracion =
+        "Narración enfermería.m4a";
+
+    const rutasNarracion = [
+        encodeURIComponent(
+            nombreNarracion.normalize("NFD")
+        ),
+        encodeURIComponent(
+            nombreNarracion.normalize("NFC")
+        )
+    ].filter(function (ruta, indice, lista) {
+        return lista.indexOf(ruta) === indice;
+    });
+
+    let indiceRuta = 0;
+    let inicioNarracionSolicitado = false;
+    let narracionIntentada = false;
+
+    narracion.src = rutasNarracion[indiceRuta];
+    narracion.load();
+
+    /*
+       CONFIGURACIÓN DE AUDIO
+    */
+
+    narracion.volume = 1.0;
+    musica.volume = 0.20;
+    musica.loop = true;
+
+    /*
+       VIDEO SILENCIOSO
+    */
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+    video.playsInline = true;
+    video.loop = false;
+
+    /*
+       SECUENCIA:
+
+       1. Aparece la fotografía original.
+       2. Comienza la narración.
+       3. Después de 1.5 segundos,
+          aparece el video sin sonido.
+       4. Termina el video y vuelve la foto.
+       5. La narración continúa.
+       6. Termina la narración.
+       7. Comienza la música ambiental.
+       8. Se reproduce el video otra vez.
+       9. Regresa la fotografía original.
+      10. La música continúa en bucle.
+
+       El video se reproduce solamente
+       dos veces por visita.
+    */
+
+    let primeraIniciada = false;
+    let segundaIniciada = false;
+    let segundaPendiente = false;
+
+    let videoActivo = false;
+    let videoPreparando = false;
+    let videoDisponible = true;
+
+    let musicaComenzada = false;
+
+    let temporizadorPrimero = null;
+    let temporizadorSegundo = null;
+
+    let saliendo = false;
+
+    /*
+       OCULTAR RECONSTRUCCIÓN
+    */
+
+    function ocultarReconstruccion() {
+
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+
+    }
+
+    /*
+       MOSTRAR RECONSTRUCCIÓN
+    */
+
+    function mostrarReconstruccion() {
+
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+
+    }
+
+    /*
+       REPRODUCIR VIDEO
+    */
+
+    function reproducirReconstruccion() {
+
+        if (!videoDisponible || saliendo) {
+            return false;
+        }
+
+        if (videoActivo || videoPreparando) {
+            return false;
+        }
+
+        videoPreparando = true;
+
+        ocultarReconstruccion();
+
+        video.pause();
+
+        try {
+            video.currentTime = 0;
+        } catch (error) {
+            console.log(
+                "Esperando disponibilidad del video."
+            );
+        }
+
+        video.muted = true;
+        video.volume = 0;
+
+        let intento;
+
+        try {
+
+            intento = video.play();
+
+        } catch (error) {
+
+            videoPreparando = false;
+            videoActivo = false;
+
+            ocultarReconstruccion();
+
+            console.log(
+                "No se pudo iniciar el video:",
+                error
+            );
+
+            return false;
+        }
+
+        if (
+            intento &&
+            typeof intento.then === "function"
+        ) {
+
+            intento.then(function () {
+
+                videoPreparando = false;
+
+                if (saliendo) {
+                    video.pause();
+                    return;
+                }
+
+                videoActivo = true;
+                mostrarReconstruccion();
+
+            }).catch(function (error) {
+
+                videoPreparando = false;
+                videoActivo = false;
+
+                ocultarReconstruccion();
 
                 console.log(
-                    "No se pudo iniciar la música ambiental:",
+                    "El navegador no permitió reproducir el video:",
                     error
                 );
 
-                return;
-            }
+            });
 
-            if (intento && typeof intento.catch === "function") {
+        } else {
 
-                intento.catch(function (error) {
+            videoPreparando = false;
+            videoActivo = true;
 
-                    console.log(
-                        "El navegador requiere interacción para iniciar la música:",
-                        error
-                    );
-                });
-            }
+            mostrarReconstruccion();
+
         }
 
-        /*
-           SI LA PRIMERA CODIFICACIÓN
-           DEL NOMBRE NO EXISTE,
-           INTENTAR LA SEGUNDA.
-        */
+        return true;
+    }
 
-        narracion.addEventListener("error", function () {
+    /*
+       PRIMER VIDEO:
+       POCO DESPUÉS DE INICIAR LA NARRACIÓN
+    */
 
-            if (indiceRuta + 1 < rutasNarracion.length) {
+    function iniciarPrimerVideo() {
 
-                indiceRuta++;
+        if (primeraIniciada || saliendo) {
+            return;
+        }
 
-                narracion.src = rutasNarracion[indiceRuta];
-                narracion.load();
+        primeraIniciada = true;
 
-                if (narracionIntentada) {
+        temporizadorPrimero = setTimeout(function () {
 
-                    inicioNarracionSolicitado = false;
-                    iniciarNarracion();
-                }
+            temporizadorPrimero = null;
 
-                return;
+            if (!saliendo) {
+                reproducirReconstruccion();
             }
+
+        }, 1500);
+    }
+
+    /*
+       SEGUNDO VIDEO:
+       CUANDO COMIENZA LA MÚSICA
+    */
+
+    function iniciarSegundoVideo() {
+
+        if (segundaIniciada || saliendo) {
+            return;
+        }
+
+        if (
+            videoActivo ||
+            videoPreparando ||
+            !video.paused
+        ) {
+
+            segundaPendiente = true;
+            return;
+        }
+
+        segundaIniciada = true;
+        segundaPendiente = false;
+
+        reproducirReconstruccion();
+    }
+
+    /*
+       CUANDO TERMINA EL VIDEO,
+       REGRESA LA FOTOGRAFÍA
+    */
+
+    video.addEventListener("ended", function () {
+
+        ocultarReconstruccion();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        if (
+            segundaPendiente &&
+            !segundaIniciada &&
+            !saliendo
+        ) {
+
+            segundaPendiente = false;
+
+            temporizadorSegundo = setTimeout(function () {
+
+                temporizadorSegundo = null;
+
+                iniciarSegundoVideo();
+
+            }, 1600);
+        }
+    });
+
+    /*
+       SI EL VIDEO FALLA,
+       CONSERVAR LA FOTOGRAFÍA ORIGINAL
+    */
+
+    video.addEventListener("error", function () {
+
+        videoDisponible = false;
+
+        ocultarReconstruccion();
+
+        videoActivo = false;
+        videoPreparando = false;
+
+        console.log(
+            "No se pudo cargar enfermeria-doctor.MP4"
+        );
+    });
+
+    /*
+       NARRACIÓN Y MÚSICA SIN SUPERPOSICIÓN
+    */
+
+    narracion.addEventListener("play", function () {
+
+        musica.pause();
+
+    });
+
+    narracion.addEventListener("playing", function () {
+
+        musica.pause();
+
+        iniciarPrimerVideo();
+
+    });
+
+    musica.addEventListener("play", function () {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            narracion.pause();
+        }
+    });
+
+    /*
+       AL TERMINAR LA NARRACIÓN,
+       INICIAR LA MÚSICA
+    */
+
+    narracion.addEventListener("ended", function () {
+
+        iniciarMusica();
+
+    });
+
+    /*
+       INICIAR MÚSICA AMBIENTAL
+    */
+
+    function iniciarMusica() {
+
+        if (saliendo) {
+            return;
+        }
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        let intento;
+
+        try {
+
+            intento = musica.play();
+
+        } catch (error) {
 
             console.log(
-                "No se pudo cargar Narración enfermería.m4a."
+                "No se pudo iniciar la música ambiental:",
+                error
             );
-        });
 
-        /* INICIAR NARRACIÓN */
+            return;
+        }
 
-        function iniciarNarracion() {
+        if (
+            intento &&
+            typeof intento.catch === "function"
+        ) {
 
-            if (inicioNarracionSolicitado) {
-                return;
-            }
+            intento.catch(function (error) {
 
-            if (!narracion.paused || narracion.ended) {
-                return;
-            }
+                console.log(
+                    "El navegador requiere interacción para iniciar la música:",
+                    error
+                );
 
-            inicioNarracionSolicitado = true;
-            narracionIntentada = true;
+            });
+        }
+    }
 
-            let intento;
+    /*
+       SEGUNDA REPRODUCCIÓN DEL VIDEO
+       AL COMENZAR LA MÚSICA
+    */
 
-            try {
-                intento = narracion.play();
-            } catch (error) {
+    musica.addEventListener("playing", function () {
+
+        if (musicaComenzada || saliendo) {
+            return;
+        }
+
+        musicaComenzada = true;
+
+        iniciarSegundoVideo();
+
+    });
+
+    /*
+       RESPALDO PARA NOMBRES CON ACENTOS
+    */
+
+    narracion.addEventListener("error", function () {
+
+        if (
+            indiceRuta + 1 <
+            rutasNarracion.length
+        ) {
+
+            indiceRuta++;
+
+            narracion.src =
+                rutasNarracion[indiceRuta];
+
+            narracion.load();
+
+            if (narracionIntentada) {
 
                 inicioNarracionSolicitado = false;
 
-                console.log(
-                    "No se pudo iniciar la narración:",
-                    error
-                );
+                iniciarNarracion();
 
-                return;
             }
 
-            if (intento && typeof intento.catch === "function") {
-
-                intento.catch(function (error) {
-
-                    inicioNarracionSolicitado = false;
-
-                    if (error.name !== "AbortError") {
-
-                        console.log(
-                            "El navegador requiere interacción para iniciar la narración:",
-                            error
-                        );
-                    }
-                });
-            }
+            return;
         }
 
-        /* INICIO AUTOMÁTICO DE LA ESCENA */
+        console.log(
+            "No se pudo cargar Narración enfermería.m4a."
+        );
+    });
 
-        window.addEventListener("load", function () {
+    /*
+       INICIAR NARRACIÓN
+    */
 
-            musica.pause();
-            musica.currentTime = 0;
+    function iniciarNarracion() {
 
-            iniciarNarracion();
-        });
+        if (saliendo) {
+            return;
+        }
 
-        /*
-           RESPALDO PARA SAFARI.
+        if (inicioNarracionSolicitado) {
+            return;
+        }
 
-           Si se bloquea el inicio automático,
-           se utiliza el reproductor original
-           de narración.
+        if (
+            !narracion.paused ||
+            narracion.ended
+        ) {
+            return;
+        }
 
-           También se permite un nuevo intento
-           al tocar una zona libre de la página,
-           sin añadir botones.
-        */
+        inicioNarracionSolicitado = true;
+        narracionIntentada = true;
 
-        document.addEventListener("click", function (evento) {
+        let intento;
 
-            if (evento.target.closest("a, audio, button")) {
-                return;
-            }
+        try {
 
-            if (
-                narracion.paused &&
-                !narracion.ended &&
-                narracion.currentTime === 0
-            ) {
-                iniciarNarracion();
-            }
-        });
+            intento = narracion.play();
+
+        } catch (error) {
+
+            inicioNarracionSolicitado = false;
+
+            console.log(
+                "No se pudo iniciar la narración:",
+                error
+            );
+
+            return;
+        }
+
+        if (
+            intento &&
+            typeof intento.catch === "function"
+        ) {
+
+            intento.catch(function (error) {
+
+                inicioNarracionSolicitado = false;
+
+                if (error.name !== "AbortError") {
+
+                    console.log(
+                        "El navegador requiere interacción para iniciar la narración:",
+                        error
+                    );
+                }
+
+            });
+        }
+    }
+
+    /*
+       INICIO DE LA ESCENA
+    */
+
+    ocultarReconstruccion();
+
+    window.addEventListener("load", function () {
+
+        musica.pause();
+        musica.currentTime = 0;
+
+        iniciarNarracion();
 
     });
-    </script>
 
-    <!-- CONTADOR GOATCOUNTER -->
+    /*
+       RESPALDO PARA SAFARI Y CELULARES.
+       NO SE AÑADEN BOTONES.
+    */
 
-    <script
-        data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
-        async
-        src="//gc.zgo.at/count.js">
-    </script>
+    document.addEventListener("click", function (evento) {
+
+        if (
+            evento.target.closest(
+                "a, audio, video, button"
+            )
+        ) {
+            return;
+        }
+
+        if (
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+
+            iniciarNarracion();
+
+        }
+    });
+
+    /*
+       DETENER TODO AL SALIR
+    */
+
+    window.addEventListener("pagehide", function () {
+
+        saliendo = true;
+
+        if (temporizadorPrimero !== null) {
+
+            clearTimeout(temporizadorPrimero);
+            temporizadorPrimero = null;
+
+        }
+
+        if (temporizadorSegundo !== null) {
+
+            clearTimeout(temporizadorSegundo);
+            temporizadorSegundo = null;
+
+        }
+
+        video.pause();
+        ocultarReconstruccion();
+
+        narracion.pause();
+        musica.pause();
+
+    });
+
+});
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
 
 </body>
 </html>
