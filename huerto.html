@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -240,7 +239,7 @@ audio {
 
 <div class="escena">
 
-    <!-- FOTOGRAFÍA Y VIDEO HISTÓRICO -->
+    <!-- FOTOGRAFÍA ORIGINAL Y VIDEO HISTÓRICO -->
 
     <div class="escenario">
 
@@ -250,6 +249,8 @@ audio {
             alt="Recreación del trabajo de los frailes dominicos en el huerto del convento"
         >
 
+        <!-- VIDEO DEL HUERTO: NOMBRE VERIFICADO EN GITHUB -->
+
         <video
             id="videoHistorico"
             class="video-historico"
@@ -258,12 +259,8 @@ audio {
             webkit-playsinline
             preload="auto"
         >
-            <!--
-                SUSTITUIR EL NOMBRE DEL VIDEO
-                POR EL ARCHIVO EXACTO DE GITHUB.
-            -->
             <source
-                src="NOMBRE-DEL-VIDEO-HUERTO.MP4"
+                src="video%20frailes%20huerto.MP4"
                 type="video/mp4"
             >
             Tu navegador no admite reproducción de video.
@@ -337,6 +334,18 @@ audio {
         </p>
 
         <p>
+            El antiguo huerto conventual formó parte de
+            los espacios destinados al cultivo y al
+            sostenimiento de la comunidad religiosa.
+            Actualmente, el terreno que ocupaba ya no
+            pertenece al conjunto parroquial.
+            Esta escena constituye una
+            <strong>recreación histórica</strong>
+            de las actividades que allí pudieron
+            desarrollarse.
+        </p>
+
+        <p>
             Después de conocer este espacio de cultivo
             y trabajo, nuestro recorrido continúa hacia
             las <strong>escaleras</strong>, que conducen
@@ -346,7 +355,7 @@ audio {
 
     </div>
 
-    <!-- NARRACIÓN -->
+    <!-- NARRACIÓN ORIGINAL -->
 
     <div class="narracion">
 
@@ -366,7 +375,7 @@ audio {
 
     </div>
 
-    <!-- MÚSICA AMBIENTAL -->
+    <!-- MÚSICA AMBIENTAL ORIGINAL -->
 
     <div class="audio">
 
@@ -412,6 +421,8 @@ audio {
 
 </div>
 
+<!-- CONTROL AUDIOVISUAL -->
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -430,10 +441,12 @@ document.addEventListener("DOMContentLoaded", function () {
        1. Comienza la narración.
        2. A los 5 segundos aparece el primer video.
        3. Al terminar, vuelve la fotografía.
-       4. Al terminar la narración, empieza la música.
+       4. Al terminar la narración, comienza la música.
        5. Se reproduce nuevamente el video.
        6. Al terminar, vuelve la fotografía.
        7. La música continúa en repetición.
+
+       El video permanece sin sonido.
     */
 
     /* ARCHIVO DE NARRACIÓN */
@@ -645,7 +658,7 @@ document.addEventListener("DOMContentLoaded", function () {
         segundaTerminada = true;
 
         console.log(
-            "No se pudo cargar el video del huerto."
+            "No se pudo cargar video frailes huerto.MP4."
         );
     });
 
