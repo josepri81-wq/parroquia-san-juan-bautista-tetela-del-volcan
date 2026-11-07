@@ -1,1 +1,926 @@
 
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>El huerto | Un día en el convento</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f1e6;
+    color: #2f2f2f;
+    font-family: Arial, sans-serif;
+}
+
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f1e6;
+}
+
+/* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
+
+.escenario {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #171717;
+}
+
+.imagen {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.video-historico {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #171717;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+.video-historico.visible {
+    opacity: 1;
+}
+
+.rotulo-historico {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+.rotulo-historico.visible {
+    opacity: 1;
+}
+
+/* TEXTO HISTÓRICO */
+
+.contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    text-align: center;
+}
+
+.contenido h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 30px;
+    color: #325d4a;
+}
+
+.contenido h2 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: italic;
+    color: #325d4a;
+}
+
+.contenido p {
+    margin: 0 auto 16px;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+/* NARRACIÓN Y MÚSICA */
+
+.narracion,
+.audio {
+    text-align: center;
+    padding: 10px 20px 20px;
+}
+
+.narracion h3,
+.audio h3 {
+    margin: 0 0 12px;
+    color: #325d4a;
+    font-size: 18px;
+}
+
+audio {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* BOTONES DE NAVEGACIÓN */
+
+.navegacion {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px 35px;
+    background-color: #f5f1e6;
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 14px 12px;
+    background-color: #325d4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid white;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.boton:hover {
+    opacity: 0.9;
+}
+
+.texto-celular {
+    display: none;
+}
+
+/* ADAPTACIÓN A CELULARES */
+
+@media (max-width: 600px) {
+
+    .contenido {
+        padding: 22px 18px;
+    }
+
+    .contenido h1 {
+        font-size: 25px;
+    }
+
+    .contenido h2 {
+        font-size: 18px;
+    }
+
+    .contenido p {
+        font-size: 17px;
+        line-height: 1.65;
+    }
+
+    .narracion,
+    .audio {
+        padding: 10px 15px 18px;
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    .navegacion {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 18px 8px 30px;
+    }
+
+    .boton {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 3px;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .texto-escritorio {
+        display: none;
+    }
+
+    .texto-celular {
+        display: inline;
+    }
+
+    .rotulo-historico {
+        font-size: 11px;
+        padding: 7px 10px;
+        bottom: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="escena">
+
+    <!-- FOTOGRAFÍA Y VIDEO HISTÓRICO -->
+
+    <div class="escenario">
+
+        <img
+            class="imagen"
+            src="huerto-frailes.PNG"
+            alt="Recreación del trabajo de los frailes dominicos en el huerto del convento"
+        >
+
+        <video
+            id="videoHistorico"
+            class="video-historico"
+            muted
+            playsinline
+            webkit-playsinline
+            preload="auto"
+        >
+            <!--
+                SUSTITUIR EL NOMBRE DEL VIDEO
+                POR EL ARCHIVO EXACTO DE GITHUB.
+            -->
+            <source
+                src="NOMBRE-DEL-VIDEO-HUERTO.MP4"
+                type="video/mp4"
+            >
+            Tu navegador no admite reproducción de video.
+        </video>
+
+        <div
+            id="rotuloHistorico"
+            class="rotulo-historico"
+        >
+            Reconstrucción histórica — Siglo XVI
+        </div>
+
+    </div>
+
+    <!-- CONTENIDO HISTÓRICO -->
+
+    <div class="contenido">
+
+        <h1>El huerto del convento</h1>
+
+        <h2>
+            El cultivo de la tierra y la vida contemplativa
+        </h2>
+
+        <p>
+            En la vida de los conventos del siglo XVI,
+            el <strong>cultivo de la tierra</strong>
+            constituía una actividad importante para
+            el sostenimiento de las comunidades religiosas.
+            Los huertos permitían disponer de alimentos
+            frescos y de diversas plantas útiles para
+            las necesidades cotidianas.
+        </p>
+
+        <p>
+            En estos espacios podían cultivarse
+            <strong>hortalizas, hierbas aromáticas
+            y plantas medicinales</strong>.
+            Su aprovechamiento contribuía a la
+            alimentación y al cuidado de los enfermos,
+            dentro de las posibilidades y conocimientos
+            de aquella época.
+        </p>
+
+        <p>
+            Los conventos novohispanos fueron también
+            lugares de encuentro entre distintas
+            tradiciones agrícolas.
+            Los cultivos conocidos por los pueblos
+            indígenas convivieron con especies
+            y prácticas introducidas desde Europa.
+        </p>
+
+        <p>
+            Para los frailes dominicos, la vida religiosa
+            se encontraba orientada principalmente
+            a la oración, el estudio, la vida comunitaria
+            y la predicación.
+            Sin embargo, las tareas materiales necesarias
+            para sostener el convento también formaban
+            parte de su organización cotidiana.
+        </p>
+
+        <p>
+            El trabajo en el huerto nos invita a contemplar
+            la relación entre el ser humano y la creación.
+            La paciencia de sembrar, el cuidado de las plantas
+            y la espera de sus frutos recuerdan que
+            <strong>la vida espiritual también requiere
+            constancia, dedicación y esperanza</strong>.
+        </p>
+
+        <p>
+            Después de conocer este espacio de cultivo
+            y trabajo, nuestro recorrido continúa hacia
+            las <strong>escaleras</strong>, que conducen
+            del claustro bajo a la planta superior
+            del antiguo convento.
+        </p>
+
+    </div>
+
+    <!-- NARRACIÓN -->
+
+    <div class="narracion">
+
+        <h3>🎙️ Narración</h3>
+
+        <audio
+            id="narracion"
+            controls
+            preload="auto"
+        >
+            <source
+                src="Audio%20huerto.m4a"
+                type="audio/mp4"
+            >
+            Tu navegador no admite reproducción de audio.
+        </audio>
+
+    </div>
+
+    <!-- MÚSICA AMBIENTAL -->
+
+    <div class="audio">
+
+        <h3>🎵 Música ambiental</h3>
+
+        <audio
+            id="musica"
+            controls
+            loop
+            preload="auto"
+        >
+            <source
+                src="magicroom-musica-ambiental-del-bosque-con-sonidos-de-naturaleza-591286.mp3"
+                type="audio/mpeg"
+            >
+            Tu navegador no admite reproducción de audio.
+        </audio>
+
+    </div>
+
+    <!-- NAVEGACIÓN -->
+
+    <div class="navegacion">
+
+        <a class="boton" href="cocina.html">
+            ← REGRESAR
+        </a>
+
+        <a class="boton" href="mapa.html">
+            <span class="texto-escritorio">
+                🗺 VOLVER AL PLANO
+            </span>
+            <span class="texto-celular">
+                🗺 PLANO
+            </span>
+        </a>
+
+        <a class="boton" href="escaleras.html">
+            SEGUIR →
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const video = document.getElementById("videoHistorico");
+    const rotulo = document.getElementById("rotuloHistorico");
+    const narracion = document.getElementById("narracion");
+    const musica = document.getElementById("musica");
+
+    narracion.volume = 1.0;
+    musica.volume = 0.25;
+    video.muted = true;
+
+    /*
+       SECUENCIA AUDIOVISUAL
+
+       1. Comienza la narración.
+       2. A los 5 segundos aparece el primer video.
+       3. Al terminar, vuelve la fotografía.
+       4. Al terminar la narración, empieza la música.
+       5. Se reproduce nuevamente el video.
+       6. Al terminar, vuelve la fotografía.
+       7. La música continúa en repetición.
+    */
+
+    /* ARCHIVO DE NARRACIÓN */
+
+    const nombreNarracion = "Audio huerto.m4a";
+
+    const rutasNarracion = [
+        encodeURIComponent(nombreNarracion.normalize("NFD")),
+        encodeURIComponent(nombreNarracion.normalize("NFC"))
+    ].filter(function (ruta, indice, lista) {
+        return lista.indexOf(ruta) === indice;
+    });
+
+    let indiceRuta = 0;
+    let narracionDisponible = true;
+
+    narracion.src = rutasNarracion[indiceRuta];
+    narracion.load();
+
+    /* ESTADO DE LAS REPRODUCCIONES */
+
+    let primeraSolicitada = false;
+    let primeraTerminada = false;
+
+    let segundaSolicitada = false;
+    let segundaTerminada = false;
+
+    let reproduccionActual = 0;
+    let videoEnCurso = false;
+    let iniciandoVideo = false;
+
+    let temporizadorPrimera = null;
+    let temporizadorTransicion = null;
+
+    let musicaIniciada = false;
+
+    /* MOSTRAR FOTOGRAFÍA */
+
+    function mostrarFotografia() {
+        video.classList.remove("visible");
+        rotulo.classList.remove("visible");
+    }
+
+    /* MOSTRAR RECONSTRUCCIÓN */
+
+    function mostrarReconstruccion() {
+        video.classList.add("visible");
+        rotulo.classList.add("visible");
+    }
+
+    /* REPRODUCIR VIDEO */
+
+    async function reproducirVideo(numero) {
+
+        if (videoEnCurso || iniciandoVideo) {
+            return;
+        }
+
+        if (numero === 1 && primeraTerminada) {
+            return;
+        }
+
+        if (numero === 2 && segundaTerminada) {
+            return;
+        }
+
+        iniciandoVideo = true;
+        reproduccionActual = numero;
+
+        mostrarFotografia();
+
+        try {
+
+            video.pause();
+            video.currentTime = 0;
+
+            await video.play();
+
+            videoEnCurso = true;
+            iniciandoVideo = false;
+
+            mostrarReconstruccion();
+
+        } catch (error) {
+
+            iniciandoVideo = false;
+            videoEnCurso = false;
+
+            mostrarFotografia();
+
+            if (numero === 1) {
+                primeraTerminada = true;
+            }
+
+            if (numero === 2) {
+                segundaTerminada = true;
+            }
+
+            procesarPendientes();
+        }
+    }
+
+    /* PROCESAR REPRODUCCIONES PENDIENTES */
+
+    function procesarPendientes() {
+
+        if (videoEnCurso || iniciandoVideo) {
+            return;
+        }
+
+        if (temporizadorTransicion !== null) {
+            return;
+        }
+
+        if (
+            primeraSolicitada &&
+            !primeraTerminada
+        ) {
+            reproducirVideo(1);
+            return;
+        }
+
+        if (
+            segundaSolicitada &&
+            primeraTerminada &&
+            !segundaTerminada
+        ) {
+            reproducirVideo(2);
+        }
+    }
+
+    /* PRIMERA RECREACIÓN */
+
+    function solicitarPrimeraRecreacion() {
+
+        if (
+            primeraSolicitada ||
+            primeraTerminada
+        ) {
+            return;
+        }
+
+        primeraSolicitada = true;
+        procesarPendientes();
+    }
+
+    /* SEGUNDA RECREACIÓN */
+
+    function solicitarSegundaRecreacion() {
+
+        if (
+            segundaSolicitada ||
+            segundaTerminada
+        ) {
+            return;
+        }
+
+        segundaSolicitada = true;
+        procesarPendientes();
+    }
+
+    /* FINAL DE CADA VIDEO */
+
+    video.addEventListener("ended", function () {
+
+        const numeroFinalizado = reproduccionActual;
+
+        videoEnCurso = false;
+        iniciandoVideo = false;
+        reproduccionActual = 0;
+
+        mostrarFotografia();
+
+        if (numeroFinalizado === 1) {
+
+            primeraTerminada = true;
+
+            temporizadorTransicion = setTimeout(
+                function () {
+
+                    temporizadorTransicion = null;
+                    procesarPendientes();
+
+                },
+                1600
+            );
+
+        } else if (numeroFinalizado === 2) {
+
+            segundaTerminada = true;
+
+            /*
+               La fotografía permanece visible.
+               La música continúa sonando.
+            */
+        }
+    });
+
+    /* ERROR DEL VIDEO */
+
+    video.addEventListener("error", function () {
+
+        mostrarFotografia();
+
+        videoEnCurso = false;
+        iniciandoVideo = false;
+
+        primeraTerminada = true;
+        segundaTerminada = true;
+
+        console.log(
+            "No se pudo cargar el video del huerto."
+        );
+    });
+
+    /* INICIAR NARRACIÓN */
+
+    function iniciarNarracion() {
+
+        if (!narracionDisponible) {
+            return;
+        }
+
+        if (
+            !narracion.paused ||
+            narracion.ended
+        ) {
+            return;
+        }
+
+        const intento = narracion.play();
+
+        if (
+            intento &&
+            typeof intento.catch === "function"
+        ) {
+            intento.catch(function (error) {
+
+                console.log(
+                    "El navegador requiere interacción para iniciar la narración:",
+                    error
+                );
+            });
+        }
+    }
+
+    /* NARRACIÓN Y PRIMER VIDEO */
+
+    narracion.addEventListener("play", function () {
+
+        musica.pause();
+
+        if (
+            !primeraSolicitada &&
+            !primeraTerminada &&
+            temporizadorPrimera === null
+        ) {
+
+            temporizadorPrimera = setTimeout(
+                function () {
+
+                    temporizadorPrimera = null;
+
+                    if (
+                        !narracion.paused &&
+                        !narracion.ended
+                    ) {
+                        solicitarPrimeraRecreacion();
+                    }
+
+                },
+                5000
+            );
+        }
+    });
+
+    /* PAUSA DE NARRACIÓN */
+
+    narracion.addEventListener("pause", function () {
+
+        if (
+            !narracion.ended &&
+            temporizadorPrimera !== null
+        ) {
+            clearTimeout(temporizadorPrimera);
+            temporizadorPrimera = null;
+        }
+    });
+
+    /* FINAL DE NARRACIÓN */
+
+    narracion.addEventListener("ended", function () {
+
+        if (temporizadorPrimera !== null) {
+            clearTimeout(temporizadorPrimera);
+            temporizadorPrimera = null;
+        }
+
+        if (
+            !primeraSolicitada &&
+            !primeraTerminada
+        ) {
+            solicitarPrimeraRecreacion();
+        }
+
+        iniciarMusica();
+    });
+
+    /* INICIAR MÚSICA AMBIENTAL */
+
+    function iniciarMusica() {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            return;
+        }
+
+        if (!musica.paused) {
+            return;
+        }
+
+        musica.volume = 0.25;
+
+        const intento = musica.play();
+
+        if (
+            intento &&
+            typeof intento.catch === "function"
+        ) {
+            intento.catch(function (error) {
+
+                console.log(
+                    "Safari puede requerir interacción para iniciar la música:",
+                    error
+                );
+            });
+        }
+    }
+
+    /* EVITAR SUPERPOSICIÓN DE AUDIOS */
+
+    musica.addEventListener("play", function () {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            musica.pause();
+        }
+    });
+
+    /* SEGUNDO VIDEO AL COMENZAR LA MÚSICA */
+
+    musica.addEventListener("playing", function () {
+
+        if (
+            !narracion.paused &&
+            !narracion.ended
+        ) {
+            musica.pause();
+            return;
+        }
+
+        if (!musicaIniciada) {
+
+            musicaIniciada = true;
+
+            if (
+                !primeraSolicitada &&
+                !primeraTerminada
+            ) {
+                primeraTerminada = true;
+            }
+
+            solicitarSegundaRecreacion();
+        }
+    });
+
+    /* RESPALDO PARA NOMBRE DE NARRACIÓN */
+
+    narracion.addEventListener("error", function () {
+
+        if (
+            indiceRuta + 1 <
+            rutasNarracion.length
+        ) {
+
+            indiceRuta++;
+
+            narracion.src = rutasNarracion[indiceRuta];
+            narracion.load();
+
+            return;
+        }
+
+        narracionDisponible = false;
+
+        console.log(
+            "No se pudo cargar Audio huerto.m4a."
+        );
+    });
+
+    /* INICIO AUTOMÁTICO */
+
+    function iniciarEscena() {
+
+        musica.pause();
+        musica.currentTime = 0;
+
+        narracion.volume = 1.0;
+        musica.volume = 0.25;
+
+        iniciarNarracion();
+    }
+
+    if (document.readyState === "complete") {
+
+        iniciarEscena();
+
+    } else {
+
+        window.addEventListener(
+            "load",
+            iniciarEscena,
+            { once: true }
+        );
+    }
+
+    /*
+       RESPALDO PARA SAFARI
+
+       Si se bloquea el inicio automático,
+       el visitante puede pulsar Play
+       en el reproductor de narración.
+
+       No se añade ningún botón adicional.
+    */
+
+    document.addEventListener("click", function (evento) {
+
+        if (
+            evento.target.closest(
+                "a, audio, button"
+            )
+        ) {
+            return;
+        }
+
+        if (
+            narracionDisponible &&
+            narracion.paused &&
+            !narracion.ended &&
+            narracion.currentTime === 0
+        ) {
+            iniciarNarracion();
+        }
+    });
+
+    /* LIMPIEZA AL SALIR */
+
+    window.addEventListener("pagehide", function () {
+
+        if (temporizadorPrimera !== null) {
+
+            clearTimeout(temporizadorPrimera);
+            temporizadorPrimera = null;
+        }
+
+        if (temporizadorTransicion !== null) {
+
+            clearTimeout(temporizadorTransicion);
+            temporizadorTransicion = null;
+        }
+    });
+
+});
+</script>
+
+<!-- CONTADOR GOATCOUNTER -->
+
+<script
+    data-goatcounter="https://sanjuanbautistatetela.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js">
+</script>
+
+</body>
+</html>
