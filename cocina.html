@@ -27,7 +27,7 @@ body {
     background-color: #f5f1e6;
 }
 
-/* FOTOGRAFÍA Y RECONSTRUCCIÓN HISTÓRICA */
+/* IMAGEN Y RECONSTRUCCIÓN HISTÓRICA */
 
 .escenario {
     position: relative;
@@ -37,9 +37,9 @@ body {
 }
 
 .imagen {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
 }
 
 .video-historico {
@@ -64,7 +64,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     padding: 10px 18px;
-    background: rgba(0, 0, 0, 0.72);
+    background: rgba(0,0,0,0.72);
     color: white;
     font-family: Georgia, serif;
     font-size: 15px;
@@ -112,7 +112,7 @@ body {
     text-align: justify;
 }
 
-/* NARRACIÓN Y MÚSICA */
+/* REPRODUCTORES DE AUDIO */
 
 .narracion,
 .audio {
@@ -124,7 +124,6 @@ body {
 .audio h3 {
     margin: 0 0 12px;
     color: #325d4a;
-    font-family: Arial, sans-serif;
     font-size: 18px;
 }
 
@@ -135,7 +134,7 @@ audio {
     margin: 0 auto;
 }
 
-/* BOTONES DE NAVEGACIÓN */
+/* NAVEGACIÓN */
 
 .navegacion {
     display: grid;
@@ -159,7 +158,6 @@ audio {
     text-decoration: none;
     border-radius: 8px;
     border: 2px solid white;
-    font-family: Arial, sans-serif;
     font-size: 16px;
     font-weight: bold;
     line-height: 1.2;
@@ -174,7 +172,7 @@ audio {
     display: none;
 }
 
-/* ADAPTACIÓN A CELULARES */
+/* ADAPTACIÓN PARA CELULARES */
 
 @media (max-width: 600px) {
 
@@ -241,7 +239,7 @@ audio {
 
 <div class="escena">
 
-    <!-- FOTOGRAFÍA Y VIDEO HISTÓRICO -->
+    <!-- IMAGEN Y VIDEO -->
 
     <div class="escenario">
 
@@ -260,7 +258,7 @@ audio {
             preload="auto"
         >
             <source
-                src="fraile en la cocina.MP4"
+                src="fraile%20en%20la%20cocina.MP4"
                 type="video/mp4"
             >
             Tu navegador no admite reproducción de video.
@@ -336,14 +334,16 @@ audio {
 
         <p>
             Después de conocer este espacio de servicio,
-            el recorrido continúa hacia las
-            <strong>escaleras</strong>, que comunican
-            la planta baja con el claustro alto.
+            nuestro recorrido continúa hacia
+            <strong>el huerto del convento</strong>,
+            donde el cultivo de la tierra proporcionaba
+            alimentos y plantas útiles para la vida
+            cotidiana de la comunidad religiosa.
         </p>
 
     </div>
 
-    <!-- NARRACIÓN -->
+    <!-- NARRACIÓN DE LA COCINA -->
 
     <div class="narracion">
 
@@ -355,7 +355,7 @@ audio {
             preload="auto"
         >
             <source
-                src="Narracion%20de%20la%20cocina.m4a"
+                src="Audio%20cocina.m4a"
                 type="audio/mp4"
             >
             Tu navegador no admite reproducción de audio.
@@ -379,12 +379,12 @@ audio {
                 src="surprising_media-cathedral-alleluia-576242.mp3"
                 type="audio/mpeg"
             >
-            Tu navegador no puede reproducir este archivo de audio.
+            Tu navegador no admite reproducción de audio.
         </audio>
 
     </div>
 
-    <!-- NAVEGACIÓN -->
+    <!-- BOTONES DE NAVEGACIÓN -->
 
     <div class="navegacion">
 
@@ -401,13 +401,15 @@ audio {
             </span>
         </a>
 
-        <a class="boton" href="escaleras.html">
+        <a class="boton" href="huerto.html">
             SEGUIR →
         </a>
 
     </div>
 
 </div>
+
+<!-- PROGRAMACIÓN AUDIOVISUAL -->
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -422,37 +424,16 @@ document.addEventListener("DOMContentLoaded", function () {
     video.muted = true;
 
     /*
-       SECUENCIA AUDIOVISUAL
+       SECUENCIA DE LA ESCENA
 
        1. Comienza la narración.
-       2. A los 5 segundos aparece el primer video.
+       2. A los cinco segundos aparece el video.
        3. Al terminar el video vuelve la fotografía.
        4. Al terminar la narración comienza la música.
-       5. Con la música aparece el segundo video.
-       6. Al terminar el segundo video vuelve la foto.
+       5. Con la música se reproduce el video otra vez.
+       6. Al terminar vuelve la fotografía.
        7. La música continúa en repetición.
-
-       No se agregan botones adicionales.
     */
-
-    /* ARCHIVO DE NARRACIÓN */
-
-    const nombreNarracion = "Narracion de la cocina.m4a";
-
-    const rutasNarracion = [
-        encodeURIComponent(nombreNarracion.normalize("NFD")),
-        encodeURIComponent(nombreNarracion.normalize("NFC"))
-    ].filter(function (ruta, indice, lista) {
-        return lista.indexOf(ruta) === indice;
-    });
-
-    let indiceRuta = 0;
-    let narracionDisponible = true;
-
-    narracion.src = rutasNarracion[indiceRuta];
-    narracion.load();
-
-    /* ESTADO DE LAS REPRODUCCIONES */
 
     let primeraSolicitada = false;
     let primeraTerminada = false;
@@ -469,21 +450,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let musicaIniciada = false;
 
-    /* MOSTRAR FOTOGRAFÍA */
+    /* FOTOGRAFÍA */
 
     function mostrarFotografia() {
         video.classList.remove("visible");
         rotulo.classList.remove("visible");
     }
 
-    /* MOSTRAR RECONSTRUCCIÓN */
+    /* RECONSTRUCCIÓN HISTÓRICA */
 
     function mostrarReconstruccion() {
         video.classList.add("visible");
         rotulo.classList.add("visible");
     }
 
-    /* REPRODUCIR VIDEO */
+    /* REPRODUCCIÓN DEL VIDEO */
 
     async function reproducirVideo(numero) {
 
@@ -535,7 +516,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    /* CONTROLAR REPRODUCCIONES PENDIENTES */
+    /* REPRODUCCIONES PENDIENTES */
 
     function procesarPendientes() {
 
@@ -543,9 +524,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (
-            temporizadorTransicion !== null
-        ) {
+        if (temporizadorTransicion !== null) {
             return;
         }
 
@@ -566,7 +545,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    /* PRIMERA RECREACIÓN */
+    /* PRIMER VIDEO */
 
     function solicitarPrimeraRecreacion() {
 
@@ -581,7 +560,7 @@ document.addEventListener("DOMContentLoaded", function () {
         procesarPendientes();
     }
 
-    /* SEGUNDA RECREACIÓN */
+    /* SEGUNDO VIDEO */
 
     function solicitarSegundaRecreacion() {
 
@@ -596,7 +575,7 @@ document.addEventListener("DOMContentLoaded", function () {
         procesarPendientes();
     }
 
-    /* CUANDO TERMINA CADA VIDEO */
+    /* CUANDO TERMINA EL VIDEO */
 
     video.addEventListener("ended", function () {
 
@@ -627,13 +606,13 @@ document.addEventListener("DOMContentLoaded", function () {
             segundaTerminada = true;
 
             /*
-               La fotografía permanece visible
-               y la música continúa sonando.
+               Permanece la fotografía.
+               La música continúa sonando.
             */
         }
     });
 
-    /* ERROR DEL VIDEO */
+    /* SI FALLA EL VIDEO */
 
     video.addEventListener("error", function () {
 
@@ -646,17 +625,13 @@ document.addEventListener("DOMContentLoaded", function () {
         segundaTerminada = true;
 
         console.log(
-            "No se pudo cargar la reconstrucción histórica."
+            "No se pudo cargar el video de la cocina."
         );
     });
 
-    /* INICIAR NARRACIÓN */
+    /* NARRACIÓN */
 
     function iniciarNarracion() {
-
-        if (!narracionDisponible) {
-            return;
-        }
 
         if (
             !narracion.paused ||
@@ -674,14 +649,14 @@ document.addEventListener("DOMContentLoaded", function () {
             intento.catch(function (error) {
 
                 console.log(
-                    "El navegador requiere interacción para iniciar la narración:",
+                    "Safari puede requerir pulsar Play para escuchar la narración:",
                     error
                 );
             });
         }
     }
 
-    /* NARRACIÓN Y PRIMER VIDEO */
+    /* AL COMENZAR LA NARRACIÓN */
 
     narracion.addEventListener("play", function () {
 
@@ -711,7 +686,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    /* PAUSA DE NARRACIÓN */
+    /* PAUSA DE LA NARRACIÓN */
 
     narracion.addEventListener("pause", function () {
 
@@ -719,18 +694,16 @@ document.addEventListener("DOMContentLoaded", function () {
             !narracion.ended &&
             temporizadorPrimera !== null
         ) {
-
             clearTimeout(temporizadorPrimera);
             temporizadorPrimera = null;
         }
     });
 
-    /* FINAL DE NARRACIÓN */
+    /* CUANDO TERMINA LA NARRACIÓN */
 
     narracion.addEventListener("ended", function () {
 
         if (temporizadorPrimera !== null) {
-
             clearTimeout(temporizadorPrimera);
             temporizadorPrimera = null;
         }
@@ -745,7 +718,7 @@ document.addEventListener("DOMContentLoaded", function () {
         iniciarMusica();
     });
 
-    /* INICIAR MÚSICA AMBIENTAL */
+    /* MÚSICA AMBIENTAL */
 
     function iniciarMusica() {
 
@@ -771,7 +744,7 @@ document.addEventListener("DOMContentLoaded", function () {
             intento.catch(function (error) {
 
                 console.log(
-                    "El navegador requiere interacción para iniciar la música:",
+                    "Safari puede requerir pulsar Play para iniciar la música:",
                     error
                 );
             });
@@ -790,7 +763,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    /* SEGUNDO VIDEO AL COMENZAR LA MÚSICA */
+    /* SEGUNDO VIDEO CON LA MÚSICA */
 
     musica.addEventListener("playing", function () {
 
@@ -817,27 +790,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    /* RESPALDO PARA NOMBRE DEL AUDIO */
+    /* ERROR DE NARRACIÓN */
 
     narracion.addEventListener("error", function () {
 
-        if (
-            indiceRuta + 1 <
-            rutasNarracion.length
-        ) {
-
-            indiceRuta++;
-
-            narracion.src = rutasNarracion[indiceRuta];
-            narracion.load();
-
-            return;
-        }
-
-        narracionDisponible = false;
-
         console.log(
-            "No se pudo cargar la narración de la cocina."
+            "No se pudo cargar Audio cocina.m4a. Verificar el archivo en GitHub."
         );
     });
 
@@ -870,11 +828,11 @@ document.addEventListener("DOMContentLoaded", function () {
     /*
        RESPALDO PARA SAFARI
 
-       Si Safari impide la reproducción
-       automática, el visitante puede
-       utilizar el reproductor de narración.
+       Si Safari bloquea la narración automática,
+       el visitante puede pulsar Play directamente
+       en el reproductor de narración.
 
-       No se agrega ningún botón.
+       No se agrega ningún botón adicional.
     */
 
     document.addEventListener("click", function (evento) {
@@ -888,7 +846,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (
-            narracionDisponible &&
             narracion.paused &&
             !narracion.ended &&
             narracion.currentTime === 0
@@ -902,13 +859,11 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("pagehide", function () {
 
         if (temporizadorPrimera !== null) {
-
             clearTimeout(temporizadorPrimera);
             temporizadorPrimera = null;
         }
 
         if (temporizadorTransicion !== null) {
-
             clearTimeout(temporizadorTransicion);
             temporizadorTransicion = null;
         }
